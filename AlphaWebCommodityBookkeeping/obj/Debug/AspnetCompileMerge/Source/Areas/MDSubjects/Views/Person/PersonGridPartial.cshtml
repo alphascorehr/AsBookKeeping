@@ -1,0 +1,54 @@
+﻿@using System.Data
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvPersonGrid";
+                settings.CallbackRouteValues = new { Controller = "Person", Action = "PersonGridPartial" };
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "#";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }) + "&nbsp" +
+                            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                                new { onclick = "return confirm('Da li stvarno želite obrisati odabranu osobu?')" })
+                        );
+                    });
+                    column.SetHeaderTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            Html.ActionLink("Nova osoba", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                        );
+                    });
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.Width = 70;
+                });
+                
+                settings.KeyFieldName = "Id";
+
+                settings.Settings.ShowFilterRow = false;
+                settings.Settings.ShowGroupPanel = false;
+                settings.Settings.ShowFooter = false;
+
+                settings.Columns.Add("FirstName", "Ime", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("SurName", "Prezime" , DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("OIB", "Oib", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+
+               
+                settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).BindToLINQ("", "", new
+                        EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+                        {
+                            e.KeyExpression = "Id";
+                            DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+                            e.QueryableSource = context.MDSubjects_Subject.OfType<DalEf.MDSubjects_Person>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+                        })).GetHtml()

@@ -1,0 +1,252 @@
+﻿@model BusinessObjects.Documents.cDocuments_TravelOrder_TravelCostsCol
+           
+@{
+    DalEf.MDGeneralEntities contextEnt = new DalEf.MDGeneralEntities();
+    var grid = Html.DevExpress().GridView(
+                    settings =>
+                    {
+                        settings.Name = "gvTravelCostsCol";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.SettingsPager.PageSize = 10;
+                        settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                        settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+                        settings.CommandColumn.SetHeaderTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write(
+                                Html.DevExpress().HyperLink(settingsHy => { settingsHy.Name = "addNewTravelCosts"; settingsHy.Properties.ImageUrl = @Url.Content("~/Content/images/pls_dodaj_16.png"); settingsHy.Properties.ClientSideEvents.Click = "function NoviCLick(s, e) {gvTravelCostsCol.AddNewRow(); }"; }).GetHtml());
+                        });
+
+                        settings.CallbackRouteValues = new { Controller = "TravelOrder", Action = "RefreshTravelCostsColGridPartial" };
+                        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "TravelOrder", Action = "AddNewTravelCosts" };
+                        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "TravelOrder", Action = "UpdateTravelCosts" };
+                        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "TravelOrder", Action = "DeleteTravelCosts" };
+                        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                        settings.SettingsBehavior.ConfirmDelete = true;
+                        settings.SettingsBehavior.AllowFocusedRow = true;
+
+
+                        settings.CommandColumn.Width = 40;
+                        settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                        settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.NewButton.Visible = false;
+                        settings.CommandColumn.NewButton.Text = "Novi";
+                        settings.CommandColumn.DeleteButton.Visible = true;
+                        settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                        //settings.CommandColumn.DeleteButton.Text = "Obriši";
+                        settings.CommandColumn.DeleteButton.Image.Url = @Url.Content("~/Content/images/pls_brisi_16.png");
+                        settings.CommandColumn.DeleteButton.Image.ToolTip = "Obriši";
+                        settings.CommandColumn.EditButton.Visible = true;
+                        //settings.CommandColumn.EditButton.Text = "Uredi";
+                        settings.CommandColumn.EditButton.Image.Url = @Url.Content("~/Content/images/pls_uredi_16.png");
+                        settings.CommandColumn.EditButton.Image.ToolTip = "Uredi";
+                        //settings.CommandColumn.CancelButton.Text="Odustani";
+                        settings.CommandColumn.CancelButton.Image.Url = @Url.Content("~/Content/images/pls_zatvori_16.png");
+                        settings.CommandColumn.CancelButton.Image.ToolTip = "Odustani";
+                        //settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                        settings.CommandColumn.UpdateButton.Image.Url = @Url.Content("~/Content/images/pls_snimi_16.png");
+                        settings.CommandColumn.UpdateButton.Image.ToolTip = "Snimi";
+                        settings.CommandColumn.ShowSelectCheckbox = false;
+
+                        
+                        
+                        settings.KeyFieldName = "Ordinal";
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Ordinal";
+                            column.ReadOnly = true;
+                            column.Caption = "Rbr.";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 30;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 0;
+                            spinEditProperties.DisplayFormatString = "n0";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 0;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            spinEditProperties.Width = 30;
+                            
+                            
+                        });
+                        
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Id";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Visible = false;
+
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+                            spinEditProperties.NullText = "0";
+                            
+                          
+                        });
+
+                        //settings.Columns.Add(column =>
+                        //{
+                        //    column.FieldName = "MDPlaces_Enums_Geo_ToPlaceId";
+                        //    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                        //    column.Visible = false;
+
+                        //    var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+                        //    spinEditProperties.NullText = "0";
+
+
+                        //});
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "FromPlaceName";
+                            column.Caption = "Iz mjesta";
+                            //column.Width = 150;
+                            column.ColumnType = MVCxGridViewColumnType.TextBox;
+
+                            column.SetEditItemTemplateContent(c =>
+                         {
+                             AlphaWebCommodityBookkeeping.Models.MjestaComboProvider.MjestoId = (int?)DataBinder.Eval(c.DataItem, "MDPlaces_Enums_Geo_FromPlaceId");
+                             Html.DevExpress().ComboBox(
+                                settingsCombo =>
+                                {
+                                    settingsCombo.Name = "MDPlaces_Enums_Geo_FromPlaceIdCombo";
+                                    settingsCombo.Height = 20;
+                                    settingsCombo.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                    settingsCombo.Properties.DropDownWidth = 350;
+                                    //settingsCombo.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                    settingsCombo.CallbackRouteValues = new { Controller = "TravelOrder", Action = "MjestaComboPartial" };
+                                    settingsCombo.Properties.EnableCallbackMode = true;
+                                    settingsCombo.Properties.EnableSynchronization = DefaultBoolean.True;
+                                    settingsCombo.Properties.CallbackPageSize = 15;
+                                    settingsCombo.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                                    settingsCombo.Properties.TextField = "Name";
+                                    settingsCombo.Properties.TextFormatString = "{0}";
+                                    settingsCombo.Properties.ValueField = "Id";
+                                    settingsCombo.Properties.ConvertEmptyStringToNull = true;
+                                    //settingsCombo.Properties.ClientSideEvents.Init = "MjestaComboInit";
+                                    //settingsCombo.Properties.ClientSideEvents.Validation = "MjestaComboValidation";
+                                    //settingsCombo.Properties.ClientSideEvents.DropDown = "MjestaComboDropDown";
+                                    //settingsCombo.Properties.ClientSideEvents.Init = "function(s, e){ Key1.Value = '@Model.Key' }";
+                                    //settingsCombo.Properties.DataSource = (KreditniZahtjevBusinessObjects.cMjestaList)ViewData["cmbMjesta"];
+                                    settingsCombo.Properties.ValueType = typeof(int);
+                                    //settingsCombo.Properties.ClientSideEvents.SelectedIndexChanged = "OnIndexChange";
+                                    settingsCombo.Properties.FilterMinLength = 0;
+                                    settingsCombo.Properties.Columns.Add("Name", "Naziv", System.Web.UI.WebControls.Unit.Percentage(80));
+                                    settingsCombo.Properties.Columns.Add("Zip", "Pošt. broj", System.Web.UI.WebControls.Unit.Percentage(20));
+                                    //settingsCombo.Properties.ClientSideEvents.BeginCallback = "OnStartCallback";
+                                    //settingsCombo.Properties.ClientSideEvents.EndCallback = "OnComboEndCallback";
+                                    //settingsCombo.Properties.ClientSideEvents.SelectedIndexChanged = "OnSelectedIndexChanged";
+                                    //settingsCombo.Properties.ClientSideEvents.Init = "MjestaComboInit";
+
+                                }
+                                 ).BindList(AlphaWebCommodityBookkeeping.Models.MjestaComboProvider.GetPersonsRange, AlphaWebCommodityBookkeeping.Models.MjestaComboProvider.GetPersonByID).Bind(DataBinder.Eval(c.DataItem, "MDPlaces_Enums_Geo_FromPlaceId")).GetHtml();
+                         });
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "ToPlaceName";
+                            column.Caption = "U mjesto";
+                            //column.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                            column.ColumnType = MVCxGridViewColumnType.TextBox;
+                            column.SetEditItemTemplateContent(c =>
+                            {
+                                AlphaWebCommodityBookkeeping.Models.MjestaComboProvider.MjestoId = (int?)DataBinder.Eval(c.DataItem, "MDPlaces_Enums_Geo_ToPlaceId");
+                                Html.DevExpress().ComboBox(
+                                   settingsCombo =>
+                                   {
+                                       settingsCombo.Name = "MDPlaces_Enums_Geo_ToPlaceIdCombo";
+                                       settingsCombo.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                       settingsCombo.Properties.DropDownWidth = 350;
+                                       //settingsCombo.Properties.DropDownStyle = DropDownStyle.DropDown;
+                                       settingsCombo.CallbackRouteValues = new { Controller = "TravelOrder", Action = "MjestaComboPartial" };
+                                       settingsCombo.Properties.EnableCallbackMode = true;
+                                       settingsCombo.Properties.EnableSynchronization = DefaultBoolean.True;
+                                       settingsCombo.Properties.CallbackPageSize = 15;
+                                       settingsCombo.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                                       settingsCombo.Properties.TextField = "Name";
+                                       settingsCombo.Properties.TextFormatString = "{0}";
+                                       settingsCombo.Properties.ValueField = "Id";
+                                       settingsCombo.Properties.ConvertEmptyStringToNull = true;
+                                       //settingsCombo.Properties.ClientSideEvents.Init = "MjestaComboInit";
+                                       //settingsCombo.Properties.ClientSideEvents.Validation = "MjestaComboValidation";
+                                       //settingsCombo.Properties.ClientSideEvents.DropDown = "MjestaComboDropDown";
+                                       //settingsCombo.Properties.ClientSideEvents.Init = "function(s, e){ Key1.Value = '@Model.Key' }";
+                                       //settingsCombo.Properties.DataSource = (KreditniZahtjevBusinessObjects.cMjestaList)ViewData["cmbMjesta"];
+                                       settingsCombo.Properties.ValueType = typeof(int);
+                                       //settingsCombo.Properties.ClientSideEvents.SelectedIndexChanged = "OnIndexChange";
+                                       settingsCombo.Properties.FilterMinLength = 0;
+                                       settingsCombo.Properties.Columns.Add("Name", "Naziv", System.Web.UI.WebControls.Unit.Percentage(80));
+                                       settingsCombo.Properties.Columns.Add("Zip", "Pošt. broj", System.Web.UI.WebControls.Unit.Percentage(20));
+                                       //settingsCombo.Properties.ClientSideEvents.BeginCallback = "OnStartCallback";
+                                       //settingsCombo.Properties.ClientSideEvents.EndCallback = "OnComboEndCallback";
+                                       //settingsCombo.Properties.ClientSideEvents.SelectedIndexChanged = "OnSelectedIndexChanged";
+                                       //settingsCombo.Properties.ClientSideEvents.Init = "MjestaComboInit";
+
+                                   }
+                                    ).BindList(AlphaWebCommodityBookkeeping.Models.MjestaComboProvider.GetPersonsRange, AlphaWebCommodityBookkeeping.Models.MjestaComboProvider.GetPersonByID).Bind(DataBinder.Eval(c.DataItem, "MDPlaces_Enums_Geo_ToPlaceId")).GetHtml();
+                            });
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "MDGeneral_Enums_KindOfTransportationId";
+                            column.Caption = "Način prijevoza";
+                            //column.Width = 220;
+                            
+                            var items = contextEnt.MDGeneral_Enums_KindOfTransportation.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || (p.CompanyUsingServiceId ?? 0) == 0);
+
+                            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+ 
+                            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                            comboBoxProperties.Height = 20;
+                            comboBoxProperties.DataSource = items;
+                            comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                            comboBoxProperties.FilterMinLength = 0;
+                            comboBoxProperties.TextField = "Name";
+                            comboBoxProperties.ValueField = "Id";
+                            comboBoxProperties.ValueType = typeof(int);
+                            //comboBoxProperties.Width = 220;
+                        
+                  
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Kilometers";
+                            column.Caption = "Km";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 30;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 0;
+                            spinEditProperties.DisplayFormatString = "n0";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 0;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            //spinEditProperties.Width = 30;
+                            
+                        });
+
+
+
+                        settings.ClientSideEvents.BeginCallback = "function(s, e) { OnTravelCostsStartCallback(s, e); }";
+                        settings.ClientSideEvents.EndCallback = "function(s, e) { OnTravelCostsEndCallback(s, e); }";
+                        settings.ClientSideEvents.Init = "function(s, e){ OnTravelCostsInit(s, e) }";
+                        
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "WholesaleValue");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TaxAmmount");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Custom)
+                        //settings.Settings.ShowFooter = true;
+                        //settings.Settings.ShowGroupFooter = true;
+
+                    });
+   }
+                  @grid.Bind(Model).GetHtml()
+

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="2" virtualPath="/Views/Shared/_LogOnPartial.cshtml" hash="ffffffffead2c138" filehash="fffff4ff69678a1d" flags="110000" assembly="App_Web_semutxv1" type="ASP._Page_Views_Shared__LogOnPartial_cshtml">
+    <filedeps>
+        <filedep name="/Views/Shared/_LogOnPartial.cshtml" />
+    </filedeps>
+</preserve>

@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("*").css("cursor", "default");
+    });
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+    function RowClicked(s, e) {
+        Cursor();
+        //var id = s.keys[e.visibleIndex];
+        var vi = e.visibleIndex - s.pageIndex * s.pageRowSize;
+        var id = s.keys[vi];
+        var actionURL = '@Url.Content("~/Documents/TakeoverOfGoods/CreateAndEdit/")' + id;
+        window.location = actionURL;
+    }
+</script>
+
+@*@Html.Hidden("linkName", "ProjektiParent")*@
+@Html.Hidden("linkName", "RadParent")
+@Html.Hidden("linkId", "TakeoverOfGoodsSpan")
+
+<h2 class="pt"> Zapisnik </h2>
+<a class="butPrimary " href="@Url.Content("~/Documents/TakeoverOfGoods/CreateAndEdit/0")">
+<span> Novi zapisnik </span>
+</a>
+<div class="clearb"></div>
+		
+@Html.Partial("TakeoverOfGoodsGridPartial")
+
+
+@* <div id="mailDiv" style="display:none">
+       
+    @Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbarPrint";
+                settings.ReportViewerName = "ReportViewer1";
+                
+            }
+        ).GetHtml()
+
+     
+           @Html.Partial("OfferReportPartial", ViewData["Report"], new ViewDataDictionary() { { "OfferId", 0 } })  
+  
+ </div>*@

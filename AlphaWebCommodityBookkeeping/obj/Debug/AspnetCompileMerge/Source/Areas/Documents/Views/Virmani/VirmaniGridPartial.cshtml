@@ -1,0 +1,245 @@
+﻿@using System.Data
+
+@{
+    DalEf.DocumentsEntities context = new DalEf.DocumentsEntities();
+    //var data = context.vVirmani.OrderByDescending(p => p.Id);
+    var data = context.vVirmani.OrderByDescending(p => p.Id).Where(p => (p.AutorizedForPayment ?? false) == false || (p.Sent ?? false) == false);
+    string vtype = @ViewData["VirmanType"].ToString();
+    string dateCaption = "Dat. Kreiranja";
+    
+    switch(vtype)
+    {
+        case "upripremi":
+            data = context.vVirmani.OrderByDescending(p => p.Id).Where(p => (p.AutorizedForPayment ?? false) == false && (p.Sent ?? false) == false && p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+            break;
+        case "verificirani":
+            data = context.vVirmani.OrderByDescending(p => p.Id).Where(p => (p.AutorizedForPayment ?? false) == true && (p.Sent ?? false) == false && p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+            dateCaption = "Dat. Verifikacije";
+            break;
+        case "poslani":
+            data = context.vVirmani.OrderByDescending(p => p.Id).Where(p => (p.Sent ?? false) == true && p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+            dateCaption = "Dat. Slanja";
+            break;
+    }
+}
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvVirmaniGrid";
+                settings.CallbackRouteValues = new { Controller = "Virmani", Action = "VirmaniGridPartial" };
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.Settings.ShowFilterRow = true;
+                settings.Settings.ShowFilterRowMenu = true;
+                settings.Settings.ShowGroupPanel = true;
+                settings.SettingsPager.PageSize = 13;
+                settings.CommandColumn.Visible = true;
+                settings.CommandColumn.ClearFilterButton.Visible = true;
+                //settings.CommandColumn.ClearFilterButton.Text = "Očisti";
+                settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+
+                settings.Settings.ShowHeaderFilterButton = true;
+                settings.SettingsPopup.HeaderFilter.Height = 200;
+                settings.SettingsText.HeaderFilterOkButton = "Ok";
+                settings.SettingsText.HeaderFilterCancelButton = "Odustani";
+                settings.SettingsText.HeaderFilterSelectAll = "Označi sve";
+
+
+
+                settings.CommandColumn.ShowSelectCheckbox = true;
+                settings.CommandColumn.ToolTip = "Označi";
+                settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+
+                
+                
+                settings.KeyFieldName = "Id";
+
+                
+                settings.Settings.ShowGroupPanel = false;
+
+                //settings.Columns.Add("UniqueIdentifier", "Redni broj", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "OrdinalNumberInYear";
+                    column.Caption = "RB";
+                    column.Width = 30;
+                });
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "S309NAZIVPRIM";
+                    column.Caption = "Primatelj";
+                    column.Width = 220;
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Documents/Virmani/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + ">" + DataBinder.Eval(c.DataItem, "S309NAZIVPRIM") + "</a>"
+                        );
+                    });
+                });
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "S309IZN";
+                    column.Caption = "Iznos plaćanja";
+                    column.Width = 100;
+                    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit;
+                    var spinEditproperties = column.PropertiesEdit as SpinEditProperties;
+                    spinEditproperties.DisplayFormatString = "c";
+                    
+                });
+
+
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "S309NAZBANPRIM";
+                    column.Caption = "Banka primatelja";
+                    column.Width = 220;
+                });
+                
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "MaturityDate";
+                    column.Caption = "Dat. Plaćanja";
+                    column.Width = 105;
+                    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit;
+                    var dateEditproperties = column.PropertiesEdit as DateEditProperties;
+                    dateEditproperties.DisplayFormatString = "dd.MM.yyyy";
+
+                });
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "CreationDateTime";
+                    //column.Caption = "Dat. Kreiranja";
+                    column.Caption = dateCaption;
+                    column.Width = 105;
+                    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit;
+                    var dateEditproperties = column.PropertiesEdit as DateEditProperties;
+                    dateEditproperties.DisplayFormatString = "dd.MM.yyyy";
+
+                });
+
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+
+                            //Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }, new { @class = "gridEditButton" }) + "&nbsp" +
+                            //Html.ActionLink("Obriši", "#", new { Id = DataBinder.Eval(c.DataItem, "Id")  },
+                            //  new { onclick = "Delete()", @class = "gridDelButton" })
+                               "<a href=\"#\" onclick=\"Delete(" + DataBinder.Eval(c.DataItem, "Id") + ")\" class=\"gridDelButton\" title=\"Obriši\"></a>"
+                        );
+                    });
+                    //column.SetHeaderTemplateContent(c =>
+                    //{
+                    //    ViewContext.Writer.Write(
+                    //        Html.ActionLink("Nova faktura", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                    //    );
+                    //});
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.Width = 16;
+                    column.ToolTip = "Obriši";
+                });
+
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "DocumentDateTime";
+                //    column.Caption = "Datum";
+                //    column.Width = 95;
+                //    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit;
+                //    column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                //    var dateEditproperties = column.PropertiesEdit as DateEditProperties;
+                //    dateEditproperties.DisplayFormatString = "dd.MM.yyyy";
+
+                //});
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "MaturityDate";
+                //    column.Caption = "Valuta";
+                //    column.Width = 95;
+                //    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit;
+                //    column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                //    var dateEditproperties = column.PropertiesEdit as DateEditProperties;
+                //    dateEditproperties.DisplayFormatString = "dd.MM.yyyy";
+
+                //});
+                //settings.Columns.Add("RetailValue", "Iznos za platiti", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "RetailValue";
+                //    column.Caption = "Iznos za platiti";
+                //    column.Width = 110;
+                //    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                //    var spinEditproperties = column.PropertiesEdit as SpinEditProperties;
+                //    spinEditproperties.DisplayFormatString = "c";
+                //});
+                //settings.Columns.Add("", "Račun", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+                //settings.Columns.Add(column =>
+                //{
+                //    column.Caption = "Status";
+                //    column.FieldName = "Statustext";
+                //    column.Width = 65;
+                //    column.ColumnType = MVCxGridViewColumnType.HyperLink;
+                //    column.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+
+                //    var props = column.PropertiesEdit as HyperLinkProperties;
+
+
+                //    props.EnableClientSideAPI = true;
+                //    props.Target = "#";
+
+                //    column.SetDataItemTemplateContent(c =>
+                //    {
+                //        ViewContext.Writer.Write(
+                //            "<a href=\"#\" onclick=\"ShowHideRadio(" + "'" + DataBinder.Eval(c.DataItem, "Id") + "'" + "," + "'" + DataBinder.Eval(c.DataItem, "Status") + "'" + ")\">" + DataBinder.Eval(c.DataItem, "Statustext") + "</a>"
+
+                //        );
+                //    });
+                //});
+
+
+                //settings.HeaderFilterFillItems = (sender, e) =>
+                //{
+                //    ASPxGridView grid = (ASPxGridView)sender;
+                //    if (e.Column.FieldName == "Statustext")
+                //    {
+                //        e.Values.Clear();
+
+                //        e.AddValue("Otvoren", string.Empty, "[Statustext] == 'Otvoren'");
+                //        e.AddValue("Poslan", string.Empty, "[Statustext] == 'Poslan'");
+                //        e.AddValue("Odbijen", string.Empty, "[Statustext] == 'Odbijen'");
+                //        e.AddValue("Zatvoren", string.Empty, "[Statustext] == 'Zatvoren'");
+                //        e.AddValue("Obrisan", string.Empty, "[Statustext] == 'Obrisan'");
+                //    }
+                //};
+                settings.HtmlRowCreated = (sender, e) =>
+                {
+                    if (e.RowType == DevExpress.Web.ASPxGridView.GridViewRowType.Data)
+                    {
+                        e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#eeeeee';");
+                        e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white';");
+                    }
+                };
+               
+                //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            //}).BindToLINQ("", "", new
+            //            EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+            //            {
+            //                e.KeyExpression = "Id";
+            //                DalEf.DocumentsEntities context = new DalEf.DocumentsEntities();
+            //                e.QueryableSource = context.vIncomingInvoice.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+            //            })).GetHtml()
+            }).Bind(data).GetHtml()

@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+
+</script>
+  @Html.Hidden("linkName", "ProjektiParent")
+    @Html.Hidden("linkId", "ProjectSpan")  
+
+@*<div id="kzlist">
+<div id="kzlisttop"></div>
+<div id="kzlistmiddle">*@
+@*<h2 style="font-size:24px;color:#5c5c5c; font-family:Arial; margin-top:20px; margin-left:5px; font-weight:normal;  text-shadow: 1px 1px 0px #fff;">Radni nalozi</h2>*@
+<h2 class="pt"></h2>
+					
+			
+				<a href="@Url.Content("~/Projects/Project/CreateAndEdit/0")" class="butPrimary ">
+                @*@Html.ActionLink("Dodaj    AAAAAAA", "Index", "EnumsUnit", new { area = "MDEntities" }, new { @class="butPrimary"})*@
+		<span>
+			Novi projekt
+		</span>
+	</a>
+<br>
+  @*<div style="float:left">*@
+    @Html.Partial("ProjectGridPartial")
+

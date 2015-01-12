@@ -1,0 +1,36 @@
+﻿@model BusinessObjects.MDPlaces.cMDPlaces_Enums_OgranizationalUnit_List
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+@Html.Hidden("linkName", "TvrtkaParent")
+@Html.Hidden("linkId", "OgranizationalUnit")
+
+ <h2 class="pt"> Organizacijske jedinice </h2>
+ @if (Csla.ApplicationContext.User.IsInRole("Admin"))
+ {
+<a class="butPrimary " href="@Url.Content("~/MDPlaces/EnumsOgranizationalUnit/CreateAndEdit/0")">
+<span> Nova organizacijska jedinica </span>
+</a>
+<div class="clearb"></div>
+ }
+ 
+
+
+    @Html.Partial("EnumsOrganizationalUnitGridPartial")
+
+     

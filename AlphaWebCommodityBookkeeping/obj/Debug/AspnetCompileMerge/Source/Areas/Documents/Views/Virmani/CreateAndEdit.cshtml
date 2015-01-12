@@ -1,0 +1,588 @@
+﻿@model BusinessObjects.Documents.cDocuments_VirmanTip309
+
+<script type="text/javascript">
+    
+    var iinvoiceId = -1;
+    $(window).bind('beforeunload', function () {
+        if ('@ViewData["Action"]' == "locked") {
+             return;
+         }
+         var url = '@Url.Content("~/Documents/Virmani/unlockTheDoc")';
+         $.post(url, function (result) {
+             return "Url is about to be changed, kill the lock";
+         });
+     });
+
+     function noUnload() {
+         $(window).unbind('beforeunload');
+     }
+     
+     $(document).ready(function () {
+         if ('@ViewData["Action"]' == "locked") {
+             alert(lockText);
+             window.history.back(-1);
+         }
+         $('#vTvrtka').html('@ViewData["CompanyName"]');
+         $('#Address').html('@ViewData["CompanyAddress"]');                       @* + " , " + '@ViewData["CompanyAddressPlace"]');*@
+         $('#Place').html('@ViewData["CompanyAddressPlace"]');
+
+         if ('@Model.Id' == 0)
+         {
+             $('#createFile').hide();
+         }
+
+         iinvoiceId = '@Model.IncomingInvoiceId';
+         if (iinvoiceId != 0 && iinvoiceId != "")
+         {
+             ShowDocDiv();
+         }
+
+         $('#S309NAZBANPRIM').attr('value', '@Model.S309NAZBANPRIM');
+        
+     });
+
+    function ShowDocDiv() {
+        var div = $('#GeneratedDocsDiv');
+        div.fadeIn('slow');
+        $('#incoming_invoiceLink').attr('href', '@Url.Content("~/Documents/IncomingInvoice/CreateAndEdit/")' + iinvoiceId);
+       
+    }
+
+    function Print() {
+        //$("#myForm").validate();
+        //var v = $("#myForm").valid();
+
+        //if (v) {
+        //    if (AreControlsModified() || isGridModified) {
+        //        $('#HiddenValueAction').attr('value', 'print');
+        //        document.myForm.submit();
+        //    }
+        //    else {
+        //        ShowPrint();
+        //    }
+        //}
+        ShowPrint();
+    }
+
+    function ShowPrint() {
+        var url = '@Url.Content("~/Documents/Virmani/PrintDocument")';
+      var id = '@Model.Id';
+        $.post(url, { id: id }, function (result) {
+            //if (result == true) {
+            $('.footer').hide();
+            $('#DefaultEmements').slideToggle('slow');
+            $('#printDiv').slideToggle('slow');
+            $('#printImg').hide();
+            $('#mailImg').hide();
+
+            $('#printLink').attr('onclick', 'ClosePrint()');
+            $('#printImg').attr('title', 'Zatvori ispis dokumenta');
+            $('#printImg').attr('src', '@Url.Content("~/Content/images/close.png")');
+            $('#printImg').fadeIn('slow');
+            ReportViewer1.Refresh();
+            //}
+            //else {
+            //    alert("Greška prilikom kreiranja dokumenta za ispis!");
+            //}
+        });
+
+    }
+
+    function ClosePrint() {
+        $('#DefaultEmements').slideToggle('slow');
+        $('#printDiv').slideToggle('slow');
+
+        $('#printImg').hide();
+
+        $('#printImg').attr('src', '@Url.Content("~/Content/images/Printer_Blue48.png")');
+
+        $('#printLink').attr('onclick', 'Print()');
+        $('#printImg').attr('title', 'Ispiši dokument');
+        $('#printImg').fadeIn('slow');
+        $('#mailImg').fadeIn('slow');
+
+        $('.footer').show();
+    }
+
+    function KijentValueChanged()
+    {
+        var url = '@Url.Content("~/Documents/Virmani/KijentValueChanged")'
+        $.post(url, { klijentId: Klijent.GetValue() }, function (result) {
+            var klijent = result[0];
+            var adresa = result[1];
+            var accounts = result[2];
+            var banka = result[3];
+            var mjesto = result[4];
+
+            S309NAZIVPRIM.SetValue(klijent);
+            S309ADRPRIM.SetValue(adresa);
+            S309SJEDPRIM.SetValue(mjesto);
+            if (parseInt(accounts.split(";").length) > 1) {
+                // dizi popup
+                popupAccounts.Show();
+                var accElements = "";
+                for(var i = 0; i <= parseInt(accounts.split(";").length); i ++)
+                {
+                    if (accounts.split(";")[i] != undefined) {
+                        //accElements += "<a href=\"#\" onclick=\"FillAcc('" + accounts.split(";")[i] + "')\">" + accounts.split(";")[i] + "</a>" + "&nbsp;" + banka.split(";")[i];
+                        accElements += "<a href=\"#\" onclick=\"FillAcc('" + accounts.split(";")[i] + "' , '" + banka.split(";")[i] + "')\">" + accounts.split(";")[i] + "</a>" + "&nbsp;" + banka.split(";")[i];
+                        accElements += "<br>";
+                    }
+                }
+                $('#acc').html(accElements);
+            }
+            else {
+                S309IBANRNPRIM.SetValue(accounts);
+                $('#S309NAZBANPRIM').attr('value', banka);
+            }
+        });
+    }
+    function FillAcc(accNo, banka)
+    {
+        S309IBANRNPRIM.SetValue(accNo);
+        popupAccounts.Hide();
+        $('#S309NAZBANPRIM').attr('value', banka);
+    }
+    function kreirajFile()
+    {
+        var id = '@Model.Id';
+        var url = '@Url.Content("~/Documents/Virmani/DisplayDoc")'
+        $.post(url, { Id: id }, function (result) {
+            var url = "../../../" + result;
+            $('#dl').attr('href', url);
+            $('#dl').show();
+        });
+    }
+
+    function PrioritetDefault()
+    {
+        if('@Model.Id == 0')
+            S309OZNHITN.SetValue(1);
+    }
+
+</script>
+
+
+@{
+    string caption = "Novi virman";
+    if (Model.UniqueIdentifier != "")
+    {
+        caption = "Virman br. " + Model.UniqueIdentifier;
+    }
+
+    DalEf.MDEntitiesEntities data = new DalEf.MDEntitiesEntities();
+    var itemsNamjene = data.MDEntities_SifreNamjena;
+
+    DalEf.MDSubjectsEntities dataSub = new DalEf.MDSubjectsEntities();
+    var itemKlijenti = dataSub.MDSubjects_Subject.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+    var companyAcc = dataSub.Auth_Company.FirstOrDefault(p => p.Id == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+    string acc1 = companyAcc.Account;
+    string acc2 = companyAcc.Account1;
+    string acc3 = companyAcc.Account2;
+    string acc4 = companyAcc.Account3;
+    
+    
+}
+
+@using (Html.BeginForm("CreateAndEdit", "Virmani", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    
+    @Html.HiddenFor(model => model.S309NAZBANPRIM, new { id = "S309NAZBANPRIM" })
+    
+
+@Html.Hidden("linkName", "VirmaniParent")
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);    
+    
+    
+
+     if (Model.UniqueIdentifier != "")
+     {
+        @Html.HiddenFor(model => model.UniqueIdentifier)
+     }
+    
+    <div class="notifyBox " id="GeneratedDocsDiv" style="display:none">
+            <div id="invDiv">
+            <h3>Virman je kreiran iz izlaznog računa.</h3>
+                    <ul>
+                    <li> Za prikaz izlaznog računa kliknite <a id="incoming_invoiceLink" href="#">ovdje</a></li>
+                    </ul>
+            </div>   
+                 
+    </div>
+
+<h2 class="pt"><div class="span-22"> @caption </div></h2>
+    
+
+<div id="MailPrint" class="span-23" style="text-align:right">
+@*    <a id="mailLink" href="#" id="mailLink" onclick="Mail();"><img id="mailImg" src="@Url.Content("~/Content/images/mail_send48.png")" title="Pošalji pdf na email" /></a>
+    <a id="printLink" href="#"  onclick="Print();"><img id="printImg" src="@Url.Content("~/Content/images/Printer_Blue48.png")" title="Ispiši dokument" /></a>*@
+    <a href="#" onclick="kreirajFile()" ><img id="createFile" src="@Url.Content("~/Content/images/CreateVirman.png")" title="Kreiraj virman za banku" /></a>
+@*    <h2 class='pt'></h2>*@
+
+
+
+
+   
+
+
+<div class="clearb"></div>   
+</div>
+
+
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+@*	<table width="100%" cellspacing="0" cellpadding="0" class="newTable" border="1">
+	    <tr>
+        <td width="40%"></td>
+        <td width="25%"></td>
+        <td width="35%" align="right" >Nalog za nacionalna plaćanja</td>
+	    </tr>
+        <tr>
+        <td width="40%">Platitelj:</td>
+        <td width="25%"></td>
+        <td width="35%" align="right" >Iznos:
+            @Html.DevExpress().SpinEdit(settings=>
+                {
+                    settings.Name = "Iznos";
+                    settings.Width = 300;
+                    settings.Properties.DisplayFormatString = "C";
+                    settings.Properties.DisplayFormatInEditMode = true;
+                    settings.Properties.NumberType = SpinEditNumberType.Float;
+                    settings.Properties.MinValue = 0;
+                    settings.Properties.MaxValue = 999999999;
+                    settings.Properties.DecimalPlaces = 2;
+                }).GetHtml()
+        </td>
+	    </tr>
+	    <tr>
+        <td width="50%"></td>
+        <td width="20%">IBAN ili broj računa platitelja:</td>
+        <td width="30%" align="left" ></td>
+	    </tr>
+	    <tr>
+        <td width="40%"></td>
+        <td width="25%">Model:</td>
+        <td width="35%" align="left" >Poziv na broj platitelja</td>
+	    </tr>
+
+
+	</table>*@
+
+<div class="clearb"></div>
+    
+    
+
+@*@Html.DevExpress().DockZone(
+    settings =>
+    {
+        settings.Name = "dockZone1";
+        settings.ZoneUID = "leftZone";
+        settings.ControlStyle.CssClass = "leftZone";
+        settings.Width = 920;
+        settings.PanelSpacing = 10;
+    }
+).GetHtml()
+
+
+@Html.DevExpress().DockPanel(
+    settings =>
+    {
+
+        settings.Name = "panelVirman";
+        settings.PanelUID = "panelVirman";
+        settings.OwnerZoneUID = "leftZone";
+        settings.HeaderText = "Nalog za nacionalna plaćanja";
+        settings.VisibleIndex = 0;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<table width=\"100%\" border=\"1\" cellpadding=\"2\" ><tr>");
+            
+            ViewContext.Writer.Write("<td width=\"28%\">PLATITELJ (naziv i adresa)</td>");
+            ViewContext.Writer.Write("<td width=\"13%\">Hitno:</td>");
+            ViewContext.Writer.Write("<td width=\"13%\">" + @Html.CheckBox ("Hitno") +"</td>");
+            ViewContext.Writer.Write("<td width=\"23%\">Iznos:</td>");
+            ViewContext.Writer.Write("<td width=\"23%\">" + @Html.DevExpress().SpinEdit(settingsa => { settingsa.Name = "Iznos"; }).GetHtml() + "</td>");
+            ViewContext.Writer.Write("</tr></table>");
+        });
+          
+    }).GetHtml()*@
+   
+<h><b>NALOG ZA NACIONALNA PLAĆANJA</b></h>
+   
+    <a href="#" style="display: none" id="dl">preuzimanje</a>
+
+    
+     
+<table width="100%" border="0" cellspacing="0" cellpadding="2">
+
+    <tr>
+        <td width="35%" bgcolor=#D8D8D8>@Html.DevExpress().ComboBox(settings =>
+            {
+                settings.Name = "Klijent";
+                settings.Width = 325;
+                settings.Properties.TextField = "Name";
+                settings.Properties.ValueField = "Id";
+                settings.Properties.ValueType = typeof(int);
+                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                settings.Properties.ClientSideEvents.ValueChanged = "KijentValueChanged";
+                //settings.Properties.Columns.Add("Name", "Klijent");
+                //settings.Properties.Columns.Add("Name", "Klijent");
+            }).BindList(itemKlijenti).GetHtml() </td>
+        <td width="65%" bgcolor=#D8D8D8>Za lakši unos odaberite primatelja iz šifarnika klijenata</td>
+    </tr>
+    
+</table>  
+    
+<br />
+    
+<div id="DefaultEmements">  
+
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+
+    <tr>
+        <td width="35%" style="border-top:1px solid black; border-left:1px solid black; border-right:1px solid black"> PLATITELJ (naziv, adresa i mjesto):</td>
+        <td width="14%" align="right" style="border-top:1px solid black" bgcolor=#A4A4A4>Prioritet:</td>
+        <td width="11%" style="border-top:1px solid black;" bgcolor=#A4A4A4>@Html.DevExpress().ComboBox(settings =>
+                   {
+                       settings.Name = "S309OZNHITN";
+                       settings.Width = 90;
+                       settings.Properties.ValueField = "Id";
+                       settings.Properties.ValueType = typeof(int);
+                       settings.Properties.Items.Add("Redovno", 0);
+                       settings.Properties.Items.Add("Hitno", 1);
+                       settings.Properties.ClientSideEvents.Init = "PrioritetDefault";
+                   }).Bind(Model.S309OZNHITN).GetHtml() </td>
+        <td width="19%" align="right" style="border-top:1px solid black" bgcolor=#A4A4A4>Iznos:</td>
+        <td width="18%" align="right" style="border-top:1px solid black; border-right:1px solid black" bgcolor=#A4A4A4>@Html.DevExpress().SpinEdit(settings =>
+                   {
+                       settings.Name = "S309IZN";
+                       settings.Properties.DisplayFormatString = "c";
+                       settings.Properties.DisplayFormatInEditMode = true;
+                       settings.Properties.MaxLength = 16;
+                       settings.Properties.MinValue = 0;
+                       settings.Properties.MaxValue = 9999999999999;
+                       settings.Properties.NumberType = SpinEditNumberType.Float;
+                       settings.Width = 170;
+                       settings.Properties.DecimalPlaces = 2;
+                       settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                   }).Bind(Model.S309IZN).GetHtml() </td>
+    </tr>
+
+    <tr>
+        <td width="35%" style="border-left:1px solid black; border-right:1px solid black">@Html.DevExpress().Label(settings =>
+                   {
+                       settings.Name = "vTvrtka";
+                       settings.Width = 320;
+                       settings.Text = "Company Name";
+                       settings.ControlStyle.Font.Bold = true;
+                   }).GetHtml() </td>
+        <td width="32%" colspan="3" align="right" style="border-top:1px solid black; border-bottom:1px solid black" bgcolor="#D8D8D8">IBAN ili broj račun platitelja:</td>
+        <td width="18%" align="right" style="border-top:1px solid black; border-bottom:1px solid black; border-right:1px solid black" bgcolor="#D8D8D8">@Html.DevExpress().ComboBox(settings =>
+                   {
+                       settings.Name = "CompanyAccount";
+                       settings.Properties.Items.Add(acc1);
+                       settings.Properties.Items.Add(acc2);
+                       settings.Properties.Items.Add(acc3);
+                       settings.Properties.Items.Add(acc4);
+                       settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                   }).Bind(Model.CompanyAccount).GetHtml() </td>
+    </tr>
+
+     <tr>
+        <td width="35%"style="border-left:1px solid black; border-right:1px solid black">@Html.DevExpress().Label(settings =>
+                   {
+                       settings.Name = "Address";
+                       settings.Width = 320;
+                       settings.Text = "Company Address";
+                       //settings.ControlStyle.Font.Bold = true;
+                   }).GetHtml() </td> 
+               <td width="14%" align="right"  bgcolor="#D8D8D8">Model:</td>
+        <td width="11%"  bgcolor="#D8D8D8">@Html.DevExpress().TextBox(settings =>
+                   {
+                       settings.Name = "S309BRMODPLAT";
+                       settings.Properties.Size = 4;
+                       settings.Properties.MaxLength = 4;
+                       settings.Text = "HR  ";
+                       settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                   }).Bind(Model.S309BRMODPLAT).GetHtml() </td>
+        <td width="19%" align="right"  bgcolor="#D8D8D8">Poziv na broj platitelja:</td>
+        <td width="18%" align="right" style="border-right:1px solid black" bgcolor="#D8D8D8">@Html.DevExpress().TextBox(settings =>
+                   {
+                       settings.Name = "S309PNBPLAT";
+                       settings.Properties.Size = 34;
+                       settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                       settings.Properties.MaxLength = 22;
+                       
+                   }).Bind(Model.S309PNBPLAT).GetHtml() </td>
+    </tr>
+
+    <tr>
+        <td width="35%" style="border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black">@Html.DevExpress().Label(settings =>
+                  {
+                      settings.Name = "Place";
+                      settings.Width = 320;
+                      settings.Text = "Company Address Place";
+                  }).GetHtml()</td>
+
+
+        <td width="65%" colspan="4" style="border-bottom:1px solid black; border-right:1px solid black;" bgcolor="#D8D8D8"></td>
+
+
+    </tr>
+
+    <tr>
+        <td width="35%" style="border-bottom:1px solid black; border-left:1px solid black" bgcolor="#D8D8D8"></td>
+        <td width="47%" colspan="3" align="right" style="border-bottom:1px solid black" bgcolor="#D8D8D8">IBAN ili broj račun primatelja:</td>
+        <td width="18%" align="right" style="border-bottom:1px solid black; border-right:1px solid black" bgcolor="#D8D8D8">@Html.DevExpress().TextBox(settings =>
+                   {
+                       settings.Name = "S309IBANRNPRIM";
+                       settings.Properties.Size = 34;
+                       settings.Properties.MaxLength = 34;
+                       settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                   }).Bind(Model.S309IBANRNPRIM).GetHtml() </td>
+    </tr>
+
+    <tr>
+        <td width="35%" style="border-left:1px solid black; border-right:1px solid black">PRIMATELJ (naziv, adresa i mjesto)</td>
+        <td width="14%" align="right" style="border-bottom:1px solid black" bgcolor="#D8D8D8">Model:</td>
+        <td width="11%" style="border-bottom:1px solid black" bgcolor="#D8D8D8">@Html.DevExpress().TextBox(settings =>
+                   {
+                       settings.Name = "S309BRMODPRIM";
+                       settings.Properties.Size = 4;
+                       settings.Properties.MaxLength = 4;
+                       settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                   }).Bind(Model.S309BRMODPRIM).GetHtml() </td>
+        <td width="19%" align="right" style="border-bottom:1px solid black" bgcolor="#D8D8D8">Poziv na broj primatelja:</td>
+        <td width="18%" align="right" style="border-bottom:1px solid black; border-right:1px solid black" bgcolor="#D8D8D8">@Html.DevExpress().TextBox(settings =>
+                   {
+                       settings.Name = "S309PNBPRIM";
+                       settings.Properties.MaxLength = 22;
+                       settings.Properties.Size = 34;
+                       settings.ControlStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                   }).Bind(Model.S309PNBPRIM).GetHtml() </td>
+    </tr>
+
+    <tr>
+        <td width="35%" style="border-left:1px solid black; border-right:1px solid black">@Html.DevExpress().TextBox(settings =>
+                       {
+                           settings.Name = "S309NAZIVPRIM";
+                           settings.Properties.Size = 42;
+                           settings.Properties.MaxLength = 70;
+                       }).Bind(Model.S309NAZIVPRIM).GetHtml() </td>
+        <td width="14%" align="right" bgcolor="#D8D8D8">Šifra namjene:</td>
+        <td width="11%" bgcolor="#D8D8D8">@Html.DevExpress().ComboBox(settings =>
+                   {
+                       settings.Name = "S309SIFNAM";
+                       settings.Width = 90;
+                       settings.Properties.TextField = "SifreNamjena";
+                       settings.Properties.ValueField = "Id";
+                       settings.Properties.ValueType = typeof(int);
+                       settings.Properties.TextFormatString = "{0}";
+                       settings.Properties.Columns.Add("SifreNamjena", "Šifra", System.Web.UI.WebControls.Unit.Pixel(40));
+                       settings.Properties.Columns.Add("Naziv", "Naziv", System.Web.UI.WebControls.Unit.Pixel(300));
+                       
+                   }).BindList(itemsNamjene).Bind(Model.S309SIFNAM).GetHtml() </td>
+        <td width="37%" align="right" colspan="2" rowspan="3" style="border-right:1px solid black; border-bottom:1px solid black;" bgcolor="#D8D8D8"> @Html.DevExpress().Memo(settings =>
+                   {
+                       settings.Name = "S309OPISPL";
+                       settings.Width = 330;
+                       settings.ControlStyle.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+                       settings.Height = 80;
+                       settings.ToolTip = "Opis plaćanja";
+                   }).Bind(Model.S309OPISPL).GetHtml()  </td>
+    </tr>
+
+    <tr>
+        <td width="35%" style="border-left:1px solid black; border-right:1px solid black;">@Html.DevExpress().TextBox(settings =>
+                       {
+                           settings.Name = "S309ADRPRIM";
+                           settings.Properties.Size = 42;
+                           settings.Properties.MaxLength = 35;
+                       }).Bind(Model.S309ADRPRIM).GetHtml() </td>
+        <td width="14%" align="right" bgcolor="#D8D8D8">Datum izvršenja:</td>
+        <td width="11%" bgcolor="#D8D8D8">@Html.DevExpress().DateEdit(settings =>
+                   {
+                       settings.Name = "PaymentDate";
+                       settings.Width = 90;
+                   }).Bind(Model.PaymentDate).GetHtml() </td>
+    </tr>
+
+    <tr>
+        <td width="35%" style="border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black">@Html.DevExpress().TextBox(settings =>
+                  {
+                      settings.Name = "S309SJEDPRIM";
+                      settings.Properties.Size = 42;
+                      settings.Properties.MaxLength = 35;
+                  }).Bind(Model.S309SJEDPRIM).GetHtml()</td>
+
+        <td width="28%" colspan="2" style="border-bottom:1px solid black; " bgcolor="#D8D8D8"></td>
+@*        <td width="37%" colspan="2" style="border-bottom:1px solid black; border-right:1px solid black;" bgcolor="#D8D8D8"></td>*@
+
+
+    </tr>
+
+</table>
+
+<br />
+<br />
+
+
+<div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit(); noUnload();">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/Documents/Virmani/Odustani")" onclick="noUnload();" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+
+    </div>
+               <div id="printDiv" style="height:1000px; display:none">
+       @* <iframe name="frame" width="100%" height="100%" scrolling="no" frameborder="0">
+            <p>Your browser does not support iframes.</p>
+        </iframe> *@
+      @*  @Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbar";
+                settings.ReportViewerName = "ReportViewer1";
+            }
+        ).GetHtml()
+
+        @Html.Partial("VirmanReportPartial", ViewData["Report"], new ViewDataDictionary() { { "VirmanId", ViewData["VirmanId"] } })*@
+    </div> 
+    
+ 
+    
+}
+
+ @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "popupAccounts";
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = true;
+            settings.HeaderText = "Izaberite račun";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            settings.SetContent(() =>
+            {
+                ViewContext.Writer.Write("<div id=\"acc\"></div>");
+            });
+        }).GetHtml()

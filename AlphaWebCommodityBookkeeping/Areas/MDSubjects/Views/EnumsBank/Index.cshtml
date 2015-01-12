@@ -1,0 +1,24 @@
+﻿@model BusinessObjects.MDSubjects.cMDSubjects_Enums_Bank_List
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.Hidden("linkName", "SifrarniciParent")
+@Html.Hidden("linkId", "Bank")
+
+@if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{
+      <h2 class="pt"></h2>
+				    <a href="@Url.Content("~/MDSubjects/EnumsBank/CreateAndEdit/0")" class="butPrimary ">
+		    <span>
+
+			    Nova banka
+
+		    </span>
+	    </a>
+    <br/>
+}
+
+@Html.Partial("EnumsBankGridPartial")
+

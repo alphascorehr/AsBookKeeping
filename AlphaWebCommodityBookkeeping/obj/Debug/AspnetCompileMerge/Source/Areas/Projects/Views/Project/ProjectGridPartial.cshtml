@@ -1,0 +1,97 @@
+﻿@using System.Data
+
+@{
+    DalEf.ProjectsEntities context = new DalEf.ProjectsEntities();
+    var data = context.vProjects.OrderByDescending(p => p.Id).Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+    }
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvPrijectGrid";
+                settings.CallbackRouteValues = new { Controller = "Project", Action = "ProjectGridPartial" };
+
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.CommandColumn.Visible = true;
+                settings.Settings.ShowFilterRow = true;
+                settings.Settings.ShowFilterRowMenu = true;
+                settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+                settings.CommandColumn.ClearFilterButton.Visible = true;
+                settings.CommandColumn.Width = 30;
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            //Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }, new { @class = "gridEditButton" }) + "&nbsp" +
+                            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                                new { onclick = "return confirm('Da li stvarno želite obrisati?')", @class = "gridDelButton" })
+                        );
+                    });
+                    //column.SetHeaderTemplateContent(c =>
+                    //{
+                    //    ViewContext.Writer.Write(
+                    //        Html.ActionLink("Novi nalog", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                    //    );
+                    //});
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.Width = 20;
+                });
+                
+                settings.KeyFieldName = "Id";
+
+                //settings.Settings.ShowFilterRow = false;
+                //settings.Settings.ShowGroupPanel = false;
+                //settings.Settings.ShowFooter = false;
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                //settings.Columns.Add("Name", "Naziv projekta", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "Name";
+                    column.Caption = "Naziv";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Projects/Project/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + ">" + DataBinder.Eval(c.DataItem, "Name") + "</a>"
+                        );
+                    });
+
+                });
+                settings.Columns.Add("SubjectName", "Naziv klijenta", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                //settings.Columns.Add("Active", "Aktivan", DevExpress.Web.Mvc.MVCxGridViewColumnType.CheckBox);
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "Active";
+                    column.Caption = "Aktivan";
+                    column.Width = 50;
+                    column.ColumnType = MVCxGridViewColumnType.CheckBox;
+                });
+                settings.HtmlRowCreated = (sender, e) =>
+                {
+                    if (e.RowType == DevExpress.Web.ASPxGridView.GridViewRowType.Data)
+                    {
+                        e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#eeeeee';");
+                        e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white';");
+                    }
+                };
+                settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            //}).BindToLINQ("", "", new
+            //            EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+            //            {
+            //                e.KeyExpression = "Id";
+            //                DalEf.ProjectsEntities context = new DalEf.ProjectsEntities();
+            //                e.QueryableSource = context.vProjects.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+            //            })).GetHtml()
+            }).Bind(data).GetHtml()

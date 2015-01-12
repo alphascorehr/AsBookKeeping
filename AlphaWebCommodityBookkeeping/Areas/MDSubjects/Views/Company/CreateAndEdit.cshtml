@@ -1,0 +1,345 @@
+﻿@model BusinessObjects.MDSubjects.cMDSubjects_Company
+
+@{
+    DalEf.MDGeneralEntities context = new DalEf.MDGeneralEntities();
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+    var selectedName = "";
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                OIB: "required",
+                Name: "required"
+            },
+            messages: {
+                OIB: "Molimo unesite OIB",
+                Name: "Molimo unesite ime"
+            }
+        });
+
+    });
+
+    function MjestaComboDropDown(s, e) {
+        if (selectedName != "") {
+        
+        }
+
+    }
+
+
+    function MjestaComboValidation(s, e) {
+        if (e.value == null || e.value == "")
+            return;
+
+        var mjestoId = Number(e.value);
+        if (isNaN(mjestoId))
+            e.isValid = false;
+    }
+
+    function OnStartCallback(s, e) {
+        return false;
+    }
+    function OnEndCallback(s, e) {
+        return false;
+    }
+
+    function onEdit(e) {
+
+    }
+
+    function OnSelectedIndexChanged(s, e) {
+        debugger;
+        return false;
+    }
+
+ 
+ 
+// ]]>
+</script>
+
+@{
+    string caption = "Nova tvrtka";
+    if (Model.Name != "")
+    {
+        caption = "Tvrtka  " + Model.Name;
+    }
+}
+
+
+@using (Html.BeginForm("CreateAndEdit", "Company", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);
+                                                         
+    @Html.Hidden("linkName", "KlijentiParent")
+    @Html.Hidden("linkId", "CustomersSalesSpan")
+
+    
+    <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	    <h2 class="pt"><div class="span-22"> @caption </div></h2>
+   
+
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+<div id="DefaultEmements">    
+                                            @*//Lijevi div*@
+	<div class="span-23" style="position: relative;">
+	    <div id="client_section">
+		    <div class="span-7 required form-layout-left">
+			    <label for="customerid" class="no-pointer">Naziv:</label>
+
+		    </div>
+		    <div class="span-15 form-layout-right">
+			    @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+		    </div>
+        </div>
+
+                <div class="span-7 required form-layout-left">
+		    <label for="customerid" class="no-pointer">OIB:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().TextBox(settings => { settings.Name = "OIB"; settings.Properties.MaxLength = 11; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.OIB).GetHtml()
+		</div>
+@*
+        <div class="span-7  form-layout-left">
+		    <label for="customerid" class="no-pointer">Datum osnutka:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().DateEdit(settings => { settings.Name = "EstablishedDate"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.EstablishedDate).GetHtml()
+		</div>*@
+
+       <div class="span-7  form-layout-left">
+		    <label for="customerid" class="no-pointer">Vrsta tvrtke:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().ComboBox(settings => { settings.Name = "MDSubjects_Enums_CompanyTypeId"; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(BusinessObjects.MDSubjects.cMDSubjects_Enums_CompanyType_List.GetcMDSubjects_Enums_CompanyType_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.MDSubjects_Enums_CompanyTypeId ?? 0))).Bind(Model.MDSubjects_Enums_CompanyTypeId).GetHtml()
+		</div>
+
+         <div class="span-7  form-layout-left">
+		    <label for="customerid" class="no-pointer">Vrsta računa:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().ComboBox(settings => { settings.Name = "PDVType"; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(Int32); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(new AlphaWebCommodityBookkeeping.Areas.MDSubjects.Models.PDVTypes()).Bind(Model.PDVType).GetHtml()
+		</div>
+
+           <div class="span-7  form-layout-left">
+		    <label for="customerid" class="no-pointer">Broj djelatnika:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().SpinEdit(settings => { settings.Name = "NumberOfEmployees"; settings.Height = 24; settings.Width = 200; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.NumberOfEmployees).GetHtml()
+		</div>
+
+               <div class="span-7  form-layout-left">
+		    <label for="customerid" class="no-pointer">Osnovna djelatnost:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().ComboBox(settings => { settings.Name = "MDSubjects_Enums_CoreBussinessId"; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(BusinessObjects.MDSubjects.cMDSubjects_Enums_CoreBussiness_List.GetcMDSubjects_Enums_CoreBussiness_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.MDSubjects_Enums_CoreBussinessId ?? 0))).Bind(Model.MDSubjects_Enums_CoreBussinessId).GetHtml()
+		</div>
+      
+
+        
+
+       
+        <div class="span-7  form-layout-left">
+		    <label for="customerid" class="no-pointer">MBR:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().TextBox(settings => { settings.Name = "CRO_MBR"; settings.Properties.MaxLength = 10; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.CRO_MBR).GetHtml()
+		</div>
+       
+       
+</div>
+
+    
+    
+                                            @*//Desni div*@
+<div class="span-23">
+	<div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title=""></span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		<b>Adresa sjedišta:
+        
+	</div>
+
+    <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Ulica i broj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "HomeAddress_Street"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.HomeAddress_Street).GetHtml()
+
+	</div>
+
+          <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Mjesto:</span></label>
+	</div>
+	<div class="span-10 form-layout-right"> 
+		@Html.Partial("MjestaComboPartial", Model.HomeAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "HomeAddress_PlaceId" }, { "controllerName", "Obrt" }, { "height", 20 }, { "width", 200 } })
+
+	</div>
+
+    @* <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Broj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right"> 
+		@Html.DevExpress().TextBox(settings => { settings.Name = "HomeAddress_Number"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.HomeAddress_Number).GetHtml()
+
+	</div>*@
+
+     <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title=""></span></label>
+	</div>
+	<div class="span-10 form-layout-right"> 
+		<b>Račun slati na adresu:
+
+	</div>
+
+    <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Ulica i broj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right"> 
+		@Html.DevExpress().TextBox(settings => { settings.Name = "BillToAddress_Street"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BillToAddress_Street).GetHtml()
+
+	</div>
+
+   @* <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Broj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "BillToAddress_Number"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BillToAddress_Number).GetHtml()
+
+	</div>*@
+	
+    
+	<div class="span-12  form-layout-left">
+		<label for="customerid" class="no-pointer">Mjesto:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.Partial("MjestaComboPartial2", Model.BillToAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "BillToAddress_PlaceId" }, { "controllerName", "Company" }, { "height", 20 }, { "width", 200 } })
+	</div>
+    
+    <div class="span-12  form-layout-left">
+		<label for="customerid" class="no-pointer">Na dan:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().DateEdit(settings => { settings.Name = "IS_Date"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.IS_Date).GetHtml()
+	</div>
+    
+      <div class="span-12  form-layout-left">
+		<label for="customerid" class="no-pointer">Ptraživanje od klijenta:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().SpinEdit(settings => { settings.Name = "IS_DemandFromPartner"; settings.Height = 24; settings.Width = 200; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.IS_DemandFromPartner).GetHtml()
+	</div>
+   
+   <div class="span-12  form-layout-left">
+		<label for="customerid" class="no-pointer">Dugovanje klijentu:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().SpinEdit(settings => { settings.Name = "IS_DebitToPartner"; settings.Properties.DisplayFormatString = "n2"; settings.Height = 24; settings.Width = 200; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.IS_DebitToPartner).GetHtml()
+	</div>
+	
+	<div class="span-12  form-layout-left">
+		<label for="customerid" class="no-pointer">Tečaj:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().SpinEdit(settings => { settings.Name = "IS_Course)."; settings.Height = 24; settings.Width = 200; settings.Properties.DecimalPlaces = 6; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.IS_Course).GetHtml()
+	</div>
+
+
+
+    <div class="span-12  form-layout-left">
+		<label for="customerid" class="no-pointer">Valuta:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().ComboBox(settings => { settings.Name = "IS_MDGeneral_Enums_CurrencyId"; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(context.MDGeneral_Enums_Currency.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || p.CompanyUsingServiceId == 0 || p.CompanyUsingServiceId == null)).Bind(Model.IS_MDGeneral_Enums_CurrencyId).GetHtml()
+	</div>
+    
+
+	</div>
+    <div class="clearb"></div>
+   
+    @Html.Partial("AccountsColGridPartial", Model.MDSubjects_Subject_AccountsCol, new ViewDataDictionary() { { "controllerName", "Company" } })
+    <br />
+                
+    @Html.Partial("ContactsColGridPartial", Model.MDSubjects_Subject_ContactsCol, new ViewDataDictionary() { { "controllerName", "Company" } })
+    
+    <div class="clearb"></div>
+        <div class="append-bottom-1 form-layout">
+	<div class="span-20 append-4 append-bottom-1 iefix-2">
+		<label for="terms">Adresa slanja napomena</label>
+		@Html.DevExpress().Memo(settings => { settings.Name = "BillToAddress_Description"; settings.Height = 60; settings.Width = 440; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BillToAddress_Description).GetHtml()
+		
+	</div>
+    <div class="span-14 append-bottom-1">
+
+		<label for="notes">Adresa sjedišta napomena</label>
+		@Html.DevExpress().Memo(settings => { settings.Name = "HomeAddress_Description"; settings.Height = 60; settings.Width = 440; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.HomeAddress_Description).GetHtml()
+	</div>
+	
+</div>
+    <div class="append-bottom-1 form-layout">
+	<div class="span-20 append-4 append-bottom-1 iefix-2">
+		<label for="terms">Opis djelatnosti</label>
+		@Html.DevExpress().Memo(settings => { settings.Name = "CoreBusinessDescription"; settings.Height = 60; settings.Width = 920; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.CoreBusinessDescription).GetHtml()
+		
+	</div>
+    
+	
+</div>
+    
+    
+   
+<div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/MDSubjects/Company/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+               
+  </div> 
+    <div id="printDiv" style="height:480px; display:none">TODO: Ispis dokumenta za printanje</div>       
+                
+                                
+}

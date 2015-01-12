@@ -1,0 +1,234 @@
+﻿@using System.Data
+
+
+@{
+    
+
+    bool proj = false;
+    if ((bool)ViewData["isDefaultList"])
+    {
+        proj = true;
+        
+    }
+    
+}
+
+@{
+    DalEf.ProjectsEntities context = new DalEf.ProjectsEntities();
+    DalEf.DocumentsEntities contextDoc = new DalEf.DocumentsEntities();
+    DalEf.MDEntitiesEntities contextEnt = new DalEf.MDEntitiesEntities();
+
+    var data = context.vProjectsMaterialTracking.OrderByDescending(p => p.Id).Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.UniqueIdentifier != null);    
+    if (proj)
+    {
+         data = context.vProjectsMaterialTracking.OrderByDescending(p => p.Id).Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.ProjectName != null);
+    }
+   
+    
+                           
+}
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvMaterialTrackingLogGrid";
+                settings.CallbackRouteValues = new { Controller = "MaterialTracking", Action = "MaterialTrackingGridPartial" };
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+                settings.Settings.ShowFilterRow = true;
+                settings.Settings.ShowFilterRowMenu = true;
+                settings.SettingsPager.PageSize = 13;
+                settings.CommandColumn.Visible = true;
+                settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+                settings.CommandColumn.ClearFilterButton.Visible = true;
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+
+                            //Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }, new { @class = "gridEditButton" }) + "&nbsp" +
+                            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                                new { onclick = "return confirm('Da li stvarno želite obrisati?')", @class = "gridDelButton" })
+                        );
+                    });
+                    //column.SetHeaderTemplateContent(c =>
+                    //{
+                    //    ViewContext.Writer.Write(
+                    //        Html.ActionLink("New task", "CreateAndEdit", "EnumsTask", new { area = "Projects", Id = 0 }, null).ToHtmlString()
+                    //    );
+                    //});
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.Width = 20;
+                });
+                
+                settings.KeyFieldName = "Id";
+
+                //settings.Settings.ShowFilterRow = false;
+                //settings.Settings.ShowGroupPanel = false;
+                //settings.Settings.ShowFooter = false;
+
+                if (proj)
+                {
+                    //settings.Columns.Add("ProjectName", "Projekt", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings.Columns.Add(column =>
+                    {
+                        column.FieldName = "ProjectName";
+                        column.Caption = "Projekt";
+                        column.SetDataItemTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write(
+                                "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Projects/MaterialTracking/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + "?projekt=true>" + DataBinder.Eval(c.DataItem, "ProjectName") + "</a>"
+                            );
+                        });
+
+                    });
+                }
+                else {
+                    //settings.Columns.Add("UniqueIdentifier", "Radni nalog", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings.Columns.Add(column =>
+                    {
+                        column.FieldName = "UniqueIdentifier";
+                        column.Caption = "Radni nalog";
+                        column.SetDataItemTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write(
+                                "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Projects/MaterialTracking/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + ">" + DataBinder.Eval(c.DataItem, "UniqueIdentifier") + "</a>"
+                            );
+                        });
+
+                    });
+                }
+                
+                settings.Columns.Add("ProductName", "Proizvod", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("UnitName", "Jm", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("ProductAmmount", "Količina", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "Projects_ProjectId";
+                //    column.Caption = "Projekt";
+                //    column.Width = 250;
+
+                //    var items = (from p in context.Projects_Project where p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId select new {p.Id, p.Name});
+                                 
+                //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                //    comboBoxProperties.Height = 20;
+                //    comboBoxProperties.DataSource = items;
+                //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //    comboBoxProperties.FilterMinLength = 0;
+                //    comboBoxProperties.TextField = "Name";
+                //    comboBoxProperties.ValueField = "Id";
+                //    comboBoxProperties.ValueType = typeof(int);
+                //});
+
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "Documents_WorkOrderId";
+                //    column.Caption = "Radni nalog";
+
+                //    var items = contextDoc.Documents_Document.OfType<DalEf.Documents_WorkOrder>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+                    
+                    
+                //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                //    comboBoxProperties.Height = 20;
+                //    comboBoxProperties.DataSource = items;
+                //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //    comboBoxProperties.FilterMinLength = 0;
+                //    comboBoxProperties.TextField = "UniqueIdentifier";
+                //    comboBoxProperties.ValueField = "Id";
+                //    comboBoxProperties.ValueType = typeof(int);
+                //});
+
+
+                //settings.Columns.Add("Ordinal", "Red. broj", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "ProductId";
+                //    column.Caption = "Proizvod";
+
+                //    var items = contextEnt.MDEntities_Entity.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+
+                //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                //    comboBoxProperties.Height = 20;
+                //    comboBoxProperties.DataSource = items;
+                //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //    comboBoxProperties.FilterMinLength = 0;
+                //    comboBoxProperties.TextField = "Name";
+                //    comboBoxProperties.ValueField = "Id";
+                //    comboBoxProperties.ValueType = typeof(int);
+                //});
+
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "ProductUnitId";
+                //    column.Caption = "ProductUnit";
+
+                //    var items = contextEnt.MDEntities_Enums_Unit;
+
+
+                //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                //    comboBoxProperties.Height = 20;
+                //    comboBoxProperties.DataSource = items;
+                //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //    comboBoxProperties.FilterMinLength = 0;
+                //    comboBoxProperties.TextField = "Name";
+                //    comboBoxProperties.ValueField = "Id";
+                //    comboBoxProperties.ValueType = typeof(int);
+                //});
+
+                settings.Columns.Add("ProductAmmount", "Količina", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+                //settings.Columns.Add("IsBillable", "Naplativo", DevExpress.Web.Mvc.MVCxGridViewColumnType.CheckBox);
+
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "IsBillable";
+                //    column.Caption = "Naplativo";
+                //    column.Width = 40;
+                //    column.ColumnType = MVCxGridViewColumnType.CheckBox;
+                //});
+                settings.HtmlRowCreated = (sender, e) =>
+                {
+                    if (e.RowType == DevExpress.Web.ASPxGridView.GridViewRowType.Data)
+                    {
+                        e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#eeeeee';");
+                        e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white';");
+                    }
+                };
+
+               // settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+            //}).BindToLINQ("", "", new
+            //                EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+            //                {
+            //                    e.KeyExpression = "Id";
+            //                    e.QueryableSource = context.Projects_MaterialTrackingLog
+            //                    .Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+            //                })).GetHtml()
+            }).Bind(data).GetHtml()
+            
+
+            
+            
+            
+            

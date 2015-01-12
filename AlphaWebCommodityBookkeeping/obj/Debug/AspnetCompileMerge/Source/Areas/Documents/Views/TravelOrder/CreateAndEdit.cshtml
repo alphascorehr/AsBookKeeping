@@ -1,0 +1,939 @@
+﻿@model BusinessObjects.Documents.cDocuments_TravelOrder
+           
+@{
+    DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+    DalEf.MDGeneralEntities contextGen = new DalEf.MDGeneralEntities();
+               
+}           
+           
+<!--[if IE 7]>
+<style type="text/css">
+    #vtab > ul > li.selected{
+        border-right: 1px solid #fff !important;
+    }
+    #vtab > ul > li {
+        border-right: 1px solid #ddd !important;
+    }
+    #vtab > div { 
+        z-index: -1 !important;
+        left:1px;
+    }
+</style>
+<![endif]-->
+
+    
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(window).bind('beforeunload', function () {
+        if ('@ViewData["Action"]' == "locked") {
+            return;
+        }
+        //if (AreControlsModifiedVar)
+        //{
+        //    return "No pressure, but check out the important announcement in the middle of the screen?";
+        //}
+
+        //return "Good bye";
+        var url = '@Url.Content("~/Documents/TravelOrder/unlockTheDoc")';
+        $.post(url, function (result) {
+            return "Url is about to be changed, kill the lock";
+        });
+
+    });
+
+
+    function noUnload() {
+        $(window).unbind('beforeunload');
+    }
+
+
+    var initValues = new Array(); /* Step 1. - define global scope array */
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+    var coppied;
+    var coppiedId;
+    var AreControlsModifiedVar = false;
+    $(document).ready(function () {
+        var checked;
+       
+        initValues = GetValues(); /* Step 2. - get initial values from controls */
+
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                MDSubjects_EmployeeId: "required",
+                TravelOrderDate: "required",
+                MDPlaces_Enums_Geo_FromPlaceId: "required",
+                MDPlaces_Enums_Geo_ToPlaceId: "required"
+            },
+            messages: {
+                MDSubjects_EmployeeId: "Molimo unesite djelatnika",
+                TravelOrderDate: "Molimo unesite datum",
+                MDPlaces_Enums_Geo_FromPlaceId: "Molimo unesite mjesto",
+                MDPlaces_Enums_Geo_ToPlaceId: "Molimo unesite mjesto"
+            }
+        });
+
+
+        if ('@ViewData["Action"]' == "print") {
+            ShowPrint(); /* The document was silently saved, show the report */
+        }
+        else if ('@ViewData["Action"]' == "locked") {
+            alert(lockText);
+            window.history.back(-1);
+        }
+     
+
+        $('#AmountForCarExpense_I').css('backgroundColor', '#eeeeee')
+        ShowDocDiv();
+
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            buttons: {
+                "Da": function () {
+                    $(this).dialog("close");
+                    CreateDoc(docAction);
+                },
+                "Ne": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        /* End of Document ready */
+    });
+
+    var docAction;
+    function jqConfirm(docType) {
+        docAction = docType;
+        $("#myForm").validate();
+        var v = $("#myForm").valid();
+
+        if (v) {
+            var text = "";
+            switch (docType) {
+                case "genCopy":
+                    text = "Da li želite kopirati putni nalog br. " + '@Model.UniqueIdentifier' + "?"
+                    break;
+            }
+            $('#dialogtext').text(text);
+            $("#dialog").dialog("open");
+        }
+    }
+
+    function ShowDocDiv() {
+        var div = $('#GeneratedDocsDiv');
+        var link;
+
+        var id = '@Model.Id';
+        if (id == 0) { $('#CreateDocOfferImg').hide(); }
+        var a = '@ViewData["Action"]';
+        if (coppied == "True" || a.indexOf("_") != -1) {
+            //if (a.indexOf("_") != -1) { coppiedId = a.split("_")[1]; }
+
+            $('#copyDiv').show();
+            link = '@Url.Content("~/Documents/TravelOrder/CreateAndEdit/")' + coppiedId;
+            $('#copy').attr('href', link);
+            div.fadeIn('slow');
+        }
+    }
+    function CreateDoc(docType) {
+
+
+        $("#myForm").validate();
+        var v = $("#myForm").valid();
+
+        if (v) {
+            AreControlsModified();
+
+                if ((AreControlsModifiedVar || isGridModified) && docType != "genCopy") {
+                $('#HiddenValueAction').attr('value', docType);
+                document.myForm.submit();
+                return false;
+            }
+            else {
+                var Id = parseInt($('#Id').attr('value'));
+                var actionURL = '@Url.Content("~/Documents/TravelOrder/CreateDoc")';
+                $.post(actionURL, { FromDocumentId: Id }, function (result) {
+                    
+                        coppied = "True";
+                        coppiedId = result;
+                        ShowDocDiv();
+                    
+
+                });
+            }
+
+        }
+    }
+
+    $(function () {
+        var $items = $('#vtab>ul>li');
+        $items.click(function () {
+            $items.removeClass('selected');
+            $(this).addClass('selected');
+
+            var index = $items.index($(this));
+            $('#vtab>div').hide().eq(index).show();
+        }).eq(0).click();
+    });
+
+
+    /* ####################################################################################################  Grid functions */
+    var rowEdit;
+    var rowAdd;
+    var rowDeleteOrCancel;
+    function OnWageStartCallback(s, e) {
+        rowEdit = false;
+        rowAdd = false;
+        if (e.command == "ADDNEWROW") {
+            rowAdd = true;
+        }
+        else if (e.command == "STARTEDIT") {
+            rowEdit = true;
+        }
+        else if (e.command == "DELETEROW" || e.command == "CANCELEDIT") {
+            rowDeleteOrCancel = true;
+        }
+        if (e.command == "STARTEDIT" || e.command == "ADDNEWROW") {
+            gridInEdit = true;
+            $('.button_large').attr('onclick', '');
+            $('#genCopy').attr('onclick', '');
+            $('#printLink').attr('onclick', '');
+
+
+        }
+        if (e.command == "CANCELEDIT" || e.command == "UPDATEEDIT") {
+            gridInEdit = false;
+            $('.button_large').attr('onclick', '$(this).closest("form").submit()');
+            $('#genCopy').attr('onclick', 'jqConfirm("genCopy")');
+            $('#printLink').attr('onclick', 'Print()');
+
+        }
+    }
+    function OnWageEndCallback(s, e) {
+        $('#gvWageCol_DXEditor0').css({ 'border': '0' });
+        if (rowDeleteOrCancel == true) {
+            WageTotalBellowGrid();
+            rowDeleteOrCancel = false;
+        }
+
+    }
+    function OnWageInit(s, e) {
+        WageTotalBellowGrid();
+    }
+    function OnTravelCostsStartCallback(s, e) {
+        if (e.command == "STARTEDIT" || e.command == "ADDNEWROW") {
+            gridInEdit = true;
+            $('.button_large').attr('onclick', '');
+            $('#genCopy').attr('onclick', '');
+            $('#printLink').attr('onclick', '');
+
+        }
+        if (e.command == "CANCELEDIT" || e.command == "UPDATEEDIT") {
+            gridInEdit = false;
+            $('.button_large').attr('onclick', '$(this).closest("form").submit()');
+            $('#genCopy').attr('onclick', 'jqConfirm("genCopy")');
+            $('#printLink').attr('onclick', 'Print()');
+
+        }
+
+    }
+    function OnTravelCostsEndCallback(s, e) {
+        $('#gvTravelCostsCol_DXEditor0').css({ 'border': '0' });
+    }
+    function OnTravelCostsInit(s, e) {
+    }
+  
+    function OnOtherExpensesStartCallback(s, e) {
+        if (e.command == "ADDNEWROW") {
+            checked = true;
+        }
+        if (e.command == "STARTEDIT" || e.command == "ADDNEWROW") {
+            gridInEdit = true;
+            $('.button_large').attr('onclick', '');
+            $('#genCopy').attr('onclick', '');
+            $('#printLink').attr('onclick', '');
+
+        }
+        if (e.command == "CANCELEDIT" || e.command == "UPDATEEDIT") {
+            gridInEdit = false;
+            $('.button_large').attr('onclick', '$(this).closest("form").submit()');
+            $('#genCopy').attr('onclick', 'jqConfirm("genCopy")');
+            $('#printLink').attr('onclick', 'Print()');
+        }
+
+    }
+    function OnOtherExpensesEndCallback(s, e) {
+        $('#gvOtherExpensesCol_DXEditor0').css({ 'border': '0' });
+        if (checked) {
+            gvOtherExpensesCol_DXEditor4.SetValue(true);
+            checked = false;
+        }
+    }
+    function OnOtherExpensesInit(s, e) {
+    }
+    
+
+    /* ################################################## Grids Calcssss  ################################################## */
+    function WageTotal() {
+        var brojNadnica = parseFloat($('#gvWageCol_DXEditor6_I').attr('value').replace(',', '.'));
+        var cijenaNadnice = parseFloat($('#gvWageCol_DXEditor7_I').attr('value').replace(',', '.'));
+        if (!isNaN(brojNadnica) && !isNaN(cijenaNadnice)) {
+            gvWageCol_DXEditor8.SetValue(brojNadnica * cijenaNadnice);
+        }
+        if (!isNaN(brojNadnica)){
+            WageTotalBellowGrid();
+        }
+
+    }
+    function WageTotalBellowGrid() {
+        var ordinal = -1;
+        var brojSati = 0;
+        var brojDnevnica = 0;
+        var total = 0;
+        var actionLink = '@Url.Content("~/Documents/TravelOrder/WageTotalBellowGrid")';
+        if (rowEdit == true) {
+            ordinal = gvWageCol_DXEditor1.GetValue();
+            brojSati = parseFloat($('#gvWageCol_DXEditor5_I').attr('value').replace(',', '.'));
+            brojDnevnica = parseFloat($('#gvWageCol_DXEditor6_I').attr('value').replace(',', '.'));
+            total = parseFloat(gvWageCol_DXEditor8.GetValue());
+        }
+        if (rowAdd == true) {
+            brojSati = parseFloat($('#gvWageCol_DXEditor5_I').attr('value').replace(',', '.'));
+            brojDnevnica = parseFloat($('#gvWageCol_DXEditor6_I').attr('value').replace(',', '.'));
+            total = parseFloat(gvWageCol_DXEditor8.GetValue());
+        }
+        $.post(actionLink, { ordinal: ordinal }, function (result) {
+            var ukupnoSatiInSession = result[0];
+            var ukupnoDnevnicaInSession = result[1];
+            var ukupno = result[2];
+            if (!isNaN(brojSati)) {
+                var ukupnoSati = parseFloat(brojSati) + parseFloat(ukupnoSatiInSession);
+                $('#ukupnoSati').text(ukupnoSati);
+            }
+            if (!isNaN(brojDnevnica)) {
+                var ukupnoDnevnica = parseFloat(brojDnevnica) + parseInt(ukupnoDnevnicaInSession);
+                $('#ukupnoDnevnica').text(ukupnoDnevnica);
+            }
+            if (!isNaN(total)) {
+                Ukupno.SetValue(parseFloat(total) + parseFloat(ukupno.replace(',', '.')));
+            }
+        });
+    }
+    function CarExpenses() {
+        var start = CarDialStart.GetValue();
+        var end = CarDialEnd.GetValue()
+        var totalKm; // = TotalKilometers.Getvalue();
+        var pricePerKm = PricePerKilometer.GetValue();
+        if (!isNaN(start) && !isNaN(end) && start != null && end != null) {
+            totalKm = end - start;
+            TotalKilometers.SetValue(totalKm);
+            if (!isNaN(pricePerKm && pricePerKm != null)) {
+                AmountForCarExpense.SetValue(totalKm * pricePerKm);
+            }
+        }
+    }
+
+
+
+    /* ################################################## Silent save   ################################################## */
+    function GetValues() {
+        var list = new Array(MDSubjects_EmployeeId, MDSubjects_Enums_EducationDegreeId, MDSubjects_Enums_FunctionId, TravelOrderDate, MDPlaces_Enums_Geo_FromPlaceId, MDPlaces_Enums_Geo_ToPlaceId, TravelToResidence, DurationDays, MDGeneral_Enums_KindOfTransportationId, AdvanceAmmount, CostCenter, TaskDescription, TransportationDescription);
+        var array = new Array();
+        for (i = 0; i <= list.length - 1; i++) {
+            //var val = $('#' + list[i]).attr('value');
+            var val = list[i];
+            array[i] = val.GetValue();
+        }
+        return array;
+    }
+
+    isGridModified = false;
+    function Print() {
+        if (AreControlsModified() || isGridModified) {
+            $('#HiddenValueAction').attr('value', 'print');
+            document.myForm.submit();
+        }
+        else {
+            ShowPrint();
+        }
+    }
+
+    function AreControlsModified() {
+        //alert('AreControlsModified');
+        var newValues = new Array();
+        newValues = GetValues();
+
+        for (i = 0; i <= newValues.length - 1; i++) {
+            if (initValues[i] != newValues[i]) {
+                //return true;
+                AreControlsModifiedVar = true;
+                //alert('mod');
+                break;
+            }
+        }
+        //return false;
+        //AreControlsModifiedVar = false;
+    }
+
+    function OnStartCallback(s, e) {
+        /* check if grid has been modified */
+        if (e.command == "DELETEROW" || e.command == "UPDATEEDIT" || e.command == "ADDNEWROW") {
+            isGridModified = true;
+        }
+
+        
+    }
+
+    function ShowPrint() {
+        //$('#workOrder2Invoice').hide();
+        $('.footer').hide();
+        $('#DefaultEmements').slideToggle('slow');
+        $('#printDiv').slideToggle('slow');
+        $('#printImg').hide();
+        $('#mailImg').hide();
+
+        $('#printLink').attr('onclick', 'ClosePrint()');
+        $('#printImg').attr('title', 'Zatvori ispis dokumenta');
+        $('#printImg').attr('src', '@Url.Content("~/Content/images/close.png")');
+        $('#printImg').fadeIn('slow');
+    }
+
+    function ClosePrint() {
+        $('#DefaultEmements').slideToggle('slow');
+        $('#printDiv').slideToggle('slow');
+
+        $('#printImg').hide();
+
+        $('#printImg').attr('src', '@Url.Content("~/Content/images/Printer_Blue48.png")');
+
+        $('#printLink').attr('onclick', 'Print()');
+        $('#printImg').attr('title', 'Ispiši dokument');
+        $('#printImg').fadeIn('slow');
+        $('#mailImg').fadeIn('slow');
+        //$('#workOrder2Invoice').fadeIn('slow');
+        $('.footer').show();
+    }
+
+    /* That's it folks */
+
+
+
+    function Mail() {
+        $('#workOrder2Invoice').hide();
+        $('#mailErr').hide();
+        $('#mailOk').hide();
+        var sub = "Putni nalog br. " + '@Model.UniqueIdentifier';
+
+        var SubjectId = parseInt($('#MDSubjects_SubjectId_VI').attr('value'));
+        if (SubjectId == null || SubjectId == "" || SubjectId == "0") {
+            return false;
+        }
+//        var actionURL = '@Url.Content("~/Documents/TravelOrder/FindEmailById")';
+//        $.post(actionURL, { subjectId: SubjectId }, function (result) {
+//            SendTo.SetValue(result);
+            Subject.SetValue(sub);
+//        });
+        $('.footer').hide();
+        $('#DefaultEmements').slideToggle('slow');
+        $('#mailDiv').slideToggle('slow');
+        $('#printImg').hide();
+        $('#mailImg').hide();
+
+
+        $('#mailLink').attr('onclick', 'CloseMail()');
+        $('#mailImg').attr('title', 'Zatvori slanje dokumenta');
+        $('#mailImg').attr('src', '@Url.Content("~/Content/images/close.png")');
+        $('#mailImg').fadeIn('slow');
+    }
+
+    function CloseMail() {
+        $('#DefaultEmements').slideToggle('slow');
+        $('#mailDiv').slideToggle('slow');
+
+        $('#mailImg').hide();
+
+        $('#mailImg').attr('src', '@Url.Content("~/Content/images/mail_send48.png")');
+
+
+        $('#mailLink').attr('onclick', 'Mail()');
+        $('#mailImg').attr('title', 'Pošalji dokument');
+        $('#printImg').fadeIn('slow');
+        $('#mailImg').fadeIn('slow');
+        $('#workOrder2Invoice').fadeIn('slow');
+        $('.footer').show();
+    }
+
+    function SendReportByEmail() {
+        //Wait();
+        $('#mailErr').hide();
+        $('#mailOk').hide();
+        var Id = parseInt($('#Id').attr('value'));
+        if (Id == null || Id == "" || Id == "0") {
+            return false;
+        }
+
+        var sendTo = SendTo.GetValue();
+        var sendToCC = SendToCC.GetValue();
+        var subject = Subject.GetValue();
+        var body = Body.GetValue();
+        var clientName = $('#MDSubjects_EmployeeId_I').attr('value');
+        if (clientName == null || clientName == "" || clientName == "0") {
+            return false;
+        }
+        /* Id, SentTo, SendToCC, Subject, Body */
+        var actionURL = '@Url.Content("~/Documents/TravelOrder/SendReportByEmail")';
+        $.post(actionURL, { Id: Id, SendTo: sendTo, SendToCC: sendToCC, Subject: subject, Body: body, ClientName: clientName }, function (result) {
+            if (result == "Ok") {
+                $('#mailErr').hide();
+                $('#mailOk').fadeIn('slow');
+                $('#mailOkLabel').html(SendTo.GetValue());
+            }
+            else {
+                $('#mailOk').hide();
+                $('#mailErr').fadeIn('slow');
+                $('#mailErrLabel').html(result.toString());
+            }
+            //$("*").css("cursor", "auto");
+        });
+
+    }
+// ]]>
+</script>
+       
+
+@{
+    string caption = "Novi putni nalog";
+    if (Model.UniqueIdentifier != "")
+    {
+        caption = "Putni nalog br. " + Model.UniqueIdentifier;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "TravelOrder", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);                                     
+                                            
+    @Html.Hidden("linkName", "RadParent")
+    @Html.Hidden("linkId", "TravelOrderSpan")
+      @Html.Hidden("HiddenValueAction")
+
+     <div class="notifyBox " id="GeneratedDocsDiv" style="display:none">
+           
+                 <div id="copyDiv" style="display:none">
+            <h3>Dokument je kopiran.</h3>
+                    <ul>
+                    <li> Za prikaz kliknite <a id="copy" href="#">ovdje</a></li>
+                    </ul>
+        </div>       
+    </div>
+    
+    <div class="clearb"></div>
+    
+<div class="clearb"></div>
+
+	 <h2 class="pt"><div class="span-22"> @caption </div></h2>
+    
+     <div id="MailPrint" class="span-23" style="text-align:right">
+    <a id="mailLink" href="#" onclick="Mail();"><img id="mailImg" src="@Url.Content("~/Content/images/mail_send48.png")" title="Pošalji pdf na email" alt="Pošalji pdf na email" /></a>
+    
+    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+    <a id="printLink" href="#"  onclick="Print();"><img id="printImg" src="@Url.Content("~/Content/images/Printer_Blue48.png")" title="Ispiši dokument" alt="Ispiši dokument" /></a>
+       <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+    <h2 class='pt'></h2>
+	<div id="dashboard-create-new-panel" class="button-panel" >
+	<div class="dropdown-button large-green">
+	<span>Kreiraj</span>
+	<ul>
+        <li>
+		<a id="genCopy" class="konj" href="#" onclick="jqConfirm('genCopy');">
+		Kopiju&nbsp;
+		</a>
+	</li>
+	</ul>
+</div>
+
+		</div>
+	
+<div class="clearb"></div>   
+    
+    @*<a id="CreateDocOfferImg" href="#" onclick="CreateDoc('genCopy');"><img  src="@Url.Content("~/Content/images/CopyIcon.png")" title="Kopiraj dokument" alt="Kopiraj dokument" /></a>*@
+    </div>
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+
+<div id="DefaultEmements">    
+    
+               
+                                              
+    <div id="vtab">
+        <ul>
+            <li class="TravelOrder selected" title="Putni nalog"></li>
+            <li class="TravelInvoice" title="Putni račun"></li>
+        </ul>
+        <div>
+            @*##########################################################################################################################################################
+            ##############################    BEGIN  P U T N I      N A L O G       ##################################################################################
+            ##########################################################################################################################################################*@
+            <h4>Putni nalog</h4>
+           
+            <div class="span-18" style="position: relative;">
+                  
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Djelatnik:</label>
+		        </div>
+                <div class="span-10 form-layout-right">
+                @Html.DevExpress().ComboBox(settings => { settings.Name = "MDSubjects_EmployeeId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.NullDisplayText = "Odaberite djelatnika"; }).BindList(context.MDSubjects_Subject.OfType<DalEf.MDSubjects_Employee>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.SubjectType == (short)BusinessObjects.Common.SubjectType.Employee)).Bind(Model.MDSubjects_EmployeeId).GetHtml()
+                </div>
+                   
+                   <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">Zvanje:</label>
+		        </div>
+                <div class="span-10 form-layout-right">
+                @Html.DevExpress().ComboBox(settings => { settings.Name = "MDSubjects_Enums_EducationDegreeId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.NullDisplayText = "Odaberite djelatnika"; }).BindList(BusinessObjects.MDSubjects.cMDSubjects_Enums_EducationDegree_List.GetcMDSubjects_Enums_EducationDegree_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.MDSubjects_Enums_EducationDegreeId ?? 0))).Bind(Model.MDSubjects_Enums_EducationDegreeId).GetHtml()
+                </div>
+               
+                  <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">Radno mjesto:</label>
+		        </div>
+                <div class="span-10 form-layout-right">
+                    @Html.DevExpress().ComboBox(settings => { settings.Name = "MDSubjects_Enums_FunctionId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.NullDisplayText = "Odaberite djelatnika"; }).BindList(BusinessObjects.MDSubjects.cMDSubjects_Enums_Function_List.GetcMDSubjects_Enums_Function_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.MDSubjects_Enums_FunctionId ?? 0))).Bind(Model.MDSubjects_Enums_FunctionId).GetHtml()
+                </div>
+
+
+		        <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Datum:</label>
+		        </div>
+		        <div class="span-10 form-layout-right">
+			        @Html.DevExpress().DateEdit(settings => { settings.Name = "TravelOrderDate"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.TravelOrderDate).GetHtml()
+		        </div>
+
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Iz mjesta:</label>
+		        </div>
+		        <div class="span-10 form-layout-right">
+			        @Html.Partial("MjestaComboPartial", Model.MDPlaces_Enums_Geo_FromPlaceId, new ViewDataDictionary() { { "cmbMjestaName", "MDPlaces_Enums_Geo_FromPlaceId" }, { "controllerName", "TravelOrder" }, { "height", 24 }, { "width", 200 } })
+		        </div>
+
+                
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">U mjesto:</label>
+		        </div>
+		        <div class="span-10 form-layout-right">
+			        @Html.Partial("MjestaComboPartial2", Model.MDPlaces_Enums_Geo_ToPlaceId, new ViewDataDictionary() { { "cmbMjestaName", "MDPlaces_Enums_Geo_ToPlaceId" }, { "controllerName", "TravelOrder" }, { "height", 24 }, { "width", 200 } })
+		        </div>
+                
+
+                <div class="span-6 form-layout-left">
+				    <label for="invoice_number" class="no-pointer"><span title="">Prebivalište:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right">
+                    @Html.DevExpress().CheckBox(settings => { settings.Name = "TravelToResidence"; settings.Width = 200; settings.Height = 24; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = false; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.TravelToResidence).GetHtml()
+                </div>
+                
+             
+            </div>
+
+            <div class="span-18">
+
+                <div class="span-7 form-layout-left" >
+				    <label for="invoice_number" class="no-pointer"><span title="">Trajanje:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right" >
+                    @Html.DevExpress().SpinEdit(settings => { settings.Name = "DurationDays"; settings.Properties.DecimalPlaces = 1; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000; settings.Height = 24; settings.Width = 200; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.DurationDays).GetHtml()
+                </div>
+
+                
+                <div class="span-7 form-layout-left">
+				    <label for="invoice_number" class="no-pointer"><span title="">Vrsta prijevoza:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right">
+                    @Html.DevExpress().ComboBox(settings => { settings.Name = "MDGeneral_Enums_KindOfTransportationId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; }).BindList(BusinessObjects.MDGeneral.cMDGeneral_Enums_KindOfTransportation_List.GetcMDGeneral_Enums_KindOfTransportation_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.MDGeneral_Enums_KindOfTransportationId ?? 0))).Bind(Model.MDGeneral_Enums_KindOfTransportationId).GetHtml()
+                </div>
+   
+                <div class="span-7 form-layout-left">
+				    <label for="invoice_number" class="no-pointer"><span title="">Predujam:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right">
+                        @Html.DevExpress().SpinEdit(settings => { settings.Name = "AdvanceAmmount"; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000; settings.Height = 24; settings.Width = 200; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.AdvanceAmmount).GetHtml()
+                </div>
+
+                   <div class="span-7 form-layout-left">
+				    <label for="invoice_number" class="no-pointer"><span title="">Mjesto troška:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right">
+                        @Html.DevExpress().TextBox(settings => { settings.Name = "CostCenter"; settings.Height = 24; settings.Width = 200; }).Bind(Model.CostCenter).GetHtml()
+                </div>
+                
+            </div>
+    
+             <div class="clearb" style="padding-top:20px"></div>
+    
+                <div class="clearb"></div>
+                <div class="append-bottom-1 form-layout">
+	                <div class="span-15 append-4 append-bottom-1 iefix-2">
+		                <label for="terms">Svrha puta:</label>
+		                @Html.DevExpress().Memo(settings => { settings.Name = "TaskDescription"; settings.Height = 80; settings.Width = 370; settings.ShowModelErrors = true; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.TaskDescription).GetHtml()
+		
+	                </div>
+                    <div class="span-15 append-bottom-1">
+
+		                <label for="notes">Za putovanje automobilom:</label>
+		                @Html.DevExpress().Memo(settings => { settings.Name = "TransportationDescription"; settings.Height = 80; settings.Width = 370; settings.ShowModelErrors = true; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.TransportationDescription).GetHtml()
+	                </div>
+	
+                </div>
+                
+          <div class="clearb"></div>
+
+
+        </div> 
+        <div>
+         @*##########################################################################################################################################################
+            ##############################    BEGIN  P U T N I      R A C U N      ##################################################################################
+            ##########################################################################################################################################################*@
+            <h4>Putni račun</h4>
+            
+           <br />
+              
+           <fieldset style="padding-top:20px">
+                <legend>Obračun dnevnica</legend>
+                @Html.Partial("WageColGridPartial", @Model.Documents_TravelOrder_WageCol)
+                 <div class="totalsTravelOrder">
+	        <div class="rule top"></div>
+                    <div class="float_right">
+                <div class="box">
+		        <table class="table-totals"  cellspacing="0">
+			        <tbody>			
+				        <tr id="paid-row">
+					        <td style="width: 300px">&nbsp;</td>
+					        <th style="width: 300px">Ukupno sati: </th>
+					        <td class="last-column"><label id="ukupnoSati"></label></td>
+				        </tr>
+				        <tr id="paid-row">
+					        <td style="width: 300px">&nbsp;</td>
+					        <th style="width: 300px">Ukupno dnevnica:</th>
+					        <td class="last-column"><label id="ukupnoDnevnica"></label></td>
+				        </tr>
+                        
+				        <tr id="outstanding-row" class="invoice-total-box">
+					        <td style="width: 300px">&nbsp;</td>
+					        <th style="width: 300px" bgcolor="#eeeeee">Ukupno:</th>
+					        <td class="last-column" bgcolor="#eeeeee">@Html.DevExpress().SpinEdit(settings => { settings.Name = "Ukupno"; settings.Properties.DecimalPlaces = 2; settings.ReadOnly = true; settings.Width = 130; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).GetHtml()</td>
+				        </tr>
+			        </tbody>
+		        </table>
+                </div>
+	        </div>
+            </div>
+            </fieldset>
+
+            <br />
+            <fieldset style="padding-top:20px">
+                <legend>Obračun prijevoznih troškova</legend>
+                @Html.Partial("TravelCostsColGridPartial", @Model.Documents_TravelOrder_TravelCostsCol)
+            </fieldset> 
+            <fieldset style="padding-top:20px">
+                <legend>Za putovanje automobilom</legend>
+            <div class="totalsTravelOrder">
+	        <div class="rule top"></div>
+                    <div class="float_right">
+                <div class="box">
+		        <table class="table-totals"  cellspacing="0">
+			        <tbody>			
+				        <tr id="paid-row">
+					        <td style="width: 300px">&nbsp;</td>
+					        <th style="width: 300px">Početno stanje km na satu vozila: </th>
+					        <td class="last-column">@Html.DevExpress().SpinEdit(settings => { settings.Name = "CarDialStart"; settings.Properties.ClientSideEvents.ValueChanged = "function(s, e) { CarExpenses(s, e); }"; settings.Width = 130; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.CarDialStart).GetHtml()</td>
+				        </tr>
+				        <tr id="paid-row">
+					        <td style="width: 300px">&nbsp;</td>
+					        <th style="width: 300px">Završno stanje km na satu vozila:</th>
+					        <td class="last-column">@Html.DevExpress().SpinEdit(settings => { settings.Name = "CarDialEnd"; settings.Properties.ClientSideEvents.ValueChanged = "function(s, e) { CarExpenses(s, e); }"; settings.Width = 130; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.CarDialEnd).GetHtml()</td>
+				        </tr>
+                        <tr id="paid-row">
+					        <td style="width: 300px">&nbsp;</td>
+					        <th style="width: 300px">Prijeđeno km:</th>
+					        <td class="last-column">@Html.DevExpress().SpinEdit(settings => { settings.Name = "TotalKilometers"; settings.ReadOnly = true; settings.Properties.DecimalPlaces = 2; settings.Properties.ClientSideEvents.ValueChanged = "function(s, e) { CarExpenses(s, e); }"; settings.Width = 130; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.TotalKilometers).GetHtml()</td>
+				        </tr>
+                        <tr id="paid-row">
+					        <td style="width: 300px">&nbsp;</td>
+					        <th style="width: 300px">Cijena po km:</th>
+					        <td class="last-column">@Html.DevExpress().SpinEdit(settings => { settings.Name = "PricePerKilometer"; settings.Properties.ClientSideEvents.ValueChanged = "function(s, e) { CarExpenses(s, e); }"; settings.Width = 130; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.PricePerKilometer).GetHtml()</td>
+				        </tr>
+				        <tr id="outstanding-row" class="invoice-total-box">
+					        <td style="width: 300px">&nbsp;</td>
+					        <th style="width: 300px" bgcolor="#eeeeee">Ukupno:</th>
+					        <td class="last-column" bgcolor="#eeeeee">@Html.DevExpress().SpinEdit(settings => { settings.Name = "AmountForCarExpense"; settings.Properties.DecimalPlaces = 2; settings.ReadOnly = true; settings.Width = 130; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.AmountForCarExpense).GetHtml()</td>
+				        </tr>
+			        </tbody>
+		        </table>
+                </div>
+	        </div>
+            </div>
+            </fieldset>
+           @* <fieldset style="padding-top:20px">
+                <legend>Za putovanje automobilom</legend>
+                <table border="2" bordercolor="#fafafa" style="background-color:#fafafa" width="100%" cellpadding="3" cellspacing="3">
+                <tr>
+                <td width="30%">Početno stanje km na satu vozila</td>
+                <td width="30%">Završno stanje km na satu vozila</td>
+                <td width="20%">Prijeđeno km</td>
+                <td width="10%">Cijena po km</td>
+                <td width="10%">Ukupno</td>
+                </tr>
+                <tr>
+                <td width="30%">@Html.DevExpress().SpinEdit(settings => { settings.Name = "CarDialStart"; settings.Width = 130; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.CarDialStart).GetHtml()</td>
+                <td width="30%">@Html.DevExpress().SpinEdit(settings => { settings.Name = "CarDialEnd"; settings.Width = 130; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.CarDialEnd).GetHtml()</td>
+                <td width="20%">@Html.DevExpress().SpinEdit(settings => { settings.Name = "TotalKilometers"; settings.Width = 100; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.TotalKilometers).GetHtml()</td>
+                <td width="10%">@Html.DevExpress().SpinEdit(settings => { settings.Name = "PricePerKilometer"; settings.Width = 100; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.PricePerKilometer).GetHtml()</td>
+                <td width="10%">@Html.DevExpress().SpinEdit(settings => { settings.Name = "AmountForCarExpense"; settings.ReadOnly = true; settings.Width = 100; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 1000000; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.AmountForCarExpense).GetHtml()</td>
+                </tr>
+                </table>
+            </fieldset> *@
+
+            <br />
+            <fieldset style="padding-top:20px">
+                <legend>Ostali troškovi</legend>
+                @Html.Partial("OtherExpensesColGridPartial", @Model.Documents_TravelOrder_OtherExpensesCol)
+            </fieldset> 
+            
+            <br />
+            <b>Opis puta:</b>
+            @Html.DevExpress().Memo(settings => { settings.Name = "TrevelDescription"; settings.Width = System.Web.UI.WebControls.Unit.Percentage(100); }).Bind(Model.TrevelDescription).GetHtml()
+
+        </div>
+        
+    </div>
+    
+    <br />
+    <div class="clearb"></div>
+
+    <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit(); noUnload();">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/Documents/TravelOrder/Odustani")" onclick="noUnload();" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+
+
+</div>
+    
+    <div id="printDiv" style="height:1000px; display:none">
+    
+     @Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbar";
+                settings.ReportViewerName = "ReportViewer1";
+            }
+        ).GetHtml()
+
+        @Html.Partial("TravelOrderReportPartial", ViewData["Report"], new ViewDataDictionary() { { "TravelOrderId", ViewData["travelOrderId"] } })
+
+    </div> 
+    
+    <div id="mailDiv" style="height:1000px; display:none">
+            <div id='large-badges'></div><div id="mailErr" style="display:none" class='notifyBox bad'>
+                <h3>Greška prilikom slanja.</h3>
+                    <ul>
+                    <li> Detalji: </li>
+                        <ul>
+                        <li> <label id="mailErrLabel"></label> </li>
+                        </ul>
+                    </ul>
+                    
+            </div>
+
+            <div class="notifyBox " id="mailOk" style="display:none">
+            <h3>Poruka je uspjesno poslana.</h3>
+                    <ul>
+                    <li> Račun je poslan na adresu: </li>
+                        <ul>
+                        <li> <label id="mailOkLabel"></label> </li>
+                        </ul>
+                    </ul>
+            
+           </div>
+        <div class="clearb"></div>
+
+        <div class="span-23" style="position: relative;">
+	        
+		        <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Email adresa:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().TextBox(settings => { settings.Name = "SendTo"; settings.Width = 200; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+
+                <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">CC:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().TextBox(settings => { settings.Name = "SendToCC"; settings.Width = 200; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+            
+
+                <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">Subjekt poruke:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().TextBox(settings => { settings.Name = "Subject"; settings.Width = 200; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+
+                <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">Poruka:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().Memo(settings => { settings.Name = "Body"; settings.Height = 80; settings.Width = 600; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+
+                <div class="clearb"></div>
+    
+                <div class="span-40 append-1">
+                    <div class="span-16 append-1"></div>
+                    <div class="span-10 append-1">
+                            <a href="#" class="button_large launch-invitepop-invoice " onclick="SendReportByEmail()">
+                 
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pošalji&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                    </div>
+                    @*<div class="span-2 append-1"></div>
+                    <div class="span-10 append-1">
+                            <a href="@Url.Content("#")" class="button_large2 launch-invitepop-invoice " onclick="CloseMail()">
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                    </div>
+                    <div class="span-8 append-1"></div>*@
+                </div>
+
+        </div>
+    </div>        
+    <div id="dialog" title="Molimo potvrdite">
+	        <p><span  class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><label id="dialogtext"></label></p>
+        </div>      
+    
+}

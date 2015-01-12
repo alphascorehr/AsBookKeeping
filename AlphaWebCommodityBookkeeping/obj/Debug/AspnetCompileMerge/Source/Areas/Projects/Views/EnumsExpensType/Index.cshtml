@@ -1,0 +1,35 @@
+﻿@model BusinessObjects.Projects.cProjects_Enums_ExpensType_List
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    function OnStartCallback(s, e) {
+     
+    }
+    function OnEndCallback(s, e) {
+      
+    }
+
+</script>
+
+@*@Html.Hidden("linkName", "SifrarniciParent")
+@Html.Hidden("linkId", "ExpensType")*@
+
+ @Html.Hidden("linkName", "TvrtkaParent")
+ @Html.Hidden("linkId", "ExpensType")
+
+ <h2 class="pt"> Vrste troškova </h2>
+ @if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+ {
+<a class="butPrimary " href="@Url.Content("~/Projects/EnumsExpensType/CreateAndEdit/0")">
+<span> Nova vrsta troška </span>
+</a>
+<div class="clearb"></div>
+ }
+
+
+    @Html.Partial("EnumsExpensTypeGridPartial")
+

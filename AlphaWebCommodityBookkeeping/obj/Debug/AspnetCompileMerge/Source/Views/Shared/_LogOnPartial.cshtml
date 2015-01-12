@@ -1,0 +1,8 @@
+﻿@if(Request.IsAuthenticated)
+{
+    <text><b>@Context.User.Identity.Name</b>
+    [ @Html.ActionLink("Odjava", "LogOff", "Account", new { area = "" }, null) ]</text>
+}
+else {
+    @:[ @Html.ActionLink("Prijava", "LogOn", "Account", new { area = "" }, null) ]
+}

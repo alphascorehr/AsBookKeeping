@@ -1,0 +1,1627 @@
+﻿<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Radni nalozi</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1"/> 
+        
+	<script type="text/javascript" charset="utf-8" src="phonegap-1.2.0.js"></script>
+    <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="jquery.mobile.min.js"></script>
+	<script type="text/javascript" src="jquery.mobile.datebox-1.0.0.min.js"></script>
+	<script type="text/javascript" src="jquery.validate.min.js"></script>
+    <script src="jquery.blockUI.js" type="text/javascript"></script>
+	
+	
+    <link rel="stylesheet" href="jquery.mobile.min.css"/>
+    <link href="peta.min.css" rel="stylesheet" type="text/css" />
+	<link href="jquery.mobile.datebox-1.0.0.min.css" rel="stylesheet"/>
+	
+
+    <script type="text/javascript">
+        jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+        'dateFormat': 'dd.mm.YYYY.',
+        'headerFormat': 'dd.mm.YYYY.'
+        });
+    </script>
+    
+
+    <style type="text/css">
+        label.error { float: none; color: red; padding-left: .5em; vertical-align: top;  }
+    </style>
+
+    <script type="text/javascript">
+
+        var WorkOrderId;
+        var StavkaId;
+        var ItemDeleteType;
+        var ProductMaterialId;
+        var StavkaZaEdit;
+        var NazivKlijenta;
+        var PlaceId;
+        var refRadioExecured;
+        var link = 'http://bi.alphascore.hr/alpha/';
+        var link1 = 'http://localhost/WcfAlphaEvidencijaMobileService/';
+        //$(document).ready(function () {
+            // Load work orders
+            ///*
+            //            $.post(link + 'Mobile/WorkorderList', function (result) {
+            //                var options = '';
+            //                for (var i = 0; i < result.length; i++) {
+            //                    //options = '<option value="' + result[i].Item1 + '">' + result[i].Item2 + '</option>';
+            //                    $('#ListUl').append('<li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-corner-top ui-corner-bottom" data-theme="c"><div class="ui-btn-inner ui-li ui-corner-top" aria-hidden="true"><div class="ui-btn-text"><a onclick="EditAction(' + result[i].Item1 + ')" class="MasterList ui-link-inherit" id="' + result[i].Item1 + '" href="#CreateAndEdit"><table width="100%"><tr><td width="30%"><label id="lDatum' + result[i].Item1 + '">' + result[i].Item3 + '</label></td><td width="70%"><label id="lTvrtka' + result[i].Item1 + '">' + result[i].Item2 + '</label></td></tr></table></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>');
+            //                }
+            //            });
+
+
+
+
+            //            $('#btn').click(function (s, e) {
+            //                // Novi RN 
+            //                $('#lblTvrtkaEdit').show();
+            //                $('#lblDatumEdit').show();
+            //                $('#datum').show();
+            //                $('#tvrtka').show();
+            //            });
+
+            //$("#accordion").accordion();
+
+            //            $('#btn').click(function () {
+            //                $('#lblTvrtka').html("<b>Tvrtka:</b> " + $('#tvrtka').attr('value'));
+            //                $('#lblDatum').html("<b>Datum:</b> " + $('#datum').attr('value'));
+
+            //                $.post('http://silver.demo.local/alpha/Mobile/WorkorderList', function (result) {
+            //                    //$('#select1').attr('<option value="standard">Standard: 7 day</option>')
+            //                    var options = '';
+            //                    for (var i = 0; i < result.length; i++) {
+            //                        options += '<option value="' + result[i].Item1 + '">' + result[i].Item2 + '</option>';
+            //                    }
+            //                    $('#select1').html(options);
+
+            //                });
+
+            //            });
+
+
+
+
+        //});
+
+
+//        $('#Login').live('pageshow', function (event, ui) {
+//            $('#myForm').validate({
+//                rules: {
+//                    userName: "required",
+//                    password: "required",
+//                    RadBrojSati: "number"
+//                },
+//                messages: {
+//                    userName: "Unesite ime",
+//                    password: "Unesite lozinku",
+//                    RadBrojSati: "Unesite broj sati"
+//                }
+//            });
+
+//            $('#Login').validate().element('#userName');
+//            $('#Login').validate().element('#password');
+//        });
+
+     $.validator.addMethod('decimalNumberNull', function (value) { 
+                return (/^[0-9]+(\,[0-9]{1,2})?$/.test(value) || value == null || value == ""); 
+            }, 'Unesite broj na dvije decimale');
+
+
+            $.validator.addMethod('decimalNumber', function (value) { 
+                return /^[0-9]+(\,[0-9]{1,2})?$/.test(value); 
+            }, 'Unesite broj na dvije decimale');
+
+//            $('#myform').submit(function () {
+//                $('input[type=submit]', this).attr('disabled', 'disabled');
+//            });
+
+            function isInt(value) {
+                if ((parseFloat(value) == parseInt(value)) && !isNaN(value)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+
+            function CreateAndEditWorkOrder() {
+                refRadioExecured = false;
+                $("#tvrtka").rules("remove", "required");
+                $("#km").rules("remove", "decimalNumberNull");
+
+                $("#tvrtka").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Odaberite tvrtku"
+                    }
+                });
+
+                $("#km").rules("add", {
+                    decimalNumberNull: true,
+                });
+
+
+                $('#myForm').validate().element('#tvrtka');
+                $('#myForm').validate().element('#km');
+
+              
+              var t = $('#tvrtka').valid();
+              var k = $('#km').valid();
+                
+            if(t && k)
+            {
+                var telefon = $('#telefon').attr('value');
+                var potpisao = $('#potpisao').attr('value');
+                var tvrtka = $('#tvrtka').val();
+                var datum = $('#datum').attr('value');
+                var distance = $('#km').attr('value');
+                var bill = $('#fakDistance').is(':checked');
+
+                var tvrtkaVal = $('#tvrtka').valid();
+                if (tvrtkaVal) {
+                    BlockUI();
+                    $.post(link + 'Mobile/CreateEditWorkorder', { Id: WorkOrderId, subjectId: tvrtka, documentDate: datum, verifierName: potpisao, verifierPhone: telefon, placeId: PlaceId, distance: distance, bill: bill }, function (result) {
+                        if (result.Item1 == 'True') {
+                            WorkOrderId = parseInt(result.Item2);
+                            getWorkOrders();
+                            $('#detaljiUlDiv').show();
+                            $('#materialUlDiv').show();
+                            $('#timeUlDiv').show();
+                        }
+                        UnblockUI();
+
+                        $('#lblTvrtkaEdit').html("<b>Tvrtka:</b> " + $('#tvrtka :selected').text());
+                        //NazivKlijenta = $('#lTvrtka23').html();
+                        $('#lblDatumEdit').html("<b>Datum:</b> " + $('#datum').attr('value'));
+                        //$('#potpisao').attr('value', $('#potpisa' + WorkOrderId).attr('value'));
+                        //$('#telefon').attr('value', $('#VerifierPhone' + WorkOrderId).attr('value'));
+                        $('#lblTvrtkaEdit').show();
+                        $('#lblDatumEdit').show();
+                        //$('#snimi').hide();
+                        $('#email').show();
+                        $('#btnGoToDisplayPage').show();
+                        $('#newWorkorder').hide();
+                        $('#DivTvrtkaSelect').hide();
+                        $('#ShowHideUl').show();
+                    });
+                }
+            }
+
+           
+        }
+
+        
+        function EditAction(workOrderid) {
+
+            WorkOrderId = workOrderid;
+            //$('.MasterList').click(function (s, e) {
+            //var id = this.id;
+            //alert(id);
+            var CustomerId = 0;
+            /* Material */
+            //http: //silver.demo.local/alpha/Mobile/GetMatrialList
+            $('#MaterialUl').children().remove();
+            $('#TimeUl').children().remove();
+
+            if (workOrderid != 0) {
+                BlockUI();
+                $('#ShowHideUl').show();
+                $.post(link + 'Mobile/GetMatrialList', { Id: workOrderid }, function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        //$('#MaterialUl').append('<li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-corner-top ui-corner-bottom" data-theme="c"><div class="ui-btn-inner ui-li ui-corner-top" aria-hidden="true"><div class="ui-btn-text"><hidden id="HFMatNaziv' + result[i].Item1 + '" value="' + result[i].Item3 + '"><hidden id="' + result[i].Item1 + "jm" + '" value="' + result[i].Item4 + '"><a onclick="EditActionMaterial(' + result[i].Item1 + ')"  class="MaterialItemList ui-link-inherit" id="' + result[i].Item1 + '" data-transition="pop" href="#"><table width="100%"><tr><td width="70%" align="left"><b>' + result[i].Item3 + '</td><td width="15%" align="left"><b>' + result[i].Item4 + '</td><td width="15%" align="left"><b>' + result[i].Item5 + '</td></table></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>')
+                        $('#MaterialUl').append('<li><hidden id="HFMatNaziv' + result[i].Item1 + '" value="' + result[i].Item3 + '"></hidden><hidden id="HFMatId' + result[i].Item1 + '" value="' + result[i].Item2 + '"></hidden><a onclick="EditActionMaterial(' + result[i].Item1 + ')"  class="MaterialItemList " id="' + result[i].Item1 + '" data-transition="pop" href="#"><table width="100%"><tr><td width="85%" align="left"><b>' + result[i].Item3 + '</td><td width="15%" align="left"><b>' + result[i].Item5 + '</td></table></a></li>')
+                    }
+                    $('#MaterialUl').listview('refresh');
+                    UnblockUI();
+                });
+                /* Time */
+                $.post(link + 'Mobile/GetTimeList', { Id: workOrderid }, function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        //$('#TimeUl').append('<li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-corner-top ui-corner-bottom" data-theme="c"><div class="ui-btn-inner ui-li ui-corner-top" aria-hidden="true"><div class="ui-btn-text"><hidden id="HFRadNaziv' + result[i].Item1 + '" value="' + result[i].Item3 + '"><a onclick="EditActionTime(' + result[i].Item1 + ')" class="TimeItemList ui-link-inherit" id="' + result[i].Item1 + '" data-transition="pop" href="#CreateAndEditTime"><table width="100%"><tr><td width="70%" align="left"><b>' + result[i].Item3 + '</td><td width="30%" align="left"><b>' + result[i].Item4 + '</td></table></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>')
+                        $('#TimeUl').append('<li><hidden id="HFRadNaziv' + result[i].Item1 + '" value="' + result[i].Item3 + '"></hidden><hidden id="HFRadId' + result[i].Item1 + '" value="' + result[i].Item5 + '"></hidden><a onclick="EditActionTime(' + result[i].Item1 + ')" class="TimeItemList " id="' + result[i].Item1 + '" data-transition="pop" href="#CreateAndEditTime"><table width="100%"><tr><td width="70%" align="left"><b>' + result[i].Item3 + '</td><td width="30%" align="left"><b>' + result[i].Item4 + '</td></table></a></li>')
+                    }
+                    $('#TimeUl').listview('refresh');
+                });
+            }
+            
+            $('#newWorkorder').hide();
+            $('#DivTvrtkaSelect').hide();
+            //$('#lblDatumNew').hide();
+            //$('#lblTvrtkaNew').hide();
+            $('#lblTvrtkaEdit').hide();
+            $('#lblDatumEdit').hide();
+            if (workOrderid != 0) {
+                $('#detaljiUlDiv').show();
+                $('#materialUlDiv').show();
+                $('#timeUlDiv').show();
+                
+                
+                $('#lblTvrtkaEdit').html("<b>Tvrtka:</b> " + $('#lTvrtka' + WorkOrderId).html());
+                NazivKlijenta = $('#lTvrtka23').html();
+                $('#lblDatumEdit').html("<b>Datum:</b> " + $('#lDatum' + WorkOrderId).html());
+                $('#potpisao').attr('value', $('#VerifierName' + WorkOrderId).attr('value'));
+                $('#telefon').attr('value', $('#VerifierPhone' + WorkOrderId).attr('value'));
+                $('#lblTvrtkaEdit').show();
+                $('#lblDatumEdit').show();
+                //$('#snimi').hide();
+                $('#email').show();
+                $('#btnGoToDisplayPage').show();
+                CustomerId = $('#CustomerId' + WorkOrderId).attr('value');
+                $('#datum').attr('value', $('#lDatum23').html());
+                $('#km').attr('value', $('#Distance' + workOrderid).attr('value'));
+//                var bill = $('#IsBilled' + workOrderid).attr('value');
+//                 if (bill == 'True') {
+//                        $("#fakDistance").attr("checked", true).checkboxradio("refresh");
+//                    }
+//                    else {
+//                        $("#fakDistance").attr("checked", false).checkboxradio("refresh");
+//                    }
+                var naziv = $('#PlaceNaziv' + workOrderid).attr('value');
+                if (naziv != null && naziv != "null") {
+                    $('#PlaceId').html($('#PlaceNaziv' + workOrderid).attr('value'));
+                }
+                else {
+                    $('#PlaceId').html('Odaberite');
+                }
+            }
+            else {
+                $('#detaljiUlDiv').show();
+                $('#materialUlDiv').hide();
+                $('#timeUlDiv').hide();
+
+
+                $('#datum').attr('value', TodayDate());
+                $('#newWorkorder').show();
+                $('#DivTvrtkaSelect').show();
+                $('#lblDatumNew').show();
+                $('#lblTvrtkaNew').show();
+                //$('#snimi').show();
+                $('#email').hide();
+                $('#btnGoToDisplayPage').hide();
+                $('#ShowHideUl').hide();
+                $('#potpisao').attr('value', '');
+                $('#telefon').attr('value', '');
+                $('#PlaceId').html('Odaberite');
+                $('#km').attr('value', '');
+                 //$("#fakDistance").attr("checked", false).checkboxradio("refresh");
+                 //$("#fakDistance[type='checkbox']").attr("checked",true).checkboxradio("refresh");
+            }
+            /* napuni select od tvrtke */
+            $.post(link + 'Mobile/GetSubjectsList', function (result) {
+                var options;
+                for (var i = 0; i < result.length; i++) {
+                    options += '<option value="' + result[i].Item1 + '">' + result[i].Item2 + '</option>';
+                }
+                $('#tvrtka').html(options);
+                /* djubre mucko.....refresaj se */
+                var myselect = $("select#tvrtka");
+                myselect.val(CustomerId);
+                myselect.selectmenu("refresh");
+
+            });
+
+//            for (var i = 0; i < 5; i++) {
+//                $('#TimeUl').append('<li><a class="TimeList" id="7" data-transition="pop" href="#CreateAndEditTime"><table width="100%"><tr><td width="35%" align="left"><b>Servis klima uredaja</td><td width="20%" align="left"><b>Alan Ford</td><td width="10%" align="left"><b>25.11.2011.</td><td width="10%" align="right"><b>58</td><td width="15%" align="right"><b>1</td><td width="10%" align="center"><b>Da</td></tr></table></a></li>')
+//            }
+        };
+
+        
+        function refreshTheFuckingRadioBox()
+        {
+            if(refRadioExecured)
+            {
+                return false;
+            }
+            if(WorkOrderId != 0)
+            {
+                var bill = $('#IsBilled' + WorkOrderId).attr('value');
+                if (bill == 'True') {
+                    $("#fakDistance").attr("checked", true).checkboxradio("refresh");
+                }
+                else {
+                    $("#fakDistance").attr("checked", false).checkboxradio("refresh");
+                }
+                refRadioExecured = true;
+            }
+            else
+            {
+                $("#fakDistance").attr("checked", false).checkboxradio("refresh");
+            }
+        }
+
+        function EditActionMaterial(stavkaId) {
+
+            if (stavkaId > 0) {
+                $('#obrisim').show();
+                var unitId = 0;
+                /* edit mode - treba napuniti forme */
+                var proizvodNaziv = $('#HFMatNaziv' + stavkaId).attr('value');
+                $('#materialLbl').html(proizvodNaziv);
+                $('#materialLbl').attr('value', proizvodNaziv);
+                ProductMaterialId = $('#HFMatId' + stavkaId).attr('value');
+                $('#jaffaMaterialId').attr('value', ProductMaterialId); /* hidden field radi validacije - parent element je label */
+                BlockUI();
+                /* nadji unitid i ostalo, al prvo unitid, on treba...a i ostalo.... */
+//                $.post(link + 'Mobile/GetMatrial', { Id: stavkaId }, function (result) {
+//                    // material.ProductId.ToString(), material.ProductUnitId.ToString(), material.ProductAmmount.ToString(), material.IsBillable.ToString()
+//                    unitId = result[1].toString();
+//                    $('#kolicina').attr('value', result[2].toString("n2"));
+//                    if (result[3] == 'True') {
+//                        $("#fak").attr("checked", true).checkboxradio("refresh");
+//                    }
+//                    else {
+//                        $("#fak").attr("checked", false).checkboxradio("refresh");
+//                    }
+//                    UnblockUI();
+//                    $('#myForm').validate().element('#materialLbl');
+//                    $('#myForm').validate().element('#kolicina');
+//                    $('#myForm').validate().element('#jm');
+//                });
+   $.getJSON(link1 + "TestService.svc/GetMatrial",{ Id: stavkaId },
+  function (rez) {
+                     //material.ProductId.ToString(), material.ProductUnitId.ToString(), material.ProductAmmount.ToString(), material.IsBillable.ToString()
+                    var result = rez.d;
+                    unitId = result[1].toString();
+                    $('#kolicina').attr('value', result[2].toString("n2"));
+                    if (result[3] == 'True') {
+                        $("#fak").attr("checked", true).checkboxradio("refresh");
+                    }
+                    else {
+                        $("#fak").attr("checked", false).checkboxradio("refresh");
+                    }
+                    UnblockUI();
+                    $('#myForm').validate().element('#materialLbl');
+                    $('#myForm').validate().element('#kolicina');
+                    $('#myForm').validate().element('#jm');
+                });
+
+//  $.getJSON(link1 + "WcfDataService1.svc/Projects_MaterialTrackingLog(" +  stavkaId + ")" ,
+//  function (rez) {
+//                    // material.ProductId.ToString(), material.ProductUnitId.ToString(), material.ProductAmmount.ToString(), material.IsBillable.ToString()
+//                    var result = rez.d;
+//                    unitId = result.ProductUnitId.toString();
+//                    $('#kolicina').attr('value', result.ProductAmmount.toString("n2"));
+//                    if (result.IsBillable == true) {
+//                        $("#fak").attr("checked", true).checkboxradio("refresh");
+//                    }
+//                    else {
+//                        $("#fak").attr("checked", false).checkboxradio("refresh");
+//                    }
+//                    UnblockUI();
+//                    $('#myForm').validate().element('#materialLbl');
+//                    $('#myForm').validate().element('#kolicina');
+//                    $('#myForm').validate().element('#jm');
+//                });
+
+//                  $.ajax({
+//                    type          : "POST", //GET or POST or PUT or DELETE verb
+//                    url           : "http://localhost/WcfAlphaEvidencijaMobileService/TestService.svc/GetMatrial",// Location of the service
+//                    data          : '{"Id": "' + stavkaId + '"}', //Data sent to server
+//                    contentType   : "application/json; charset=utf-8", // content type sent to server
+//                    dataType      : "json", //Expected data format from server
+//                    processdata   : true, //True or False
+//                    success       : function (rez) {
+//                    // material.ProductId.ToString(), material.ProductUnitId.ToString(), material.ProductAmmount.ToString(), material.IsBillable.ToString()
+//                    var result = rez.d;
+//                    unitId = result[1].toString();
+//                    $('#kolicina').attr('value', result[2].toString("n2"));
+//                    if (result[3] == 'True') {
+//                        $("#fak").attr("checked", true).checkboxradio("refresh");
+//                    }
+//                    else {
+//                        $("#fak").attr("checked", false).checkboxradio("refresh");
+//                    }
+//                    UnblockUI();
+//                    $('#myForm').validate().element('#materialLbl');
+//                    $('#myForm').validate().element('#kolicina');
+//                    $('#myForm').validate().element('#jm');
+//                }
+////                    error: Error()// When Service call fails
+//                });
+
+
+            }
+            else {
+                $('#materialLbl').html("Odaberite"); // inset mode - naziv materijala nema
+                $('#materialLbl').attr('value', ''); // inset mode - naziv materijala nema
+                //$("#fak").attr("checked", true).checkboxradio("refresh");
+                $('#kolicina').attr('value', '');
+                $('#obrisim').hide();
+                ProductMaterialId = 0;
+                $('#jaffaMaterialId').attr('value', null);
+            }
+            /* napuni select s unitima */
+            $.post(link + 'Mobile/GetUnitsList', function (result) {
+                var options;
+                for (var i = 0; i < result.length; i++) {
+                    options += '<option value="' + result[i].Item1 + '">' + result[i].Item2 + '</option>';
+                }
+                $('#jm').html(options);
+                /* djubre mucko.....refresaj se */
+                var myselect = $("select#jm");
+                myselect.val(unitId)
+                myselect.selectmenu("refresh");
+
+            });
+            StavkaId = stavkaId;
+            window.location.replace("#CreateAndEditMaterial");
+        };
+
+
+        function EditActionMaterialSave() {
+            if (WorkOrderId == null || StavkaId == null) {
+                return false;
+            }
+
+            $('#materialLbl').rules("remove", "required");
+            //$("#jaffaMaterialId").rules("remove", "required");
+            $("#kolicina").rules("remove", "required decimalNumber");
+            $("#jm").rules("remove", "required");
+
+            $("#kolicina").rules("add", {
+                required: true,
+                decimalNumber: true,
+                messages: {
+                    required: "Unesite količinu"
+                }
+            });
+
+            $("#materialLbl").rules("add", {
+                required: true,
+                messages: {
+                    required: "Odaberite materijal"
+                }
+            });
+
+            $("#jm").rules("add", {
+                required: true,
+                messages: {
+                    required: "Odaberite jedinicu mjere"
+                }
+            });
+
+
+
+            $('#myForm').validate().element('#materialLbl');
+            $('#myForm').validate().element('#kolicina');
+            $('#myForm').validate().element('#jm');
+
+            var matIdVal = $('#materialLbl').valid();
+            var kolVal = $('#kolicina').valid();
+            var jmVal = $('#jm').valid();
+            if (matIdVal && kolVal && jmVal) {
+
+                var material = $('#materialLbl').text();
+                var jm = $('#jm').val();
+                var kol = $('#kolicina').attr('value');
+                var fak = $('#fak').is(':checked');
+                $.post(link + 'Mobile/CreateEditMaterial', { Id: StavkaId, workorderId: WorkOrderId, productId: ProductMaterialId, productUnitId: jm, productAmmount: kol, isBillable: fak }, function (result) {
+
+                });
+                EditAction(WorkOrderId);
+                window.location.replace("#CreateAndEdit");
+            }
+        };
+
+
+
+        function EditActionTime(stavkaId) {
+            //            $('#myForm').validate({
+            //                rules: {
+            //                    RadKolicina: "required",
+            //                    RadBrojSati: "required"
+            //                },
+            //                messages: {
+            //                    RadKolicina: "Unesite količinu",
+            //                    RadBrojSati: "Unesite broj sati"
+            //                }
+            //            });
+          
+            var IzvrsiteljId = 0;
+            if (stavkaId > 0) {
+                /* edit mode - treba napuniti forme */
+                $('#obrisi').show();
+                var radNaziv = $('#HFRadNaziv' + stavkaId).attr('value');
+                $('#lblRad').html(radNaziv);
+                ProductMaterialId = $('#HFRadId' + stavkaId).attr('value');
+                $('#jaffaRadId').attr('value', ProductMaterialId);
+                BlockUI();
+                /* nadji unitid i ostalo, al prvo unitid, on treba...a i ostalo.... */
+                $.post(link + 'Mobile/GetTime', { Id: stavkaId }, function (result) {
+                    // time.MDEntities_ServiceId.ToString(), time.MDSubjects_SubjectTeamMemberId.ToString(), time.ActivityDate.ToString(), time.Hours.ToString(), time.Quantity.ToString(), time.IsBillable.ToString()
+                    $('#RadDatum').attr('value', result[2]);
+                    $('#RadBrojSati').attr('value', result[3]);
+                    $('#RadKolicina').attr('value', result[4])
+                    IzvrsiteljId = result[1];
+                    if (result[5] == 'True') {
+                        $("#Radfak").attr("checked", true).checkboxradio("refresh");
+                    }
+                    else {
+                        $("#Radfak").attr("checked", false).checkboxradio("refresh");
+                    }
+                    UnblockUI();
+                    $('#myForm').validate().element('#RadKolicina');
+                    $('#myForm').validate().element('#RadBrojSati');
+                    $('#myForm').validate().element('#RadDatum');
+                    $('#myForm').validate().element('#lblRad');
+                    
+                });
+            }
+            else {
+                $('#lblRad').html("Odaberite"); // inset mode - naziv materijala nema
+                $('#lblRad').attr('value', '');
+                //$("#Radfak").attr("checked", true).checkboxradio("refresh");
+                $('#RadDatum').attr('value', TodayDate());
+//                $('#RadDatum').datepicker({
+//                defaultPickerValue:'+0'
+//                });  
+                $('#RadBrojSati').attr('value', '');
+                $('#RadKolicina').attr('value', '');
+                $('#obrisi').hide();
+                ProductMaterialId = 0;
+                $('#jaffaRadId').attr('value', null);
+            }
+            /* napuni select s Employees-ima - Izvrsitelj */
+            $.post(link + 'Mobile/GetEmployeesList', function (result) {
+                var options;
+                for (var i = 0; i < result.length; i++) {
+                    options += '<option value="' + result[i].Item1 + '">' + result[i].Item2 + '</option>';
+                }
+                $('#RadIzvrsitelj').html(options);
+                var myselect = $("select#RadIzvrsitelj");
+                myselect.val(IzvrsiteljId);
+                myselect.selectmenu("refresh");
+            });
+            
+            /* djubre mucko.....refresaj se */
+            
+            StavkaId = stavkaId;
+            window.location.replace("#CreateAndEditTime");
+        };
+
+
+        function TodayDate() {
+            var myDate = new Date();
+            var prettyDate = (myDate.getMonth() + 1) + '.' + myDate.getDate() + '.' + myDate.getFullYear() + ".";
+            return prettyDate;
+        }
+
+        function EditActionTimeSave() {
+            if (WorkOrderId == null) {
+                return false;
+            }
+
+            $('#lblRad').rules("remove", "required");
+            $("#RadKolicina").rules("remove", "required decimalNumber");
+            $("#RadBrojSati").rules("remove", "required decimalNumber");
+            $("#RadDatum").rules("remove", "required");
+            
+                $("#RadKolicina").rules("add", {
+                 required: true,
+                 decimalNumber: true,
+                 messages: {
+                   required: "Unesite količinu"
+                }
+            });
+
+                  $("#RadBrojSati").rules("add", {
+                 required: true,
+                 decimalNumber: true,
+                 messages: {
+                   required: "Unesite broj sati"
+                }
+           });
+
+           $("#RadDatum").rules("add", {
+               required: true,
+               messages: {
+                   required: "Unesite datum"
+               }
+           });
+
+
+           $("#lblRad").rules("add", {
+                required: true,
+                messages: {
+                    required: "Odaberite uslugu"
+                }
+            });
+
+            $('#myForm').validate().element('#RadKolicina');
+            $('#myForm').validate().element('#RadBrojSati');
+            $('#myForm').validate().element('#RadDatum');
+            $('#myForm').validate().element('#lblRad');
+            
+
+            var radKol = $('#RadKolicina').valid();
+            var radSati = $('#RadBrojSati').valid();
+            var radDatum = $('#RadDatum').valid();
+            var usluga = $('#lblRad').valid();
+            if (radSati && radKol && radDatum && usluga) {
+                var rad = $('#lblRad').attr('value');
+                var izvr = $('#RadIzvrsitelj').val();
+                var datum = $('#RadDatum').attr('value');
+                var brsati = $('#RadBrojSati').attr('value');
+                var kol = $('#RadKolicina').attr('value');
+                var fak = $('#Radfak').is(':checked');
+                $.post(link + 'Mobile/CreateEditTime', { Id: StavkaId, workorderId: WorkOrderId, serviceId: ProductMaterialId, subjectTeamMemberId: izvr, activityDate: datum, hours: brsati, quantity: kol, isBillable: fak }, function (result) {
+                });
+                EditAction(WorkOrderId);
+                window.location.replace("#CreateAndEdit");
+            }
+
+        }
+
+
+        function LogInMob() {
+         $('#myForm').validate({
+                rules: {
+                    userName: "required",
+                    password: "required"
+                },
+                messages: {
+                    userName: "Unesite ime",
+                    password: "Unesite lozinku"
+                }
+            });
+            $('#myForm').validate().element('#userName');
+            $('#myForm').validate().element('#password');
+        if ($('#userName').valid() && $('#password').valid()) {
+                BlockUI();
+                var usName = $('#userName').attr('value');
+                var pass = $('#password').attr('value');
+                $.post(link + 'Account/MobileLogIn', { UserName: usName, Password: pass }, function (result) {
+                    if (result[0] == 'True') {
+                        $('#lblPassError').text('');
+                        getWorkOrders();
+                        window.location.replace("#List");
+                    }
+                    else {
+                        var mess = result[1];
+                        $('#lblPassError').text(mess);
+                    }
+                    UnblockUI();
+                });
+            }
+        }
+
+        function LogOff() {
+            BlockUI();
+            $.post(link + 'Account/MobileLogOff', function (result) {
+                window.location.replace("#Login");
+                UnblockUI();
+            });
+        }
+
+
+        function getWorkOrders() {
+            BlockUI();
+            $.post(link + 'Mobile/WorkorderList', function (result) {
+                var options = '';
+                $('#ListUl').children().remove();
+                for (var i = 0; i < result.length; i++) {
+                    //options = '<option value="' + result[i].Item1 + '">' + result[i].Item2 + '</option>';
+                    $('#ListUl').append('<li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-corner-top ui-corner-bottom" data-theme="c"><div class="ui-btn-inner ui-li ui-corner-top" aria-hidden="true"><div class="ui-btn-text"><hidden id="VerifierPhone' + result[i].Item1 + '" value="' + result[i].Item5 + '"></hidden><hidden id="CustomerId' + result[i].Item1 + '" value="' + result[i].Item6 + '"></hidden><hidden id="Distance' + result[i].Item1 + '" value="' + result[i].Item7 + '"></hidden><hidden id="PlaceId' + result[i].Item1 + '" value="' + result[i].Rest.Item1 + '"></hidden><hidden id="PlaceNaziv' + result[i].Item1 + '" value="' + result[i].Rest.Item2 + '"><hidden id="IsBilled' + result[i].Item1 + '" value="' + result[i].Rest.Item3 + '"></hidden><hidden id="VerifierName' + result[i].Item1 + '" value="' + result[i].Item4 + '"></hidden><a onclick="EditAction(' + result[i].Item1 + ')" class="MasterList ui-link-inherit" id="' + result[i].Item1 + '" href="#CreateAndEdit"><table width="100%"><tr><td width="30%"><label id="lDatum' + result[i].Item1 + '">' + result[i].Item3 + '</label></td><td width="70%"><label id="lTvrtka' + result[i].Item1 + '">' + result[i].Item2 + '</label></td></tr></table></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span></div></li>');
+                }
+                UnblockUI();
+            });
+        }
+
+        function DeleteItem() {
+            var link2 = "Mobile/DeleteTime";
+            if (ItemDeleteType == "material") {
+                link2 = "Mobile/DeleteMaterial";
+            }
+            BlockUI();
+            $.post(link + link2, { Id: StavkaId }, function (result) {
+                EditAction(WorkOrderId);
+                window.location.replace("#CreateAndEdit");
+                if (result != true) {
+                    Error();
+                }
+                UnblockUI();
+            });
+        }
+
+        function SetItemDeleteType(type) {
+            ItemDeleteType = type;
+        }
+
+        var index = 0;
+        function GetProductList(who) {
+            /* 
+                StavkaZaEdit = 0 -> material(product)
+                StavkaZaEdit = 1 -> rad            
+                
+            */
+            $('#GetProductListUl').children().remove();
+            var actionResult = "Mobile/GetProductList";
+            var linkBack = "#CreateAndEditMaterial";
+            if (StavkaZaEdit == 1) {
+                actionResult = "Mobile/GetServiceList";
+                linkBack = "#CreateAndEditTime";
+            }
+            else if (StavkaZaEdit == 2) {
+                actionResult = "Mobile/GetPlaces"; 
+                linkBack = "#CreateAndEdit";
+            }
+            
+            if (who == 'btn') {
+                index = 0;
+            }
+            
+            var search = $('#GetProductListSearch').attr('value');
+            if (search.length < 2) {
+                return;
+            }
+            //ClearSearchDialog(StavkaZaEdit);
+			BlockUI();
+            $.post(link + actionResult, { index: index, search: search }, function (result) {
+                var options = '';
+                if (result.length > 0) {
+                    if(result.length == 10)
+                    {
+                         $('#btnGetMoreProductList').show();
+                    }
+                    else
+                    {
+                         $('#btnGetMoreProductList').hide();
+                    }
+                    
+                    
+                    for (var i = 0; i < result.length; i++) {
+                        var arg = result[i].Item1 + ',\'' + result[i].Item2 + '\'';
+                        $('#GetProductListUl').append('<li><a href="' + linkBack + '" onclick="SetSelectedproduct(' + arg + ');">' + result[i].Item2 + '</a></li>');
+                    }
+                    $('#GetProductListUl').listview('refresh');
+                }
+                else {
+                    $('#btnGetMoreProductList').hide();
+                    $('#lblSearch').html('Nema razultata');
+                }
+
+                UnblockUI();
+            });
+            
+        }
+
+
+        function GetMoreProductList() {
+            index = index + 10;
+             $('#btnGetPreviousProductList').show();
+            GetProductList('fn');
+        }
+
+        function GetPreviousProductList() {
+            if (index > 10) {
+                index = index - 10;
+                $('#btnGetPreviousProductList').show();
+            }
+            else {
+                index = 0;
+                $('#btnGetPreviousProductList').hide();
+            }
+            GetProductList('fn');
+        }
+
+        function SetSelectedproduct(productMaterialId, productMaterialName) {
+            /* 
+            StavkaZaEdit = 0 -> material(product)
+            StavkaZaEdit = 1 -> rad            
+            */
+            //$('.ui-dialog').dialog('close');
+            if (StavkaZaEdit == 0) {
+                $('#materialLbl').attr('value', productMaterialName);
+                $('#materialLbl').html(productMaterialName);
+                ProductMaterialId = productMaterialId;
+                $('#myForm').validate().element('#materialLbl');
+            }
+            else if (StavkaZaEdit == 1) {
+                $('#lblRad').attr('value', productMaterialName);
+                $('#lblRad').html(productMaterialName);
+                ProductMaterialId = productMaterialId;
+                $('#myForm').validate().element('#lblRad');
+            }
+            else {
+                $('#PlaceId').html(productMaterialName);
+                PlaceId = productMaterialId;
+            }
+            
+        }
+
+
+        function ClearSearchDialog(what) {
+            /* 
+            what = 0 -> material(product)
+            what = 1 -> rad     
+            what = 2 -> PlaceId          
+            */
+            StavkaZaEdit = what;
+            $('#lblSearch').html("");
+            $('#GetProductListUl').children().remove();
+            $('#GetProductListSearch').attr('value', '');
+            index = 0;
+            $('#btnGetPreviousProductList').hide();
+        }
+
+        function BackFromSearch() {
+            /* 
+            StavkaZaEdit = 0 -> material(product)
+            StavkaZaEdit = 1 -> rad            
+            StavkaZaEdit = 2 -> PlaceId     
+            */
+            if (StavkaZaEdit == 0) {
+                window.location.replace("#CreateAndEditMaterial");
+            }
+            else if (StavkaZaEdit == 1) {
+                window.location.replace("#CreateAndEditTime");
+            }
+            else {
+                window.location.replace("#CreateAndEdit");
+            }
+        }
+
+        function Error() {
+            alert("Doslo je do pogreske");
+                }
+
+        function BlockUI() {
+                $.blockUI({
+                    message: '<h2>Samo trenutak...</h2>',
+                    fadeIn: 700,
+                    css: {
+                        left: ($(window).width() - 220) / 2 + 'px',
+                        width: '200px',
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        opacity: .5,
+                        color: '#fff'
+                    }
+                });
+        }
+
+        function UnblockUI() {
+          $.unblockUI({
+                    fadeOut: 700
+                });
+        }
+
+
+        function Email() {
+            var To = $('#SmtpTo').attr('value');
+            var Sub = $('#SmtpSubject').attr('value');
+            var Body = $('#SmtpBody').attr('value');
+            $.post(link + 'Mobile/SendReportByEmail', { Id: WorkOrderId, SendTo: To, Subject: Sub, Body: Body, ClientName: NazivKlijenta }, function (result) {
+                if (result == 'Ok') {
+                    $('#emailStatus').html('<b><font-color="#0C963C">Poruka je poslana</b></font>');
+                }
+                else {
+                    $('#emailStatus').html('Greska pri slanju');
+                }
+            });
+        }
+
+        function ClearEmailStatus() {
+            $('#emailStatus').html('');
+        }
+
+        
+        function resizeIframe() {
+            var height = document.documentElement.clientHeight;
+            height -= document.getElementById('iframe').offsetTop;
+            // not sure how to get this dynamically
+            height -= 60; /* whatever you set your body bottom margin/padding to be */
+
+            document.getElementById('iframe').style.height = height +"px";
+            //$('#pdfDiv').attr('height', height + "px");
+            //return height + "px";
+       };
+            
+      
+        function DisplayPdf() {
+            $('#iframe').attr('src', link + 'Mobile/GeneratePdf?Id=' + WorkOrderId);
+            document.getElementById('iframe').onload = resizeIframe();
+            //window.onresize = resizeIframe();
+            window.location.replace("#DisplayPdf");
+            //var el = $('#pdfDiv')
+                //var success = new PDFObject({ url: link + 'Mobile/GeneratePdf?Id=' + WorkOrderId, height: resizeIframe()  }).embed('pdfDiv'); 
+                  //      window.location.replace("#DisplayPdf")
+        }
+
+        function refradio()
+        {
+            refRadioExecured = false;
+        }
+  
+
+//        function DisplayPdf2() {
+//            //            $('#iframe').attr('src', link + 'Mobile/GeneratePdf?Id=' + WorkOrderId);
+//            //document.getElementById('pdfDiv').onload = resizeIframe();
+//            //window.onresize = resizeIframe();
+//            //window.location.replace("#DisplayPdf");
+//            //var el = $('#pdfDiv')
+//            //var success = new PDFObject({ url: link + 'Mobile/GeneratePdf?Id=' + WorkOrderId, height: resizeIframe() }).embed('pdfDiv');
+//            $('#emb').attr('src', link + 'Mobile/GeneratePdf?Id=' + WorkOrderId);
+//            $('#emb').attr('height', resizeIframe());
+//            window.location.replace("#test");
+//        }
+
+
+//        function DisplayPdf3() {
+//            window.open(link + 'Mobile/GeneratePdf?Id=' + WorkOrderId, '_blank');
+//        }
+
+     
+
+
+    </script>
+
+
+</head> 
+
+<body> 
+
+
+<form id="myForm" method="get">
+<!-- Start of login page -->
+<div data-role="page" id="Login">
+
+	<div data-role="header">
+		<h1>Prijava korisnika</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<!--<p>Page Foo.</p>	-->
+        <table width="100%">
+        <tr>
+		<td width="10%"><label id="lUserName" for="userName"><b>Korisničko ime:</label></td>
+        <td width="90%"><input id="userName" type="text" name="userName"/></td>
+		</tr><tr>
+		<td width="10%"><label Id="lPassword" for="password"><b>Lozinka:</label></td>
+        <td width="90%"><input id="password" type="password" name="password"/></td>
+		</tr>
+        </table>
+
+           
+  
+       <div>
+        <label id="lblPassError" style="color: Red"></label>
+       </div>
+
+      <!--  <a id="prijava" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c" data-transition="slide" data-role="button" onclick="LogInMob()" href="#" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Prijava</span>
+        </span>
+        </a>-->
+        <p style="width:150px"><a href="#" onclick="LogInMob()" data-role="button">Prijava</a></p>    
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+
+		<h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+<!-- Start of first page -->
+<div data-role="page" id="List">
+
+	<div data-role="header">
+		<h1>Radni nalozi</h1>
+         <a href="#" onclick="LogOff()" data-role="button" data-icon="delete" data-iconpos="left">Izlaz</a>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<!--<p>Page Foo.</p>	-->
+        	
+        
+	    <table width="100%" style="background-color: #ffffff"><tr><td width="30%"><b>Datum</td><td width="70%"><b>Tvrtka</td></tr></table><br>
+        <ul id="ListUl" data-role="listview" data-theme="c" data-inset="true" data-filter="true">
+	        <!--<li><a class="MasterList" id="7" href="#CreateAndEdit"><table width="100%"><tr><td width="30%">25.11.2011</td><td width="70%">Alphascore d.o.o.</td></tr></table></a></li>-->
+	        <!--<li><a class="MasterList" id="3" href="#CreateAndEdit"><table width="100%"><tr><td width="30%">24.11.2011</td><td width="70%">Demo informatica d.o.o.</td></tr></table></a></li>
+            <li><a class="MasterList" id="9" href="#CreateAndEdit"><table width="100%"><tr><td width="30%">23.11.2011</td><td width="70%">Developer Express inc. d.o.o.</td></tr></table></a></li>
+            <li><a class="MasterList" id="1" href="#CreateAndEdit"><table width="100%"><tr><td width="30%">21.11.2011</td><td width="70%">Google d.o.o.</td></tr></table></a></li>-->
+        </ul>
+
+        
+        <a id="btn" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c" data-transition="slide"  data-inline="true" data-role="button" onclick="EditAction(0)" href="#CreateAndEdit" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Novi</span>
+        </span>
+        </a>
+
+           <a id="A2" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c" data-transition="slide"  data-inline="true" data-role="button" onclick="getWorkOrders()" href="#" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Refresh</span>
+        </span>
+        </a>
+	</div><!-- /content -->
+
+	<div data-role="footer">
+
+		<h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+<!-- Start of NEW page -->
+<div data-role="page" id="ConfirmDelete">
+
+	<div data-role="header">
+		<h1>Obrisati stavku</h1>
+        
+	</div><!-- /header -->
+
+	<div data-role="content">
+		
+
+        <a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"   onclick="DeleteItem()" data-inline="true" data-role="button"  href="#" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Da</span>
+        </span>
+        </a>
+
+
+           <a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"  data-inline="true" data-role="button" " href="javascript: history.go(-1)"" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Ne</span>
+        </span>
+        </a>
+	
+
+	    </div><!-- /content -->
+
+	    <div data-role="footer">
+
+		<h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+<!-- Start of NEW page -->
+<div data-role="page" id="DisplayPdf">
+
+	<div data-role="header">
+        <h1>RN</h1>
+        <a href="#CreateAndEdit"  data-role="button" data-icon="search" >Zatvori</a>
+	</div><!-- /header -->
+
+    
+	<div id="iFrameContainer" data-role="content">
+		
+    
+
+
+
+
+        <iframe  id="iframe" src="" width="100%" height="100%">
+  
+        </iframe> 
+    
+	
+
+	    </div><!-- /content -->
+
+	    <div data-role="footer">
+
+		<h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+<!-- Start of NEW page -->
+<div data-role="page" id="test">
+
+	<div data-role="header">
+        <h1>RN</h1>
+        <a href="#CreateAndEdit"  data-role="button" data-icon="search" >Zatvori</a>
+	</div><!-- /header -->
+
+    
+	<div id="pdfDiv2" data-role="content">
+		
+    <embed id="emb" type="application/pdf" width="100%" height="800" src="#" />
+
+	    </div><!-- /content -->
+
+	   <div data-role="footer">
+
+		<h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+<!-- Start of NEW page -->
+<div data-role="page" id="GetProductList">
+
+	<div data-role="header">
+    
+  <div data-role="fieldcontain">
+            <br />
+            <label for="name">Search:</label>
+            <input type="text" name="GetProductListSearch" id="GetProductListSearch" data-theme="c" />
+            <a href="#" data-role="button" data-icon="search" onclick="GetProductList('btn')">Trazi</a>
+            <a href="#" onclick="BackFromSearch()" data-role="button" data-icon="search" >Zatvori</a>
+        </div>	
+		
+	</div><!-- /header -->
+
+	<div data-role="content">
+		
+        
+        <label id="lblSearch"></label>
+
+       <ul id="GetProductListUl" data-role="listview" data-theme="c" data-inset="true" data-filter="false" data-icon="">
+	       
+       </ul>
+       
+       <div data-role="fieldcontain">
+            <a href="#" data-role="button" id="btnGetMoreProductList" data-icon="search" onclick="GetMoreProductList()">Slijedeci</a>
+            </div>	
+
+            <div data-role="fieldcontain">
+            <a href="#" data-role="button" id="btnGetPreviousProductList" data-icon="search" onclick="GetPreviousProductList()">Prethodni</a>
+            </div>
+	
+
+	    </div><!-- /content -->
+
+	   <div data-role="footer">
+        <h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+        
+        
+       </div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!-- Start of NEW page -->
+<div data-role="page" id="Email">
+
+	<div data-role="header">
+		<h1>Radni nalozi</h1>
+        
+	</div><!-- /header -->
+   
+    
+	<div data-role="content">
+		<!-- Edit -->
+        
+        <label id="emailStatus"></label>
+
+		<label for="SmtpTo"><b>Email:</b></label>
+        <input type="text" name="SmtpTo" id="SmtpTo" value=""  />
+
+        <label for="SmtpSubject"><b>Subject:</b></label>
+        <input type="text" name="SmtpSubject" id="SmtpSubject" value=""  />
+
+        <label for="SmtpBody-a"><b>Text:</b></label>
+        <textarea name="SmtpBody" id="SmtpBody">
+        </textarea>
+
+        <a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"   data-inline="true" data-role="button" onclick="Email()" href="#" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Posalji</span>
+        </span>
+        </a>
+	    
+		
+	    <a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"   data-inline="true" data-role="button"  href="#CreateAndEdit" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Odustani</span>
+        </span>
+        </a>
+	
+	</div><!-- /content -->
+
+	<div data-role="footer">
+        <h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+        
+        
+       </div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+<div data-role="page" id="CreateAndEditMaterial">
+
+	<div data-role="header">
+		<h1>Nova stavka materijala</h1>
+        <a href="#" onclick="LogOff()" data-role="button" data-icon="delete" data-iconpos="left">Izlaz</a>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+
+		<table width="100%">
+		<tr>
+		<td width="10%"><label id="lMaterial" for="material"><b>Materijal:</b></label></td>
+        <td width="90%">
+        <!--<select id="material" name="material">
+		  <option value="volvo">Volvo</option>
+		  <option value="saab">Saab</option>
+		  <option value="mercedes">Mercedes</option>
+		  <option value="audi">Audi</option>
+		</select> -->
+        <!--<input onclick="GetProductList()" id="material" name="material" type="text" /><hidden id="materialHidden">-->
+        <!--<a href="#GetProductList" data-rel="dialog" data-transition="pop">Pero</a> -->
+        <a class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-b" data-theme="b" data-transition="pop" onclick="ClearSearchDialog(0)" data-role="button" href="#GetProductList">
+        <span class="ui-btn-inner ui-btn-corner-all">
+        <span class="ui-btn-text"><label id="materialLbl">Odaberite</label></span>
+        </span>
+        </a>
+        
+        </td>
+		</tr>
+
+        <!-- requested by jaffa, validation purposes -->
+        <tr>
+        <td width="10%"></td>
+        <td width="90%">
+        <hidden id="jaffaMaterialId"></hidden>
+		</td>
+        </tr>
+        <!-- end of request -->
+
+        <tr>
+        <td width="10%"><label id="lJm" for="jm"><b>Jedinica mejere:</b></label></td>
+        <td width="90%">
+        <select name="jm" id="jm"></select>
+        
+		</td>
+        </tr>
+        <tr>
+		<td width="10%"><label for="kolicina"><b>Kolicina:</label></td>
+        <td width="90%"><input id="kolicina" type="text" name="kolicina"/></td>
+		</tr><tr>
+		<td width="100%" colspan="2">
+		
+		<!--<div id="replacefak"></div>-->
+        <label for="fak">Fakturirati</label>
+        <input type="checkbox" name="fak" id="fak" class="custom" />
+        </td>
+		</tr></table>
+
+       
+		<a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"  onclick="EditActionMaterialSave()" data-inline="true" data-role="button" href="#" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Snimi</span>
+        </span>
+        </a>
+
+
+		<a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"   data-inline="true" data-role="button" href="#CreateAndEdit" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Odustani</span>
+        </span>
+        </a>	
+
+        	<a id="obrisim" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"  data-rel="dialog" data-transition="pop" data-inline="true"  onclick="SetItemDeleteType('material')" href="#ConfirmDelete" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Obrisi</span>
+        </span>
+        </a>
+        
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+        <h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+        
+        
+       </div><!-- /footer -->
+</div><!-- /page -->
+
+<div data-role="page" id="CreateAndEditTime">
+
+	<div data-role="header">
+		<h1>Nova stavka vremena</h1>
+        <a href="#" onclick="LogOff()" data-role="button" data-icon="delete" data-iconpos="left">Izlaz</a>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		
+        <table width="100%">
+		<tr>
+		<td width="10%"><label id="lRad" for="material"><b>Rad:</label></td>
+        <td width="90%">
+        
+        
+           <a class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-b" data-theme="b" data-transition="pop" onclick="ClearSearchDialog(1)" data-role="button" href="#GetProductList">
+        <span class="ui-btn-inner ui-btn-corner-all">
+        <span class="ui-btn-text"><label id="lblRad">Odaberite</label></span>
+        </span>
+        </a>
+        </td>
+		</tr>
+        
+        
+           <!-- requested by jaffa, validation purposes -->
+        <tr>
+        <td width="10%"></td>
+        <td width="90%">
+        <hidden id="jaffaRadId"></hidden>
+		</td>
+        </tr>
+        <!-- end of request -->
+        
+        
+        <tr>
+        <td width="10%"><label id="lIzvrsitelj" for="jm"><b>Izvrsitelj:</label></td>
+        <td width="90%">
+        
+		  <select name="RadIzvrsitelj" id="RadIzvrsitelj">
+	        </select>
+		</td>
+		</tr><tr>
+		<td width="10%"><label for="lDatum1"><b>Datum:</label></td>
+        <td width="90%"><input id="RadDatum" type="date" name=" RadDatum"data-role="datebox" data-options='{"mode": "flipbox", "disableManualInput": true}'/></td>
+		</tr><tr>
+		<td width="10%"><label for="lBrojsati"><b>Broj sati:</label></td>
+        <td width="90%"><input id="RadBrojSati" type="text" name="RadBrojSati"></td>
+		</tr><tr>
+		<td width="10%"><label for="lKolicina"><b>Kolicina:</label></td>
+        <td width="90%"><input id="RadKolicina" type="text" name="RadKolicina"></td>
+		</tr><tr>
+
+        <td width="100%" colspan="2">
+        <label for="Radfak">Fakturirati</label>
+        <input type="checkbox" name="Radfak" id="Radfak" class="custom" />
+        </td>
+		</tr></table>
+		
+		
+		<a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c" onclick="EditActionTimeSave()"  data-inline="true" data-role="button" href="#" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Snimi</span>
+        </span>
+        </a>
+
+
+		<a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c" data-inline="true" data-role="button" href="#CreateAndEdit" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Odustani</span>
+        </span>
+        </a>
+		
+          	<a id="obrisi" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"   data-transition="pop" data-inline="true"  onclick="SetItemDeleteType('time')" href="#ConfirmDelete" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Obrisi</span>
+        </span>
+        </a>
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+        <h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+        
+        
+       </div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!-- Start of NEW page -->
+<div data-role="page" id="CreateAndEdit">
+
+	<div data-role="header">
+		<h1>Radni nalozi</h1>
+        <a href="#" onclick="LogOff()" data-role="button" data-icon="delete" data-iconpos="left">Izlaz</a>
+	</div>
+	<div data-role="content">
+		<!-- Edit -->
+        
+		<p><label id="lblTvrtkaEdit"></label></p>		
+        <p><label id="lblDatumEdit"></label></p>
+
+       
+		<!-- Create -->
+        <div id="newWorkorder">
+		
+        </div>
+        <div id="DivTvrtkaSelect">
+        
+        </div>
+       
+        
+
+        
+
+
+        <div id="detaljiUlDiv" data-role="collapsible-set">
+
+
+        <div data-role="collapsible" data-collapsed="true" onclick="refreshTheFuckingRadioBox()">
+	    <h3>Detalji</h3>
+        <ul id="detaljiUl" data-role="listview" data-theme="c" data-inset="true" data-filter="false">
+	    <table width="100%">
+        <tr><td width="10%">
+        <label style="float:left" id="lblTvrtkaNew" for="tvrtka"><b>Tvrtka:</label>
+        </td><td width="90%">
+        <select style="float:left" name="tvrtka" id="tvrtka"></select>
+        </td></tr>
+        <tr><td width="10%">
+        <label id="lblDatumNew" for="datum"><b>Datum:</label>
+        </td><td width="90%">
+        <input id="datum" type="date" name="datum" data-role="datebox" data-options='{"mode": "flipbox", "disableManualInput": true}'/>
+        </td></tr>
+        <tr><td width="10%">
+        <label for="basic"><b>Potpisao:</b></label>
+        </td><td width="90%">
+        <input type="text" name="potpisao" id="potpisao" value=""  />
+        </td></tr>
+        <tr><td width="10%">
+        <label for="basic"><b>Tel:</b></label>
+        </td><td width="90%">
+        <input type="text" name="telefon" id="telefon" value=""  />
+        </td></tr>
+        <tr><td width="10%">
+        <label for="mjesto"><b>Mjesto:</b></label>
+        </td><td width="90%">
+         <a class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-b" data-theme="b" data-transition="pop" onclick="ClearSearchDialog(2)" data-role="button" href="#GetProductList">
+        <span class="ui-btn-inner ui-btn-corner-all">
+        <span class="ui-btn-text"><label id="PlaceId">Odaberite</label></span>
+        </span>
+        </a>
+        </td></tr>
+        <tr><td width="10%">
+        <label for="basic"><b>Km:</b></label>
+        </td><td width="90%">
+        <input type="text" name="km" id="km" value=""  />
+        </td></tr>
+         <tr><td width="100%" colspan="2">
+         <label for="fakDistance">Fakturirati put</label>
+        <input type="checkbox" name="fakDistance" id="fakDistance" class="custom" />
+        
+            </td></tr>
+        </table>
+        </ul>
+
+
+        <a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c" data-transition="pop"  onclick="CreateAndEditWorkOrder()" data-inline="true" data-role="button"  href="#" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Snimi</span>
+        </span>
+        </a>
+	    </div>
+
+
+		<div id="materialUlDiv" data-role="collapsible" data-collapsed="true">
+	    <h3>Utroseni materijal</h3>
+	    <!--<table width="100%" style="background-color: #ffffff" border="0"><tr><td width="65%"><b>Materijal</td><td width="10%"><b>JM</td><td width="12%" align="right>"<b>Kolicina</td><td width="10%" align="right"><b>Fakturirati</td><td width="3%"><b>&nbsp;</td></tr></table>
+        <ul id="MaterialUl" data-role="listview" data-theme="c" data-inset="true" data-filter="false">
+	        <li><a class="MaterialList" id="7" data-transition="pop" href="#CreateAndEditMaterial"><table border="0" width="100%"><tr><td width="66%" align="left">Test proizvod 2</td><td width="11%" align="left">Kom</td><td width="13%" align="right">10,00</td><td width="10%" align="center">Da</td></tr></table></a></li>
+	        
+        </ul>-->
+   
+        <table width="100%" style="background-color: #ffffff" border="0"><tr><td width="85%"><b>Materijal</b></td><td width="10%" align="right"><b>Kolicina</b></td><td width="5%">&nbsp;</td></tr></table>
+        <ul id="MaterialUl" data-role="listview" data-theme="c" data-inset="true" data-filter="false">
+	        
+        </ul>
+
+
+        <a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c" data-transition="pop"  data-inline="true" data-role="button" onclick="EditActionMaterial(0)" href="#CreateAndEditMaterial" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Dodaj materijal</span>
+        </span>
+        </a>
+	    </div>
+		
+		
+	    <div id="timeUlDiv" data-role="collapsible" data-collapsed="true" id="time">
+	    <h3>Utroseno vrijeme</h3>
+		<table width="100%" style="background-color: #ffffff"><tr><td width="70%"><b>Rad</td><td width="30%"><b>Izvrsitelj</td></tr></table>
+		<ul id="TimeUl" data-role="listview" data-theme="c" data-inset="true" data-filter="false">
+			
+			
+		</ul>
+		<a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c" data-transition="pop"  data-inline="true" data-role="button" onclick="EditActionTime(0)" href="#CreateAndEditTime" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Dodaj vrijeme</span>
+        </span>
+        </a>
+	    </div>
+	
+	    </div>
+	
+
+
+
+	<!--	<a id="snimi" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"  data-inline="true" data-role="button" href="#" onclick="CreateAndEditWorkOrder()" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Snimi</span>
+        </span>
+        </a>-->
+
+        <a id="email" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"  data-inline="true" data-role="button" onclick="ClearEmailStatus()" href="#Email"  data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Email</span>
+        </span>
+        </a>
+
+          <a id="btnGoToDisplayPage" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"  data-rel="dialog" data-inline="true" data-role="button" onclick="DisplayPdf()" href="#"  data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Prikazi</span>
+        </span>
+        </a>
+
+    <!--         <a id="A1" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"  data-rel="dialog" data-inline="true" data-role="button" onclick="DisplayPdf2()" href="#"  data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Prikazi2</span>
+        </span>
+        </a>-->
+
+        <!--      <a id="A3" class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c"  data-rel="dialog" data-inline="true" data-role="button" onclick="DisplayPdf3()" href="#"  data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Prikazi3</span>
+        </span>
+        </a>-->
+
+		<a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-c" onclick="refradio()"  data-inline="true" data-role="button" href="#List" data-theme="c">
+        <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+        <span class="ui-btn-text">Odustani</span>
+        </span>
+        </a>	
+
+        	
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+        <h4>Alphascore d.o.o.</h4>
+        <h1>
+            <img src="images/pls_alpha_score_32siva.png" /></h1>
+        
+        
+        
+       </div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+
+
+
+
+
+
+</form>
+
+</body>
+</html>
+        

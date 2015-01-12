@@ -1,0 +1,62 @@
+﻿@using System.Data
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvEnumsBankGrid";
+                settings.CallbackRouteValues = new { Controller = "EnumsBank", Action = "EnumsBankGridPartial" };
+
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "#";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            Html.ActionLink("Uredi", "EnumsBank", "CreateAndEdit", new { area = "Docunemts" , Id = DataBinder.Eval(c.DataItem, "Id") }, null) + "&nbsp" +
+                            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                                new { onclick = "return confirm('Da li stvarno želite obrisati odabranu banku?')" })
+                        );
+                    });
+                    column.SetHeaderTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            Html.ActionLink("Nova banka", "EnumsBank", "CreateAndEdit", new { area = "Docunemts", Id = 0 }, null).ToHtmlString()
+                        );
+                    });
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.Width = 70;
+                });
+                
+                settings.KeyFieldName = "Id";
+
+                settings.Settings.ShowFilterRow = false;
+                settings.Settings.ShowGroupPanel = false;
+                settings.Settings.ShowFooter = false;
+
+                settings.Columns.Add("Name", "Naziv banke", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("Number", "Broj računa", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+
+
+
+                settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+                settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).BindToLINQ("DalEf.MDSubjectsEntities", "MDSubjects_Enums_Bank").GetHtml()
+            
+            
+            
+            
+@*            BindToLINQ("", "", new
+EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+{
+    e.KeyExpression = "Id";
+    DalEf.MDPlacesEntities context = new DalEf.MDPlacesEntities();
+    e.QueryableSource = context.MDPlaces_Enums_Geo_Place;
+})).GetHtml();
+            *@
+            
+            
+            
+            

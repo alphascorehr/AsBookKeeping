@@ -1,0 +1,166 @@
+﻿@model BusinessObjects.MdPlaces.cMDPlaces_Enums_Geo_Country
+
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+    var selectedName = "";
+
+    function OnStartCallback(s, e) {
+        return false;
+    }
+    function OnEndCallback(s, e) {
+        return false;
+    }
+
+    function onEdit(e) {
+
+    }
+
+    function OnSelectedIndexChanged(s, e) {
+        debugger;
+        return false;
+    }
+
+       $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                Name: "required",
+                Label: "required",
+                LanguageId: "required",
+                CurrencyId: "required"
+            },
+            messages: {
+                Name: "Molimo unesite naziv",
+                Label: "Molimo unesite oznaku",
+                LanguageId: "Molimo unesite jezik",
+                CurrencyId: "Molimo unesite valutu"
+            }
+        });
+
+    });
+ 
+ 
+// ]]>
+</script>
+
+
+@{
+    string caption = "Nova država";
+    if(Model.Name != "")
+    {
+        caption = "Država: " + Model.Name;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "EnumsGeoCountry", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData); 
+                                              
+    @Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "")                             
+                                                                                                                                                                              
+    <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	 <h2 class="pt"><div class="span-33"> @caption </div></h2>
+    
+     
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+
+                
+            <div class="span-23" style="position: relative;">
+                  
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Naziv:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+                </div>
+
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Šifra:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "Label"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Label).GetHtml()
+                </div>
+                     
+               
+             </div>   
+
+            <div class="span-23">
+
+                <div class="span-12 form-layout-left" >
+				    <label for="invoice_number" class="tool-tip"><span title="">Jezik:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right" >
+                    @Html.DevExpress().ComboBox(settings => { settings.Name = "LanguageId"; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(BusinessObjects.MDGeneral.cMDGeneral_Enums_Language_List.GetcMDGeneral_Enums_Language_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.LanguageId ?? 0))).Bind(Model.LanguageId).GetHtml()
+                </div>
+
+                 <div class="span-12 form-layout-left" >
+				    <label for="invoice_number" class="tool-tip"><span title="">Valuta:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right" >
+                    @Html.DevExpress().ComboBox(settings => { settings.Name = "CurrencyId"; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(BusinessObjects.MDGeneral.cMDGeneral_Enums_Currency_List.GetcMDGeneral_Enums_Currency_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.CurrencyId ?? 0))).Bind(Model.CurrencyId).GetHtml()
+                </div>
+               
+
+            </div>
+    
+             <div class="clearb" style="padding-top:20px"></div>
+    
+            
+    
+            
+            
+
+  <div class="clearb"></div>
+            
+    
+    
+   
+<div class="clearb"></div>
+
+    <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/MDPlaces/EnumsGeoCountry/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+    
+    
+    
+    
+    
+}

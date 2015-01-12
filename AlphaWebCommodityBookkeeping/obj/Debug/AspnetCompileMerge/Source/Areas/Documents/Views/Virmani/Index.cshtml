@@ -1,0 +1,127 @@
+﻿@model BusinessObjects.Documents.cDocuments_VirmanTip309
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        var val = 'UpripremiSpan';
+        switch ('@ViewData["VirmanType"]')
+        {
+            case "upripremi":
+                val = "UpripremiSpan";
+                break;
+            case "verificirani":
+                val = "VerificairaniSpan";
+                break;
+            case "poslani":
+                val = "PoslaniSpan";
+                break;
+        }
+        $('#linkId').attr('value', val);
+    });
+
+    var selectedIds = new Array();
+    function SelectionChanged(s, e) {
+        s.GetSelectedFieldValues("Id", GetSelectedFieldValuesCallback);
+    }
+    function GetSelectedFieldValuesCallback(values) {
+        for (var i = 0; i < values.length; i++) {
+            selectedIds[i] = values[i];
+        }
+    }
+    var virmnAcGl = "";
+    var docUrl = "";
+    function GetSelectedIds(virmanAction) {
+        virmnAcGl = virmanAction;
+        if (selectedIds.length > 0) {
+            actionLink = '@Url.Content("~/Documents/Virmani/VerificirajPosalji")';
+
+            var data = { virmanAction: virmanAction, idList: selectedIds };
+            $.ajax({
+                url: actionLink,
+                data: JSON.stringify(data),
+                type: 'POST',
+                contentType: 'application/json, charset=utf-8',
+                dataType: 'json',
+                //sucess: refresh()
+                success: function (result)
+                {
+                    docUrl = result;
+                    refresh();
+                }
+
+            });
+        }
+        else { alert("Molimo odaberite virmane.");}
+    }
+    function refresh()
+    {
+        gvVirmaniGrid.Refresh();
+        if (virmnAcGl == "posalji")
+        {
+            //DisplayDoc();
+            var url = "../../" + docUrl;
+            $('#dl').attr('href', url);
+            $('#dl').show();
+        }
+    }
+
+    function DisplayDoc() {
+        var url = '@Url.Content("~/Documents/Virmani/DisplayDoc")'
+        $.post(url, function (result) {
+            var url = "../../" + result;
+            $('#dl').attr('href', url);
+            $('#dl').show();
+        });
+        
+        return false;
+    }
+
+</script>
+
+@{
+    
+    switch(ViewData["VirmanType"].ToString())
+    {
+        case "upripremi":
+            @Html.Hidden("linkId", "UpripremiSpan")
+                <h2 class="pt"> Virmani u pripremi </h2>
+                <a class="butPrimary " href="@Url.Content("~/Documents/Virmani/CreateAndEdit/0")">
+                    <span> Novi Virman </span>
+                </a>
+            break;
+        case "verificirani":
+            @Html.Hidden("linkId", "VerificairaniSpan")
+            <h2 class="pt"> Verificirani virmani </h2>
+            break;
+        case "poslani":
+            @Html.Hidden("linkId", "PoslaniSpan")
+            <h2 class="pt"> Poslani virmani </h2>
+            break;
+    }
+}
+
+@Html.Hidden("linkName", "VirmaniParent")
+
+<div class="clearb"></div> 
+
+@Html.Partial("VirmaniGridPartial")
+
+<a href="#" style="display: none" id="dl">preuzimanje</a>
+
+@{
+    switch(ViewData["VirmanType"].ToString())
+    {
+        case "upripremi":
+            <a class="butPrimary " href="#" onclick="GetSelectedIds('verificiraj')"><span> Verificiraj </span></a>      
+            break;
+        case "verificirani":
+            <a class="butPrimary " href="#" onclick="GetSelectedIds('posalji')" ><span> Posalji </span></a>
+            break;
+        case "poslani":
+            
+            break;
+    }
+    
+}

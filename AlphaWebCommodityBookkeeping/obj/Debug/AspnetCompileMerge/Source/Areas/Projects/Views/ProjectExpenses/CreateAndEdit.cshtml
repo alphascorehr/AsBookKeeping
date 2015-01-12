@@ -1,0 +1,265 @@
+﻿@model BusinessObjects.Projects.cProjects_Project_Expenses
+@{
+    ViewBag.Title = "CreateAndEdit";
+    DalEf.ProjectsEntities context = new DalEf.ProjectsEntities();
+    var projectItems = (from p in context.Projects_Project
+                        where (p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId)
+                        select new { p.Id, p.Name });
+
+    var typeItems = (from p in context.Projects_Enums_ExpensType
+                     where ((p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || (p.CompanyUsingServiceId ?? 0) == 0) && (p.Inactive == false || p.Id == Model.Projects_Enums_ExpensTypeId))
+                     select new { p.Id, p.Name });
+
+    DalEf.MDSubjectsEntities contextSub = new DalEf.MDSubjectsEntities();
+    var subjectItems = contextSub.vContractors.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.SubjectType != (short)BusinessObjects.Common.SubjectType.Employee);
+
+    DalEf.DocumentsEntities contextDoc = new DalEf.DocumentsEntities();
+    var invoiceItems = (from p in contextDoc.Documents_Document.OfType<DalEf.Documents_Invoice>()
+                        where (p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId)
+                        select new { p.Id, p.UniqueIdentifier });
+}
+
+
+<script type="text/javascript">
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+
+    $(document).ready(function () {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+
+            rules: {
+                Projects_Enums_ExpensTypeId: {
+                    min: 1
+                },
+                Amount: "required"
+
+            },
+            messages: {
+                Projects_Enums_ExpensTypeId: "Tip troška nije odabran!",
+                Amount: "Nije unesen iznos troška!"
+            }
+
+
+        });
+
+        //var rez = Invoiced.GetValue();
+        //InvoicedRules(rez);
+        SubjectIdChanged();
+
+    });
+
+
+    function InvoicedChanged(s, e) {
+        var rez = s.GetValue();
+
+        InvoicedRules(rez);
+
+    }
+
+    function InvoicedRules(invoiced) {
+
+        if (!invoiced) {
+
+            Documents_InvoiceId.SetValue(null);
+
+            Documents_InvoiceId.enabled = false;
+
+            $('#Documents_InvoiceId_I, #Documents_InvoiceId').css({ 'background-color': 'LightGray' })
+        }
+        else {
+
+            Documents_InvoiceId.enabled = true;
+
+            $('#Documents_InvoiceId_I, #Documents_InvoiceId').css({ 'background-color': 'Transparent' })
+        }
+    }
+
+
+    function SubjectIdChanged(s, e) {
+        var SubjectId = parseInt($('#MDSubjects_SubjectId_VI').attr('value'));
+        if (SubjectId == null || SubjectId == "" || SubjectId == "0" || isNaN(SubjectId)) {
+            return false;
+        }
+        $('#AdresaKlijentaDiv').slideUp('slow');
+        /* SubjectId se trpa u Session */
+        if (SubjectId != null) {
+            var actionURL = '@Url.Content("~/Projects/ProjectExpenses/SubjectIdChanged")';
+            $.post(actionURL, { subjectId: SubjectId }, function (result) {
+                var oib = result[0];
+                var ulica = result[1];
+                var broj = result[2];
+                var mjesto = result[3];
+                var adresa = ulica;
+                if (oib == null) {
+                    oib = "Nije unešen";
+                }
+                if (ulica == null) {
+                    adresa = "Nije unešena";
+                }
+                if (mjesto == null) {
+                    mjesto = "Nije unešeno";
+                }
+                $('#oib').html("OIB: " + oib)
+                $('#ulica').html("Adresa: " + adresa);
+                $('#mjesto').html("Mjesto: " + mjesto);
+            });
+            $('#AdresaKlijentaDiv').slideDown('slow');
+        }
+    }
+
+</script>
+
+@{
+    string caption = "Novi cjenik";
+    if (Model.Id != null)
+    {
+        //caption = "Cjenik br. " + Model.UniqueIdentifier;
+        caption = "Troškovi";
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "ProjectExpenses", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    
+             @Html.HiddenFor(model => model.EntityKeyData)
+             @Html.HiddenFor(model => model.Id)
+            
+            {
+                 if(Model.Id > 0)
+                 {
+                    Html.HiddenFor(model => model.Ordinal);
+                 }
+             
+            }
+            
+           
+    @Html.Hidden("linkName", "ProjektiParent")
+    @Html.Hidden("linkId", "ProjectExpensesSpan")  
+    
+    
+    <div class="clearb"></div>
+    <div class="clearb"></div>
+
+	<h2 class="button-panel-title">
+		<div class="button-panel">
+	    </div>
+        <span class="title">@caption</span>
+	</h2>
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>                
+                                                                                                                                                                              
+    <div class="span-23" style="position: relative;">
+
+        <div class="span-6 required form-layout-left">
+			<label for="customerid" class="no-pointer">Projekt:</label>
+		</div>
+        <div class="span-16 form-layout-right">
+                @Html.DevExpress().ComboBox(settings => { settings.Name = "Projects_ProjectId"; settings.Properties.TextField = "Name";  settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.Height = 24; settings.Width = 200; }).BindList(projectItems).Bind(Model.Projects_ProjectId).GetHtml()
+        </div>
+
+
+        <div class="span-6 form-layout-left" style="padding-bottom:0px">
+			<label for="customerid" class="no-pointer">Klijent:</label>
+
+		</div>
+		<div class="span-16 form-layout-right" style="padding-bottom:0px">
+                @Html.DevExpress().ComboBox(settings => { settings.Name = "MDSubjects_SubjectId"; settings.Properties.TextField = "Name"; settings.Properties.ClientSideEvents.ValueChanged = "SubjectIdChanged"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.Height = 24; settings.Width = 200; }).BindList(subjectItems).Bind(Model.MDSubjects_SubjectId).GetHtml()
+        </div>
+
+
+       
+       <div id="AdresaKlijentaDiv" style="display:none">
+		    <div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Adresa:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                <label id="oib" class="no-pointer"></label><br />
+                <label id="ulica" class="no-pointer"></label>&nbsp;<label id="broj" class="no-pointer"></label><br />
+                <label id="mjesto" class="no-pointer"></label><br />
+		    </div>
+        </div>
+
+       
+
+
+
+    </div>
+
+    <div class="span-23">
+        <div class="span-12 form-layout-left">
+		    <label for="invoice_number" class="no-pointer"><span title="">Tip troška:</span></label>
+	    </div>
+	    <div class="span-10 form-layout-right">
+           @Html.DevExpress().ComboBox(settings => { settings.Name = "Projects_Enums_ExpensTypeId"; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.Height = 24; settings.Width = 200; }).BindList(typeItems).Bind(Model.Projects_Enums_ExpensTypeId).GetHtml()
+        </div>
+
+
+        <div class="span-12 form-layout-left">
+			<label for="invoice_number" class="no-pointer"><span title="">Datum troška:</span></label>
+	    </div>
+	    <div class="span-10 form-layout-right">
+            @Html.DevExpress().DateEdit(settings => { settings.Name = "ExpenseDate"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.ExpenseDate).GetHtml()
+        </div>
+
+
+        <div class="span-12 form-layout-left">
+			<label for="invoice_number" class="no-pointer"><span title="">Iznos troška:</span></label>
+	    </div>
+	    <div class="span-10 form-layout-right">
+            @Html.DevExpress().SpinEdit(settings => { settings.Name = "Amount"; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 200; settings.Properties.SpinButtons.ShowIncrementButtons = false; }).Bind(Model.Amount).GetHtml()
+        </div>
+
+
+       @* <div class="span-12 form-layout-left">
+			<label for="invoice_number" class="no-pointer"><span title="">Fakturirano:</span></label>
+	    </div>
+	    <div class="span-10 form-layout-right">
+            @Html.DevExpress().CheckBox(settings => { settings.Name = "Invoiced"; settings.Height = 24; settings.Width = 200; settings.Properties.ClientSideEvents.CheckedChanged = "InvoicedChanged"; }).Bind(Model.Invoiced).GetHtml()
+        </div>
+
+        <div class="span-12 form-layout-left">
+			<label for="invoice_number" class="no-pointer"><span title="">Broj fakture:</span></label>
+	    </div>
+	    <div class="span-10 form-layout-right">
+            @Html.DevExpress().ComboBox(settings => { settings.Name = "Documents_InvoiceId"; settings.Properties.TextField = "UniqueIdentifier"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.Height = 24; settings.Width = 200; }).BindList(invoiceItems).Bind(Model.Documents_InvoiceId).GetHtml()
+        </div>*@
+
+    </div>
+
+    <div class="clearb" style="padding-top:20px"></div>
+               
+ 
+    <div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/Projects/ProjectExpenses/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+}

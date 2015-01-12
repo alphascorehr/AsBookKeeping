@@ -1,0 +1,36 @@
+﻿@model BusinessObjects.MDGeneral.cMDGeneral_Enums_CashBox
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+
+@Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "")
+
+ <h2 class="pt"> Blagajne </h2>
+			@if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{		
+			
+	<a class="butPrimary " href="@Url.Content("~/MDGeneral/EnumsCashBox/CreateAndEdit/0")">
+<span> Nova blagajna </span>
+</a>
+<div class="clearb"></div>
+}
+@Html.Partial("EnumsCachBoxGidPartail")
+
+
+
+ 

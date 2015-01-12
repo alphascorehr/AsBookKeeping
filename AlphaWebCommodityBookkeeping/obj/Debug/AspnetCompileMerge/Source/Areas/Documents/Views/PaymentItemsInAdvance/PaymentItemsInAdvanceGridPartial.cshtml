@@ -1,0 +1,153 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    List<DalEf.vPaymentsInAdvance> items = new List<DalEf.vPaymentsInAdvance>();
+    DalEf.DocumentsEntities contextDoc = new DalEf.DocumentsEntities();
+      if (ViewData["name"].ToString() == "gvPaymentInAdvancein")
+      {
+        items = contextDoc.vPaymentsInAdvance.OrderByDescending(p => p.Id).Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.SubjectBuyerId != null).ToList();
+      }
+      else if (ViewData["name"].ToString() == "gvPaymentInAdvanceout")
+      {    
+        items = contextDoc.vPaymentsInAdvance.OrderByDescending(p => p.Id).Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.SubjectSupplierId != null).ToList();
+      }
+}
+ 
+     @Html.DevExpress().GridView(
+                    settings =>
+                    {
+                        settings.Name = ViewData["name"].ToString();
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.SettingsPager.PageSize = 5;
+                        settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                        settings.SettingsLoadingPanel.Text = "Učitavanje";
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+                        settings.Settings.ShowFilterRow = true;
+                        settings.Settings.ShowFilterRowMenu = true;
+                        settings.SettingsPager.PageSize = 16;
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                        settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                        settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+                        settings.CommandColumn.ClearFilterButton.Visible = true;
+
+                        //settings.Columns.Add(column =>
+                        //{
+                        //    //column.Caption = "#";
+                        //    //column.SetDataItemTemplateContent(c =>
+                        //    //{
+                        //    //    ViewContext.Writer.Write(
+                        //    //        Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id"), PaymentItemId = DataBinder.Eval(c.DataItem, "PaymentItemId") }, new { @class = "gridEditButton" })
+                        //    //    );
+                        //    //});
+                        //    //column.SetHeaderTemplateContent(c =>
+                        //    //{
+                        //    //    ViewContext.Writer.Write(
+                        //    //        Html.ActionLink("Nova ponuda", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                        //    //    );
+                        //    //});
+                        //    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                        //    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                        //    column.Width = 30;
+                        //});
+
+                        settings.CallbackRouteValues = new { Controller = "PaymentItemsInAdvance", Action = "PaymentItemsInAdvanceGridPartial" };
+                        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                        settings.SettingsBehavior.ConfirmDelete = true;
+
+                        //settings.CommandColumn.Visible = false;
+                        settings.CommandColumn.NewButton.Visible = false;
+                        settings.CommandColumn.NewButton.Text = "Novi";
+                        settings.CommandColumn.DeleteButton.Visible = false;
+                        settings.CommandColumn.DeleteButton.Text = "Obriši";
+                        settings.CommandColumn.EditButton.Visible = false;
+                        settings.CommandColumn.EditButton.Text = "Uredi";
+                        settings.CommandColumn.CancelButton.Text = "Odustani";
+                        settings.CommandColumn.UpdateButton.Text = "Prihvati";
+
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+                        //settings.SettingsBehavior.AllowFocusedRow = true;
+
+                        settings.KeyFieldName = "PaymentItemId";
+
+                        //settings.Columns.Add("OrdinalNumber", "Red.broj", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                        //settings.Columns.Add(column =>
+                        //{
+                        //    column.FieldName = "OrdinalNumber";
+                        //    column.Caption = "Red.broj";
+                        //    column.Width = 40;
+                        //});
+
+                        if (ViewData["name"].ToString() == "gvPaymentInAdvancein")
+                        {
+                            //settings.Columns.Add("BuyerName", "Klijent", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                            settings.Columns.Add(column =>
+                            {
+                                column.FieldName = "BuyerName";
+                                column.Caption = "Klijent";
+                                column.SetDataItemTemplateContent(c =>
+                                {
+                                    ViewContext.Writer.Write(
+                                        "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Documents/PaymentItemsInAdvance/CreateAndEdit/?Id=" + DataBinder.Eval(c.DataItem, "Id") + "&PaymentItemId=" + DataBinder.Eval(c.DataItem, "PaymentItemId")) + ">" + DataBinder.Eval(c.DataItem, "BuyerName") + "</a>"
+                                    );
+                                });
+
+                            });
+                        }
+                        else if (ViewData["name"].ToString() == "gvPaymentInAdvanceout")
+                        {
+                            //settings.Columns.Add("SuplierName", "Dobavljač", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                            settings.Columns.Add(column =>
+                            {
+                                column.FieldName = "SuplierName";
+                                column.Caption = "Dobavljač";
+                                column.SetDataItemTemplateContent(c =>
+                                {
+                                    ViewContext.Writer.Write(
+                                        "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Documents/PaymentItemsInAdvance/CreateAndEdit/?Id=" + DataBinder.Eval(c.DataItem, "Id") + "&PaymentItemId=" + DataBinder.Eval(c.DataItem, "PaymentItemId")) + ">" + DataBinder.Eval(c.DataItem, "SuplierName") + "</a>"
+                                    );
+                                });
+
+                            });
+                        }
+
+                        //settings.Columns.Add("Oib", "OIB", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                        settings.Columns.Add("UniqueIdentifier", "Broj izvoda", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                        settings.Columns.Add("DocumentDateTime", "Datum izvoda", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                        //settings.Columns.Add("Ammount", "Iznos avansa", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Ammount";
+                            column.Caption = "Iznos avansa";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            var spinEditproperties = column.PropertiesEdit as SpinEditProperties;
+                            spinEditproperties.DisplayFormatString = "c";
+                        });
+                        //settings.Columns.Add("AdvancePaymentAmmount", "Slobodni iznos avansa", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "AdvancePaymentAmmount";
+                            column.Caption = "Slobodni iznos avansa";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            var spinEditproperties = column.PropertiesEdit as SpinEditProperties;
+                            spinEditproperties.DisplayFormatString = "c";
+                        });
+
+                        
+                        settings.HtmlRowCreated = (sender, e) =>
+                        {
+                            if (e.RowType == DevExpress.Web.ASPxGridView.GridViewRowType.Data)
+                            {
+                                e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#eeeeee';");
+                                e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white';");
+                            }
+                        };
+                        
+
+                        settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                        settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+                    }).Bind(items).GetHtml()
+ 

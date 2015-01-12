@@ -1,0 +1,137 @@
+﻿@model BusinessObjects.MDEntities.cMDEntities_Enums_TaxRate
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                Name: "required",
+                Percentage: "required"
+            },
+            messages: {
+                Name: "Molimo unesite oznaku",
+                Percentage: "Molimo unesite postotak"
+            }
+        });
+
+    });
+  // ]]>
+</script>
+
+@{
+    string caption = "Nova porezna stopa";
+    if (Model.Name != "")
+    {
+        caption = "Porezna stopa: " + Model.Name;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "EnumsTaxRate", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);                                                                         
+                                                                
+    @Html.Hidden("linkName", "SifarniciParent")
+    @Html.Hidden("linkId", "")
+                          
+ <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	 <h2 class="pt"><div class="span-33"> @caption </div></h2>
+    
+     
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+
+                
+            <div class="span-23" style="position: relative;">
+                  
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Naziv:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+                </div>
+
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Postotak:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                @Html.DevExpress().SpinEdit(settings => { settings.Name = "Percentage"; settings.Height = 24; settings.Width = 200; settings.Properties.DecimalPlaces = 2; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 100; settings.Properties.DecimalPlaces = 6; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Percentage).GetHtml()
+                </div>
+                     
+                  <div class="span-6 form-layout-left">
+				    <label for="invoice_number" class="tool-tip"><span title="">Usluga:</span></label>
+	            </div>
+	            <div class="span-16 form-layout-right">
+                         @Html.DevExpress().CheckBox(settings => { settings.Name = "IsService"; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.IsService).GetHtml()
+                    </div>
+
+                      <div class="span-6 form-layout-left">
+				    <label for="invoice_number" class="tool-tip"><span title="">Opis:</span></label>
+	            </div>
+	            <div class="span-16 form-layout-right">
+                        @Html.DevExpress().Memo(settings => { settings.Name = "Description"; settings.Height = 60; settings.Width = 400; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Description).GetHtml()
+                    </div>
+
+
+   
+             </div>   
+
+          
+    
+             <div class="clearb" style="padding-top:20px"></div>
+    
+            
+    
+            
+            
+
+  <div class="clearb"></div>
+            
+    
+    
+   
+<div class="clearb"></div>
+
+    <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/MDEntities/EnumsTaxRate/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+        
+    
+    
+    
+     
+}

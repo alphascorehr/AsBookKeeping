@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    $(document).ready(function () {
+        //require(['jqueryui'], function (jqueryui) {
+            $("#accordion").accordion();
+        //});
+    });
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+
+@Html.Hidden("linkName", "ProizvodiParent")
+@Html.Hidden("linkId", "Proizvod")
+
+
+
+<h2 class="pt"> Proizvodi </h2>
+<a class="butPrimary " href="@Url.Content("~/MDEntities/Service/CreateAndEdit/0")">
+<span> Nova usluga </span>
+</a>
+
+<a class="butPrimary " href="@Url.Content("~/MDEntities/Product/CreateAndEdit/0")">
+<span> Novi artikl </span>
+</a>
+<div class="clearb"></div>
+
+@*<fieldset style="padding-top:20px">
+<legend>Artikli</legend>
+@Html.Partial("ProductGridPartial")
+</fieldset>
+
+<br/>
+<fieldset style="padding-top:20px">
+<legend>Usluge</legend>
+@Html.Partial("../Service/ServiceGridPartial")
+</fieldset>*@
+
+
+<div id="accordion">
+	<h3><a href="#"><b>Artikli</b></a></h3>
+	<div>
+		@Html.Partial("ProductGridPartial")
+	</div>
+    <h3><a href="#"><b>Usluge</b></a></h3>
+	<div>
+		@Html.Partial("../Service/ServiceGridPartial")
+	</div>
+</div>
+
+  
+
+
+

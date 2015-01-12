@@ -1,0 +1,81 @@
+﻿@using System.Data
+
+@{
+    int SubjectId = 0;
+    if (ViewData["SubjectId"] != null)
+        {
+            SubjectId = Convert.ToInt32(ViewData["SubjectId"]);
+        }
+    }
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvPopupPayoff";
+                settings.CallbackRouteValues = new { Controller = "Payoff", Action = "PopupGridPartial" };
+
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.Settings.ShowFilterRow = true;
+                settings.Settings.ShowFilterRowMenu = true;
+                settings.SettingsPager.PageSize = 13;
+                settings.CommandColumn.Visible = true;
+                settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+                settings.CommandColumn.ClearFilterButton.Visible = true;
+                settings.CommandColumn.ShowSelectCheckbox = true;
+                settings.KeyFieldName = "Id";
+                settings.Settings.ShowFooter = false;
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                if (ViewData["DocType"].ToString() == "WorkOrders")
+                {
+                    settings.Columns.Add("UniqueIdentifier", "Radni nalog", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings.Columns.Add("DocumentDateTime", "Datum", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                    settings.Columns.Add("Klijent", "Klijent", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings.Columns.Add("NazivProjekta", "Projekt", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);    
+                }
+                else if (ViewData["DocType"].ToString() == "Quote")
+                {
+                    settings.Columns.Add("UniqueIdentifier", "Redni broj", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings.Columns.Add("Name", "Klijent", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings.Columns.Add("DocumentDateTime", "Datum predračuna", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                    settings.Columns.Add("MaturityDate", "Datum dospjeća", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                    settings.Columns.Add("RetailValue", "Iznos", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+                }
+                else if (ViewData["DocType"].ToString() == "Offer")
+                {
+                    settings.Columns.Add("UniqueIdentifier", "Redni broj", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings.Columns.Add("Name", "Klijent", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings.Columns.Add("DocumentDateTime", "Datum ponude", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                    settings.Columns.Add("MaturityDate", "Valjanost ponude", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                    settings.Columns.Add("RetailValue", "Iznos", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+                }
+                
+
+                settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+               
+            }).BindToLINQ("", "", new
+                        EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+                        {
+                            e.KeyExpression = "Id";
+                            DalEf.DocumentsEntities context = new DalEf.DocumentsEntities();
+                            //e.QueryableSource = context.vWorkOrder.Where(p => p.CusomerId == SubjectId && p.Invoiced != true);
+                            //e.QueryableSource = context.vWorkOrder.Where(p => p.CusomerId == 63 );
+                            if (ViewData["DocType"].ToString() == "WorkOrders")
+                            {
+                                e.QueryableSource = context.vWorkOrder.Where(p => p.CusomerId == SubjectId && (p.Invoiced ?? false) == false);
+                            }
+                            else if (ViewData["DocType"].ToString() == "Quote")
+                            {
+                                e.QueryableSource = context.vQuote.Where(p => p.CustomerId == SubjectId && (p.Invoiced ?? false) == false);
+                            }
+                            else if (ViewData["DocType"].ToString() == "Offer")
+                            {
+                                e.QueryableSource = context.vOffer.Where(p => p.CustomerId == SubjectId && (p.Invoiced ?? false) == false);
+                            }
+                            
+                        })).GetHtml()

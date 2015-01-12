@@ -1,0 +1,91 @@
+﻿@using System.Data
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvEnumsCurrencyGrid";
+                settings.CallbackRouteValues = new { Controller = "Account", Action = "CompanyInfoGridPartail" };
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                //settings.Columns.Add(column =>
+                //{
+                //    //column.Caption = "#";
+                //    //column.SetDataItemTemplateContent(c =>
+                //    //{
+                //    //    ViewContext.Writer.Write(
+                //    //        Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") })
+                            
+                //    //    );
+                //    //});
+                //    //column.SetHeaderTemplateContent(c =>
+                //    //{
+                //    //    //ViewContext.Writer.Write(
+                //    //    //    Html.ActionLink("Nova valuta ", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                //    //    //);
+                //    //});
+                //    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                //    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                //    column.Width = 70;
+                //});
+                
+                settings.KeyFieldName = "Id";
+
+                settings.Settings.ShowFilterRow = false;
+                settings.Settings.ShowGroupPanel = false;
+                settings.Settings.ShowFooter = false;
+
+                settings.SettingsEditing.Mode = GridViewEditingMode.EditForm;
+                settings.SettingsBehavior.ConfirmDelete = true;
+                settings.SettingsBehavior.AllowFocusedRow = true;
+
+                settings.CommandColumn.Visible = true;
+                settings.CommandColumn.NewButton.Visible = false;
+                settings.CommandColumn.NewButton.Text = "Novi";
+                settings.CommandColumn.DeleteButton.Visible = false;
+                settings.CommandColumn.DeleteButton.Text = "Obriši";
+                settings.CommandColumn.EditButton.Visible = true;
+                settings.CommandColumn.EditButton.Text = "Uredi";
+                settings.CommandColumn.CancelButton.Text = "Odustani";
+                settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                settings.CommandColumn.ShowSelectCheckbox = false;
+
+                settings.Columns.Add("Name", "Naziv tvrtke", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("OIB", "OIB", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("ContactPerson", "Kontakt ososba", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("BusinessPhone", "Telefon", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("Email", "Email", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                var NumberOfUsers = settings.Columns.Add("NumberOfUsers", "Broj korisnika", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                NumberOfUsers.EditFormSettings.Visible = DefaultBoolean.False;
+                    
+                    //MDPlaces_Enums_Geo_CountryId
+                    //    HomeAddress_Street
+                    //    HomeAddress_Number
+                    //        NumberOfUsers
+                    //        NumbnerOfDays
+                        
+
+
+                //settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+                //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).BindToLINQ("", "", new
+                            EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+                            {
+                                e.KeyExpression = "Id";
+                                DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+                                e.QueryableSource = context.Auth_Company.Where(p => p.Id == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+                            })).GetHtml()
+            
+            
+            
+            
+            
+            @*("DalEf.MDSubjectsEntities", "Auth_Company").GetHtml()*@
+            
+            
+
+            
+            
+            
+            

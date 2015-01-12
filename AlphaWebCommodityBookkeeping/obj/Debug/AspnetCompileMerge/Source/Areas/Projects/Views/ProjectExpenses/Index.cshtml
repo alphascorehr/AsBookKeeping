@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+    @Html.Hidden("linkName", "ProjektiParent")
+    @Html.Hidden("linkId", "ProjectExpensesSpan")  
+
+    <h2 class="pt"> Troškovi </h2>
+<a class="butPrimary " href="@Url.Content("~/Projects/ProjectExpenses/CreateAndEdit/0")">
+<span> Novi trošak </span>
+</a>
+<div class="clearb"></div>
+
+  
+
+
+@Html.Partial("ProjectExpensesGridPartial")

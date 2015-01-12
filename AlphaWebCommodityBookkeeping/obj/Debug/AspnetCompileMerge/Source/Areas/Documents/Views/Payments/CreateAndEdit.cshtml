@@ -1,0 +1,600 @@
+﻿@model BusinessObjects.Documents.cDocuments_Payment
+
+@{
+    ViewBag.Title = "CreateAndEdit";
+    DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+                    //DalEf.MDEntitiesEntities contextEnt = new DalEf.MDEntitiesEntities();
+                    //IQueryable<DalEf.MDEntities_Entity> items = new DalEf.MDEntitiesEntities().MDEntities_Entity.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+                    //int count = 0;
+}
+<script type="text/javascript">
+//<![CDATA[
+    var isInCallback = false;
+    var itemOrdinalNumber = 0;
+    var forceSelectionChange = false;
+    var paymentSum = 0;
+    var newPaymentItem = false;
+
+    $(window).bind('beforeunload', function () {
+        if ('@ViewData["Action"]' == "locked") {
+            return;
+        }
+        //if (AreControlsModifiedVar)
+        //{
+        //    return "No pressure, but check out the important announcement in the middle of the screen?";
+        //}
+
+        //return "Good bye";
+        var url = '@Url.Content("~/Documents/Payments/unlockTheDoc")';
+        $.post(url, function (result) {
+            return "Url is about to be changed, kill the lock";
+        });
+
+    });
+
+
+    function noUnload() {
+        $(window).unbind('beforeunload');
+    }
+
+    $(document).ready(function () {
+        if ('@ViewData["Action"]' == "locked") {
+            alert(lockText);
+            window.history.back(-1);
+        }
+    
+    });
+
+    function OnStartCallback(s, e) {
+        if (e.command == "ADDNEWROW") {
+            newPaymentItem = true;
+        }
+
+        if (e.command == "UPDATEEDIT" || e.command == "CANCELEDIT") {
+            newPaymentItem = false;
+        }
+
+        isInCallback = true;
+        if (e.command == "STARTEDIT" || e.command == "ADDNEWROW") {
+            gridInEdit = true;
+            $('.button_large').attr('onclick', '');
+        }
+        if (e.command == "CANCELEDIT" || e.command == "UPDATEEDIT") {
+            gridInEdit = false;
+            $('.button_large').attr('onclick', '$(this).closest("form").submit()');
+            $('#addNevDocumentItem').show()
+        }
+        if (e.command == "UPDATEEDIT") {
+            gvDocumentsForPayment.Refresh();
+        }
+    }
+    function OnEndCallback(s, e) {
+        $('#gvPaymentItemsCol_DXEditor0').css({ 'border': '0' })
+        isInCallback = false;
+        if (gridInEdit) {
+            $('#addNevDocumentItem').hide();
+        }
+    }
+
+    function OnDocumentsForPaymentStartCallback(s, e) {
+        return false;
+    }
+
+    function OnDocumentsForPaymentEndCallback(s, e) {
+
+    }
+
+    function PayedValidation(s, e) {
+//      var row =  gvDocumentsForPayment.GetFocusedRow();
+//        var val1 = parseFloat($('#gvDocumentsForPayment_DXEditor4_I').attr('value'));
+//        var val2 = parseFloat($('#gvDocumentsForPayment_DXEditor5_I').attr('value'));
+//    if (e.value > (val1 - val2)) {
+//        e.errorText = "Preplaćeno!";
+//        e.isValid = false;
+//    }
+    }
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                SubjectId: "required",
+                UniqueIdentifier: "required",
+                OrdinalNumber: "required",
+                OrdinalNumberInYear: "required",
+                CreationDateTime: "required"
+
+            },
+            messages: {
+                SubjectId: "Obavezno polje",
+                UniqueIdentifier: "Obavezno polje",
+                OrdinalNumber: "Obavezno polje",
+                OrdinalNumberInYear: "Obavezno polje",
+                CreationDateTime: "Obavezno polje"
+            }
+        });
+
+        if ('@Model.Id' != 0) {
+            $('#importImg').hide();
+        }
+
+        $items.click(function () {
+            $items.removeClass('selected');
+            $(this).addClass('selected');
+        });
+    });
+
+       function gvPaymentFocusedRowChanged(s, e) {
+           s.GetRowValues(s.GetFocusedRowIndex(), 'Ordinal;SubjectBuyerId;SubjectSupplierId;InAdvance;Ammount', OnGetRowValues);
+    }
+
+    function OnGetRowValues(values) {
+        if (values[0] != itemOrdinalNumber || (values[0] == itemOrdinalNumber && forceSelectionChange)) {
+            forceSelectionChange = false;
+            if (values[0] != null) {
+                var actionURL = '@Url.Content("~/Documents/Payments/SelectedItemChanged")';
+                $.post(actionURL, { Ordinal: values[0], SubjectBuyerId: values[1], SubjectSupplierId: values[2], InAdvance: values[3], Ammount: values[4] }, function (result) {
+                    gvDocumentsForPayment.PerformCallback();
+                    paymentSum = parseFloat(result);
+                    if (values[3] == true) {
+                        if ($('#docForUpdate').is(':hidden') == false) {
+                            $('#docForUpdate').fadeOut(100);
+                        }
+                    }
+                    else {
+                        if ($('#docForUpdate').is(':hidden') == true) {
+                            $('#docForUpdate').fadeIn(100);
+                        }
+                    }
+
+
+                });
+
+                itemOrdinalNumber = values[0];
+            }
+            
+        }
+    }
+    isGridModified = false;
+    var Ordinal;
+    var SubjectBuyerId;
+    var SubjectSupplierId;
+    var InAdvance;
+    var Ammount;
+    function OnStartCallback(s, e) {
+        if (e.command == "UPDATEEDIT") {
+            isGridModified = true;
+            Ordinal = gvPaymentItemsCol_DXEditor1.GetValue();
+            SubjectBuyerId = gvPaymentItemsCol_DXEditor2.GetValue();
+            SubjectSupplierId = gvPaymentItemsCol_DXEditor3.GetValue();
+            InAdvance = $('#InAdvanceEdit_S').is(':checked');
+            Ammount = gvPaymentItemsCol_DXEditor5.GetValue();;
+            //alert(ordinal);
+        }
+    }
+
+    function OnEndCallback(e, e)
+    {
+        if (isGridModified)
+        {
+            // Ordinal;SubjectBuyerId;SubjectSupplierId;InAdvance;Ammount
+            //tryToRefresh();
+        }
+    }
+
+    function tryToRefresh()
+    {
+        var actionURL = '@Url.Content("~/Documents/Payments/SelectedItemChanged")';
+        //if (values[0] != itemOrdinalNumber || (values[0] == itemOrdinalNumber && forceSelectionChange)) {
+            forceSelectionChange = false;
+            //if (values[0] != null) {
+                $.post(actionURL, { Ordinal: Ordinal, SubjectBuyerId: SubjectBuyerId, SubjectSupplierId: SubjectSupplierId, InAdvance: InAdvance, Ammount: Ammount }, function (result) {
+                    gvDocumentsForPayment.PerformCallback();
+                    paymentSum = parseFloat(result);
+                    if (InAdvance == true) {
+                        if ($('#docForUpdate').is(':hidden') == false) {
+                            $('#docForUpdate').fadeOut(100);
+                        }
+                    }
+                    else {
+                        if ($('#docForUpdate').is(':hidden') == true) {
+                            $('#docForUpdate').fadeIn(100);
+                        }
+                    }
+
+
+                });
+
+                //itemOrdinalNumber = values[0];
+                $("*").css("cursor", "default");
+            //}
+
+        //}
+
+    }
+
+    function OnPaymentValueChanged(s, fieldName, keyValue, url) {
+//        var val1 = parseFloat(retailValue);
+//        var val2 = parseFloat(payedTillDocument);
+        var data = { key: keyValue, fieldName: fieldName };
+        if (s.GetValueString() != null)
+            data.value = s.GetValueString();
+
+        $.post(url, data, function (result) {
+            paymentSum = parseFloat(result);
+            if (parseFloat(result) > (parseFloat($('#Ammount' + itemOrdinalNumber + '_Raw').attr('value')))) {
+                $('#Ammount' + itemOrdinalNumber + '_I').attr('style', 'background-color:LightRed');
+                $('#Ammount' + itemOrdinalNumber).attr('isValid', false);
+            }
+            else {
+                $('#Ammount' + itemOrdinalNumber + '_I').attr('style', 'background-color:Transparent');
+//                $('#Ammount' + itemOrdinalNumber).attr('style', 'background-color:Transparent');
+//                $('#Ammount' + itemOrdinalNumber).attr('height', '100%');
+//                $('#Ammount' + itemOrdinalNumber).attr('width', '100px');
+//                $('#Ammount' + itemOrdinalNumber + '_I').attr('margin-left', '1px');
+//                $('#Ammount' + itemOrdinalNumber + '_I').attr('margin-right', '1px');
+//                $('#Ammount' + itemOrdinalNumber + '_I').attr('margin-top', '1px');
+//                $('#Ammount' + itemOrdinalNumber + '_I').attr('margin-bottom', '2px');
+                $('#Ammount' + itemOrdinalNumber).attr('isValid', true);
+            }
+            //            if ((parseFloat(data.value) + val2) > val1) {
+            //                var c = s;
+            //                $('#' + s.name).attr('style', 'background-color:Red');
+            //                $('#' + s.name + '_I').attr('style', 'background-color:Red');
+            //            }
+            //            else {
+            //                $('#' + s.name).attr('style', 'background-color:Green');
+            //                $('#' + s.name + '_I').attr('style', 'background-color:Green');
+            //            }
+        });
+    }
+
+    function CheckBoxInit(s, e) {
+        if (s.GetValue() == null)
+            s.SetValue(false);
+    }
+
+    function CheckStateChangedInLine(s, keyValue) {
+
+        var actionURL = '@Url.Content("~/Documents/Payments/CheckStateChanged")';
+
+        $.post(actionURL, { Ordinal: keyValue, Value: s.GetValue() }, function (result) {
+                CheckStateChanged(s, keyValue);
+            }); 
+
+       
+       
+    }
+    function CheckStateChanged(s, keyValue) {
+        if (itemOrdinalNumber == keyValue) {
+            if (s.GetValue() == true) {
+                if ($('#docForUpdate').is(':hidden') == false) {
+                    $('#docForUpdate').fadeOut(100);
+                }
+            }
+            else {
+                if ($('#docForUpdate').is(':hidden') == true) {
+                    $('#docForUpdate').fadeIn(100);
+                }
+            }
+        }
+    }
+
+    function ItemAmmountValidation(s, e) {
+        var ammount = parseFloat(s.GetValue());
+        if (ammount < paymentSum && !newPaymentItem) {
+            e.errorText = "Iznos je manji od dozvoljenog!";
+            e.isValid = false;
+            }
+        else
+        {
+            e.isValid = true;
+        }
+    }
+
+    function NoviClick() {
+        gvPaymentItemsCol.AddNewRow();
+    }
+
+    function BuyerIndexChanged(s, e) {
+
+        forceSelectionChange = true;
+        gvPaymentItemsCol_DXEditor3.SetValue("");
+
+
+    }
+
+    function SupplierIndexChanged(s, e) {
+
+        forceSelectionChange = true;
+        gvPaymentItemsCol_DXEditor2.SetValue("");
+    }
+
+    var formatGl = '';
+    function fnUpload(format) {
+        formatGl = format;
+        $('#DefaultElements').slideToggle();
+        $('#Upload').show();
+
+        $('#import').attr('onclick', 'CloseUpload()');
+        $('#importImg').attr('title', 'Zatvori');
+        $('#importImg').attr('src', '@Url.Content("~/Content/images/close.png")');
+        $('#importImg').fadeIn('slow');
+    }
+
+    function CloseUpload() {
+        $('#DefaultElements').slideToggle();
+        //$('#printDiv').slideToggle('slow');
+
+        $('#importImg').hide();
+
+        $('#importImg').attr('src', '@Url.Content("~/Content/images/importIcon.png")');
+
+        $('#import').attr('onclick', 'fnUpload()');
+        $('#importImg').attr('title', 'Ispiši dokument');
+        $('#importImg').fadeIn('slow');
+        $('#Upload').hide();
+    }
+    function Import(file) {
+
+        var Id = parseInt($('#Id').attr('value'));
+        var actionURL = '@Url.Content("~/Documents/Payments/ImportIzvod")';
+        if (formatGl == 'new')
+        {
+            actionURL = '@Url.Content("~/Documents/Payments/ImportNovogIzvoda")';
+        }
+        
+        
+        $.post(actionURL, { link: file }, function (result) {
+            if (result[0] == 'True') {
+                CloseUpload();
+                var dt = new Date(result[2]);
+                var idBank = parseInt(result[4]);
+                DocumentDateTime.SetDate(dt);
+                UniqueIdentifier.SetText(result[3]);
+                BankId.AddItem(result[5], idBank);
+                BankId.SetText(result[5]);
+                AccountBalance.SetText(result[6]);
+
+                gvPaymentItemsCol.PerformCallback();
+            }
+            else {
+                $('#lbl').text('Greška - file nije importiran - ' + result[1]);
+            }
+
+        });
+
+    }
+
+
+    var idGl;
+    function GetDesc(id) {
+        idGl = id;
+        var actionUrl = '@Url.Content("~/Documents/Payments/GetDesc")'
+        $.post(actionUrl, { id: id }, function (result) { DescriptionDesc.SetValue(result) });
+        pcModalModeDesc.Show();
+    }
+
+    function AddDesc() {
+        var actionUrl = '@Url.Content("~/Documents/Payments/AddDesc")'
+        var memo = DescriptionDesc.GetText();
+        $.post(actionUrl, { id: idGl, desc: memo }, function (result) {
+            pcModalModeDesc.Hide();
+            gvPaymentItemsCol.Refresh();
+        });
+    }
+ // ]]>
+</script>
+
+@{
+    string url = Request.Url.AbsoluteUri;
+    string caption = "Izvodi banke";
+    if (!string.IsNullOrEmpty(url) && url.EndsWith("0"))
+    {
+        caption = "Novi izvod";
+
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "Payments", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);                                     
+    
+    @Html.Hidden("linkName", "KomercijalaParent")
+    @Html.Hidden("linkId", "PaymentsSpan")
+                                                                                                                                                                              
+    
+    
+    
+    <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	<h2 class="pt"><div class="span-22"> @caption </div></h2>
+	<div id="MailPrint" class="span-23" style="text-align:right">
+    @*<a id="import" href="#"  onclick="fnUpload();"><img id="importImg" src="@Url.Content("~/Content/images/importIcon.png")" title="Uvezi izvode" /></a>*@
+
+
+
+
+                <h2 class='pt'></h2>
+			<div id="dashboard-create-new-panel" class="button-panel" >
+			<div class="dropdown-button large-green">
+	<span>Uvezi</span>
+	<ul>
+		<li>
+		<a  href="#" onclick="fnUpload('new')">
+		Novi format
+		</a>
+	</li>
+		<li>
+		<a  href="#" onclick="fnUpload('old')">
+		Stari format
+		</a>
+	</li>
+		</ul>
+</div>
+
+		</div>
+	
+<div class="clearb"></div>
+
+
+
+
+
+
+    
+   
+    </div>
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+<div id="DefaultElements">
+                                                
+	<div class="span-23" style="position: relative;">
+	    <div id="client_section">
+		    <div class="span-6 required form-layout-left">
+			    <label for="customerid" class="no-pointer">Banka:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+			    @Html.DevExpress().ComboBox(settings => { settings.Name = "BankId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; settings.Properties.EnableClientSideAPI = true; }).BindList(BusinessObjects.MDSubjects.cMDSubjects_Enums_Bank_List.GetcMDSubjects_Enums_Bank_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, Model.BankId)).Bind(Model.BankId).GetHtml()
+  @*              @Html.DevExpress().ComboBox(settings => { settings.Name = "BankId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(context.MDSubjects_Enums_Bank.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId)).Bind(Model.BankId).GetHtml()*@
+		    </div>
+        </div>
+
+           <div class="span-6 required form-layout-left">
+			    <label for="customerid" class="no-pointer">Broj izvoda:</label>
+		    </div>
+		    <div class="span-16 form-layout-right">
+			    @Html.DevExpress().TextBox(settings => { settings.Name = "UniqueIdentifier"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.UniqueIdentifier).GetHtml()
+		    </div>
+       
+
+        @*<div id="AdresaKlijentaDiv" style="display:none">
+		    <div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Adresa:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                <label id="oib" class="no-pointer"></label><br />
+                <label id="ulica" class="no-pointer"></label>&nbsp;<label id="broj" class="no-pointer"></label><br />
+                <label id="mjesto" class="no-pointer"></label><br />
+		    </div>
+        </div>*@
+
+
+</div>
+
+    
+    
+                                                 
+<div class="span-23">
+	<div class="span-12 required form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Datum izvoda:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().DateEdit(settings => { settings.Name = "DocumentDateTime"; settings.Properties.DisplayFormatString="dd.MM.yyyy";settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.DocumentDateTime).GetHtml()
+
+	</div>
+
+    <div class="span-12 form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Stanje na računu:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().SpinEdit(settings => { settings.Name = "AccountBalance"; settings.Properties.DisplayFormatString= "n2";settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.AccountBalance).GetHtml()
+
+	</div>
+
+	</div>
+ <div class="clearb"></div>
+    
+    @Html.Partial("PaymentItemsColGridPartial", Model.Documents_PaymentItemsCol)
+    <div class="clearb"></div><br />
+    <div id="docForUpdate">
+    @Html.Partial("DocumentsForPaymentGridPartial", ViewData["docForUpdate"])
+    </div>
+     
+    
+    <div class="clearb"></div>
+    <div class="append-bottom-1 form-layout">
+	<div class="span-20 append-4 append-bottom-1 iefix-2">
+		<label for="terms">Napomena</label>
+		
+		@Html.DevExpress().Memo(settings => { settings.Name = "Description"; settings.Height = 60; settings.Width = 920; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Description).GetHtml()
+	</div>
+
+	
+</div>
+ 
+   
+<div class="clearb"></div>
+               <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit(); noUnload();">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/Documents/Payments/Odustani")" onclick="noUnload();" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+  </div>
+  <div id="Upload" style="display:none">
+    <div class="notifyBox " id="Uploaded" style="display:none">
+            
+            <h3>Datoteka je snimljena.</h3>
+                    <ul>
+                    <li><label id="lbl"></label></li>
+                    </ul>
+                    
+            
+    </div>
+  
+  @Html.Partial("UploadPartial", null, new ViewDataDictionary() { { "controllerName", "Payment" } })
+  
+  </div>
+    
+    
+     @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalModeDesc";
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = false;
+            settings.HeaderText = "Dodaj napomenu";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Middle;
+            settings.SetContent(() =>
+            {
+
+                @Html.DevExpress().Memo(settingsMemo => { settingsMemo.Name = "DescriptionDesc"; settingsMemo.Width = 800; settingsMemo.Height = 100; }).GetHtml();
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-12 form-layout-right\"><a class=\"butMedium green\"  onclick=\"AddDesc()\" href=\"#\"><span>Dodaj napomenu</span></a></div>");
+            });
+        }).GetHtml()
+}
+

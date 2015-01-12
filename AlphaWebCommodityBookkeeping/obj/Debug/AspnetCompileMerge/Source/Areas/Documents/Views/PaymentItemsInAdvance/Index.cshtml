@@ -1,0 +1,59 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+  
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    $(document).ready(function () {
+        $("*").css("cursor", "default");
+    });
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+    function RowClicked(s, e) {
+        Cursor();
+        //var id = s.keys[e.visibleIndex];
+        var vi = e.visibleIndex - s.pageIndex * s.pageRowSize;
+        var id = s.keys[vi];
+        var actionURL = '@Url.Content("~/Documents/PaymentItemsInAdvance/CreateAndEdit/")' + id;
+        window.location = actionURL;
+    }
+// ]]>
+
+
+
+</script>
+
+@Html.Hidden("linkName", "KomercijalaParent")
+@Html.Hidden("linkId", "PaymentItemsInAdvanceSpan")
+
+<h2 class="pt"> Avansi klijenata </h2>
+@*<a class="butPrimary " href="@Url.Content("~/Documents/PaymentItemsInAdvance/CreateAndEdit/0")">
+<span> Novi avans </span>
+</a>*@
+<div class="clearb"></div>
+
+
+
+    <div>
+        @Html.Partial("PaymentItemsInAdvanceGridPartial", new ViewDataDictionary() { { "name", "gvPaymentInAdvancein" } })
+    </div>
+    <div class="clearb"></div>
+
+    <h2 class="pt" style="padding-top:30px"> Avansi uplaćeni dobavljačima </h2>
+    <div class="clearb"></div>
+    <div>
+        @Html.Partial("PaymentItemsInAdvanceGridPartial", new ViewDataDictionary() { { "name", "gvPaymentInAdvanceout" } })
+    </div>
+
+

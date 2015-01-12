@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+    xmlns:gap = "http://phonegap.com/ns/1.0"
+    id        = "hr.alphascore.hr.employeelist"
+    version   = "1.0.0">
+
+  <name>Radni nalozi</name>
+
+  <description>
+    Alphascore mobile applications
+  </description>
+
+  <author href="https://build.phonegap.com" email="support@phonegap.com">
+    Dino Dragovic
+  </author>
+  
+  <preference name="phonegap-version" value="1.4.0" />
+  <preference name="orientation" value="default" />
+  <preference name="target-device" value="universal" />
+  <preference name="fullscreen" value="true" />
+  <!--iOS specific-->
+  <preference name="webviewbounce" value="true" />
+  <preference name="prerendered-icon" value="true" />
+  <preference name="stay-in-webview" value="false" />
+
+  <!-- BlackBerry specific -->
+  <preference name="disable-cursor" value="true" />
+  
+  <!-- if a single icon is specified then Build will use it for all platforms -->
+  <icon src="icons/order.png" />
+
+  <!-- the default attribute can also be used -->
+  <icon src="icons/order.png" default="true" />
+
+  <!-- specifies the icon to be displayed when hovered over (on BlackBerry) -->
+  <icon src="icons/order.png" hover="false" />
+
+  <!-- iOS requires specific dimensions for icons; classic iPhone screens, Retina
+    displays, and iPad screens respectively -->
+  <icon src="icons/icon-iphone-57.png" width="57" height="57"/>
+  <icon src="icons/icon-iphone-72.png" width="72" height="72"/>
+  <icon src="icons/icon-iphone-114.png" width="114" height="114"/>
+  
+  <!-- Android requires specific dimensions; ldpi, mdpi, and hdpi respectively -->
+  <icon src="icons/icon-android-36.png" width="36" height="36"/>
+  <icon src="icons/icon-android-48.png" width="48" height="48"/>
+  <icon src="icons/icon-android-72.png" width="72" height="72"/>
+
+  <!-- If you do not want any permissions to be added to your app, add the
+    following tag to your config.xml; you will still have the INTERNET
+    permission on your app, which PhoneGap requires. -->
+  <preference name="permissions" value="none"/>
+
+  <!-- to enable individual permissions use the following examples -->
+  <!--<feature name="http://api.phonegap.com/1.0/battery"/>-->
+  <!--<feature name="http://api.phonegap.com/1.0/camera"/>
+  <feature name="http://api.phonegap.com/1.0/contacts"/>-->
+  <feature name="http://api.phonegap.com/1.0/file"/>
+  <feature name="http://api.phonegap.com/1.0/geolocation"/>
+  <!--<feature name="http://api.phonegap.com/1.0/media"/>-->
+  <feature name="http://api.phonegap.com/1.0/network"/>
+  <feature name="http://api.phonegap.com/1.0/notification"/>
+</widget>

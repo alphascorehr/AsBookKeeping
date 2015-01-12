@@ -1,0 +1,824 @@
+/*	Copyright 2004 - 2ndSite Inc.
+	DO NOT copy or re-distribute without written consent from 2ndSite Inc.
+	Ver.	Author		Changes
+	-------------------------------------------------------------------------------------------------
+	3.0		DT			Added .invoice style for regular and recurring invoices
+	3.1		DT			Modified boxStringsCAP
+	-------------------------------------------------------------------------------------------------
+*/
+
+/* main stuff */
+.barGrey {
+	border-top: 1px solid #ddd;
+	margin: 15px 0;
+}
+.barGrey2 {
+	border-top: 1px solid #ddd;
+	margin: 5px 0;
+}
+label {
+	cursor: pointer;
+}
+
+abbr[title] {
+	border-bottom: none;
+}
+
+
+.tdStyle {
+	font-family: Verdana, sans-serif;
+	font-size: 12px;
+	color: #000;
+}
+a.tdStyle:link, a.tdStyle:visited, a.tdStyle:active {
+	color: #00f;
+}
+a.tdStyle:hover {
+	background-color: #00F;
+	color: #FFF;
+	text-decoration: none;
+}
+
+
+.extraSmallFont {
+	font-size: 10px;
+	font-family: Verdana, sans-serif;
+}
+.extraSmallFont3 {
+	font-size: 11px;
+	font-family: Verdana, sans-serif;
+}
+
+a.extraSmallFont3:link {
+	color: #0000FF;
+	text-decoration: underline;
+}
+a.extraSmallFont3:visited {
+	color: #0000FF;
+	text-decoration: underline;
+}
+a.extraSmallFont3:hover {
+	color: #FFFFFF;
+	background-color: #0000FF;
+	text-decoration: none;
+}
+a.extraSmallFont3:active {
+	color: #FFFFFF;
+	background-color: #0000FF;
+	text-decoration: none;
+}
+
+.tdStyleRed { font-family: Verdana, sans-serif; font-size: 10pt; color: #ff0000; line-height: 15px; }
+
+.notify {
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+}
+.statusPending {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #000000;
+}
+.statusSent {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #000000;
+}
+.statusViewed {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #000000;
+}
+.statusPaid {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #009900;
+}
+.statusPartial {
+	font-size: 10px;
+	color: #e27100;
+}
+.statusDisputed {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #FF0000;
+}
+.statusFailed {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #F00;
+	text-decoration: underline;
+}
+.statusOutstanding {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+}
+a.statusFailed:link {
+	color: #FF0000;
+	text-decoration: underline;
+}
+a.statusFailed:visited {
+	color: #FF0000;
+	text-decoration: underline;
+}
+a.statusFailed:hover {
+	color: #FF0000;
+	text-decoration: none;
+}
+a.statusFailed:active {
+	color: #FF0000;
+	text-decoration: underline;
+}
+.statusText {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #333333;
+}
+.statusAccepted,
+.statusVerified {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #090;
+}
+.statusInvoiced,
+.statusUnverified {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #999;
+}
+.statusReplied {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #F00;
+}
+.statusRecouped {
+	font-family: Verdana, sans-serif;
+	font-size: 10px;
+	color: #090;
+}
+a.invoiced_link:link, a.invoiced_link:active, a.invoiced_link:visited {
+	text-decoration: none;
+}
+a.invoiced_link:hover {
+	color: #999;
+	background-color: transparent;
+	text-decoration: underline;
+}
+
+/* grey boxes */
+.boxBorder {
+	background-color: #FFFFFF;
+	border: 1px solid #AAAAAA;
+	padding: 3px;
+}
+.boxBg {
+	background-color: #EEEEEE;
+}
+
+
+/* system details styles */
+.systemDetails {
+	font-family: Verdana, sans-serif;
+	font-size: 10pt;
+	color: #333333;
+	line-height: 15px;
+
+}
+.systemDetailsTitle {
+	font-weight: bold;
+	text-align: right;
+	vertical-align:middle;
+}
+
+
+/* support */
+.fontSupport {
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+	color: #333333;
+	line-height: 15px;
+}
+a.fontSupport:link, a.fontSupport:active, a.fontSupport:visited {
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+	color: #0000FF;
+	line-height: 15px;
+	text-decoration: underline;
+}
+a.fontSupport:hover {
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+	color: #0000FF;
+	line-height: 15px;
+	text-decoration: none;
+}
+
+
+a.linkSmall:link, a.linkSmall:active, a.linkSmall:visited {
+	font-size: 11px;
+	color: #0000FF;
+	text-decoration: underline;
+}
+a.linkSmall:hover {
+	text-decoration: none;
+}
+
+/* BORDER AROUND BOXES */
+/* LIGHT GREEN BACKGROUND */
+.bgLightGreen {
+	background-color: #D9FFD2;
+}
+
+/* LIGHT BLUE BACKGROUND */
+.bgLightBlue {
+	background-color: #D7E8F2;
+}
+
+/* LIGHT GREEN BACKGROUND */
+.bgOrange {
+	background-color: #FFEDCF;
+}
+
+
+/* FORM TITLES - DEFINES THE TITLES FOR THE INPUT FIELDS */
+.formTitle {
+	font-weight: bold;
+	text-align: right;
+	vertical-align: middle;
+}
+.formTitleTop {
+	vertical-align: top;
+	font-weight: bold;
+	text-align: right;
+	line-height: 22px;
+}
+
+/* FORM FIELDS */
+form {
+	margin: 0;
+	padding: 0;
+}
+.happyInput {
+	background-color: #d9ffb2;
+	border: 1px solid #b8d998 !important;
+	outline: 0px !important;
+}
+.formText {
+	width: 250px;
+}
+.formTextReq {
+	/* background-color: #FFFDD9;*/
+	width: 250px;			
+}
+.formTextMed{
+	width: 150px;	
+}
+.formTextMedReq{
+	/* background-color: #FFFDD9;*/
+	width: 150px;		
+}
+.formTextSmall {
+	width: 100px;	
+}
+.formTextMini {
+	width: 50px;	
+}
+.formTextMiniReq {
+	/* background-color: #FFFDD9;*/
+	width: 50px;		
+}
+.formTextLarge{
+	width: 500px;	
+}
+.formTextLargeReq {
+	/* background-color: #FFFDD9;*/
+	width: 500px;		
+}
+.formSelectSmall {
+	font-size: 8pt;
+}
+.formSelectSmallReq {
+	/* background-color: #FFFDD9;*/
+	font-size: 8pt;
+}
+.formArea {
+	font-size: 8pt;
+	height: 50px;
+	width: 350px;
+}
+.formAreaReq {
+	/* background-color: #FFFDD9;*/
+	height: 50px;
+	width: 350px;
+}
+.formAreaLarge {
+	font-size: 8pt;
+	height: 100px;
+	width: 500px;		
+}
+.formAreaLargeReq {
+	/* background-color: #FFFDD9;*/
+	font-size: 8pt;
+	height: 100px;
+	width: 500px;		
+}
+.formAreaMini {
+	font-size: 8pt;
+	height: 50px;
+	width: 250px;		
+}
+.formAreaMiniReq {
+	/* background-color: #FFFDD9;*/
+	font-size: 8pt;
+	height: 50px;
+	width: 250px;		
+}
+.formAreaThin {
+	font-size: 8pt;
+	height: 75px;
+	width: 250px;	
+}
+.formAreaThinReq {
+	/* background-color: #FFFDD9;*/
+	font-size: 8pt;
+	height: 75px;
+	width: 250px;	
+}
+.formMultiSelect {
+	width: 155px; 
+	height: 120px;
+}
+
+/* radio button */
+input[type='radio'], .radioButton {
+	cursor: pointer;
+	vertical-align: middle;
+	height: 14px;
+	width: 14px;
+}
+
+/* TEXTBOX FOR BILLINGARM URL */
+.url {
+	font-size: 12px;
+	font-weight: bold;
+	border: 0;
+}
+
+
+/***********************************/
+.dash {
+	border-top: 1px dashed #ccc;
+}
+
+.blueBox {
+	background-color: #EBF3FF;
+	border: 1px solid #BFDDF8;
+	padding: 20px;
+}
+
+
+/* big green text */
+.greenBig {	
+	font-size: 20px;
+	font-weight: bold;
+	color: #00A00B;
+	line-height: 24px;
+}
+
+/* new timesheet styles */
+.timer {
+	background-color: #FFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 50px;
+	font-weight: bold;
+	text-align: center;
+	width: 260px;
+	border: 1px solid #97BCEB;
+}
+.formTimeText {
+	font-size: 8pt;
+	width: 38px;
+	vertical-align: middle;
+}
+
+/* ADDED IN FOR BASECAMP */
+.lineGrey {
+	border-bottom: 1px solid #CCC;
+	margin: 20px 0;
+}
+.lineGrey2 {
+	border-bottom: 1px solid #CCC;
+}
+.borderGreen {
+	border: 1px solid #74DC74;
+}
+a.white:link, a.white:visited {
+	color: #FFF;
+	text-decoration: underline;
+}
+a.white:hover, a.white:active {
+	color: #FFF;
+	background-color: #00F;
+	text-decoration: none;
+}
+
+/* report card styles */
+.rcBorder {
+	border: 1px solid #ccc;
+	margin: 0 20px;
+}
+.rcTop {
+	background-color: #eee;
+	padding: 15px;
+	border-bottom: 1px solid #ccc;
+	line-height: 18px;
+	text-align: center;
+}
+.rcTop h2 {
+	font-size: 24px;
+}
+#rcTable th, .rcBotBorder {
+	border-bottom: 1px solid #ccc;
+}
+#rcTable label {
+	border-bottom: 1px dashed #999;
+}
+#rcTable td.rcLeft {
+	text-align: left;
+	padding-left: 20px;
+}
+#rcTable tr.rcRow1 {
+	background-color: #ffc;
+}
+#rcTable tr.rcRow2 {
+	background-color: #ffe;
+}
+#rcTable td.rcResult {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+}
+.rating {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+	color: #000;
+	padding: 15px 0;
+}
+.rcBot {
+	color: #777;
+	padding-left: 20px;
+}
+.rcLegend {
+	color: #000;
+	float: right;
+}
+.rcBot img {
+	vertical-align: middle;
+	margin: 2px 0;
+}
+
+/* main page */
+.pageTitle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+}
+/* top bar */
+.topBar {
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFF;
+	text-align: left;
+	width: 760px;
+	padding: 4px 0;
+}
+
+
+/* estimates/invoices conversation bubble */
+.dispute {
+	margin: 20px 20px 0 20px;
+	padding-top:18px;
+	background: url('/images/2ndSite/conversation-top.gif') top  no-repeat;
+}
+.convo {
+	background-color: #fffbe1;
+	border: 1px solid #e0d9a8;
+	border-top: 0;
+	border-bottom: 0;
+	padding: 0 15px;
+}
+.convoDate {
+	font-size: 10px;
+	color: #999;
+	line-height: 12px;
+}
+.comment-content {
+	min-height: 33px;
+}
+.comment-content,
+.comment-author,
+.invoice-comments {
+	margin: 0;
+	word-wrap: break-word;
+}
+
+
+/*** inline box ***/
+.inlineBoxGreen {
+	background-color: #dfffbd;
+	border-left: 5px solid #88c331;
+	padding: 20px 20px 20px 15px;
+}
+
+/* progress wizard (import/export/basecamp) */
+#progress {
+	text-align: center;
+}
+#progress div {
+	float: left;
+	height: 55px;
+	color: #777;
+	text-align: center;
+}
+#progress a {
+	border-bottom: 5px solid #DDDDDD;
+	display: block;
+	padding: 0;
+	height: 55px;
+	color: #777;
+	text-decoration: none;
+}
+#progress a:hover {
+	background-color: transparent;
+	border-color: #72b80b;
+}
+#progress a:hover span {
+	color: #408e00;
+}
+#progress div div {
+	border-bottom: 5px solid #E5E5E5;
+	margin: 0;
+	width: 100%;
+}
+#progress div span {
+	color: #000;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	display: block;
+}
+#progress div.end.left {
+	background-image: url(/images/2ndSite/progress-left.gif);
+	background-position:bottom right;
+}
+#progress div.end.right {
+	background-image: url(/images/2ndSite/progress-right.gif);
+	background-position:bottom left;
+}
+#progress div.end {
+	height: 63px;
+	width: 16px;
+	border-bottom: 0;
+	background-repeat: no-repeat;
+}
+#progress div div.progress_on, #progress a.progress_on {
+	border-color: #72b80b;
+}
+#progress div.progress_importclient {
+	width: 253px;
+}
+#progress div.progress_importbc {
+	width: 190px;
+}
+
+
+/* import clients on import/export page */
+.imported_box {
+	background-color: #eee;
+	border: 1px solid #ccc;
+	font-size: 11px;
+	padding: 5px 10px;
+	float: left;
+	width: 325px;
+	margin: 5px 10px;
+}
+
+.imported_box:hover {
+	border-color: #bbb;
+	background-color: #ccc;
+	cursor: pointer;
+}
+
+#imported-clients .checkbox { 
+	margin-top: 3px; 
+}
+
+#imported-clients .error {
+	background-color: transparent;
+	color: red;
+}
+
+#imported-clients .unchecked, 
+#imported-clients .errors { 
+	color: #999; 
+	background: #F6F6F6;
+}
+
+#imported-clients .unchecked .primary div {
+	display: none;
+}
+
+#imported-clients .primary .selector {
+	display: block;
+	width: 18px;
+	height: 16px;
+}
+
+#imported-clients .primary .selector {
+	background: url(/images/icons/star-outline.png);
+}
+
+#imported-clients .primary:hover .selector {
+	background: url(/images/icons/star2.png);
+	cursor: pointer;
+	opacity: 0.3;
+	filter:alpha(opacity=30);
+}
+
+#imported-clients .primary .secondary {
+	background: url(/images/icons/star-grey.png) !important;
+	opacity: 1 !important;
+	filter:alpha(opacity=100) !important;
+	cursor: none;
+}
+
+#imported-clients .primary .selected {
+	background: url(/images/icons/star2.png);
+	opacity: 1 !important;
+	filter:alpha(opacity=100) !important;
+}
+
+#imported-clients .primary .hidden {
+	display: none;
+}
+
+#imported-clients .stripe td {
+	padding: 0px;
+	height: 3px;
+	line-height: 3px;
+	margin: 0px;
+	background-color: #EEE;
+}
+
+#imported-clients .stripe:hover td {
+	background-color: #EEE !important;
+}
+
+#legend {
+	border-top: 1px solid #E5E5E5;
+	padding-top: 25px;
+	padding-left: 17px;
+	padding-bottom: 10px;
+	margin-top: 0px;
+}
+
+#legend li {
+	background-repeat: no-repeat;
+	list-style-type: none;
+	padding-left: 33px;
+	color: #999;
+	font-size: 11px;
+	margin-bottom: 5px;
+}
+
+#legend .primary {
+	background-image: url(/images/icons/star2.png);
+}
+
+#legend .secondary {
+	background-image: url(/images/icons/star-outline.png);
+}
+
+#legend .secondary-forced {
+	background-image: url(/images/icons/star-grey.png);
+}
+
+/* generate invoice page */
+.generate_type_box {
+	background-color: #eee;
+	border: 1px solid #bbb;
+	width: 185px;
+	padding: 8px;
+	float: left;
+	margin-right: 10px;
+	cursor:pointer; 
+}
+.generate_type_selected {
+	background-color: #d9ffb2;
+	border: 1px solid #88c331;
+}
+.generate_type_box span {
+	font-size: 11px;
+	line-height: 15px;
+}
+.generate_type_selected span {
+	color: #45690c;
+}
+.generate_type_box input {
+	vertical-align: middle;
+	margin-bottom: 2px;
+}
+#generate_desc {
+	float: left;
+	width: 170px;
+}
+#generate_desc div {
+	width: 145px;
+	padding-bottom: 4px;
+	float: left;
+}
+#generate_desc input {
+	margin-right: 3px;
+}
+#generate_sample_desc {
+	background-image: url('/images/generate-invoice-sample-desc.gif');
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	width: 445px;
+	height: 101px;
+	float: left;
+}
+#generate_sample_task {
+	float: left;
+	width: 114px;
+	padding-top: 47px;
+	margin-left: 26px;
+}
+#generate_sample_content {
+	float: left;
+	width: 280px;
+	padding-top: 47px;
+	line-height: 16px;
+}
+#generate_sample_desc span {
+	display: none;
+}
+
+#project_list {
+	width:642px; 
+}
+#project_list .project_list_box {
+	float: left;
+	width: 200px;
+	margin: 0 10px 15px 0;
+	padding: 2px;
+	cursor:pointer;
+}
+#project_list .project_list_box span {
+	float: right;
+	width: 175px;
+}
+#project_list .project_list_box:hover span {
+	background-color:#eee;
+}
+#project_list .project_list_box span span {
+	float:none;
+	width:auto;
+}
+#project_list .project_list_box input {
+	float: left;
+}
+#project_list .project_list_box > input {
+	margin-top: 3px;
+}
+
+.newTable.generateinv_table td {
+	padding: 10px 0;
+}
+
+
+.lowercase {
+	text-transform: lowercase;
+}
+
+
+/* connect systems/received invoices thickbox */
+#connect_systems_prompt {
+	padding-top: 5px;
+	text-align: center;
+}
+
+/* report card bar */
+.bar {
+	background-color: #FFF;
+	background-image: url(/images/2ndSite/bar-bg.gif);
+	background-repeat: repeat-x;
+	width: 155px;
+	float: left;
+	margin-right: 3px;
+	border: 1px solid #bbb;
+}

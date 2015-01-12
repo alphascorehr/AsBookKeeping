@@ -1,0 +1,12 @@
+﻿
+
+@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrPayoff
+
+@Html.DevExpress().ReportViewer(
+    settings => {
+        settings.Name = "ReportViewer1";
+        settings.Report = Model;
+        settings.CallbackRouteValues = new { Controller = "Payoff", Action = "PayoffReportPartial", id = ViewData["PayoffId"] };
+        settings.ExportRouteValues = new { Controller = "Payoff", Action = "ReportViewerExportTo", id = ViewData["PayoffId"] };
+    }
+).GetHtml()

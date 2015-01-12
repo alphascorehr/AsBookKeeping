@@ -1,0 +1,30 @@
+﻿@using (Html.BeginForm("Callbacks", "Company", FormMethod.Post, new { @class = "imagePreview" }))
+{
+    <div class="uploadContainer">
+        <label>Odaberite datoteku:</label>
+        @Html.DevExpress().UploadControl(
+            settings => {
+                settings.Name = "ucCallbacks";
+                settings.CallbackRouteValues = new { Controller = "Company", Action = "CallbacksImageUpload" };
+                //settings.ControlStyle.CssClass = "editorArea";
+                settings.BrowseButton.Text = "Odaberi";
+                settings.ShowProgressPanel = false;
+                //settings.ValidationSettings.Assign(UploadControlDemosHelper.ValidationSettings);
+
+                //settings.ClientSideEvents.FileUploadComplete = "function(s,e){ if(e.callbackData != '') $('#previewImage').attr('src', e.callbackData); }";
+                settings.ClientSideEvents.FileUploadComplete = "function(s,e){ if(e.callbackData != '') {Import(e.callbackData); $('#Uploaded').fadeIn('slow')}}";
+            }).GetHtml()
+        <label>&nbsp;</label>
+        <div class="editorArea text">
+            
+        </div>
+        <label>&nbsp;</label>
+        <div class="editorArea">
+            <input type="button" value="Pošalji" onclick="ucCallbacks.Upload()" />
+        </div>
+    </div>
+   @* <div class="imageContainer">
+        <img alt="" id="previewImage" src="@Url.Content("~/Content/ImagePreview.gif")" />
+    </div>*@
+    
+}

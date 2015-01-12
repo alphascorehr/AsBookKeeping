@@ -1,0 +1,294 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+
+    $(document).ready(function () {
+        $("*").css("cursor", "default");
+    });
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+    function RowClicked(s, e) {
+        Cursor();
+        //var id = s.keys[e.visibleIndex];
+        var vi = e.visibleIndex - s.pageIndex * s.pageRowSize;
+        var id = s.keys[vi];
+        var actionURL = '@Url.Content("~/Documents/Dispatch/CreateAndEdit/")' + id;
+        window.location = actionURL;
+    }
+
+    var glId;
+    var glstatusId;
+    function Status(id, statusId) {
+        glId = id;
+        popupStatus.Show();
+        rbl_Init();
+    }
+    function rbl_Init() {
+        if (glId != undefined) {
+            //var actionURL = '@Url.Content("~/Documents/Dispatch/GetStatus/")';
+            //$.post(actionURL, { id: glId, statusId: checkBoxList1.GetValue() }, function (result) {
+            //    if (result.Item1 == true) {
+            //        ShowHideRadio(result.Item2);
+                ShowHideRadio(glstatusId);
+                //}
+            //})
+        }
+    }
+
+    function ShowHideRadio(id, status)
+    //function ShowHideRadio()
+    {
+        // Otvoren
+        // Poslan
+        // Odbijen
+        // Zatvoren
+        // Obrisan
+        glId = id;
+        switch (status)
+        {
+            case "0": // otvoren
+                $('#tejbl').show();
+                $('#checkBoxList1_RB0').hide();
+                $('#checkBoxList1_RB1').show();
+                $('#checkBoxList1_RB2').show();
+                $('#checkBoxList1_RB3').show();
+                $('#checkBoxList1_RB4').hide();
+                break;
+            case "1": // poslan
+                $('#tejbl').show();
+                $('#checkBoxList1_RB0').hide();
+                $('#checkBoxList1_RB1').hide();
+                $('#checkBoxList1_RB2').show();
+                $('#checkBoxList1_RB3').show();
+                $('#checkBoxList1_RB4').hide();
+                break;
+            case "3": // odbijen
+                $('#tejbl').show();
+                $('#checkBoxList1_RB0').show();
+                $('#checkBoxList1_RB1').hide();
+                $('#checkBoxList1_RB2').hide();
+                $('#checkBoxList1_RB3').hide();
+                $('#checkBoxList1_RB4').hide();
+                break;
+            case "4": // zatvoren
+                $('#tejbl').hide();
+                $('#checkBoxList1_RB0').hide();
+                $('#checkBoxList1_RB1').hide();
+                $('#checkBoxList1_RB2').hide();
+                $('#checkBoxList1_RB3').hide();
+                $('#checkBoxList1_RB4').hide();
+                break;
+            case "5": // obrisan
+                $('#tejbl').show();
+                $('#checkBoxList1_RB0').show();
+                $('#checkBoxList1_RB1').hide();
+                $('#checkBoxList1_RB2').hide();
+                $('#checkBoxList1_RB3').hide();
+                $('#checkBoxList1_RB4').hide();
+                break;
+        }
+        checkBoxList1.SetValue(-1);
+        if (status != 4)
+        {
+            popupStatus.Show();
+        }
+        
+    }
+
+    function ChangeStatus(s, e)
+    {
+        
+        if (glId != undefined) {
+            var actionURL = '@Url.Content("~/Documents/Dispatch/SetStatus/")';
+            $.post(actionURL, { id: glId, statusId: checkBoxList1.GetValue() }, function (result) {
+                if (result == true) {
+                    //s.SetValue(result.Item2);
+                    //checkBoxList1.SetValue(result.Item2);
+                    popupStatus.Hide();
+                    gvDispatchGrid.Refresh();
+                }
+            })
+        }
+    }
+
+    function Delete(id)
+    {
+        var a = confirm('Da li stvarno želite obrisati?');
+        if (a)
+        {
+            var actionURL = '@Url.Content("~/Documents/Dispatch/SetStatus/")';
+            $.post(actionURL, { id: id, statusId: 5 }, function (result) {
+                if (result == true) {
+                    gvDispatchGrid.Refresh();
+                }
+            });
+        }
+    }
+
+    function gridDisplay()
+    {
+        var otvoren = $('#otvoren').is(':checked');
+        var poslan = $('#poslan').is(':checked');
+        var placen = $('#placen').is(':checked');
+        var odbijen = $('#odbijen').is(':checked');
+        var zatvoren = $('#zatvoren').is(':checked');
+        var actionURL = '@Url.Content("~/Documents/Dispatch/gridDisplay/")';
+        $.post(actionURL, { otvoren: otvoren, poslan: poslan, placen: placen, odbijen: odbijen, zatvoren: zatvoren }, function (result) {
+            if (result.Item1 == true) {
+                gvDispatchGrid.Refresh();
+            }
+        })
+    }
+
+
+
+    function OnPopupMenuItemClick(s, e) {
+        if (e.item == null || e.item.name == $("#CheckedItemName").val())
+            return;
+        //$("#CheckedItemName").val(e.item.name);
+        //grid.PerformCallback(e.item.name);
+        //alert(e.item.name);
+        if (glId != undefined) {
+            var actionURL = '@Url.Content("~/Documents/Dispatch/SetStatus/")';
+            $.post(actionURL, { id: glId, statusId: e.item.name }, function (result) {
+                if (result.Item1 == true) {
+                    //s.SetValue(result.Item2);
+                    //checkBoxList1.SetValue(result.Item2);
+                    //popupStatus.Hide();
+                    gvDispatchGrid.Refresh();
+                }
+            })
+        }
+    }
+
+    function ShowHideMenus(id, status)
+    {
+        glId = id;
+        switch (status) {
+            case "0": // otvoren
+                $('#tejbl').show();
+                $('#PopupMenu_DXI0_T').hide();
+                $('#PopupMenu_DXI1_T').show();
+                $('#PopupMenu_DXI2_T').show();
+                $('#PopupMenu_DXI3_T').show();
+                //$('#checkBoxList1_RB4').show();
+                break;
+            case "1": // poslan
+                $('#tejbl').show();
+                $('#PopupMenu_DXI0_T').hide();
+                $('#PopupMenu_DXI1_T').hide();
+                $('#PopupMenu_DXI2_T').show();
+                $('#PopupMenu_DXI3_T').show();
+                $('#PopupMenu_DXI4_T').hide();
+                break;
+            case "3": // odbijen
+                $('#tejbl').show();
+                $('#PopupMenu_DXI0_T').show();
+                $('#PopupMenu_DXI1_T').hide();
+                $('#PopupMenu_DXI2_T').hide();
+                $('#PopupMenu_DXI3_T').hide();
+                $('#PopupMenu_DXI4_T').hide();
+                break;
+            case "4": // zatvoren
+                $('#tejbl').hide();
+                $('#PopupMenu_DXI0_T').hide();
+                $('#PopupMenu_DXI1_T').hide();
+                $('#PopupMenu_DXI2_T').hide();
+                $('#PopupMenu_DXI3_T').hide();
+                $('#PopupMenu_DXI4_T').hide();
+                break;
+            case "5": // obrisan
+                $('#tejbl').show();
+                $('#PopupMenu_DXI0_T').show();
+                $('#PopupMenu_DXI1_T').hide();
+                $('#PopupMenu_DXI2_T').hide();
+                $('#PopupMenu_DXI3_T').hide();
+                $('#PopupMenu_DXI4_T').hide();
+                break;
+        }
+    }
+
+// ]]>
+</script>
+
+@Html.Hidden("linkName", "KomercijalaParent")
+@Html.Hidden("linkId", "DispatchSpan")
+
+<h2 class="pt"> Otpremnice </h2>
+<a class="butPrimary " href="@Url.Content("~/Documents/Dispatch/CreateAndEdit/0")">
+<span> Nova otpremnica </span>
+</a>
+<div class="clearb"></div>
+
+@Html.Partial("DispatchGridPartial")
+
+@*<br />
+<table width="100%">
+    <tr>
+    <td width="50%" colspan="5">Prikazi dokumente sa statusom</td>
+    <td width="50%"></td>
+    </tr>
+
+    <tr>
+    <td width="10%"><input type="checkbox" id="otvoren" />Otvoren</td>
+    <td width="10%"><input type="checkbox" id="poslan" />Poslan</td>
+    <td width="10%"><input type="checkbox" id="placen" />Placen</td>
+    <td width="10%"><input type="checkbox" id="odbijen" />Odbijen</td>
+    <td width="10%"><input type="checkbox" id="zatvoren" />Zatvoren</td>
+    <td width="50%"><a class="butMedium green" onclick="gridDisplay()" href="#"><span>Prikazi</span></a></td>
+    </tr>
+</table>*@
+
+
+
+ @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "popupStatus";
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.OuterMouseClick;
+            settings.EnableAnimation = true;
+            settings.HeaderText = "Status";
+            settings.Width = 200;
+            settings.Modal = false;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            settings.AutoUpdatePosition = true;
+            settings.SetContent(() =>
+            {
+                //ViewContext.Writer.Write("<table id=\"tejbl\" width=\"100%\"><tr><td width=\"100%\">");
+                
+                
+                
+                @Html.DevExpress().RadioButtonList(settingss => {
+                settingss.Name = "checkBoxList1";
+
+
+
+                settingss.Properties.Items.Add("Otvoren", (short)BusinessObjects.Common.Status.Otvoren);
+                settingss.Properties.Items.Add("Poslan", (short)BusinessObjects.Common.Status.Poslan);
+                settingss.Properties.Items.Add("Zatvoren", (short)BusinessObjects.Common.Status.Zatvoren);
+                settingss.Properties.Items.Add("Odbijen", (short)BusinessObjects.Common.Status.Odbijen);
+                settingss.Properties.Items.Add("Obrisan", (short)BusinessObjects.Common.Status.Obrisan);
+                settingss.Properties.ValueType = typeof(Int32);
+                //settingss.Properties.ValueField = "ID";
+                //settingss.Properties.TextField = "Name";
+                //settingss.Properties.RepeatLayout = options.RepeatLayout;
+                //settingss.Properties.RepeatDirection = options.RepeatDirection;
+                //settingss.Properties.RepeatColumns = options.RepeatColumns; 
+                //settingss.Properties.ClientSideEvents. = "function(s, e) { rbl_Init(s, e); }"; 
+                settingss.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e) { ChangeStatus(s, e); }";
+                
+            }).GetHtml();
+                //ViewContext.Writer.Write("</td></tr><tr><td width=\"100%\"><a class=\"butMedium green\" onclick=\"ChangeStatus()\" href=\"#\"><span>Snimi</span></a></td></tr></table>");
+               
+            });
+        }).GetHtml()

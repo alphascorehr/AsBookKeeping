@@ -1,0 +1,206 @@
+﻿@model BusinessObjects.Documents.cDocuments_TravelOrder_WageCol
+           
+           @{
+    DalEf.MDGeneralEntities contextEnt = new DalEf.MDGeneralEntities();
+    var grid = Html.DevExpress().GridView(
+                    settings =>
+                    {
+                        settings.Name = "gvWageCol";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.SettingsPager.PageSize = 10;
+                        settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                        settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+                        settings.CommandColumn.SetHeaderTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write(
+                                Html.DevExpress().HyperLink(settingsHy => { settingsHy.Name = "addNewTravelWage"; settingsHy.Properties.ImageUrl = @Url.Content("~/Content/images/pls_dodaj_16.png"); settingsHy.Properties.ClientSideEvents.Click = "function NoviCLick(s, e) {gvWageCol.AddNewRow(); }"; }).GetHtml());
+                        });
+
+                        settings.CallbackRouteValues = new { Controller = "TravelOrder", Action = "RefreshWageColGridPartial" };
+                        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "TravelOrder", Action = "AddNewWage" };
+                        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "TravelOrder", Action = "UpdateWage" };
+                        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "TravelOrder", Action = "DeleteWage" };
+                        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                        settings.SettingsBehavior.ConfirmDelete = true;
+                        settings.SettingsBehavior.AllowFocusedRow = true;
+
+
+                        settings.CommandColumn.Width = 40;
+                        settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                        settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.NewButton.Visible = false;
+                        settings.CommandColumn.NewButton.Text = "Novi";
+                        settings.CommandColumn.DeleteButton.Visible = true;
+                        settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                        //settings.CommandColumn.DeleteButton.Text = "Obriši";
+                        settings.CommandColumn.DeleteButton.Image.Url = @Url.Content("~/Content/images/pls_brisi_16.png");
+                        settings.CommandColumn.DeleteButton.Image.ToolTip = "Obriši";
+                        settings.CommandColumn.EditButton.Visible = true;
+                        //settings.CommandColumn.EditButton.Text = "Uredi";
+                        settings.CommandColumn.EditButton.Image.Url = @Url.Content("~/Content/images/pls_uredi_16.png");
+                        settings.CommandColumn.EditButton.Image.ToolTip = "Uredi";
+                        //settings.CommandColumn.CancelButton.Text="Odustani";
+                        settings.CommandColumn.CancelButton.Image.Url = @Url.Content("~/Content/images/pls_zatvori_16.png");
+                        settings.CommandColumn.CancelButton.Image.ToolTip = "Odustani";
+                        //settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                        settings.CommandColumn.UpdateButton.Image.Url = @Url.Content("~/Content/images/pls_snimi_16.png");
+                        settings.CommandColumn.UpdateButton.Image.ToolTip = "Snimi";
+                        settings.CommandColumn.ShowSelectCheckbox = false;
+
+                        
+                        
+                        settings.KeyFieldName = "Ordinal";
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Ordinal";
+                            column.ReadOnly = true;
+                            column.Caption = "Rbr.";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 30;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 0;
+                            spinEditProperties.DisplayFormatString = "n0";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 0;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            spinEditProperties.Width = 30;
+                            
+                            
+                        });
+                        
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Id";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Visible = false;
+
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+                            spinEditProperties.NullText = "0";
+                            
+                          
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Departure";
+                            column.Caption = "Odlazak";
+                            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                            column.Width = 90;
+                            var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+
+                            dateEditProperties.AllowNull = false;
+                            //dateEditProperties.Width = 30;
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Arrival";
+                            column.Caption = "Dolazak";
+                            column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                            column.Width = 90;
+                            var dateEditProperties = column.PropertiesEdit as DateEditProperties;
+
+                            dateEditProperties.AllowNull = false;
+                            //dateEditProperties.Width = 30;
+                        });
+
+                         settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Hours";
+                            column.Caption = "Broj sati";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 50;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 0;
+                            spinEditProperties.DisplayFormatString = "n1";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 0;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            //spinEditProperties.Width = 30;
+                            spinEditProperties.ClientSideEvents.ValueChanged = "function(s, e) { WageTotalBellowGrid(s, e); }";  
+                            
+                        });
+                        
+                          settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "NumberOfWage";
+                            column.Caption = "Broj nadnica";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 70;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 1;
+                            spinEditProperties.DisplayFormatString = "n1";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 0;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            //spinEditProperties.Width = 30;
+                            spinEditProperties.ClientSideEvents.ValueChanged = "function(s, e) { WageTotal(s, e); }";                            
+                        });
+
+
+                          settings.Columns.Add(column =>
+                          {
+                              column.FieldName = "PriceOfWage";
+                              column.Caption = "Cijena nadnice";
+                              column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                              //column.Width = 100;
+                              var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                              spinEditProperties.AllowNull = false;
+                              spinEditProperties.DecimalPlaces = 2;
+                              spinEditProperties.DisplayFormatString = "n2";
+                              spinEditProperties.DisplayFormatInEditMode = false;
+                              spinEditProperties.MinValue = 0;
+                              spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                              //spinEditProperties.Width = 100;
+                              spinEditProperties.ClientSideEvents.ValueChanged = "function(s, e) { WageTotal(s, e); }";       
+                          });
+
+                          settings.Columns.Add(column =>
+                          {
+                              column.FieldName = "AmmountOfWage";
+                              column.Caption = "Ukupni iznos";
+                              column.ReadOnly = true;
+                              column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                              //column.Width = 100;
+                              var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                              spinEditProperties.AllowNull = false;
+                              spinEditProperties.DecimalPlaces = 2;
+                              spinEditProperties.DisplayFormatString = "n2";
+                              spinEditProperties.DisplayFormatInEditMode = false;
+                              spinEditProperties.MinValue = 0;
+                              spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                              //spinEditProperties.Width = 100;
+
+                          });
+
+
+                        settings.ClientSideEvents.BeginCallback = "function(s, e) { OnWageStartCallback(s, e); }";
+                        settings.ClientSideEvents.EndCallback = "function(s, e) { OnWageEndCallback(s, e); }";
+                        settings.ClientSideEvents.Init = "function(s, e){ OnWageInit(s, e) }";
+                        
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "WholesaleValue");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TaxAmmount");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Custom)
+                        //settings.Settings.ShowFooter = true;
+                        //settings.Settings.ShowGroupFooter = true;
+
+                    });
+   }
+                  @grid.Bind(Model).GetHtml()
+
+
+

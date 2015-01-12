@@ -1,0 +1,118 @@
+﻿@model BusinessObjects.MDSubjects.cMDSubjects_Subject_ContactsCol
+
+ @{
+      var grid = Html.DevExpress().GridView(
+                    settings =>
+                    {
+                        settings.Name = "gvContactsCol";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.SettingsPager.PageSize = 5;
+                        settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                        settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+                        settings.CommandColumn.SetHeaderTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write(
+                                Html.DevExpress().HyperLink(settingsHy => { settingsHy.Name = "addNevContact"; settingsHy.Properties.ImageUrl = @Url.Content("~/Content/images/pls_dodaj_16.png"); settingsHy.Properties.Text = "Dodaj"; settingsHy.Properties.ClientSideEvents.Click = "function NoviCLick(s, e) {gvContactsCol.AddNewRow(); }"; }).GetHtml());
+                        });
+
+                        settings.CallbackRouteValues = new { Controller = ViewData["controllerName"].ToString(), Action = "RefreshContactsColGridPartial" };
+                        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = ViewData["controllerName"].ToString(), Action = "AddNewContact" };
+                        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = ViewData["controllerName"].ToString(), Action = "UpdateContact" };
+                        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = ViewData["controllerName"].ToString(), Action = "DeleteContact" };
+                        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                        settings.SettingsBehavior.ConfirmDelete = true;
+
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+                        
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.NewButton.Visible = false;
+                        settings.CommandColumn.NewButton.Text = "Novi";
+                        settings.CommandColumn.DeleteButton.Visible = true;
+                        settings.CommandColumn.DeleteButton.Text = "Obriši";
+                        settings.CommandColumn.EditButton.Visible = true;
+                        settings.CommandColumn.EditButton.Text = "Uredi";
+                        settings.CommandColumn.CancelButton.Text = "Odustani";
+                        settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                        settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                        settings.CommandColumn.DeleteButton.Image.Url = @Url.Content("~/Content/images/pls_brisi_16.png");
+                        settings.CommandColumn.DeleteButton.Image.ToolTip = "Obriši";
+                        settings.CommandColumn.UpdateButton.Image.Url = @Url.Content("~/Content/images/pls_snimi_16.png");
+                        settings.CommandColumn.UpdateButton.Image.ToolTip = "Snimi";
+                        settings.CommandColumn.CancelButton.Image.Url = @Url.Content("~/Content/images/pls_zatvori_16.png");
+                        settings.CommandColumn.CancelButton.Image.ToolTip = "Odustani";
+                        settings.CommandColumn.EditButton.Image.Url = @Url.Content("~/Content/images/pls_uredi_16.png");
+                        settings.CommandColumn.EditButton.Image.ToolTip = "Uredi";
+                        settings.CommandColumn.Width = 40;
+                        settings.KeyFieldName = "Id";
+
+                        //settings.Columns.Add("ProfessionId", "Zanimanje");
+                        //settings.Columns.Add(column =>
+                        //    {
+                        //        column.FieldName = "ProfessionId";
+                        //        column.Caption = "Zanimanje";
+                               
+
+                        //        var items = AlphaScoreMDSubjectsEnumsBO.cMDSubjects_Enums_EducationDegreeList.GetcMDSubjects_Enums_EducationDegreeList();
+                        //        column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                                
+                        //         var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                              
+                                  
+                        //         comboBoxProperties.DataSource = items;
+                        //          comboBoxProperties.TextField = "Name";
+                        //    comboBoxProperties.ValueField = "Id";
+                        //    comboBoxProperties.ValueType = typeof(int);
+                        //    });
+
+
+                        settings.Columns.Add("ContactSubjecName", "Kontakt osoba", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+
+                        
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "ContactSubjectFunctionId";
+                            column.Caption = "Funkcija";
+
+
+                            var items = BusinessObjects.MDSubjects.cMDSubjects_Enums_Function_List.GetcMDSubjects_Enums_Function_List();
+                            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                          
+
+                            comboBoxProperties.DataSource = items;
+                            comboBoxProperties.TextField = "Name";
+                            comboBoxProperties.ValueField = "Id";
+                            comboBoxProperties.ValueType = typeof(int);
+                        });
+
+                        settings.Columns.Add("BusinessPhone", "Telefon", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                        settings.Columns.Add("Mobile", "Mobitel", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                        settings.Columns.Add("Fax", "Fax", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Email";
+                            column.Caption = "E-mail";
+                            column.ColumnType = MVCxGridViewColumnType.TextBox;
+
+                            column.Width = 150;
+
+                            column.Visible = false;
+                            column.EditFormSettings.Visible = DefaultBoolean.True;
+                            column.EditFormSettings.VisibleIndex = 10;
+                            column.EditFormSettings.ColumnSpan = 2;
+                        });
+                       
+                    
+
+
+                        settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                        settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+                    });
+   }
+                  @grid.Bind(Model).GetHtml()

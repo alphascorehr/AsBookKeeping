@@ -1,0 +1,116 @@
+﻿@using System.Data
+
+@{
+    var context = new DalEf.MDGeneralEntities();
+    //List<DalEf.vvEnumsCashBox> data;
+
+    var data = context.MDGeneral_Enums_Location.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId).ToList();
+    
+        
+   
+}
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvEnumsLocationGrid";
+                settings.CallbackRouteValues = new { Controller = "EnumsLocation", Action = "EnumsLocationsGridPartial" };
+
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.Settings.ShowFilterRow = true;
+                settings.Settings.ShowFilterRowMenu = true;
+                settings.CommandColumn.Visible = true;
+                settings.CommandColumn.Width = 40;
+                settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+                settings.CommandColumn.ClearFilterButton.Visible = true;
+
+                //settings.HtmlRowPrepared = (sender, e) =>
+                //{
+                //    if (data.Count > 0 && e.KeyValue != null)
+                //    {
+                //        var companyId = data.Single(p => p.Id == (int)e.KeyValue).CompanyUsingServiceId;
+                //        if ((Csla.ApplicationContext.User.IsInRole("SuperAdmin") && (companyId ?? 0) != 0) || (Csla.ApplicationContext.User.IsInRole("Admin") && (companyId ?? 0) == 0) || Csla.ApplicationContext.User.IsInRole("Staff"))
+                //        {
+
+                //            e.Row.BackColor = System.Drawing.Color.LightGray;
+                //        }
+                //    }
+                //};
+
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        //var companyId = DataBinder.Eval(c.DataItem, "CompanyUsingServiceId");
+                        //if ((Csla.ApplicationContext.User.IsInRole("SuperAdmin") && ((int?)companyId ?? 0) == 0) || (Csla.ApplicationContext.User.IsInRole("Admin") && ((int?)companyId ?? 0) != 0))
+                        //{
+                            ViewContext.Writer.Write(
+                                //Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }, new { @class = "gridEditButton" }) + "&nbsp" +
+                                Html.ActionLink("Obriši", "Delete", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                                    new { onclick = "return confirm('Da li stvarno želite obrisati valutu?')", @class = "gridDelButton" })
+                            );
+                        //}
+                    });
+                    //column.SetHeaderTemplateContent(c =>
+                    //{
+                    //    ViewContext.Writer.Write(
+                    //        Html.ActionLink("Nova valuta ", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                    //    );
+                    //});
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.Width = 20;
+                });
+                
+                settings.KeyFieldName = "Id";
+
+                //settings.Settings.ShowFilterRow = false;
+                //settings.Settings.ShowGroupPanel = false;
+                //settings.Settings.ShowFooter = false;
+
+                //settings.Columns.Add("Name", "Naziv valute", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "Code";
+                    column.Caption = "Code";
+                    //column.ColumnType = MVCxGridViewColumnType.TextBox;
+                    column.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        //var companyId = DataBinder.Eval(c.DataItem, "CompanyUsingServiceId");
+                        //if ((Csla.ApplicationContext.User.IsInRole("SuperAdmin") && ((int?)companyId ?? 0) == 0) || (Csla.ApplicationContext.User.IsInRole("Admin") && ((int?)companyId ?? 0) != 0))
+                        //{
+                            ViewContext.Writer.Write(
+                            "<a onclick=\"Cursor();\" href=" + @Url.Content("~/MDGeneral/EnumsLocation/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + ">" + DataBinder.Eval(c.DataItem, "Code") + "</a>");
+                        //}
+                        //else
+                        //{
+                        //    ViewContext.Writer.Write(DataBinder.Eval(c.DataItem, "Name"));
+                        //}
+                    });
+                    
+                });
+                settings.Columns.Add("Address", "Adresa", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("City", "Mjesto", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                
+
+                //settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+                //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).Bind(data).GetHtml()
+            
+            
+
+            
+            
+            
+            

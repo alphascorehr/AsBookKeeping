@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Registracija";
+}
+
+
+
+<br><br><br><br>
+
+
+<div class="col-668 marg-t-20">
+		<div class="shadow">
+
+			<div class="shadow-top"></div>
+			<div class="marg-20">
+				<h1></h1>
+
+
+
+				<h2>Poštovani/poštovana,</h2>
+                <br><br>
+				<p>veliko nam je zadovoljstvo što ste postali korisnik Internet servisa Alpha računi.</p>
+
+				<div class="pq-manifesto1">
+					<div class="pq-manifesto-img1">
+						
+					</div>
+					<p>Uskoro ćete na ovu e-mail adresu primiti korisnicko ime i lozinku te uputstva za pristup servisu.</p>
+					<p>Zahvaljujemo vam na suradnji i želimo vam uspješno poslovanje.</p>
+
+				</div>
+
+				<div class="pq-manifesto2">
+					<div class="pq-manifesto-img2">
+						
+					</div>
+					<p>S poštovanjem,</p>
+
+					<p>Vaš Alpha Score d.o.o</p>
+
+                    <p>http://online.alphascore.hr</p>
+
+                    <p>http://www.alphascore.hr</p>
+
+				</div>
+
+				
+
+			</div>
+			<div class="shadow-bottom"></div>
+		</div>
+	</div>
+
+    
+
+@using (Html.BeginForm())
+{
+    <div>
+     @Html.ActionLink("Prijava na servis", "LogIn", "Account", new { area = "" }, null)
+    </div>
+}

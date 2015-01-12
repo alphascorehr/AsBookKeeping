@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="2" virtualPath="/Views/Account/UploadPartial.cshtml" hash="ffffffffead2c138" filehash="2611a858be81" flags="110000" assembly="App_Web_2xfhh54y" type="ASP._Page_Views_Account_UploadPartial_cshtml">
+    <filedeps>
+        <filedep name="/Views/Account/UploadPartial.cshtml" />
+    </filedeps>
+</preserve>

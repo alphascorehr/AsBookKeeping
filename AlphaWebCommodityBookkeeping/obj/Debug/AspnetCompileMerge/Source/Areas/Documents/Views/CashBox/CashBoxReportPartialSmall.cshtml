@@ -1,0 +1,12 @@
+﻿@*@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrCashBox
+*@
+@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrCashBoxSmall
+
+@Html.DevExpress().ReportViewer(
+    settings => {
+        settings.Name = "ReportViewer1";
+        settings.Report = Model;
+        settings.CallbackRouteValues = new { Controller = "CashBox", Action = "ReportPartialSmall", id = ViewData["CashBoxId"] };
+        settings.ExportRouteValues = new { Controller = "CashBox", Action = "ViewerExportToSmall", id = ViewData["CashBoxId"] };
+    }
+).GetHtml()

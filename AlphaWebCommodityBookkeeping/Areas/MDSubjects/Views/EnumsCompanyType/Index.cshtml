@@ -1,0 +1,30 @@
+﻿@model BusinessObjects.MDSubjects.cMDSubjects_Enums_CompanyType_List
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    function OnStartCallback(s, e) { }
+    function OnEndCallback(s, e) { }
+
+</script>
+
+
+@Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "")
+
+ <h2 class="pt"> Tvrtke </h2>
+@if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{
+  <a class="butPrimary " href="@Url.Content("~/MDSubjects/EnumsCompanyType/CreateAndEdit/0")">
+<span> Nova vrsta </span>
+</a>
+<div class="clearb"></div>
+}
+
+ 
+@Html.Partial("EnumsCompanyTypeGridPartial")
+
+  

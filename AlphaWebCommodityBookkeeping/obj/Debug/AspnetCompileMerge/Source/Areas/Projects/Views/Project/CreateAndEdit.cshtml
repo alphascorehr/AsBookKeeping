@@ -1,0 +1,352 @@
+﻿@model BusinessObjects.Projects.cProjects_Project
+          
+@{
+    ViewBag.Title = "CreateAndEdit";
+    DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+}
+
+<script type="text/javascript">
+
+    $.validator.setDefaults({
+        submitHandler: function(){
+            document.myForm.submit();
+        }
+    });
+
+    $(document).ready(function(){
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+
+            rules: {
+                Name: "required"
+            },
+            messages: {
+                Name: "Molimo unesite naziv"
+
+            }
+
+
+        });
+
+        var rez = IsInternal.GetValue();
+        IsInternalRules(rez);
+
+        var rez1 = BillingMethod.GetValue();
+        BillingMethodRules(rez1);
+    });
+
+    function BillingMethodChanged(s, e) {
+        var rez = s.GetValue();
+        BillingMethodRules(rez);
+    }
+
+    function IsInternalChanged(s, e) {
+        var rez = s.GetValue();
+
+        IsInternalRules(rez);
+
+    }
+
+    function IsInternalRules(isInternal) {
+
+        if (isInternal) {
+
+            MDSubjects_SubjectId.SetValue(null);
+
+            MDSubjects_SubjectId.enabled = false;
+
+            $('#MDSubjects_SubjectId_I, #MDSubjects_SubjectId').css({ 'background-color': 'LightGray' })
+        }
+        else {
+
+            MDSubjects_SubjectId.enabled = true;
+
+            $('#MDSubjects_SubjectId_I, #MDSubjects_SubjectId').css({ 'background-color': 'Transparent' })
+        }
+    }
+
+    function BillingMethodRules(method) {
+        switch (method) {
+            case 0:
+                ProjectRatePerHour.enabled = false;
+                ProjectRatePerHour.SetValue(null);
+                $('#ProjectRatePerHour_I, #ProjectRatePerHour').css({ 'background-color': 'LightGray' })
+                FlatAmount.enabled = false;
+                FlatAmount.SetValue(null);
+                $('#FlatAmount_I, #FlatAmount').css({ 'background-color': 'LightGray' })
+                break;
+
+            case 1:
+                ProjectRatePerHour.enabled = false;
+                ProjectRatePerHour.SetValue(null);
+                $('#ProjectRatePerHour_I, #ProjectRatePerHour').css({ 'background-color': 'LightGray' })
+                FlatAmount.enabled = false;
+                FlatAmount.SetValue(null);
+                $('#FlatAmount_I, #FlatAmount').css({ 'background-color': 'LightGray' })
+                break;
+
+            case 2:
+                FlatAmount.enabled = false;
+                FlatAmount.SetValue(null);
+                $('#FlatAmount_I, #FlatAmount').css({ 'background-color': 'LightGray' })
+
+                ProjectRatePerHour.enabled = true;
+                $('#ProjectRatePerHour_I, #ProjectRatePerHour').css({ 'background-color': 'Transparent' })
+                break;
+
+            case 3:
+                ProjectRatePerHour.enabled = false;
+                ProjectRatePerHour.SetValue(null);
+                $('#ProjectRatePerHour_I, #ProjectRatePerHour').css({ 'background-color': 'LightGray' })
+
+                FlatAmount.enabled = true;
+                $('#FlatAmount_I, #FlatAmount').css({ 'background-color': 'Transparent' })
+                break;
+        }
+    }
+
+    function OnStartCallback(s, e) {
+        if (e.command == "STARTEDIT" || e.command == "ADDNEWROW") {
+            gridInEdit = true;
+            $('.button_large').attr('onclick', '');
+        }
+        if (e.command == "CANCELEDIT" || e.command == "UPDATEEDIT") {
+            gridInEdit = false;
+            $('.button_large').attr('onclick', '$(this).closest("form").submit()');
+        }
+
+    }
+    function OnEndCallback(s, e) {
+        AdjustSize();
+    }
+
+    function onEdit(e) {
+
+    }
+
+    function IsBillableInit(s, e) {
+        s.SetValue(false);
+    }
+
+    function AdjustSize(s, e)
+    {
+        pcScrolling.AdjustSize();
+    }
+</script>
+
+@{
+    string caption = "Novi projekt";
+    if (Model.Id != null)
+    {
+        caption = "Projekt: " + Model.Name;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "Project", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);             
+                                            
+    @Html.Hidden("linkName", "ProjektiParent")
+    @Html.Hidden("linkId", "ProjectSpan")       
+    
+     <div class="clearb"></div>
+    <div class="clearb"></div>
+
+	<h2 class="button-panel-title">
+		<div class="button-panel">
+	    </div>
+        <span class="title">@caption</span>
+	</h2>
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>                
+                                                                                                                                                                              
+    <div class="span-23" style="position: relative;">
+
+        <div class="span-6 required form-layout-left">
+			<label for="customerid" class="no-pointer">Naziv:</label>
+		</div>
+        <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+                @*  @Html.ValidationMessageFor(model => model.Name)*@
+        </div>
+
+
+        <div class="span-6 form-layout-left" style="padding-bottom:0px">
+			<label for="customerid" class="no-pointer">Aktivan:</label>
+
+		</div>
+		<div class="span-16 form-layout-right" style="padding-bottom:0px">
+                @Html.DevExpress().CheckBox(settings => { settings.Name = "Active"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Active).GetHtml()
+                @*  @Html.ValidationMessageFor(model => model.Ime)*@
+        </div>
+
+
+        <div class="span-6 form-layout-left" style="padding-bottom:0px">
+			<label for="customerid" class="no-pointer">Plaćen:</label>
+		</div>
+		<div class="span-16 form-layout-right" style="padding-bottom:0px">
+                @Html.DevExpress().CheckBox(settings => { settings.Name = "PayedInFull"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.PayedInFull).GetHtml()
+                @*  @Html.ValidationMessageFor(model => model.Ime)*@
+        </div>
+
+
+        <div class="span-6 form-layout-left" style="padding-bottom:0px">
+			<label for="customerid" class="no-pointer">Interni projekt:</label>
+		</div>
+		<div class="span-16 form-layout-right" style="padding-bottom:0px">
+                @Html.DevExpress().CheckBox(settings => { settings.Name = "IsInternal"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; settings.Properties.ClientSideEvents.CheckedChanged = "IsInternalChanged"; }).Bind(Model.IsInternal).GetHtml()
+                @*  @Html.ValidationMessageFor(model => model.Ime)*@
+        </div>
+
+
+        <div class="span-6 form-layout-left">
+			<label for="customerid" class="no-pointer">Klijent:</label>
+		</div>
+		<div class="span-16 form-layout-right">
+                @Html.DevExpress().ComboBox(settings => { settings.Name = "MDSubjects_SubjectId"; settings.Height = 24; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; settings.Properties.NullDisplayText = "Odaberite klijenta"; }).BindList(context.MDSubjects_Subject.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.SubjectType != (short)BusinessObjects.Common.SubjectType.Employee)).Bind(Model.MDSubjects_SubjectId).GetHtml()
+                @*  @Html.ValidationMessageFor(model => model.Ime)*@
+        </div>
+
+    </div>
+
+    <div class="span-23">
+        <div class="span-12 form-layout-left">
+		    <label for="invoice_number" class="no-pointer"><span title="">Način obračuna:</span></label>
+	    </div>
+	    <div class="span-10 form-layout-right">
+            @Html.DevExpress().ComboBox(settings =>
+            {
+                settings.Name = "BillingMethod";
+                settings.Height = 24;
+                settings.Width = 200;
+
+                //settings.Properties.Columns.Add("Id", "Id");
+                //settings.Properties.Columns.Add("Name", "Naziv");
+
+                //settings.Properties.Items.Add("Hourly staff rate", (byte)0);
+                //settings.Properties.Items.Add("Hourly task rate", (byte)1);
+                //settings.Properties.Items.Add("Hourly project rate", (byte)2);
+                //settings.Properties.Items.Add("Flat project amount", (byte)3);
+
+                settings.Properties.TextField = "Name";
+                settings.Properties.ValueField = "Id";
+                settings.Properties.ValueType = typeof(byte);
+
+                settings.Properties.ClientSideEvents.SelectedIndexChanged = "BillingMethodChanged";
+
+                settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                settings.Properties.ValidationSettings.SetFocusOnError = true; 
+                settings.Properties.ValidationSettings.ValidateOnLeave = true;
+                settings.Properties.NullDisplayText = "Odaberite način obračuna";
+            }).BindList(new AlphaWebCommodityBookkeeping.Areas.Documents.Models.BillingMethodes()).Bind(Model.BillingMethod).GetHtml()
+    
+            @*  @Html.ValidationMessageFor(model => model.Ime)*@
+        </div>
+
+
+        <div class="span-12 form-layout-left">
+			<label for="invoice_number" class="no-pointer"><span title="">Potreban broj sati:</span></label>
+	    </div>
+	    <div class="span-10 form-layout-right">
+            @Html.DevExpress().SpinEdit(settings => { settings.Name = "TimeBudget_Hours"; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 10000000; settings.Properties.DecimalPlaces = 2; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.TimeBudget_Hours).GetHtml()
+            @*  @Html.ValidationMessageFor(model => model.Ime)*@
+        </div>
+
+
+        <div class="span-12 form-layout-left">
+			<label for="invoice_number" class="no-pointer"><span title="">Cijena po satu:</span></label>
+	    </div>
+	    <div class="span-10 form-layout-right">
+            @Html.DevExpress().SpinEdit(settings => { settings.Name = "ProjectRatePerHour"; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 10000000; settings.Properties.DecimalPlaces = 2; settings.Properties.DisplayFormatString = "c"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.ProjectRatePerHour).GetHtml()
+            @*  @Html.ValidationMessageFor(model => model.Ime)*@
+        </div>
+
+
+        <div class="span-12 form-layout-left">
+			<label for="invoice_number" class="no-pointer"><span title="">Cijena projekta:</span></label>
+	    </div>
+	    <div class="span-10 form-layout-right">
+            @Html.DevExpress().SpinEdit(settings => { settings.Name = "FlatAmount"; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 10000000; settings.Properties.DecimalPlaces = 2; settings.Properties.DisplayFormatString = "c"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FlatAmount).GetHtml()
+            @*  @Html.ValidationMessageFor(model => model.Ime)*@
+        </div>
+
+    </div>
+
+    <div class="clearb" style="padding-top:20px"></div>
+               
+ @*   <div style="width:600px; height: 187; padding-top: 20px; float:left">*@
+
+    @Html.DevExpress().PageControl(
+        settings =>
+        {
+            settings.Name = "pcScrolling";
+            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+            settings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+            settings.TabAlign = TabAlign.Left;
+            settings.SaveStateToCookies = false;
+            settings.Styles.EnableDefaultAppearance = false;
+            settings.Styles.Content.Border.BorderColor = System.Drawing.Color.Transparent;
+            settings.Styles.Content.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+            settings.TabPages.Add("Akcije").SetContent(() =>
+            {
+                ViewContext.Writer.Write(
+             "<fieldset style=\"padding-top:20px\">" +
+                "<legend>Utrošeni materijal</legend>" +
+                Html.Partial("MaterialTrackingGridPartial", ViewData["materialList"]) +
+            "</fieldset>" +
+            "<div class=\"clearb\" style=\"padding-top:20px\"></div>" +
+            "<fieldset style=\"padding-top:20px\">" +
+                "<legend>Utrošeno vrijeme</legend>" +
+                @Html.Partial("TimeTrackingGridPartial", ViewData["timeList"]) +
+            "</fieldset>"
+            +
+            "<div class=\"clearb\" style=\"padding-top:20px\"></div>" +
+            "<fieldset style=\"padding-top:20px\">" +
+                "<legend>Ostali troškovi</legend>" +
+                @Html.Partial("OstaliTroskoviGridPartial", ViewData["expensesList"]) +
+            "</fieldset>"
+                );
+            });
+            settings.TabPages.Add("Članovi tima").SetContent(() =>
+            {
+
+                ViewContext.Writer.Write(
+                    Html.Partial("ProjectTeamMemebersColGridPartial", Model.Projects_Project_TeamMemebersCol)
+                );
+            });
+
+        }).GetHtml()
+
+        @*@Html.Partial("ProjectTeamMemebersColGridPartial", Model.Projects_Project_TeamMemebersCol)*@
+@*    </div>*@
+
+    <div class="clearb" style="padding-top:20px"></div>
+    <div class="append-bottom-1 form-layout">
+	    <div class="span-20 append-4 append-bottom-1 iefix-2">
+            <label for="terms">Opis:</label>
+            @Html.DevExpress().Memo(settings => { settings.Name = "Description"; settings.Height = 60; settings.Width = 400; settings.ShowModelErrors = true; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Description).GetHtml()
+        </div>
+    </div>
+    
+    <div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/Projects/Project/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+}

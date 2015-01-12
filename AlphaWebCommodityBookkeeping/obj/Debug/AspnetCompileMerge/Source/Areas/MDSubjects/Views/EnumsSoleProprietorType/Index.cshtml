@@ -1,0 +1,34 @@
+﻿@model BusinessObjects.MDSubjects.cMDSubjects_Enums_SoleProprietorType_List
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+
+</script>
+
+
+@Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "")
+<h2 class="pt"> Slobodne djelatnosti </h2>
+@if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{
+      <a class="butPrimary " href="@Url.Content("~/MDSubjects/EnumsSoleProprietorType/CreateAndEdit/0")">
+<span> Nova slobodna djelatnost </span>
+</a>
+<div class="clearb"></div>
+}
+
+
+
+@Html.Partial("EnumsSoleProprietorTypeGridPartial")
+                   
+

@@ -1,0 +1,260 @@
+﻿@model BusinessObjects.Projects.cProjects_TimeTrackingLog_List
+
+ @{
+     DalEf.MDEntitiesEntities contextEnt = new DalEf.MDEntitiesEntities();
+     DalEf.MDSubjectsEntities contextSubj = new DalEf.MDSubjectsEntities();
+     
+      var grid = Html.DevExpress().GridView(
+                    settings =>
+                    {
+                        settings.Name = "gvTimeTrackingCol";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.SettingsPager.PageSize = 5;
+                        settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+                        settings.SettingsLoadingPanel.Text = "Učitavanje";
+                        settings.CommandColumn.SetHeaderTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write(
+                                Html.DevExpress().HyperLink(settingsHy => { settingsHy.Name = "addNewTimeTrackingItem"; settingsHy.Properties.ImageUrl = @Url.Content("~/Content/images/pls_dodaj_16.png"); settingsHy.Properties.Text = "Dodaj"; settingsHy.Properties.ClientSideEvents.Click = "function NoviCLick(s, e) {gvTimeTrackingCol.AddNewRow(); }"; }).GetHtml());
+                        });
+
+                        settings.CallbackRouteValues = new { Controller = "WorkOrder", Action = "RefreshTimeTrackingGridPartial" };
+                        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "WorkOrder", Action = "AddTimeItem" };
+                        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "WorkOrder", Action = "UpdateTimeItem" };
+                        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "WorkOrder", Action = "DeleteTimeItem" };
+                        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                        settings.SettingsBehavior.ConfirmDelete = true;
+                        settings.SettingsBehavior.AllowFocusedRow = true;
+
+                        settings.Settings.ShowTitlePanel = true;
+                        settings.SettingsText.Title = "Usluga";
+                        
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.NewButton.Visible = false;
+                        settings.CommandColumn.NewButton.Text = "Novi";
+                        settings.CommandColumn.DeleteButton.Visible = true;
+                        settings.CommandColumn.DeleteButton.Text = "Obriši";
+                        settings.CommandColumn.EditButton.Visible = true;
+                        settings.CommandColumn.EditButton.Text = "Uredi";
+                        settings.CommandColumn.CancelButton.Text="Odustani";
+                        settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                        settings.CommandColumn.ShowSelectCheckbox = false;
+
+                        settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                        settings.CommandColumn.DeleteButton.Image.Url = @Url.Content("~/Content/images/pls_brisi_16.png");
+                        settings.CommandColumn.DeleteButton.Image.ToolTip = "Obriši";
+                        settings.CommandColumn.UpdateButton.Image.Url = @Url.Content("~/Content/images/pls_snimi_16.png");
+                        settings.CommandColumn.UpdateButton.Image.ToolTip = "Snimi";
+                        settings.CommandColumn.CancelButton.Image.Url = @Url.Content("~/Content/images/pls_zatvori_16.png");
+                        settings.CommandColumn.CancelButton.Image.ToolTip = "Odustani";
+                        settings.CommandColumn.EditButton.Image.Url = @Url.Content("~/Content/images/pls_uredi_16.png");
+                        settings.CommandColumn.EditButton.Image.ToolTip = "Uredi";
+                        settings.CommandColumn.ClearFilterButton.Visible = true;
+
+
+                        settings.CommandColumn.Width = 40;
+                        
+                        settings.Settings.ShowFilterRow = false;
+                        settings.Settings.ShowFilterRowMenu = false;
+                        settings.SettingsPager.PageSize = 13;
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.ClearFilterButton.Visible = true;
+                        settings.CommandColumn.ClearFilterButton.Text = "Očisti";
+
+                        settings.KeyFieldName = "OrdinalInWorkOrder";
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "OrdinalInWorkOrder";
+                            column.ReadOnly = true;
+                            column.Caption = "Rbr.";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 30;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 0;
+                            spinEditProperties.DisplayFormatString = "n0";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 0;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            spinEditProperties.Width = 30;
+                        });
+                        
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "MDEntities_ServiceId";
+                            column.Caption = "Rad";
+                            column.Width = 200;
+                            var items = contextEnt.MDEntities_Entity.OfType<DalEf.MDEntities_Service>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.Inactive == false);
+
+                            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                            comboBoxProperties.Height = 20;
+                            comboBoxProperties.DataSource = items;
+                            comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                            comboBoxProperties.FilterMinLength = 0;
+                            comboBoxProperties.TextField = "Name";
+                            comboBoxProperties.ValueField = "Id";
+                            comboBoxProperties.ValueType = typeof(int);
+                            comboBoxProperties.Width = 200;
+                            //comboBoxProperties.ClientSideEvents.ValueChanged = "ProductIdChanged";
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "MDSubjects_SubjectTeamMemberId";
+                            column.Caption = "Izvršitelj";
+                            column.Width = 150;
+
+                            var items = contextSubj.MDSubjects_Subject.OfType<DalEf.MDSubjects_Employee>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+                            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                            comboBoxProperties.Height = 20;
+                            comboBoxProperties.DataSource = items;
+                            comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                            comboBoxProperties.FilterMinLength = 0;
+                            comboBoxProperties.TextField = "Name";
+                            comboBoxProperties.ValueField = "Id";
+                            comboBoxProperties.ValueType = typeof(int);
+                            comboBoxProperties.Width = 150;
+                        });
+
+                        settings.Columns.Add("ActivityDate", "Datum", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Hours";
+                            column.Caption = "Broj sati";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 55;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 2;
+                            spinEditProperties.DisplayFormatString = "n2";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 1;
+                            spinEditProperties.MaxValue = 10000000000;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            spinEditProperties.Width = 55;
+
+                            //spinEditProperties.ClientSideEvents.ValueChanged = "Calc";
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Quantity";
+                            column.Caption = "Količina";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 55;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 2;
+                            spinEditProperties.DisplayFormatString = "n2";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 1;
+                            spinEditProperties.MaxValue = 10000000000;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            spinEditProperties.Width = 55;
+
+                            //spinEditProperties.ClientSideEvents.ValueChanged = "Calc";
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Id";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Visible = false;
+
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+                            spinEditProperties.NullText = "0";
+                            
+                          
+                        });
+
+                            
+
+                            
+
+                            //settings.Columns.Add(column =>
+                            //{
+                            //    column.FieldName = "BillingMethod";
+                            //    column.Caption = "Način fakturiranja";
+                            //    column.Width = 140;
+
+                            //    var items = new AlphaWebCommodityBookkeeping.Areas.Documents.Models.BillingMethodes();
+
+                            //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                            //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                            //    comboBoxProperties.Height = 20;
+                            //    comboBoxProperties.DataSource = items;
+                            //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                            //    comboBoxProperties.FilterMinLength = 0;
+                            //    comboBoxProperties.TextField = "Name";
+                            //    comboBoxProperties.ValueField = "Id";
+                            //    comboBoxProperties.ValueType = typeof(int);
+                            //    comboBoxProperties.Width = 140;
+                            //});
+
+                           
+
+                           
+
+                            settings.Columns.Add(column =>
+                            {
+                                column.FieldName = "IsBillable";
+                                column.Caption = "Fakturirati";
+                                column.ColumnType = MVCxGridViewColumnType.CheckBox;
+                                column.Width = 55;
+
+                                var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+                                checkBoxProperties.AllowGrayed = false;
+                                checkBoxProperties.ValueType = typeof(bool);
+                                checkBoxProperties.ClientSideEvents.Init = "IsBillableInit";
+                            });
+                            //settings.Columns.Add("Description", "Opis", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+
+                            settings.Settings.ShowPreview = true;
+                            settings.PreviewFieldName = "Description";
+
+
+                            settings.Columns.Add(column =>
+                            {
+                                column.Caption = "";
+                                column.SetDataItemTemplateContent(c =>
+                                {
+                                    ViewContext.Writer.Write(
+                                         "<a href=\"#\" onclick=\"DescTime(" + DataBinder.Eval(c.DataItem, "OrdinalInWorkOrder") + ")\">Napomena</a>"
+                                     );
+                                });
+                                column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                                column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                                column.Width = 40;
+                            });
+                        
+                        settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                        settings.ClientSideEvents.EndCallback = "function(s, e) { TimeOnEndCallback(s, e); }";
+                        //settings.ClientSideEvents.Init = "function(s, e){ OnInit(s, e) }";
+                        
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "WholesaleValue");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TaxAmmount");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Custom)
+                        //settings.Settings.ShowFooter = true;
+                        //settings.Settings.ShowGroupFooter = true;
+
+                    });
+
+                    
+   }
+                  @grid.Bind(Model).GetHtml()

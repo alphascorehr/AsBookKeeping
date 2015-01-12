@@ -1,0 +1,40 @@
+﻿@model BusinessObjects.Projects.cProjects_Enums_Task_List
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    function OnStartCallback(s, e) {
+     
+    }
+    function OnEndCallback(s, e) {
+      
+    }
+
+</script>
+
+@Html.Hidden("linkName", "TvrtkaParent")
+@Html.Hidden("linkId", "EnumsTask")
+
+ <h2 class="button-panel-title">
+		<div class="button-panel"></div>
+		<span class="title">Vrste zadataka</span>
+</h2>
+<div class="title-rule"></div>
+
+  <h2 class="pt"></h2>
+@if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{
+	<a href="@Url.Content("~/Projects/EnumsTask/CreateAndEdit/0")" class="butPrimary ">
+		<span>
+			Nova vrsta zadatka
+		</span>
+	</a>
+    <br/>
+}
+
+@Html.Partial("EnumsTaskGridPartial")
+
+    

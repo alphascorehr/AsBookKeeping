@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+</script>
+@Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "OgranizationalUnit")
+		<h2 class="pt"> Jedinice mjera </h2>			
+@if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{
+   <a class="butPrimary " href="@Url.Content("~/MDEntities/EnumsUnit/CreateAndEdit/0")">
+<span> Nova jedinica mjere</span>
+</a>
+<div class="clearb"></div>
+}
+    
+
+    @Html.Partial("EnumsEntityUnitGridPartial")
+

@@ -1,0 +1,82 @@
+﻿@using System.Drawing    
+
+@{
+    DalEf.DocumentsEntities context = new DalEf.DocumentsEntities();
+    var data = context.uspTotalTurnoverFor6Months(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+    }
+
+     @using (Html.BeginForm()) {
+
+
+         //ChartBarViewsDemoOptions options = (ChartBarViewsDemoOptions)ViewData[ChartDemoHelper.OptionsKey];
+         ChartControlSettings settings = new ChartControlSettings();
+         settings.Name = "chart";
+         settings.Width = 480;
+         settings.Height = 300;
+         settings.BorderOptions.Visible = false;
+         //settings.CrosshairEnabled = options.ShowLabels ? DefaultBoolean.False : DefaultBoolean.True;
+
+         settings.Titles.Add(new ChartTitle()
+         {
+             Font = new Font("Tahoma", 18),
+             Text = ""
+         });
+         //settings.Titles.Add(new ChartTitle()
+         //{
+         //    Alignment = StringAlignment.Far,
+         //    Dock = ChartTitleDockStyle.Bottom,
+         //    Font = new Font("Tahoma", 8),
+         //    TextColor = Color.Gray,
+         //    Text = "Promet"
+         //});
+
+         settings.SeriesTemplate.ChangeView(DevExpress.XtraCharts.ViewType.Bar);
+         //settings.Name = "Invoice";
+         settings.SeriesDataMember = "Tip";
+         settings.SeriesTemplate.ArgumentDataMember = "Month";
+         settings.SeriesTemplate.ValueDataMembers[0] = "Total";
+
+         
+         
+         //var series = new DevExpress.XtraCharts.Series("IcnInvoide", DevExpress.XtraCharts.ViewType.Bar);
+         //series.BindToData = data[].
+         //series.ArgumentDataMember = "Month";
+         //series.ValueDataMembers[0] = "Total";
+         //series.LabelsVisibility = DefaultBoolean.True;
+         //settings.Series.Add(series);
+
+
+         settings.Legend.Direction = LegendDirection.RightToLeft;
+         settings.Legend.AlignmentHorizontal = LegendAlignmentHorizontal.Left;
+         settings.Legend.AlignmentVertical = LegendAlignmentVertical.BottomOutside;
+         settings.SeriesTemplate.LabelsVisibility = DefaultBoolean.False;
+         
+         settings.SeriesTemplate.Label.ResolveOverlappingMode = ResolveOverlappingMode.Default;
+
+         //if (options.View != DevExpress.XtraCharts.ViewType.FullStackedBar)
+         //{
+         //    settings.Legend.AlignmentHorizontal = LegendAlignmentHorizontal.Right;
+         //}
+
+         //if (settings.Diagram is XYDiagram)
+         //{
+             //((XYDiagram)settings.Diagram).Rotated = false;
+             //Axis2D axisY = ((XYDiagram)settings.Diagram).AxisY;
+             //axisY.
+             //axisY.Interlaced = true;
+             //axisY.Title.Text = "Millions of Dollars";
+             //axisY.Title.Visible = true;
+         //}
+         //else
+         //{
+         
+             //XYDiagram3D diagram = (XYDiagram3D)settings.Diagram;
+             //diagram.AxisY.Interlaced = true;
+             //diagram.RotationType = RotationType.UseAngles;
+             //diagram.RotationOrder = RotationOrder.XYZ;
+             //diagram.ZoomPercent = 140;
+             //diagram.VerticalScrollPercent = 4;
+         //}
+
+                    @Html.DevExpress().Chart(settings).Bind(data).GetHtml()
+                }

@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript">
+
+    function Import(e) {
+        var Id = parseInt($('#Id').attr('value'));
+        var actionURL = '@Url.Content("~/MDEntities/ExcellImport/ImportProducts")';
+        Cursor();
+        $.post(actionURL, { link: e }, function (result) {
+            if (result[0] == 'True') {
+                $('#lbl').text('File uspješno importiran - ' + result[1]);
+            }
+            else {
+                $('#lbl').text('Greška - file nije importiran - ' + result[1]);
+            }
+            $('#loader').fadeOut();
+            $('#lbl1').html('Datoteka je uspješno importirana');
+            CursorOff();
+        });
+    }
+
+    function ImportServices(e) {
+        var Id = parseInt($('#Id').attr('value'));
+        var actionURL = '@Url.Content("~/MDEntities/ExcellImport/ImportServices")';
+        Cursor();
+        $('#loader').fadeIn();
+        $.post(actionURL, { link: e }, function (result) {
+            if (result[0] == 'True') {
+                $('#lbl').text('File uspješno importiran - ' + result[1]);
+            }
+            else {
+                $('#lbl').text('Greška - file nije importiran - ' + result[1]);
+            }
+            $('#loader').fadeOut();
+            $('#lbl1').html('Datoteka je uspješno importirana');
+            CursorOff();
+        });
+    }
+</script>
+@Html.Hidden("linkName", "ProizvodiParent")
+@Html.Hidden("linkId", "ExcellImport")
+
+    <div class="notifyBox " id="Uploaded" style="display:none">
+            
+            <h3><img id="loader" src="@Url.Content("~/Content/images/ajax-loader.gif")" />&nbsp;&nbsp;&nbsp;<label id="lbl1">Molimo pričekajte, import je u tijeku.</label></h3>
+                    <ul>
+                        <li><label id="lbl"></label></li>
+                    </ul>
+    </div>
+
+
+    <div class="clearb"></div>
+    <div class="clearb"></div>
+    
+    <div class="span-45 append-1">
+        <div class="span-15 append-1">
+              <h2>Uvoz artikala</h2>
+        </div>
+        <div class="span-10 append-1"></div>
+        <div class="span-15 append-1">
+              <h2>Uvoz usluga</h2>
+        </div>
+    </div>
+    <div class="span-45 append-1">
+        <div class="span-15 append-1">
+              <a href="@Url.Content("~/Content/download/ImportArtikli.xls")">Preuzmite predložak artikala</a>
+        </div>
+        <div class="span-10 append-1"></div>
+        <div class="span-15 append-1">
+              <a href="@Url.Content("~/Content/download/ImportUsluge.xls")">Preuzmite predložak usluga</a>
+        </div>
+    </div>
+    <div class="clearb"></div>
+                <div class="clearb"></div>
+              <div class="span-45 append-1">
+        <div class="span-15 append-1">
+               @Html.Partial("UploadPartial", null, new ViewDataDictionary() { { "controllerName", "ExcellImport" } })
+        </div>
+        <div class="span-10 append-1"></div>
+        <div class="span-15 append-1">
+                @Html.Partial("UploadPartialServices", null, new ViewDataDictionary() { { "controllerName", "ExcellImport" } })
+        </div>
+    </div>
+
+
+

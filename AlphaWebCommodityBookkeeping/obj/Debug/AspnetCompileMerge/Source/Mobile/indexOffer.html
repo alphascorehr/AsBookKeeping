@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Radni nalozi</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1"/> 
+   <!-- <link rel="stylesheet" href="astheme.min.css" />-->
+	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile.structure-1.0.1.min.css" />-->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    
+    <link href="jquery.mobile.datebox-1.0.0.min.css" rel="stylesheet"/>
+    <link href="css.css" rel="stylesheet"/>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+    <script type="text/javascript" src="jquery.mobile.datebox-1.0.0.min.js"></script>
+    <script type="text/javascript" src="jquery.validate.min.js"></script>
+    <script type="text/javascript" src="JsOffers.js"></script>
+
+    
+    <script type="text/javascript">
+        $(function () {
+            $('#myForm').submit(function (e) {
+                //e.preventDefault();
+                return false;
+            });
+        });
+        jQuery.extend(jQuery.mobile.datebox.prototype.options, {
+            'dateFormat': 'dd.mm.YYYY.',
+            'headerFormat': 'dd.mm.YYYY.'
+        });
+    </script>
+    <script type="text/javascript" src="http://localhost/AlphaWebCommodityBookkeeping/Scripts/jquery.blockUI.js"></script>
+
+    <style type="text/css">
+        label.error { float: none; color: red; padding-left: .5em; vertical-align: top;  }
+    </style>
+
+    
+
+
+
+        </head> 
+
+<body> 
+
+
+<form id="myForm" method="get">
+<!-- Start of login page -->
+<div data-role="page" id="Login" data-theme="a">
+
+	<div data-role="header">
+		<h1>Prijava korisnika</h1>
+        
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<!--<p>Page Foo.</p>	-->
+        <table width="100%">
+        <tr>
+		<td width="10%"><label id="lUserName" for="userName"><b>Korisničko ime:</label></td>
+        <td width="90%"><input id="userName" type="text" name="userName"/></td>
+		</tr><tr>
+		<td width="10%"><label Id="lPassword" for="password"><b>Lozinka:</label></td>
+        <td width="90%"><input id="password" type="password" name="password"/></td>
+		</tr>
+        </table>
+
+       <div>
+        <label id="lblPassError" style="color: Red"></label>
+       </div>
+
+        <p style="width:150px"><a href="#" onclick="LogInMob()" data-role="button">Prijava</a></p>    
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+
+		<h4>Alphascore d.o.o.</h4>
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!-- Start of login page -->
+<div data-role="page" id="List" data-theme="a">
+
+	<div data-role="header">
+		<h1>Ponude</h1>
+        <a href="#" onclick="LogOff()" data-role="button" data-icon="delete" data-iconpos="left">Izlaz</a>
+	</div><!-- /header -->
+
+	<div data-role="content">	  
+        <a href="#" onclick="NewOffer()" data-role="button">Nova ponuda</a>
+
+       
+       <ul id="OfferList" data-role="listview" data-inset="true" data-filter="false" data-icon="">
+	   <li><table width="100%"><tr><td width="15%"><b>Rbr</b></td><td width="50%"><b>Klijent</b></td><td width="10%"><b>Datum</b></td><td width="10%"><b>Valjanost</b></td><td align="right" width="15%"><b>Iznos&nbsp;&nbsp;&nbsp;</b></td></tr></table></li>    
+       </ul>
+
+      <!--<fieldset class="ui-grid-a">-->
+      <table width="100%"><tr>
+	    <td width="50%"><a href="#" data-role="button" id="next" data-icon="back"  hidden onclick="Next()">Naprijed</a></td>
+	    <td width="50%"><a href="#" data-role="button" id="previous" data-icon="forward"  hidden onclick="Previous()">Nazad</a></td>
+      <!-- </fieldset>-->
+      </tr></table>
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+     
+		<h4>Alphascore d.o.o.</h4>
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+<!--############################################################################## Start of CreateAndEdit page -->
+<div data-role="page" id="CreateAndEdit" data-theme="a">
+
+	<div data-role="header">
+    <a href="#List">Povratak</a>
+		<h1>Ponude</h1>
+        <a href="#" onclick="LogOff()" data-role="button" data-icon="delete" data-iconpos="left">Izlaz</a>
+	</div><!-- /header -->
+
+	<div data-role="content">	  
+
+            
+    <div id="OfferheaderDiv" data-role="collapsible-set">
+    <div id="detalji" data-role="collapsible" data-collapsed="true">                                       
+	<h3>Zaglavlje</h3>
+	<table width="100%"><tr>
+	<td width="10%"><label for="customerid" class="no-pointer">Klijent:</label></td>
+	<td width="40%"><select width="100%" id="SubjectId" name="material"></select></td>
+    <td width="10%"><label for="invoice_number" class="tool-tip"><span title="">Datum ponude:</span></label></td>
+	<td width="40%"><input id="datumPonude" type="date" name="datum" data-role="datebox" data-options='{"mode": "flipbox", "disableManualInput": true}'/></td>
+    </tr><tr>
+	<td width="10%"><label for="invoice_number" class="tool-tip"><span title="">Valjanost:</span></label></td>
+    <td width="40%"><input id="valjanostPonude" type="date" name="datum" data-role="datebox" data-options='{"mode": "flipbox", "disableManualInput": true}'/></td>
+    <td width="10%"><label for="invoice_number" class="tool-tip"><span title="">Isporuke:</span></label></td>
+    <td width="40%"><input id="datumIsporuke" type="date" name="datum" data-role="datebox" data-options='{"mode": "flipbox", "disableManualInput": true}'/></td>
+    </tr><tr>
+    <td width="10%"><label for="customerid" class="no-pointer"></label></td>
+    <td width="40%"></td>
+    <td width="10%"><label for="customerid" class="no-pointer"></label></td>
+    <td width="40%"></td>
+    </tr><tr>
+    <td width="10%"><label for="customerid" class="no-pointer">Način isporuke:</label></td>
+    <td width="10%"><select id="nacinIsporuke" name="material"></select></td>
+    <td width="10%"><label for="customerid" class="no-pointer">Prijevoznik:</label></td>
+    <td width="10%"><select id="prijevoznik" name="material"></select></td>
+         
+	
+    </tr></table>
+
+    <a href="#" id="SaveOffer" data-role="button" onclick="saveOffer()">Snimi ponudu</a>
+
+    </div>
+
+    <div data-role="collapsible" data-collapsed="true">
+    <h3>Stavke</h3>
+    <div id="StavkeUlDiv" style="display: none">
+    <ul id="StavkeUl" style="font-size: 10"  data-role="listview" data-inset="true" data-filter="false" data-icon="">
+    <li><table width="100%"><tr><td width="5%"><b>Rbr</b></td><td width="35%"><b>Proizvod</b></td><td width="10%"><b>Cijena</b></td><td width="10%"><b>Jm</b></td><td width="10%"><b>Količina</b></td><td width="10%"><b>Rabat</b></td><td width="10%"><b>Por.stopa</b></td><td width="10%"><b>Ukupno</b></td></tr></table></li>    
+    </ul>
+   
+
+    <a href="#" id="dodajStavke" data-role="button" onclick="CreateAndEditStavka(0, 0)">Dodaj stavku</a>
+    </div>
+     </div>
+
+     <div data-role="collapsible" data-collapsed="true">
+   <h3>Rekapitulacija</h3>
+    <table width="100%">
+    <tr>
+    <td width="50%">&nbsp;</td>
+    <td width="25%"><b>Ukupno</b></td>
+    <td width="25%"><b><label id="UkupnoFull"></label></b></td>
+    </tr>
+    <tr>
+    <td width="50%">&nbsp;</td>
+    <td width="25%"><b>Popust</b></td>
+    <td width="25%"><b><label id="lblPopust"></label></b></td>
+    </tr>
+    <tr>
+    <td width="50%">&nbsp;</td>
+    <td width="25%"><b>Ukupno s popustom</b></td>
+    <td width="25%"><b><label id="lblUkupnoSaPop"></label></b></td>
+    </tr>
+    <tr>
+    <td width="50%">&nbsp;</td>
+    <td width="25%"><b>PDV</b></td>
+    <td width="25%"><b><label id="lblPdv"></label></b></td>
+    </tr>
+     <tr>
+    <td width="50%">&nbsp;</td>
+    <td width="25%"><b>Za platiti</b></td>
+    <td width="25%"><b><label id="lblZaPlatiti"></label></b></td>
+    </tr>
+    
+    
+    </table>
+
+    
+    </div>
+
+     </div>
+     </div>
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+
+		<h4>Alphascore d.o.o.</h4>
+	</div><!-- /footer -->
+  </div><!-- /page -->
+
+
+
+
+
+  <div data-role="page" id="CreateAndEditStavka" data-theme="a">
+
+	<div data-role="header">
+    <a href="#CreateAndEdit">Povratak</a>
+		<h1>Ponude</h1>
+        <a href="#" onclick="LogOff()" data-role="button" data-icon="delete" data-iconpos="left">Izlaz</a>
+	</div><!-- /header -->
+
+	<div data-role="content">	  
+        
+    
+                                           
+	
+	<table width="100%"><tr>
+	<td width="10%"><label for="customerid" class="no-pointer">Proizvod:</label></td>
+	<td width="40%"><hidden id="lblProizvodHidden"></hidden><a href="#GetProductList" id="linkProizvod" data-role="button" onclick="GetProductList()"><span class="ui-btn-text"><label id="lblProizvod" value="">Odaberite</label></span></a></td>
+    <td width="10%"><label class="tool-tip"><span title="">Cijena:</span></label></td>
+	<td width="40%"><input onchange="Ukupno()" id="tboxCijena" type="text" /></td>
+    </tr><tr>
+	<td width="10%"><label for="invoice_number" class="tool-tip"><span title="">JM:</span></label></td>
+    <td width="40%"><select id="selectJm"></select></td>
+    <td width="10%"><label for="invoice_number" class="tool-tip"><span title="">Kolicina:</span></label></td>
+    <td width="40%"><input onchange="Ukupno()" id="tboxKolicina" type="text"/></td>
+    </tr><tr>
+    <td width="10%"><label for="customerid" class="no-pointer">Rabat</label></td>
+    <td width="40%"><input onchange="Ukupno()" id="tboxRabat" type="text"/></td>
+    <td width="10%"><label for="customerid" class="no-pointer">Por.stopa</label></td>
+    <td width="40%"><select onchange="Ukupno()" id="selectPorStopa" name="material"></select></td>
+    </tr><tr>
+    <td width="10%"><label for="customerid" class="no-pointer">Ukupno:</label></td>
+    <td width="10%"><label id="lblUkupno"><b></b></label></td>
+    <td width="10%"><label for="customerid" class="no-pointer">Jed.cijana</label></td>
+    <td width="10%"><label id="lblJedCijena"><b></b></label></td>
+         
+	
+    </tr></table>
+
+    
+     <a href="#" data-role="button" data-icon="search" onclick="SaveStavka()">Snimi</a>
+    <a href="#ConfirmDelete" data-role="button" data-icon="search">Obriši</a>
+    
+
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+
+		<h4>Alphascore d.o.o.</h4>
+	</div><!-- /footer -->
+  </div><!-- /page -->
+
+
+
+
+  <!-- Start of NEW page -->
+<div data-role="page" id="GetProductList" data-theme="a">
+
+	<div data-role="header">
+        <a href="#" onclick="LogOff()" data-role="button" data-icon="delete" data-iconpos="left">Izlaz</a>
+  
+		
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div data-role="fieldcontain">
+            <br />
+            <table width="100%" border="0"><tr><td width="50%">
+            <input type="text" name="GetProductListSearch" id="GetProductListSearch"/>
+            </td><td width="25%" align="left">
+            <a href="#" data-role="button" data-icon="search" onclick="GetProductList('btn')">Trazi</a>
+            </td><td width="25%" align="left">
+            <a href="#CreateAndEditStavka" data-role="button" data-icon="search" >Zatvori</a>
+            </td></tr></table>
+        </div>	
+        
+        <label id="lblSearch"></label>
+
+       <ul id="GetProductListUl" data-role="listview" data-inset="true" data-filter="false" data-icon="">
+	       
+       </ul>
+	
+     <table width="100%"><tr><td width="50%">
+		    <!--<div data-role="fieldcontain">-->
+            <a style="display: none" href="#" data-role="button" id="btnGetMoreProductList" data-icon="search" onclick="GetMoreProductList()">Naprijed</a>
+          <!--  </div>	-->
+          </td><td width="50%">
+            <!--<div data-role="fieldcontain">-->
+            <a style="display: none" href="#" data-role="button" id="btnGetPreviousProductList" data-icon="search" onclick="GetPreviousProductList()">Nazad</a>
+           <!-- </div>-->
+        </td></tr></table>
+	    </div><!-- /content -->
+
+	    <div data-role="footer">
+       
+	    </div><!-- /footer -->
+</div><!-- /page -->
+
+<!-- Start of NEW page -->
+<div data-role="page" id="ConfirmDelete" data-theme="a">
+
+	<div data-role="header">
+		<h1>Obrisati stavku</h1>
+        
+	</div><!-- /header -->
+
+	<div data-role="content">
+		
+        <table width="100%"><tr><td width="50%">
+        <a onclick="DeleteStavka()"  data-role="button"  href="#">Da</a>
+        </td><td width="50%">
+        <a data-role="button" " href="javascript: history.go(-1)"" >Ne</a>
+        </td></tr></table>
+	
+
+	    </div><!-- /content -->
+
+	    <div data-role="footer">
+		    <h4>Alphascore d.o.o.</h4>
+	    </div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+</form>
+
+</body>
+</html>

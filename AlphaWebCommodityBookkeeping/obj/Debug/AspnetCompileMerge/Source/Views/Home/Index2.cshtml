@@ -1,0 +1,118 @@
+﻿    
+     <!--[if IE 7]>
+    <style type="text/css">
+        #vtab > ul > li.selected{
+            border-right: 1px solid #fff !important;
+        }
+        #vtab > ul > li {
+            border-right: 1px solid #ddd !important;
+        }
+        #vtab > div { 
+            z-index: -1 !important;
+            left:1px;
+        }
+    </style>
+    <![endif]-->
+
+    
+<script type="text/javascript">
+//<![CDATA[
+    $(document).ready(function () {
+        CursorOff();
+
+        if ('@ViewData["Message"]' != '-1') {
+            $('#acc').fadeIn('slow');
+        }
+    });
+
+
+
+     $(function () {
+        var $items = $('#vtab>ul>li');
+        $items.click(function () {
+            $items.removeClass('selected');
+            $(this).addClass('selected');
+
+            var index = $items.index($(this));
+            $('#vtab>div').hide().eq(index).show();
+        }).eq(0).click();
+    });
+
+   
+// ]]>
+</script>
+
+
+
+<div class="notifyBox bad" id="acc" style="display:none">
+            <h3>Vaš korisnički račun isteći će u roku @ViewData["Message"] dana.</h3>
+            <ul>
+                 <li> Molimo nadoplatite korisnički račun</li>
+            </ul>
+</div>
+
+
+
+    @Html.Hidden("linkName", "Pocetna")
+                         
+                                       
+    <div class="clearb"></div>
+    <h2 class="pt"><div class="span-22"> Alpha računi </div></h2>                                 
+    <div class="clearb"></div>
+                                                     
+     @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).Offer)
+     {
+        <div class="span-40 append-1">
+                        <div class="span-15 append-1"></div>
+                        <div class="span-15 append-1">
+                                <a class="butPrimary " href="@Url.Content("~/Documents/Offer/CreateAndEdit/0")" onclick="Cursor()">
+                                <span> &nbsp;&nbsp;&nbsp;Nova ponuda&nbsp;&nbsp;&nbsp; </span>
+                                </a>
+                        </div>
+        </div>
+        <div class="clearb"></div>
+     }
+      @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).Invoice)
+      {
+          <div class="span-40 append-1">
+            <div class="span-15 append-1"></div>
+                <div class="span-15 append-1">
+                    <a class="butPrimary " href="@Url.Content("~/Documents/Invoice/CreateAndEdit/0")" onclick="Cursor()">
+                    <span> &nbsp;&nbsp;&nbsp;&nbsp;Novi račun &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </a>
+                 </div>
+          </div>
+          <div class="clearb"></div>
+      }
+      
+       @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).Quote)
+       {
+                      <div class="span-40 append-1">
+                            <div class="span-15 append-1"></div>
+                            <div class="span-15 append-1">
+                                     <a class="butPrimary " href="@Url.Content("~/Documents/Quote/CreateAndEdit/0")" onclick="Cursor()">
+                                    <span> &nbsp;Novi predračun&nbsp; </span>
+                                    </a>
+                            </div>
+            </div>
+            <div class="clearb"></div>
+       }
+        @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).WorkOrder)
+        {
+           <div class="span-40 append-1">
+                            <div class="span-15 append-1"></div>
+                            <div class="span-15 append-1">
+                                    <a class="butPrimary " href="@Url.Content("~/Documents/WorkOrder/CreateAndEdit/0")" onclick="Cursor()">
+                                    <span> Novi radni nalog </span>
+                                    </a>
+                            </div>
+            </div>
+        }
+        <div class="span-40 append-1">
+                            <div class="span-15 append-1"></div>
+                            <div class="span-15 append-1">
+                                    <a class="butPrimary " href="@Url.Content("~/Documents/PriceList/CreateAndEdit/0")" onclick="Cursor()">
+                                    <span> &nbsp;&nbsp;&nbsp;&nbsp;Novi cjenik&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                                    </a>
+                            </div>
+            </div>

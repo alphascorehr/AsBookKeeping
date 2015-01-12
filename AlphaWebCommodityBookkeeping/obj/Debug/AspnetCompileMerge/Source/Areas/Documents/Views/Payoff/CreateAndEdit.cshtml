@@ -1,0 +1,878 @@
+﻿@model BusinessObjects.Documents.cDocuments_Payoff
+
+@{
+
+    DalEf.ProjectsEntities contextProj = new DalEf.ProjectsEntities();
+    DalEf.MDGeneralEntities contextGen = new DalEf.MDGeneralEntities();
+    DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+}
+
+
+<script type="text/javascript">
+
+    $(window).bind('beforeunload', function () {
+        if ('@ViewData["Action"]' == "locked") {
+            return;
+        }
+        //if (AreControlsModifiedVar)
+        //{
+        //    return "No pressure, but check out the important announcement in the middle of the screen?";
+        //}
+
+        //return "Good bye";
+        var url = '@Url.Content("~/Documents/Payoff/unlockTheDoc")';
+        $.post(url, function (result) {
+            return "Url is about to be changed, kill the lock";
+        });
+
+    });
+
+
+    function noUnload() {
+        $(window).unbind('beforeunload');
+    }
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+
+        }
+    });
+
+    $(document).ready(function () {
+
+        $("#myForm").validate({
+            rules: {
+                //Projects_ProjectId: "required",
+                //DocumentDateTime: "required",
+                SubjectId: "required"
+            },
+            messages: {
+                //Projects_ProjectId: "Obavezno polje",
+                //ocumentDateTime: "Obavezno polje",
+                SubjectId: "Obavezno polje"
+            }
+
+        });
+        var AreControlsModifiedVar = false;
+        SubjectIdChanged();
+        TecajToHiddenVal();
+        initValues = GetValues(); /* Step 2. - get initial values from controls */
+        if ('@ViewData["Action"]' == "print") {
+            ShowPrint(); /* The document was silently saved, show the report */
+        }
+        else if ('@ViewData["Action"]' == "locked") {
+            alert(lockText);
+            window.history.back(-1);
+        }
+   
+
+    });
+    var DocumentType;
+    var initValues = new Array(); /* Step 1. - define global scope array */
+    function getWorkOrders(docType) {
+        var subjectId = parseInt(SubjectId.GetValue());
+        if (subjectId == 0 || isNaN(subjectId)) {
+            alert("Molimo odaberite klijenta")
+            return false;
+        }
+        
+        DocumentType = docType;
+        var actionURL = '@Url.Content("~/Documents/Payoff/DocType")';
+        $.post(actionURL, { docType: docType }, function (result) {
+            pcModalModeWorkOrder.Show();
+            gvPopupPayoff.Refresh();
+            gvPopupPayoff.UnselectRows();
+        });
+
+        
+        //gvPopupWorkOrder.PerformCallback();
+    }
+
+    function OnInit(s, e) {
+        var actionURL = '@Url.Content("~/Documents/Payoff/Calc")';
+        $.post(actionURL, { isCallback: true }, function (result) {
+            $('#Ukupno').html(result[0]);
+            $('#Pdv').html(result[1]);
+            $('#ZaPlatiti').html(result[2]);
+            $('#Rabat').html(result[3]);
+        });
+    }
+    function TecajToHiddenVal() {
+        var tecaj = parseFloat($('#CourseValue_I').attr('value').replace(',', '.'));
+        if (tecaj == "" || tecaj == null) {
+            tecaj = 1;
+        }
+        $('#prevTecaj').attr('value', tecaj);
+    }
+    function Tecaj() {
+        var tecaj = document.getElementById("CourseValue_I").value
+        var t = parseFloat($('#CourseValue_I').attr('value').replace(',', '.'));
+
+
+        var prevTecaj = parseFloat($('#prevTecaj').attr('value').replace(',', '.'));
+
+        if (t != "" && t != null && t != NaN && !isNaN(t)) {
+            var actionURL = '@Url.Content("~/Documents/Payoff/TecajChanged")';
+            $.post(actionURL, { Tecaj: tecaj, PrevTecaj: prevTecaj }, function (result) {
+                gvDocumentItemsCol.Refresh();
+                $('#Ukupno').html(result[0]);
+                $('#Pdv').html(result[1]);
+                $('#ZaPlatiti').html(result[2]);
+                $('#Rabat').html(result[3]);
+            });
+
+
+        }
+
+    }
+
+
+    function Calc() {
+        var ordinal = $('#gvDocumentItemsCol_DXEditor0_I').attr('value');
+        var taxId = $('#gvDocumentItemsCol_DXEditor8_VI').attr('value');
+        var wholeSaleprice = $('#gvDocumentItemsCol_DXEditor11_I').attr('value');
+        //var rabat = $('#gvDocumentItemsCol_DXEditor6_I').attr('value').replace('%', '');
+        var rabat = parseFloat($('#gvDocumentItemsCol_DXEditor6_I').attr('value').replace('%', '').replace(',', '.'));
+        var cijena = $('#gvDocumentItemsCol_DXEditor3_I').attr('value');
+        var kolicina = $('#gvDocumentItemsCol_DXEditor5_I').attr('value');
+        if (ordinal == null || ordinal == NaN || ordinal == "") {
+            ordinal = 0;
+        }
+        var Tec = $('#CourseValue_I').attr('value');
+        if (Tec == null || Tec == "") {
+            Tec = 1;
+        }
+        if (taxId != null && taxId != "") {
+            var actionURL = '@Url.Content("~/Documents/Payoff/Calc")';
+            $.post(actionURL, { IsCallback: false, Ordinal: ordinal, TaxId: taxId, WholeSalePrice: wholeSaleprice, Cijena: cijena, Kolicina: kolicina, Rabat: rabat, Tecaj: Tec }, function (result) {
+                $('#Ukupno').html(result[0]);
+                $('#Pdv').html(result[1]);
+                $('#ZaPlatiti').html(result[2]);
+                $('#Rabat').html(result[3]);
+            });
+        }
+    }
+    //function OnStartCallback(s, e) {
+    //    if (e.command == "STARTEDIT" || e.command == "ADDNEWROW") {
+    //        gridInEdit = true;
+    //        $('.button_large').attr('onclick', '');
+    //        $('#genQuote').attr('onclick', '');
+    //        $('#genDispatch').attr('onclick', '');
+    //        $('#printLink').attr('onclick', '');
+    //    }
+    //    if (e.command == "CANCELEDIT" || e.command == "UPDATEEDIT") {
+    //        gridInEdit = false;
+    //        $('.button_large').attr('onclick', '$(this).closest("form").submit()');
+    //        $('#genQuote').attr('onclick', 'jqConfirm("genInvoice")');
+    //        $('#genDispatch').attr('onclick', 'jqConfirm("genDispatch")');
+    //        $('#printLink').attr('onclick', 'Print()');
+    //    }
+    //}
+    function OnEndCallback(s, e) {
+        var actionURL = '@Url.Content("~/Documents/Payoff/Calc")';
+        $.post(actionURL, { isCallback: true }, function (result) {
+            $('#Ukupno').html(result[0]);
+            $('#Pdv').html(result[1]);
+            $('#ZaPlatiti').html(result[2]);
+            $('#Rabat').html(result[3]);
+            if (gridInEdit) {
+                $('#addNevDocumentItem').hide();
+            }
+        });
+    }
+    function ProductIdChanged() {
+        var ProizvodId = parseInt($('#gvDocumentItemsCol_DXEditor2_VI').attr('value'));
+        gvDocumentItemsCol_DXEditor4.SetValue(""); /* Cijena */
+        gvDocumentItemsCol_DXEditor5.SetValue(""); /* JM */
+        gvDocumentItemsCol_DXEditor6.SetValue("1"); /* Kolicina */
+        gvDocumentItemsCol_DXEditor7.SetValue("0"); /* Rabat */
+        gvDocumentItemsCol_DXEditor9.SetValue(""); /* Porezna stopa */
+        gvDocumentItemsCol_DXEditor11.SetValue(""); /* Jed.cijena */
+        gvDocumentItemsCol_DXEditor12.SetValue(""); /* Ukupno */
+
+        var Tec = $('#CourseValue_I').attr('value');
+        if (Tec == null || Tec == "") {
+            Tec = 1;
+        }
+
+
+        if (ProizvodId != null && $('#SubjectId_VI').attr('value') != null && $('#SubjectId_VI').attr('value') != 0 && $('#SubjectId_VI').attr('value') != NaN) {
+            var actionURL = '@Url.Content("~/Documents/Payoff/ProductIdChanged")';
+            $.post(actionURL, { proizvodId: ProizvodId, tecaj: Tec }, function (result) {
+                gvDocumentItemsCol_DXEditor4.inputElement.value = result[0]
+                gvDocumentItemsCol_DXEditor11.inputElement.value = result[0];  /* po defaultu stavi jed. cijenu kao cijenu (rabat je po defaultu 0%) */
+                //$('#Cijena').attr('value', result[3]);
+                //Tecaj();
+                Ukupno(); /* odmah izracunaj ukupnu cijenu */
+                if (result[1] != 0) {
+                    gvDocumentItemsCol_DXEditor5.SetValue(result[1]); /* Jm */
+                }
+                if (result[1] != 0) {
+                    gvDocumentItemsCol_DXEditor9.SetValue(result[2]); /* porez % */
+                }
+                Calc();
+            });
+
+        }
+        else {
+            alert("Molimo, odaberite klijenta");
+            gvDocumentItemsCol.CancelEdit();
+        }
+    
+     }
+     function JedCijena() {
+         var Rabat = parseFloat($('#gvDocumentItemsCol_DXEditor7_I').attr('value').replace(',', '.'));
+         var Cijena = parseFloat($('#gvDocumentItemsCol_DXEditor4_I').attr('value').replace(',', '.'));
+         if (Rabat != null && Cijena != null && Cijena != NaN) {
+             gvDocumentItemsCol_DXEditor11.inputElement.value = (Cijena - (Cijena / 100 * Rabat)).toString().replace(".", ",");
+             Ukupno();
+         }
+     }
+     function Ukupno() {
+         var kol = parseFloat($('#gvDocumentItemsCol_DXEditor6_I').attr('value').replace(',', '.'));
+         var jedCijena = parseFloat($('#gvDocumentItemsCol_DXEditor11_I').attr('value').replace(',', '.'));
+
+         if (kol != null && jedCijena != null && kol != NaN && jedCijena != NaN && kol != undefined) {
+             gvDocumentItemsCol_DXEditor12.inputElement.value = (kol * jedCijena).toString().replace(".", ","); /* Ukupno(WholeSalePrice) */
+         }
+         Calc();
+     }
+
+
+    var selectedIds = new Array();
+    function SelectionChanged(s, e) {
+        s.GetSelectedFieldValues("Id", GetSelectedFieldValuesCallback);
+    }
+    function GetSelectedFieldValuesCallback(values) {
+        for (var i = 0; i < values.length; i++) {
+            selectedIds[i] = values[i];
+            }
+        }
+
+        function GetSelectedIds() {
+            //alert(selectedIds);
+            var actionLink;
+            if (DocumentType == "WorkOrders") {
+                actionLink = '@Url.Content("~/Documents/Payoff/WorkOrdersToPayoff")';
+            }
+            else if (DocumentType == "Quote") {
+                actionLink = '@Url.Content("~/Documents/Payoff/QuoteToPayoff")';
+            }
+            else if (DocumentType == "Offer") {
+                actionLink = '@Url.Content("~/Documents/Payoff/OfferToPayoff")';
+            }
+            
+            var data = { idList: selectedIds };
+            $.ajax({
+                //url: '@Url.Content("~/Documents/Payoff/WorkOrdersToPayoff")',
+            url: actionLink,
+            data: JSON.stringify(data),
+            type: 'POST',
+            contentType: 'application/json, charset=utf-8',
+            dataType: 'json',
+            sucess: Hide()
+            
+
+        });
+        
+//            $.post(actionLink, { idList: JSON.stringify(selectedIds) }, function (result) {
+//                pcModalModeWorkOrder.Hide();
+//                gvDocumentItemsCol.Refresh();
+//            });
+
+    }
+
+    function Hide() {
+                pcModalModeWorkOrder.Hide();
+                gvDocumentItemsCol.Refresh();
+                
+                }
+
+    function SubjectIdChanged(s, e) {
+        /* SubjectId se trpa u Session */
+        var SubjectId = parseInt($('#SubjectId_VI').attr('value'));
+
+        if (SubjectId == null || SubjectId == "" || SubjectId == "0" || isNaN(SubjectId)) {
+            return false;
+        }
+        $('#AdresaKlijentaDiv').slideUp('slow');
+        if (SubjectId != null) {
+            var actionURL = '@Url.Content("~/Documents/Payoff/SubjectIdChanged")';
+            $.post(actionURL, { subjectId: SubjectId }, function (result) {
+                var oib = result[0];
+                var ulica = result[1];
+                var broj = result[2];
+                var mjesto = result[3];
+                var adresa = ulica;
+                if (oib == null) {
+                    oib = "Nije unešen";
+                }
+                if (ulica == null) {
+                    adresa = "Nije unešena";
+                }
+                if (mjesto == null) {
+                    mjesto = "Nije unešeno";
+                }
+                $('#oib').html("OIB: " + oib)
+                $('#ulica').html("Adresa: " + adresa);
+                $('#mjesto').html("Mjesto: " + mjesto);
+            });
+            $('#AdresaKlijentaDiv').slideDown('slow');
+
+            
+        }
+        //gvDocumentItemsCol.CancelEdit();
+        //ProductIdChanged();
+        return SubjectId;
+    }
+
+
+    var idGl;
+    function GetDesc(id) {
+        idGl = id;
+        var actionUrl = '@Url.Content("~/Documents/Payoff/GetDesc")'
+        $.post(actionUrl, { id: id }, function (result) { DescriptionDesc.SetValue(result) });
+        pcModalModeDesc.Show();
+    }
+
+    function AddDesc() {
+        var actionUrl = '@Url.Content("~/Documents/Payoff/AddDesc")'
+        var memo = DescriptionDesc.GetText();
+        $.post(actionUrl, { id: idGl, desc: memo }, function (result) {
+            pcModalModeDesc.Hide();
+            gvDocumentItemsCol.Refresh();
+        });
+    }
+
+    function GetValues() {
+        var list = new Array(SubjectId, Projects_ProjectId, CourseValue, MDGeneral_Enums_CurrencyId);
+        var array = new Array();
+        for (i = 0; i <= list.length - 1; i++) {
+            //var val = $('#' + list[i]).attr('value');
+            var val = list[i];
+            array[i] = val.GetValue();
+        }
+
+        return array;
+    }
+
+    isGridModified = false;
+    function Print() {
+        $("#myForm").validate();
+        var v = $("#myForm").valid();
+
+        if (v) {
+            if (AreControlsModified() || isGridModified) {
+                $('#HiddenValueAction').attr('value', 'print');
+                document.myForm.submit();
+            }
+            else {
+                ShowPrint();
+            }
+        }
+    }
+
+    function CreateDoc(docType) {
+
+
+        $("#myForm").validate();
+        var v = $("#myForm").valid();
+
+        if (v) {
+            AreControlsModified();
+
+            if ((AreControlsModifiedVar() || isGridModified)) {
+                $('#HiddenValueAction').attr('value', docType);
+                document.myForm.submit();
+                return false;
+            }
+            else {
+                var Id = parseInt($('#Id').attr('value'));
+                var actionURL = '@Url.Content("~/Documents/Payoff/CreateDoc")';
+                $.post(actionURL, { FromDocumentId: Id }, function (result) {
+                if (docType == 'genQuote') {
+                    quotedId = result;
+                    quoted = 'True';
+                    ShowDocDiv();
+                }
+                else if (docType == 'genDispatch') {
+                    dispatchedId = result;
+                    dispatched = "True";
+                    ShowDocDiv();
+                }
+
+
+                });
+            }
+
+        }
+    }
+
+    function AreControlsModified() {
+        //alert('AreControlsModified');
+        var newValues = new Array();
+        newValues = GetValues();
+
+        for (i = 0; i <= newValues.length - 1; i++) {
+            if (initValues[i] != newValues[i]) {
+                //return true;
+                AreControlsModifiedVar = true;
+                //alert('mod');
+                break;
+            }
+        }
+        //return false;
+        //AreControlsModifiedVar = false;
+    }
+    isCallback = false;
+    function OnStartCallback(s, e) {
+        /* check if grid has been modified */
+        if (e.command == "DELETEROW" || e.command == "UPDATEEDIT" || e.command == "ADDNEWROW") {
+            isGridModified = true;
+        }
+
+        if (e.command == "DELETEROW" || e.command == "CANCELEDIT") {
+            isCallback = true;
+        }
+        //refreshAvansPayment = false;
+        //EnableProductIdChanged = false;
+        if (e.command == "DELETEROW" || e.command == "UPDATEEDIT") {
+            refreshAvansPayment = true;
+        }
+        if (e.command == "DELETEROW" || e.command == "CANCELEDIT") {
+            isCallback = true;
+        }
+        if (e.command == "STARTEDIT" || e.command == "ADDNEWROW") {
+            gridInEdit = true;
+            $('.button_large').attr('onclick', '');
+            $('#genQuote').attr('onclick', '');
+            $('#printLink').attr('onclick', '');
+
+        }
+        if (e.command == "CANCELEDIT" || e.command == "UPDATEEDIT") {
+            gridInEdit = false;
+            $('.button_large').attr('onclick', '$(this).closest("form").submit()');
+            $('#genQuote').attr('onclick', 'jqConfirm("genQuote")');
+            $('#printLink').attr('onclick', 'Print()');
+            $('#addNevDocumentItem').show()
+        }
+    }
+
+    function ShowPrint() {
+        $('.footer').hide();
+        $('#DefaultEmements').slideToggle('slow');
+        $('#printDiv').slideToggle('slow');
+        $('#printImg').hide();
+        $('#mailImg').hide();
+
+        $('#printLink').attr('onclick', 'ClosePrint()');
+        $('#printImg').attr('title', 'Zatvori ispis dokumenta');
+        $('#printImg').attr('src', '@Url.Content("~/Content/images/close.png")');
+        $('#printImg').fadeIn('slow');
+    }
+
+    function ClosePrint() {
+        $('#DefaultEmements').slideToggle('slow');
+        $('#printDiv').slideToggle('slow');
+
+        $('#printImg').hide();
+
+        $('#printImg').attr('src', '@Url.Content("~/Content/images/Printer_Blue48.png")');
+
+        $('#printLink').attr('onclick', 'Print()');
+        $('#printImg').attr('title', 'Ispiši dokument');
+        $('#printImg').fadeIn('slow');
+        $('#mailImg').fadeIn('slow');
+
+        $('.footer').show();
+    }
+
+
+
+
+    function Mail() {
+        $('#mailErr').hide();
+        $('#mailOk').hide();
+        var sub = "Račun br. " + '@Model.UniqueIdentifier';
+
+        var SubjectId = parseInt($('#SubjectId_VI').attr('value'));
+        if (SubjectId == null || SubjectId == "" || SubjectId == "0") {
+            return false;
+        }
+        //        var actionURL = '@Url.Content("~/Documents/Invoice/FindEmailById")';
+        //        $.post(actionURL, { subjectId: SubjectId }, function (result) {
+        //            SendTo.SetValue(result);
+        Subject.SetValue(sub);
+        //        });
+        $('.footer').hide();
+        $('#DefaultEmements').slideToggle('slow');
+        $('#mailDiv').slideToggle('slow');
+        $('#printImg').hide();
+        $('#mailImg').hide();
+
+
+        $('#mailLink').attr('onclick', 'CloseMail()');
+        $('#mailImg').attr('title', 'Zatvori slanje dokumenta');
+        $('#mailImg').attr('src', '@Url.Content("~/Content/images/close.png")');
+        $('#mailImg').fadeIn('slow');
+    }
+
+    function CloseMail() {
+        $('#DefaultEmements').slideToggle('slow');
+        $('#mailDiv').slideToggle('slow');
+
+        $('#mailImg').hide();
+
+        $('#mailImg').attr('src', '@Url.Content("~/Content/images/mail_send48.png")');
+
+
+        $('#mailLink').attr('onclick', 'Mail()');
+        $('#mailImg').attr('title', 'Pošalji dokument');
+        $('#printImg').fadeIn('slow');
+        $('#mailImg').fadeIn('slow');
+
+        $('.footer').show();
+    }
+
+    function SendReportByEmail() {
+        //Wait();
+        $('#mailErr').hide();
+        $('#mailOk').hide();
+        var Id = parseInt($('#Id').attr('value'));
+        if (Id == null || Id == "" || Id == "0") {
+            return false;
+        }
+
+        var sendTo = SendTo.GetValue();
+        var sendToCC = SendToCC.GetValue();
+        var subject = Subject.GetValue();
+        var body = Body.GetValue();
+        var clientName = $('#SubjectId_I').attr('value');
+        if (clientName == null || clientName == "" || clientName == "0") {
+            return false;
+        }
+        /* Id, SentTo, SendToCC, Subject, Body */
+        var actionURL = '@Url.Content("~/Documents/Payoff/SendReportByEmail")';
+        $.post(actionURL, { Id: Id, SendTo: sendTo, SendToCC: sendToCC, Subject: subject, Body: body, ClientName: clientName }, function (result) {
+            if (result == "Ok") {
+                $('#mailErr').hide();
+                $('#mailOk').fadeIn('slow');
+                $('#mailOkLabel').html(SendTo.GetValue());
+            }
+            else {
+                $('#mailOk').hide();
+                $('#mailErr').fadeIn('slow');
+                $('#mailErrLabel').html(result.toString());
+            }
+            //$("*").css("cursor", "auto");
+        });
+
+    }
+</script>
+
+
+
+
+@{
+    string caption = "Novi obračun";
+    if (Model.UniqueIdentifier != "")
+    {
+        caption = "Obračun br. " + Model.UniqueIdentifier;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "Payoff", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);                                    
+    
+   @* @Html.Hidden("linkName", "ProjektiParent")*@
+    @Html.Hidden("linkName", "RadParent")
+    @Html.Hidden("linkId", "PayoffSpan")
+      
+    @Html.Hidden("HiddenValueAction")     
+       @Html.Hidden("prevTecaj")
+    
+ <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+    
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	    <h2 class="pt"><div class="span-22"> @caption </div></h2>
+    @*<a class="butPrimary " href="@Url.Content("~/Documents/Invoice/CreateAndEdit/0")">
+    <span> Novi račun </span>
+    </a>*@
+   
+	
+<div class="clearb"></div>   
+    @*<a id="WorkOrdersLink" href="#"  onclick="getWorkOrders('WorkOrders');"><img id="mailImg" src="@Url.Content("~/Content/images/WorkOrder-icon.png")" title="Radni nalozi" /></a>
+    <a id="printLink" href="#"  onclick="getWorkOrders('Quote');"><img id="printImg" src="@Url.Content("~/Content/images/Quote-icon.png")" title="Predracuni" /></a>
+    <a id="CreateDocQuoteImg" href="#" onclick="getWorkOrders('Offer');"><img  src="@Url.Content("~/Content/images/Offer-icon.jpg")" title="Ponude" alt="Ponude" /></a>*@
+     @*
+    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+    <a id="printLink" href="#"  onclick="Print();"><img id="printImg" src="@Url.Content("~/Content/images/Printer_Blue48.png")" title="Ispiši dokument" /></a>
+    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+    <a id="CreateDocInvoiceImg" href="#" onclick="CreateDoc('genInvoice');"><img  src="@Url.Content("~/Content/images/invoice-icon.png")" title="Kreiraj račun" alt="Kreiraj račun" /></a>
+    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+    <a id="CreateDocQuoteImg" href="#" onclick="CreateDoc('genQuote');"><img  src="@Url.Content("~/Content/images/Quote-icon.png")" title="Kreiraj predračun" alt="Kreiraj predračun" /></a>
+    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+    <a id="CreateDocDispatchImg" href="#" onclick="CreateDoc('genDispatch');"><img  src="@Url.Content("~/Content/images/Dispatch-icon.png")" title="Kreiraj otpremnicu" alt="Kreiraj otpremnicu" /></a>
+    *@
+  
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+<div id="DefaultEmements">    
+                                            @*//Lijevi div*@
+	<div class="span-23" style="position: relative;">
+             <div class="span-6 required form-layout-left">
+			    <label for="customerid" class="no-pointer">Klijent:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+			    @Html.DevExpress().ComboBox(settings => { settings.Name = "SubjectId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.ClientSideEvents.ValueChanged = "SubjectIdChanged"; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(context.MDSubjects_Subject.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.SubjectType != (short)BusinessObjects.Common.SubjectType.Employee)).Bind(Model.SubjectId).GetHtml()
+                 
+		    </div>
+
+ 
+        
+              <div id="AdresaKlijentaDiv" style="display:none">
+		    <div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Adresa:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                <label id="oib" class="no-pointer"></label><br />
+                <label id="ulica" class="no-pointer"></label>&nbsp;<label id="broj" class="no-pointer"></label><br />
+                <label id="mjesto" class="no-pointer"></label><br />
+		    </div>
+        </div>
+
+
+
+
+	    <div id="client_section">
+		    <div class="span-6  form-layout-left">
+			    <label for="customerid" class="no-pointer">Projekt:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+			    @Html.DevExpress().ComboBox(settings => { settings.Name = "Projects_ProjectId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(contextProj.Projects_Project.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId)).Bind(Model.Projects_ProjectId).GetHtml()
+                 
+		    </div>
+        </div>
+
+   
+        
+		   
+                
+     
+        
+		   
+        
+
+</div>
+
+    
+    
+                                            @*//Desni div*@
+<div class="span-23" id="desniDiv">
+
+
+
+
+    <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Tečaj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().SpinEdit(settings => { settings.Name = "CourseValue"; settings.Height = 24; settings.Width = 200; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.ShowModelErrors = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Properties.DecimalPlaces = 2; }).Bind(Model.CourseValue).GetHtml()
+
+	</div>
+	
+       <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Valuta:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+   @Html.DevExpress().ComboBox(settings => { settings.Name = "MDGeneral_Enums_CurrencyId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(contextGen.MDGeneral_Enums_Currency).Bind(Model.MDGeneral_Enums_CurrencyId).GetHtml()
+	</div>
+	
+	</div>
+    <div class="clearb"></div>
+   @* <a href="javascript:pcModalMode.Show();" class="jqModal">Dodaj proizvod</a>
+<a href="javascript:pcModalModeSrv.Show();" class="jqModal">Dodaj uslugu</a>*@
+    @Html.Partial("DocumentItemsColGridPartial", Model.Documents_ItemsCol, new ViewDataDictionary() { { "controllerName", "Payoff" } })
+    <div class="totals">
+	<div class="rule top"></div>
+	
+    <div class="float_right">
+        <div class="box">
+		<table class="table-totals" cellspacing="0">
+			<tbody>			
+				<tr id="amount-row">
+					<td style="width: 20px">&nbsp;</td>
+					<th style="width: 150px">Ukupno: <span class="currency">(USD)</span></th>
+					<td class="last-column">@Html.DevExpress().Label(settings => { settings.Name = "Ukupno"; settings.Text = "0.00"; }).GetHtml()</td>
+				</tr>
+				<tr id="paid-row">
+					<td style="width: 20px">&nbsp;</td>
+					<th style="width: 150px">Pdv:</th>
+					<td class="last-column">@Html.DevExpress().Label(settings => { settings.Name = "Pdv"; settings.Text = "0.00"; }).GetHtml()</td>
+				</tr>
+                <tr id="paid-row">
+					<td style="width: 20px">&nbsp;</td>
+					<th style="width: 150px">Rabat:</th>
+					<td class="last-column">@Html.DevExpress().Label(settings => { settings.Name = "Rabat"; settings.Text = "0.00"; }).GetHtml()</td>
+				</tr>
+				<tr id="outstanding-row" class="invoice-total-box">
+					<td style="width: 20px">&nbsp;</td>
+					<th style="width: 150px">Za platiti:</th>
+					<td class="last-column">@Html.DevExpress().Label(settings => { settings.Name = "ZaPlatiti"; settings.Text = "0.00"; }).GetHtml()</td>
+				</tr>
+			</tbody>
+		</table>
+        </div>
+	</div>
+    </div>
+    
+   
+    <div class="clearb"></div>
+       
+    
+    <br />
+<div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit(); noUnload();">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/Documents/Payoff/Odustani")" onclick="noUnload();" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+               
+  </div> 
+    
+    
+     <div id="printDiv" style="height:1000px; display:none">
+      @Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbar";
+                settings.ReportViewerName = "ReportViewer1";
+            }
+        ).GetHtml()
+
+        @Html.Partial("PayoffReportPartial", ViewData["Report"], new ViewDataDictionary() { { "PayoffId", ViewData["PayoffId"] } })
+    </div>
+    
+   @* @Html.Partial("PopupGridPartial", Model.Documents_ItemsCol, new ViewDataDictionary() { { "controllerName", "Payoff" } });*@
+
+    
+    @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalModeWorkOrder";
+            settings.Width = 100;
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = false;
+            settings.HeaderText = "";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            //settings.ContentUrl = @Url.Content("~/Documents/Payoff/PopupGridPartial");
+            //settings.SetContent(i =>
+            //{
+            //    i.SetTemplateContent(c =>
+            //    {
+            //        @Html.Partial("PopupGridPartial", Model.Documents_ItemsCol, new ViewDataDictionary() { { "controllerName", "Payoff" } });
+            //    });
+            //});
+
+            settings.SetContent(() =>
+            {
+                @Html.DevExpress().GridView(
+                settings1 =>
+                {
+                    settings1.Name = "gvPopupPayoff";
+                    settings1.CallbackRouteValues = new { Controller = "Payoff", Action = "PopupGridPartial" };
+
+                    settings1.SettingsText.EmptyDataRow = "Nema podataka";
+                    settings1.Settings.ShowFilterRow = true;
+                    settings1.Settings.ShowFilterRowMenu = true;
+                    settings1.SettingsPager.PageSize = 13;
+                    settings1.CommandColumn.Visible = true;
+                    settings1.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                    settings1.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                    settings1.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+                    settings1.CommandColumn.ClearFilterButton.Visible = true;
+
+                    settings1.CommandColumn.ShowSelectCheckbox = true;
+
+                    settings1.KeyFieldName = "Id";
+
+                    settings1.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+                    settings1.Settings.ShowFooter = false;
+                    settings1.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                    settings1.Columns.Add("UniqueIdentifier", "Radni nalog", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings1.Columns.Add("DocumentDateTime", "Datum", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                    settings1.Columns.Add("Klijent", "Klijent", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                    settings1.Columns.Add("NazivProjekta", "Projekt", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+
+                }).GetHtml();
+                //}).BindToLINQ("", "", new
+                //                    EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+                //                    {
+                //                        e.KeyExpression = "Id";
+                //                        DalEf.DocumentsEntities contextEnt = new DalEf.DocumentsEntities();
+                //                        e.QueryableSource = contextEnt.vWorkOrder.Where(p => p.CusomerId == Convert.ToInt32(ViewData["SubjectId"]) && p.Invoiced == false);
+                //                        //e.QueryableSource = contextEnt.vWorkOrder.Where(p => p.CusomerId == 63);
+                //})).GetHtml();
+
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-12 form-layout-right\"><a class=\"butMedium green\"  onclick=\"GetSelectedIds()\" href=\"#\"><span>Dodaj </span></a></div>");
+                //@Html.Partial("PopupGridPartial", Model.Documents_ItemsCol, new ViewDataDictionary() { { "controllerName", "Payoff" } });
+
+            });
+
+
+        }).GetHtml()
+
+       
+     @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalModeDesc";
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = false;
+            settings.HeaderText = "Dodaj napomenu";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Middle;
+            settings.SetContent(() =>
+            {
+
+                @Html.DevExpress().Memo(settingsMemo => { settingsMemo.Name = "DescriptionDesc"; settingsMemo.Width = 800; settingsMemo.Height = 100; }).GetHtml();
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-12 form-layout-right\"><a class=\"butMedium green\"  onclick=\"AddDesc()\" href=\"#\"><span>Dodaj napomenu</span></a></div>");
+            });
+        }).GetHtml()
+                                  
+}

@@ -1,0 +1,84 @@
+﻿@model BusinessObjects.MDSubjects.cMDSubjects_Enums_Bank
+
+@{
+    ViewBag.Title = "CreateAndEdit";
+}
+
+   
+   
+
+<script type="text/javascript">
+    $.noConflict();
+    //dino
+    $.validator.setDefaults({
+        submitHandler: function($) {
+            myForm.submit();
+        }
+    });
+
+    jQuery(document).ready(function($) {
+        // validate signup form on keyup and submit
+        $("#SignUpForm").validate({
+            rules: {
+                Name: "required",
+                Number: {
+                    required: true,
+                    minlength: 5
+                } 
+            },
+            messages: {
+                Name: "Molimo unesite korisničko ime",
+                Number: "Molimo unesite lozinku"
+            }
+        });
+
+    });
+</script>
+
+@using (Html.BeginForm("CreateAndEdit", "EnumsBank", FormMethod.Post, new { id = "SignUpForm" }))
+{
+    <div id="kzlist">
+        <div id="kzlisttop"></div>
+        <div id="kzlistmiddle">
+             @Html.HiddenFor(model => model.EntityKeyData)
+             @Html.HiddenFor(model => model.Id)
+            <div style="text-align:center; width:800px; height: 350px;margin-bottom:95px">
+                <fieldset class="font"  style="margin-left: 315px; width:300px;margin-top: 60px;">
+                        <legend>Banka</legend>
+                 <div class="textfieldslablom" style="padding: 3px;margin-bottom: 13px;width: 270px;margin-top:8px; margin-left:8px">
+                    <div class="editor-label">Naziv banke:</div>
+                        <div class="editor-field">
+                         @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Height = 24; settings.Width = 168; settings.ShowModelErrors = true; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+                         @Html.ValidationMessageFor(model => model.Name)
+                        <label class="error" for="Name_I"></label>
+                        </div>
+                 </div>
+                <div class="textfieldslablom" style="padding: 3px;margin-bottom: 13px;width: 270px;margin-top:8px; margin-left:8px">
+                <div class="editor-label">Broj računa:</div>
+                    <div class="editor-field">
+                        @Html.DevExpress().TextBox(settings => { settings.Name = "Number"; settings.Properties.MaxLength = 18; settings.Height = 24; settings.Width = 168; settings.ShowModelErrors = true; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Number).GetHtml()
+                        @*@Html.ValidationMessageFor(model => model.Number)*@
+                        <label class="error" for="Number_I"></label>
+                    </div>
+                </div>
+                <p><input type="submit" value="Snimiiiiiii" style="width:250px; height:30px;" /></p>
+              @*  <div style="margin-top: 10px">
+                         @Html.DevExpress().Button(settings =>
+                    {
+
+                        settings.Name = "btnSnimi";
+                        settings.EnableClientSideAPI = true;
+                        settings.EnableTheming = false;
+                        settings.AllowFocus = false;
+                        settings.Text = "Snimi";
+                        settings.UseSubmitBehavior = true;
+                        
+                    }).GetHtml()
+                </div>*@
+                </fieldset>
+        
+            </div>
+        </div>
+        <div id="kzlistbottom"></div>
+    </div>
+}

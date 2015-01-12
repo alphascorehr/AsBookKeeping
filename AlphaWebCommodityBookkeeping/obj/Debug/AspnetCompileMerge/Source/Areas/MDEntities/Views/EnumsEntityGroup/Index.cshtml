@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+
+@Html.Hidden("linkName", "TvrtkaParent")
+@Html.Hidden("linkId", "EntityGroup")
+
+
+
+ <h2 class="pt"> Grupe proizvoda </h2>
+ 
+<a class="butPrimary " href="@Url.Content("~/MDEntities/EnumsEntityGroup/CreateAndEdit/0")">
+<span>Nova grupa proizvoda </span>
+</a>
+<div class="clearb"></div>
+ 
+
+
+@Html.Partial("EnumsEntityGroupGridPartial")

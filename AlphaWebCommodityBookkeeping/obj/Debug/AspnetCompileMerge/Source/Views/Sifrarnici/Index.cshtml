@@ -1,0 +1,86 @@
+﻿
+
+
+
+@Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "")
+
+
+ 
+
+<script type="text/javascript"><!--
+    $(document).ready(function () {
+
+        //  list animation  
+        var fadeDuration = 150; //time in milliseconds
+
+        $('#list1 li a').hover(function () {
+            $(this).animate({ paddingLeft: '30px' }, fadeDuration);
+            $(this).children('span').show().animate({ left: -5 }, fadeDuration);
+        }, function () {
+            $(this).animate({ paddingLeft: '15px' }, fadeDuration);
+            $(this).children('span').animate({ left: -35 }, fadeDuration).fadeOut(fadeDuration);
+        });
+
+    });
+
+ 
+</script>
+
+ <h2 class="pt"> Šifarnik </h2>
+ 
+
+@*<div class="clearb"></div>*@
+ 
+ 
+
+<ul id="list1">
+<li>
+<a href="@Url.Content("~/MDEntities/EnumsTaxRate")" style="padding-left: 15px;">Porezne stope<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDEntities/EnumsUnit")" style="padding-left: 15px;">Jedinice mjera<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDSubjects/EnumsFunction")" style="padding-left: 15px;">Funkcije<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/Documents/EnumsDispatchType")" style="padding-left: 15px;">Vrste prijevoza<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDGeneral/EnumsCurrency")" style="padding-left: 15px;">Valute<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDSubjects/EnumsBank/Index")" style="padding-left: 15px;">Banke<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDSubjects/EnumsCoreBussiness")" style="padding-left: 15px;">Djelatnosti<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDSubjects/EnumsEducationDegree")" style="padding-left: 15px;">Stručne spreme<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDSubjects/EnumsCompanyType")" style="padding-left: 15px;">Vrsta tvrtki<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDSubjects/EnumsSoleProprietorType")" style="padding-left: 15px;">Slobodna zanimanja<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDPlaces/EnumsGeoPlace")" style="padding-left: 15px;">Mjesta<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDPlaces/EnumsGeoRegion")" style="padding-left: 15px;">Županije<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDPlaces/EnumsGeoCountry")" style="padding-left: 15px;">Države<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDGeneral/EnumsLanguage")" style="padding-left: 15px;">Jezici<span style="left: -35px; display: none;"></span></a>
+</li>
+    <li>
+<a href="@Url.Content("~/MDGeneral/EnumsCashBox")" style="padding-left: 15px;">Blagajne<span style="left: -35px; display: none;"></span></a>
+</li>
+       <li>
+<a href="@Url.Content("~/MDGeneral/EnumsLocation")" style="padding-left: 15px;">Poslovni prostori<span style="left: -35px; display: none;"></span></a>
+</li>
+</ul>

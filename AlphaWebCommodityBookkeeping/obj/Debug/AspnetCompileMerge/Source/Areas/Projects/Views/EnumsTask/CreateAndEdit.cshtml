@@ -1,0 +1,140 @@
+﻿@model BusinessObjects.Projects.cProjects_Enums_Task
+          
+@{
+    ViewBag.Title = "CreateAndEdit";
+}
+
+<script type="text/javascript">
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            myForm.submit();
+            //alert("OK");
+        }
+    });
+
+    $(document).ready(function () {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+
+            rules: {
+                Name: "required",
+                Label: "required"
+//                Name: {
+//                    minlenght: 5
+//                }
+            },
+            messages: {
+                Name: "Molimo unesite naziv",
+                Label: "Molimo unesite šifru"
+
+            }
+
+
+        });
+    });
+
+
+
+ 
+
+</script>
+@{
+    string caption = "Nova vrsta zadatka";
+    if (Model.Name != "")
+    {
+        caption = "Vrsta zadatka: " + Model.Name;
+    }
+}
+
+
+@using (Html.BeginForm("CreateAndEdit", "EnumsTask", FormMethod.Post, new { id = "myForm" }))
+{
+   
+             @Html.HiddenFor(model => model.EntityKeyData)
+             @Html.HiddenFor(model => model.Id)
+             @Html.HiddenFor(model => model.Inactive)
+
+            @Html.Hidden("linkName", "TvrtkaParent")
+            @Html.Hidden("linkId", "EnumsTask")
+            
+     <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	 <h2 class="pt"><div class="span-22"> @caption </div></h2>
+    
+     
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+    
+            <div class="span-23" style="position: relative;">
+                  
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Naziv:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                    @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Properties.MaxLength = 100; settings.Height = 24; settings.Width = 200; }).Bind(Model.Name).GetHtml()
+                </div>
+
+                  <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Šifra:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                    @Html.DevExpress().TextBox(settings => { settings.Name = "Label"; settings.Properties.MaxLength = 10; settings.Height = 24; settings.Width = 200; }).Bind(Model.Label).GetHtml()
+                </div>
+                   
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Cijena po satu:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                	    @Html.DevExpress().SpinEdit(settings => { settings.Name = "TaskRatePerHour"; settings.Properties.DisplayFormatString = "n2"; settings.Height = 24; settings.Width = 200; settings.Properties.SpinButtons.ShowIncrementButtons = true; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 100000000; settings.Properties.DecimalPlaces = 2; settings.ShowModelErrors = false; }).Bind(Model.TaskRatePerHour).GetHtml()
+                </div>
+                   
+
+    
+                   
+            </div>
+   
+                  
+              
+           <div class="clearb" style="padding-top:20px"></div>
+    
+        <div class="clearb"></div>
+            
+    
+    
+   
+        <div class="clearb"></div>
+
+        <div class="span-40 append-1">
+            <div class="span-10 append-1"></div>
+            <div class="span-10 append-1">
+                    <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+            </div>
+            <div class="span-2 append-1"></div>
+            <div class="span-10 append-1">
+                    <a href="@Url.Content("~/Projects/EnumsTask/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+            </div>
+            <div class="span-8 append-1"></div>
+        </div>
+    
+    
+
+
+
+   
+
+
+}

@@ -1,0 +1,29 @@
+﻿@model BusinessObjects.Documents.cDocuments_Enums_DispatchType_List
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+    function RowClicked(s, e) {
+        Cursor();
+        //var id = s.keys[e.visibleIndex];
+        var vi = e.visibleIndex - s.pageIndex * s.pageRowSize;
+        var id = s.keys[vi];
+        var actionURL = '@Url.Content("~/Documents/EnumsDispatchType/CreateAndEdit/")' + id;
+        window.location = actionURL;
+    }
+</script>
+@Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "")
+
+  <h2 class="pt"> Vrste prijevoza </h2>
+@if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{
+<a class="butPrimary " href="@Url.Content("~/Documents/EnumsDispatchType/CreateAndEdit/0")">
+<span> Nova vrsta prijevoza </span>
+</a>
+<div class="clearb"></div>
+}
+
+@Html.Partial("DispatchTypeGridPartial")
+

@@ -1,0 +1,141 @@
+﻿
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        if ('@System.Web.HttpContext.Current.Session["CashBoxCodes"]' != "") {
+            $('#gvInvoiceRateGrid').show();
+            $('#new').show();
+        }
+        else {
+            $('#gvInvoiceRateGrid').hide();
+            $('#new').hide();
+        }
+        //alert('@ViewData["Id"]');
+        //alert('@ViewData["Jir"]');
+        if ('@ViewData["Id"]' != 0 && '@ViewData["Jir"]' == "") {
+            Fiskaliziraj('@ViewData["Id"]');
+        }
+
+    });
+
+
+    function CashBoxChanged() {
+        var url = '@Url.Content("~/Documents/CashBox/CashBoxChanged")';
+        var cashbox = cbCashBox.GetValue();
+        $.post(url, { cashbox: cashbox }, function () {
+            gvInvoiceRateGrid.Refresh();
+            $('#gvInvoiceRateGrid').show();
+            $('#new').fadeIn();
+            @*if ('@ViewData["FiscalMode"]' == "0") {
+                $('#notDialog').fadeIn();
+            }*@
+        })
+    }
+    function CashBoxSetValue() {
+        // locationCode / blagajnaCode
+        if ('@System.Web.HttpContext.Current.Session["CashBoxCodes"]' != "") {
+            cbCashBox.SetValue('@System.Web.HttpContext.Current.Session["CashBoxCodes"]');
+            $('#imgOk').fadeIn('slow');
+        }
+    }
+
+    function Fiskaliziraj(id) {
+        //$('#jir').text("");
+        var actionURL = '@Url.Action("Fiskaliziraj",  "Fiscalization")';
+                    $.post(actionURL, { Id: id, type: "C" }, function (result) {
+                        var status = result.Item1;
+                        var message = result.Item2;
+                        var httpretCode = result.Item3;
+
+
+                        if (status == 0) {
+                            toastr.success('Ok', 'Fiskalizacija je uspjesna.');
+                            gvInvoiceRateGrid.Refresh();
+                            //$('#jir').text("Dobiveni Jir: " + message);
+                            //$('#jir').css({ 'color': 'green', 'font-weight': 'bold' })
+
+                        }
+                        else {
+                            toastr.error('Greska', message);
+                            //$('#jir').text("Greska: " + message + " " + httpretCode);
+                            //$('#jir').css({ 'color': 'red', 'font-weight': 'bold' })
+                        }
+                    })
+                }
+
+</script>
+@{
+    int companyId = ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId;
+    DalEf.MDGeneralEntities contextGeneral = new DalEf.MDGeneralEntities();
+}
+
+
+
+<h2 class="pt"> Blagajna <small>(oznaka blagajne)</small></h2>
+<div id="new">
+<a class="butPrimary " href="@Url.Content("~/Documents/CashBox/CreateAndEdit/0")">
+<span> Novi Račun </span>
+</a>
+<div class="clearb"></div>  
+</div>
+
+<br>
+
+
+
+@Html.Hidden("linkName", "BlagajneParent")
+@Html.Hidden("linkId", "GotovinskiRacuniSpan")
+  
+ <table width="100%" border="0" class="striped">
+            <tr style="background-color: lightgray">
+                <td width="70%">&nbsp;Molimo odaberite lokaciju i blagajnu</td>
+                <td width="30%">
+                    @Html.DevExpress().ComboBox(settings =>
+               {
+                   settings.Name = "cbCashBox";
+                   settings.Properties.ValueType = typeof(string);
+                   settings.Width = 300;
+
+                   var lokacije = contextGeneral.MDGeneral_Enums_Location.Where(p => p.CompanyUsingServiceId == companyId);
+                   string t = "";
+                   string v = "";
+                   if (lokacije != null)
+                   {
+                       foreach (var lokac in lokacije)
+                       {
+                           if (contextGeneral.MDGeneral_Enums_CashBox.SingleOrDefault(p => p.LocationId == lokac.Id) != null)
+                           {
+
+                               if (contextGeneral.MDGeneral_Enums_CashBox.Where(p => p.LocationId == lokac.Id).Count() > 1)
+                               {
+                                   var blagajneZaLokaciju = contextGeneral.MDGeneral_Enums_CashBox.Where(p => p.LocationId == lokac.Id);
+                                   foreach (var bl in blagajneZaLokaciju)
+                                   {
+                                       t = lokac.Code.ToString() + "/" + bl.Code;
+                                       v = t + "/" + lokac.Id.ToString() + "/" + bl.Id;
+                                       settings.Properties.Items.Add(t, v);
+                                   }
+                               }
+                               else
+                               {
+                                   t = lokac.Code.ToString() + "/" + contextGeneral.MDGeneral_Enums_CashBox.SingleOrDefault(p => p.LocationId == lokac.Id).Code;
+                                   var bId = contextGeneral.MDGeneral_Enums_CashBox.SingleOrDefault(p => p.LocationId == lokac.Id).Id;
+                                   v = t + "/" + lokac.Id.ToString() + "/" + bId;
+                                   settings.Properties.Items.Add(t, v);
+                               }
+                           }
+
+                       }
+                       settings.Properties.ClientSideEvents.ValueChanged = "CashBoxChanged";
+                       settings.Properties.ClientSideEvents.Init = "CashBoxSetValue";
+                   }
+                   settings.ShowModelErrors = false;
+               }).GetHtml()
+
+                </td>
+            </tr>
+        </table>
+
+
+  <br />
+@Html.Partial("CashBoxGridPartial")

@@ -1,0 +1,61 @@
+﻿@model BusinessObjects.MDEntities.cMDEntities_Product_PicturesCol
+
+ @{
+     DalEf.MDEntitiesEntities c = new DalEf.MDEntitiesEntities();
+      var grid = Html.DevExpress().GridView(
+                    settings =>
+                    {
+                        settings.Name = "gvPicturesCol";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.SettingsPager.PageSize = 5;
+                        settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                        settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+                        settings.CallbackRouteValues = new { Controller = "Product", Action = "RefreshPicturesColGridPartial" };
+                        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Product", Action = "AddNewItem" };
+                        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Product", Action = "UpdateItem" };
+                        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Product", Action = "DeleteItem" };
+                        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                        settings.SettingsBehavior.ConfirmDelete = true;
+
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.NewButton.Visible = false;
+                        settings.CommandColumn.NewButton.Text = "Novi";
+                        settings.CommandColumn.DeleteButton.Visible = true;
+                        settings.CommandColumn.DeleteButton.Text = "Obriši";
+                        settings.CommandColumn.EditButton.Visible = false;
+                        //settings.CommandColumn.EditButton.Text = "Uredi";
+                        //settings.CommandColumn.CancelButton.Text="Odustani";
+                        //settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                        settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                        settings.CommandColumn.DeleteButton.Image.Url = @Url.Content("~/Content/images/pls_brisi_16.png");
+                        settings.CommandColumn.DeleteButton.Image.ToolTip = "Obriši";
+                        settings.CommandColumn.Width = 20;
+                        
+                        settings.KeyFieldName = "Id";
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Picture";
+                            column.ReadOnly = true;
+                            column.Caption = "Slika";
+                            column.ColumnType = MVCxGridViewColumnType.BinaryImage;
+                            var binaryproperties = column.PropertiesEdit as BinaryImageEditProperties;
+                            if(binaryproperties.ImageWidth.Value > 3300)
+                            {
+                                binaryproperties.ImageWidth = 300;
+                            }
+                            binaryproperties.ImageWidth = 300;
+                            //column.Width = 50;
+                    
+                        });
+                        
+                        //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                        //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+                    });
+   }
+                  @grid.Bind(Model).GetHtml()

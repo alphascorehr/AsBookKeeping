@@ -1,0 +1,48 @@
+﻿<script type="text/javascript">
+//<![CDATA[
+
+
+    $(document).ready(function () {
+//        $('#new').click(function () {
+//            $('#list1').slideToggle("slow");
+//        })
+
+        $('#navmain').hide();
+        $('#subnav').hide();
+        $('.footer').hide();
+
+        //  list animation  
+        var fadeDuration = 150; //time in milliseconds
+
+        $('#list1 li a').hover(function () {
+            $(this).animate({ paddingLeft: '30px' }, fadeDuration);
+            $(this).children('span').show().animate({ left: -5 }, fadeDuration);
+        }, function () {
+            $(this).animate({ paddingLeft: '15px' }, fadeDuration);
+            $(this).children('span').animate({ left: -35 }, fadeDuration).fadeOut(fadeDuration);
+        });
+    });
+
+// ]]>
+</script>
+
+
+
+<ul id="list1">
+<li>
+<a href="@Url.Content("~/MDSubjects/Obrt/CreateAndEditSmall/0")" style="padding-right: 15px;">Novi obrt<span style="left: -35px; display: none;"></span></a>
+@*<a href="@Url.Content("~/MDSubjects/Obrt/CreateAndEdit/0")" class="butPrimarySmall"><span>Novi obrt</span></a><br />*@
+</li>
+<li>
+<a href="@Url.Content("~/MDSubjects/Company/CreateAndEditSmall/0")" style="padding-right: 15px;">Nova tvrtka<span style="left: -35px; display: none;"></span></a>
+@*<a href="@Url.Content("~/MDSubjects/Company/CreateAndEdit/0")" class="butPrimarySmall">Nova tvrtka</a><br />*@
+</li>
+<li>
+<a href="@Url.Content("~/MDSubjects/SoleProprietor/CreateAndEditSmall/0")" style="padding-right: 15px;">Nova slobodna djelatnost<span style="left: -35px; display: none;"></span></a>
+@*<a href="@Url.Content("~/MDSubjects/SoleProprietor/CreateAndEdit/0")" class="butPrimarySmall">Nova slobodna profesija</a><br />*@
+</li>
+<li>
+<a href="@Url.Content("~/MDSubjects/Person/CreateAndEditSmall/0")" style="padding-right: 15px;">Nova osoba<span style="left: -35px; display: none;"></span></a>
+@*<a href="@Url.Content("~/MDSubjects/Person/CreateAndEdit/0")" class="butPrimarySmall">Nova osoba</a><br />*@
+</li>
+</ul>

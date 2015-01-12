@@ -1,0 +1,1261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{99E5B25C-BECC-4431-827A-9770DEE5D363}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AlphaWebCommodityBookkeeping</RootNamespace>
+    <AssemblyName>AlphaWebCommodityBookkeeping</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PrecompileBeforePublish>true</PrecompileBeforePublish>
+    <PublishDatabases>false</PublishDatabases>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla">
+      <HintPath>..\..\..\DLL\Csla4\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla.Web">
+      <HintPath>..\..\..\DLL\Csla4\Csla.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla.Web.Mvc">
+      <HintPath>..\..\..\DLL\Csla4\Csla.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.WebPages">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Entity">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxEditors.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxGridView.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxGridView.v12.1.Export, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxThemes.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.Mvc.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Web.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.SpellChecker.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v12.1.Web, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v12.1.Extensions, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v12.1.Web, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\Documents\Controllers\CashBoxController.cs" />
+    <Compile Include="Areas\Documents\Controllers\DispatchController.cs" />
+    <Compile Include="Areas\Documents\Controllers\EnumsDispatchTypeController.cs" />
+    <Compile Include="Areas\Documents\Controllers\FiscalizationController.cs" />
+    <Compile Include="Areas\Documents\Controllers\InvoiceController.cs" />
+    <Compile Include="Areas\Documents\Controllers\IncomingInvoiceController.cs" />
+    <Compile Include="Areas\Documents\Controllers\OfferController.cs" />
+    <Compile Include="Areas\Documents\Controllers\OrderFormController.cs" />
+    <Compile Include="Areas\Documents\Controllers\PaymentItemsInAdvanceController.cs" />
+    <Compile Include="Areas\Documents\Controllers\PaymentsController.cs" />
+    <Compile Include="Areas\Documents\Controllers\PayoffController.cs" />
+    <Compile Include="Areas\Documents\Controllers\PriceListController.cs" />
+    <Compile Include="Areas\Documents\Controllers\QuoteController.cs" />
+    <Compile Include="Areas\Documents\Controllers\TakeoverOfGoodsController.cs" />
+    <Compile Include="Areas\Documents\Controllers\TransferOrderController.cs" />
+    <Compile Include="Areas\Documents\Controllers\TravelOrderController.cs" />
+    <Compile Include="Areas\Documents\Controllers\VirmaniController.cs" />
+    <Compile Include="Areas\Documents\Controllers\WorkOrderController.cs" />
+    <Compile Include="Areas\Documents\DocumentsAreaRegistration.cs" />
+    <Compile Include="Areas\Documents\Models\BillingMethodes.cs" />
+    <Compile Include="Areas\Documents\Models\DocumentsForPaymentModel.cs" />
+    <Compile Include="Areas\Documents\Models\ReportsModel.cs" />
+    <Compile Include="Areas\Documents\Models\SubjectTypes.cs" />
+    <Compile Include="Areas\Documents\Reports\xrTaxesCashSubSmall.cs" />
+    <Compile Include="Areas\Documents\Reports\xrTaxesCashSubSmall.Designer.cs">
+      <DependentUpon>xrTaxesCashSubSmall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrCashBoxSmall.cs" />
+    <Compile Include="Areas\Documents\Reports\xrCashBoxSmall.Designer.cs">
+      <DependentUpon>xrCashBoxSmall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrTaxesCashSub.cs" />
+    <Compile Include="Areas\Documents\Reports\xrTaxesCashSub.Designer.cs">
+      <DependentUpon>xrTaxesCashSub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrCashBox.cs" />
+    <Compile Include="Areas\Documents\Reports\xrCashBox.Designer.cs">
+      <DependentUpon>xrCashBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrInvocesClaimsDetails.cs" />
+    <Compile Include="Areas\Documents\Reports\xrInvocesClaimsDetails.Designer.cs">
+      <DependentUpon>xrInvocesClaimsDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrPayoff.cs" />
+    <Compile Include="Areas\Documents\Reports\xrPayoff.Designer.cs">
+      <DependentUpon>xrPayoff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrDispatch.cs" />
+    <Compile Include="Areas\Documents\Reports\xrDispatch.Designer.cs">
+      <DependentUpon>xrDispatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrDocuments.cs" />
+    <Compile Include="Areas\Documents\Reports\xrDocuments.Designer.cs">
+      <DependentUpon>xrDocuments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrInvoice.cs" />
+    <Compile Include="Areas\Documents\Reports\xrInvoice.Designer.cs">
+      <DependentUpon>xrInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrOtherExpensses.cs" />
+    <Compile Include="Areas\Documents\Reports\xrOtherExpensses.Designer.cs">
+      <DependentUpon>xrOtherExpensses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrQuote.cs" />
+    <Compile Include="Areas\Documents\Reports\xrQuote.Designer.cs">
+      <DependentUpon>xrQuote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrTravelBill.cs" />
+    <Compile Include="Areas\Documents\Reports\xrTravelBill.Designer.cs">
+      <DependentUpon>xrTravelBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrTravelCosts.cs" />
+    <Compile Include="Areas\Documents\Reports\xrTravelCosts.Designer.cs">
+      <DependentUpon>xrTravelCosts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrTravelOrder.cs" />
+    <Compile Include="Areas\Documents\Reports\xrTravelOrder.Designer.cs">
+      <DependentUpon>xrTravelOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrWorkOrder.cs" />
+    <Compile Include="Areas\Documents\Reports\xrWorkOrder.Designer.cs">
+      <DependentUpon>xrWorkOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrWorkOrderTimeSub.cs" />
+    <Compile Include="Areas\Documents\Reports\xrWorkOrderTimeSub.Designer.cs">
+      <DependentUpon>xrWorkOrderTimeSub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrTaxesSub.cs" />
+    <Compile Include="Areas\Documents\Reports\xrTaxesSub.Designer.cs">
+      <DependentUpon>xrTaxesSub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrFutureClaimsDetails.cs" />
+    <Compile Include="Areas\Documents\Reports\xrFutureClaimsDetails.Designer.cs">
+      <DependentUpon>xrFutureClaimsDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Reports\xrUnbilledDetails.cs" />
+    <Compile Include="Areas\Documents\Reports\xrUnbilledDetails.Designer.cs">
+      <DependentUpon>xrUnbilledDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Documents\Controllers\CompensationController.cs" />
+    <Compile Include="Areas\Documents\Reports\xrCompensation.cs" />
+    <Compile Include="Areas\Documents\Reports\xrCompensation.Designer.cs">
+      <DependentUpon>xrCompensation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\MDEntities\Controllers\EnumsEntityGroupController.cs" />
+    <Compile Include="Areas\MDEntities\Controllers\EnumsTaxRateController.cs" />
+    <Compile Include="Areas\MDEntities\Controllers\EnumsUnitController.cs" />
+    <Compile Include="Areas\MDEntities\Controllers\ExcellImportController.cs" />
+    <Compile Include="Areas\MDEntities\Controllers\ProductController.cs" />
+    <Compile Include="Areas\MDEntities\Controllers\ServiceController.cs" />
+    <Compile Include="Areas\MDEntities\MDEntitiesAreaRegistration.cs" />
+    <Compile Include="Areas\MDGeneral\Controllers\EnumsLocationController.cs" />
+    <Compile Include="Areas\MDGeneral\Controllers\EnumsCashBoxController.cs" />
+    <Compile Include="Areas\MDGeneral\Controllers\EnumsCurrencyController.cs" />
+    <Compile Include="Areas\MDGeneral\Controllers\EnumsKindOfTransportationController.cs" />
+    <Compile Include="Areas\MDGeneral\Controllers\EnumsLanguageController.cs" />
+    <Compile Include="Areas\MDGeneral\MDGeneralAreaRegistration.cs" />
+    <Compile Include="Areas\MDPlaces\Controllers\EnumsGeoCountryController.cs" />
+    <Compile Include="Areas\MDPlaces\Controllers\EnumsGeoPlaceController.cs" />
+    <Compile Include="Areas\MDPlaces\Controllers\EnumsGeoRegionController.cs" />
+    <Compile Include="Areas\MDPlaces\Controllers\EnumsOgranizationalUnitController.cs" />
+    <Compile Include="Areas\MDPlaces\MDPlacesAreaRegistration.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\CompanyController.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\EnumsBankController.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\EnumsCompanyTypeController.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\EnumsCoreBussinessController.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\EnumsEducationDegreeController.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\EnumsSoleProprietorTypeController.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\ObrtController.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\PersonController.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\SoleProprietorController.cs" />
+    <Compile Include="Areas\MDSubjects\MDSubjectsAreaRegistration.cs" />
+    <Compile Include="Areas\MDSubjects\Controllers\EnumsFunctionController.cs" />
+    <Compile Include="Areas\MDSubjects\Models\PDVTypes.cs" />
+    <Compile Include="Areas\Projects\Controllers\EnumsExpensTypeController.cs" />
+    <Compile Include="Areas\Projects\Controllers\EnumsTaskController.cs" />
+    <Compile Include="Areas\Projects\Controllers\MaterialTrackingController.cs" />
+    <Compile Include="Areas\Projects\Controllers\ProjectExpensesController.cs" />
+    <Compile Include="Areas\Projects\Controllers\TimeTrackingLogController.cs" />
+    <Compile Include="Areas\Projects\Controllers\ProjectController.cs" />
+    <Compile Include="Areas\Projects\ProjectsAreaRegistration.cs" />
+    <Compile Include="Attributes\AllowAnonymousAttribute.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\MobileQuoteController.cs" />
+    <Compile Include="Controllers\MobileInvoiceController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MobileController.cs" />
+    <Compile Include="Controllers\MobileOfferController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\SifrarniciController.cs" />
+    <Compile Include="CustomMembershipProvider.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AlphaScoreModelBinder.cs" />
+    <Compile Include="Models\MjestaComboProvider3.cs" />
+    <Compile Include="Models\MjestaComboProvider.cs" />
+    <Compile Include="Models\MjestaComboProvider2.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Readme\glimpse.readme.txt" />
+    <Content Include="Content\images\ok.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\spritesFis.png" />
+    <Content Include="Content\OLD\AsStyle.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OLD\fbStyles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\fb\colorpicker.css" />
+    <Content Include="Content\fb\fbStyles.css" />
+    <Content Include="Content\fb\print.css" />
+    <Content Include="Content\fb\siteStyles.css" />
+    <Content Include="Content\fb\styles.css" />
+    <Content Include="Content\images\accordion\ui-bg_flat_0_aaaaaa_40x100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\accordion\ui-bg_flat_75_ffffff_40x100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\accordion\ui-bg_glass_65_ffffff_1x400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\accordion\ui-bg_glass_75_dadada_1x400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\accordion\ui-bg_glass_75_e6e6e6_1x400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\accordion\ui-bg_highlight-soft_75_cccccc_1x100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\accordion\ui-icons_222222_256x240.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\accordion\ui-icons_454545_256x240.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\accordion\ui-icons_888888_256x240.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\ajax-loader.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\alpha_score_logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\aslogo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\check.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\clear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\CopyIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\CreateVirman.png" />
+    <Content Include="Content\images\Dispatch-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\QuickLinks\invoice.png" />
+    <Content Include="Content\images\QuickLinks\offer.png" />
+    <Content Include="Content\images\QuickLinks\offer1.jpg" />
+    <Content Include="Content\images\QuickLinks\Quote.png" />
+    <Content Include="Content\images\QuickLinks\TravelOrder.png" />
+    <Content Include="Content\images\QuickLinks\workorder.png" />
+    <Content Include="Content\images\QuickLinks\workorder1.jpg" />
+    <Content Include="Content\images\QuoteTemp.jpg" />
+    <Content Include="Content\images\sprites.v1346787497.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\support.png" />
+    <Content Include="Content\images\tabs\DocumentIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\history-arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\images.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\importIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\invoice-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\mail_send48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\nav-sprites.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\pls_brisi_16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\pls_dodaj_16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\pls_snimi_16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\pls_uredi_16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\pls_zatvori_16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\Printer_Blue48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\Quote-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\required.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\save.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\shadow-login-box.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\spacer.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\sprites.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\sprites2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\login.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\rep1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\rep2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\rep3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\rep4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\rep5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\rep6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\support.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\TravelInvoice.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tabs\TravelOrder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\whiteStrip.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\x.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\jquery-ui.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\loginStyles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\MainStyle.css" />
+    <Content Include="Content\OLD\outty.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OLD\print.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OLD\Site.css" />
+    <Content Include="Content\OLD\siteStyles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\Widgets.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="Areas\MDSubjects\Views\Web.config" />
+    <Content Include="Areas\MDSubjects\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Web.config" />
+    <Content Include="Areas\MDSubjects\Views\Person\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDEntities\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Person\Index.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Person\PersonGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Shared\AccountsColGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Shared\ContactsColGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsCompanyType\Index.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsCompanyType\EnumsCompanyTypeGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsCompanyType\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsCoreBussiness\Index.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsCoreBussiness\EnumsCoreBussinessGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsCoreBussiness\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsEducationDegree\Index.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsEducationDegree\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsEducationDegree\EnumsEducationDegreeGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Shared\MjestaComboPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Shared\MjestaNameTemplate.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsSoleProprietorType\Index.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsSoleProprietorType\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsSoleProprietorType\EnumsSoleProprietorTypeGridPartial.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\Web.config" />
+    <Content Include="Areas\MDGeneral\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsCurrency\Index.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsCurrency\EnumsCurrencyGridPartail.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsCurrency\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsLanguage\Index.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsLanguage\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsLanguage\EnumsLanguageGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Obrt\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Obrt\Index.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Shared\ObrtGridPartial.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\Web.config" />
+    <Content Include="Areas\MDPlaces\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsGeoCountry\Index.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsGeoCountry\EnumsGeoCountryGridPartial.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsGeoCountry\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsGeoRegion\Index.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsGeoRegion\EnumsGeoRegionGridPartial.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsGeoRegion\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsOgranizationalUnit\Index.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsOgranizationalUnit\EnumsOrganizationalUnitGridPartial.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsOgranizationalUnit\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsGeoPlace\Index.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsGeoPlace\EnumsPlaceGridPartial.cshtml" />
+    <Content Include="Areas\MDPlaces\Views\EnumsGeoPlace\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\SoleProprietor\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\SoleProprietor\SoleProprietorGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\SoleProprietor\Index.cshtml" />
+    <Content Include="Areas\MDEntities\Views\EnumsEntityGroup\Index.cshtml" />
+    <Content Include="Areas\MDEntities\Views\EnumsEntityGroup\EnumsEntityGroupGridPartial.cshtml" />
+    <Content Include="Areas\MDEntities\Views\EnumsEntityGroup\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDEntities\Views\EnumsUnit\Index.cshtml" />
+    <Content Include="Areas\MDEntities\Views\EnumsUnit\EnumsEntityUnitGridPartial.cshtml" />
+    <Content Include="Areas\MDEntities\Views\EnumsUnit\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Product\Index.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Product\ProductGridPartial.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Product\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDEntities\Views\EnumsTaxRate\Index.cshtml" />
+    <Content Include="Areas\MDEntities\Views\EnumsTaxRate\EnumsTaxRateGridPartial.cshtml" />
+    <Content Include="Areas\MDEntities\Views\EnumsTaxRate\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Service\Index.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Service\ServiceGridPartial.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Service\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Company\Index.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Company\CompanyGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Company\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Employee\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Employee\EmployeeGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Employee\Index.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Shared\MjestaComboPartial2.cshtml" />
+    <Content Include="Areas\Documents\Views\Web.config" />
+    <Content Include="Areas\Documents\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Documents\Views\Invoice\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\Invoice\InvoiceGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Invoice\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\IncomingInvoice\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\IncomingInvoice\IncomingInvoiceGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\IncomingInvoice\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\Offer\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\Offer\OfferGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Offer\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\Shared\MjestaComboPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Shared\MjestaNameTemplate.cshtml" />
+    <Content Include="Areas\Documents\Views\Shared\MjestaComboPartial2.cshtml" />
+    <Content Include="Areas\Documents\Views\Invoice\ItemTableRowPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Quote\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\Quote\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\Quote\QuoteGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Shared\DocumentItemsColGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\PriceList\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\PriceList\PriceListGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\PriceList\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\PriceList\PriceListColGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Payments\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\Payments\PaymentsGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Payments\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\Payments\PaymentItemsColGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Payments\DocumentsForPaymentGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsBank\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsBank\EnumsBankGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsBank\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\Offer\OfferMaturityColGridPartial.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Product\ProductPicturesColPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\EnumsDispatchType\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\EnumsDispatchType\DispatchTypeGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\EnumsDispatchType\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\PaymentItemsInAdvance\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\PaymentItemsInAdvance\PaymentItemsInAdvanceGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\PaymentItemsInAdvance\DocumentsForPaymentGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\PaymentItemsInAdvance\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Product\UploadPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\Web.config" />
+    <Content Include="Areas\Projects\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Documents\Views\WorkOrder\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\WorkOrder\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\WorkOrder\WorkOrderGridPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\Shared\MjestaComboPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\OrderForm\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\OrderForm\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\OrderForm\OrderFormGridPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\EnumsExpensType\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Projects\Views\EnumsExpensType\Index.cshtml" />
+    <Content Include="Areas\Projects\Views\EnumsExpensType\EnumsExpensTypeGridPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\EnumsTask\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Projects\Views\EnumsTask\Index.cshtml" />
+    <Content Include="Areas\Projects\Views\EnumsTask\EnumsTaskGridPartial.cshtml" />
+    <Content Include="Mobile\astheme.css" />
+    <Content Include="Mobile\astheme.min.css" />
+    <Content Include="Mobile\Busy.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mobile\config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Mobile\css.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mobile\icons\icon-iphone-114.png" />
+    <Content Include="Mobile\icons\icon-iphone-57.png" />
+    <Content Include="Mobile\icons\icon-iphone-72.png" />
+    <Content Include="Mobile\icons\order.png" />
+    <Content Include="Mobile\icons\icon-android-48.png" />
+    <Content Include="Mobile\icons\icon-android-36.png" />
+    <Content Include="Mobile\icons\icon-android-72.png" />
+    <Content Include="Mobile\images\ajax-loader.png" />
+    <Content Include="Mobile\images\icons-18-black.png" />
+    <Content Include="Mobile\images\icons-18-white.png" />
+    <Content Include="Mobile\images\icons-36-black.png" />
+    <Content Include="Mobile\images\icons-36-white.png" />
+    <Content Include="Mobile\images\pls_alpha_score_32siva.png" />
+    <Content Include="Mobile\index.html" />
+    <Content Include="Mobile\jquery-1.7.1.min.js" />
+    <Content Include="Mobile\jquery.jgrowl.css" />
+    <Content Include="Mobile\jquery.jgrowl_minimized.js" />
+    <Content Include="Mobile\jquery.mobile.datebox-1.0.0.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mobile\jquery.mobile.datebox-1.0.0.min.js" />
+    <Content Include="Mobile\jquery.mobile.min.css" />
+    <Content Include="Mobile\jquery.mobile.min.js" />
+    <Content Include="Mobile\jquery.validate.min.js" />
+    <Content Include="Mobile\indexOffer.html" />
+    <Content Include="Mobile\JsOffers.js" />
+    <Content Include="Mobile\pdfobject.js" />
+    <Content Include="Mobile\peta.min.css" />
+    <Content Include="Mobile\phonegap-1.2.0.js" />
+    <Content Include="Mobile\WorkOrders\index.html" />
+    <Content Include="Scripts\Documents\Invoice.js" />
+    <Content Include="Scripts\helper\jqModal.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\helper\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\helper\toastr.min.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\require-jquery.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Views\Shared\LogOn.cshtml" />
+    <Content Include="Views\Sifrarnici\Index.cshtml" />
+    <Content Include="Areas\Projects\Views\TimeTrackingLog\Index.cshtml" />
+    <Content Include="Areas\Projects\Views\TimeTrackingLog\TimeTrackingLogGridPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\TimeTrackingLog\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\Index.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\ProjectGridPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\ProjectTeamMemebersColGridPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\ProjectExpenses\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Projects\Views\ProjectExpenses\Index.cshtml" />
+    <Content Include="Areas\Projects\Views\ProjectExpenses\ProjectExpensesGridPartial.cshtml" />
+    <Content Include="App_Themes\DevEx\MVCxButton.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxButtonEdit.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxCalendar.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxCallbackPanel.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxChartControl.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxCheckBox.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxColorEdit.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxComboBox.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxDateEdit.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxDropDownEdit.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxGridView.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxHtmlEditor.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxHyperLink.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxLabel.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxListBox.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxMemo.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxMenu.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxNavBar.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxPageControl.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxPopupControl.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxProgressBar.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxRadioButton.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxRadioButtonList.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxReportToolbar.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxReportViewer.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxRoundPanel.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxSpinEdit.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxSplitter.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxTabControl.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxTextBox.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxTimeEdit.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxTreeView.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Themes\DevEx\MVCxUploadControl.skin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Projects\Views\MaterialTracking\Index.cshtml" />
+    <Content Include="Areas\Projects\Views\MaterialTracking\MaterialTrackingGridPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\MaterialTracking\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\WorkOrder\MaterialTrackingGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\WorkOrder\TimeTrackingGridPartial.cshtml" />
+    <Content Include="Views\Sifrarnici\Tvrtka.cshtml" />
+    <Content Include="Views\Shared\_footer.cshtml" />
+    <Content Include="Content\Web.config" />
+    <Content Include="Areas\Projects\Views\Project\TimeTrackingGridPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\MaterialTrackingGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\PriceList\EntityPriceListGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Invoice\InvoiceReportPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Invoice\InvoiceReport.cshtml" />
+    <Content Include="Areas\Documents\Views\Invoice\HistoryPaymentsGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Invoice\FreeAvansesGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Quote\InvoiceReport.cshtml" />
+    <Content Include="Areas\Documents\Views\Quote\QuoteReport.cshtml" />
+    <Content Include="Areas\Documents\Views\Quote\QuoteReportPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\WorkOrder\WorkOrderReportPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Quote\HistoryPaymentsGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Quote\FreeAvansesGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Offer\OfferReportPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\WorkOrder\Print.cshtml" />
+    <Content Include="Areas\Documents\Views\Dispatch\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\Dispatch\DispatchGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Dispatch\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\Dispatch\DocumentItemsDispatchColGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Dispatch\DispatchReportPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Dispatch\DispatchReport.cshtml" />
+    <Content Include="Areas\Documents\Views\TravelOrder\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\TravelOrder\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\TravelOrder\OtherExpensesColGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\TravelOrder\TravelCostsColGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\TravelOrder\WageColGridPartial.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsKindOfTransportation\Index.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsKindOfTransportation\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsKindOfTransportation\EnumsKindOfTransportationGridPartail.cshtml" />
+    <Content Include="Areas\Documents\Views\TravelOrder\TravelOrderGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\TravelOrder\TravelOrderReportPartial.cshtml" />
+    <Content Include="Areas\MDEntities\Views\Service\Saved.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Shared\AddClient.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Company\Saved.cshtml" />
+    <Content Include="Areas\Documents\Views\TakeoverOfGoods\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\TakeoverOfGoods\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\TakeoverOfGoods\TakeoverOfGoodsGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Payoff\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\Payoff\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\Payoff\PayoffGoodsGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\TakeoverOfGoods\HtmlEditorPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Payoff\PopupGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Shared\MjestaComboPartial3.cshtml" />
+    <Content Include="Areas\MDEntities\Views\ExcellImport\Index.cshtml" />
+    <Content Include="Areas\MDEntities\Views\ExcellImport\UploadPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Company\CompanyUpload.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Company\UploadPartial.cshtml" />
+    <Content Include="Areas\MDEntities\Views\ExcellImport\UploadPartialServices.cshtml" />
+    <Content Include="Areas\Documents\Views\Payoff\PayoffReportPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\Shared\ClientsGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Payments\UploadPartial.cshtml" />
+    <Content Include="Areas\Projects\Views\Project\OstaliTroskoviGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\IncomingInvoice\HistoryPaymentsGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\IncomingInvoice\FreeAvansesGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\Virmani\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\Virmani\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\Virmani\VirmaniGridPartial.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsCashBox\EnumsCachBoxGidPartail.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsCashBox\Index.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsCashBox\CreateAndEdit.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsLocation\Index.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsLocation\EnumsLocationsGridPartial.cshtml" />
+    <Content Include="Areas\MDGeneral\Views\EnumsLocation\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\CashBox\Index.cshtml" />
+    <Content Include="Areas\Documents\Views\CashBox\CreateAndEdit.cshtml" />
+    <Content Include="Areas\Documents\Views\CashBox\CashBoxBillItemsGridPartial.cshtml" />
+    <Content Include="Areas\Documents\Views\CashBox\CashBoxReportPartialSmall.cshtml" />
+    <Content Include="Areas\Documents\Views\CashBox\CashBoxReportPartialNormalSize.cshtml" />
+    <Content Include="Areas\Documents\Views\CashBox\CashBoxGridPartial.cshtml" />
+    <None Include="Content\download\ImportArtikli.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\download\ImportTvrtke.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\download\ImportUsluge.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Downloads\Mobile\AlphaOffers.apk" />
+    <None Include="Downloads\Mobile\AlphaWorkOrders.apk" />
+    <None Include="InvoiceDataSet.xsc">
+      <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="InvoiceDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>InvoiceDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="InvoiceDataSet.xss">
+      <DependentUpon>InvoiceDataSet.xsd</DependentUpon>
+    </None>
+    <Content Include="Views\Shared\_report.cshtml" />
+    <Content Include="Mobile\Web.config" />
+    <Content Include="Views\Account\Web.config" />
+    <Content Include="Views\Account\UvjetiKoristenja.cshtml" />
+    <Content Include="Views\Account\Cjeniknadogradnje.cshtml" />
+    <Content Include="Views\Account\Kontakt.cshtml" />
+    <Content Include="Views\Account\Copyright.cshtml" />
+    <Content Include="Views\Account\UploadPartial.cshtml" />
+    <Content Include="Views\Account\LogOffExpired.cshtml" />
+    <Content Include="Views\Account\SuperAdmin.cshtml" />
+    <Content Include="Views\Account\SuperAdminGridPartial.cshtml" />
+    <Content Include="Views\Account\AccessDenied.cshtml" />
+    <Content Include="Views\Home\PaymentClosureGridPartial.cshtml" />
+    <Content Include="Views\Home\PaymentClosureChartPartial.cshtml" />
+    <Content Include="Views\Home\IncomingPaymentClosureGridPartial.cshtml" />
+    <Content Include="Views\Mobile\MobileApp.cshtml" />
+    <None Include="Mobile\images\Thumbs.db" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\bi.alphascore.hr - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\bi.alphascore.hr - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Hosting.pubxml" />
+    <None Include="Properties\PublishProfiles\Silver.pubxml" />
+    <Content Include="Views\Home\PrometChart.cshtml" />
+    <Content Include="Views\Home\InvocesClaimsDetailsReportpartial.cshtml" />
+    <Content Include="Views\Reports\ReportForMainPage.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Reports\ReportForMainPageFuture.cshtml" />
+    <Content Include="Views\Reports\ReportForMainPageUnbilled.cshtml" />
+    <Content Include="Views\Home\Knockout.cshtml" />
+    <Content Include="Views\Account\CompanyInfoUploadPartial.cshtml" />
+    <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\WebMatrix.Data.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\WebMatrix.Data.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Administration.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.Razor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.Razor.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.Helpers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\System.Web.Helpers.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\NuGet.Core.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Scripts\fb\core.v1317750848.js" />
+    <Content Include="Scripts\fb\customize-account-onecolor.v1317830389.js" />
+    <Content Include="Scripts\fb\event.v1304005577.js" />
+    <Content Include="Scripts\fb\external-api.v1304005577.js" />
+    <Content Include="Scripts\fb\fresh-badge.js" />
+    <Content Include="Scripts\fb\fresh-badge.v1317744469.js" />
+    <Content Include="Scripts\fb\fresh-notification.js" />
+    <Content Include="Scripts\fb\guided-task.v1315320156.js" />
+    <Content Include="Scripts\fb\guiders-1.1.1.v1314028514.js" />
+    <Content Include="Scripts\fb\invoice.v1315320156.js" />
+    <Content Include="Scripts\fb\invoice.v1317750849.js" />
+    <Content Include="Scripts\fb\jquery-combine.v1317750847.js" />
+    <Content Include="Scripts\fb\jquery.autogrow.v1304005577.js" />
+    <Content Include="Scripts\fb\json-template.v1304005577.js" />
+    <Content Include="Scripts\fb\tax.v1316462942.js" />
+    <Content Include="Scripts\helper\jquery-1.6.4.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\helper\jquery.js" />
+    <Content Include="Scripts\helper\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\helper\jquery.validate.js" />
+    <Content Include="Scripts\helper\jquery.validate.min.js" />
+    <Content Include="Scripts\helper\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\helper\jquery-ui.js" />
+    <Content Include="Scripts\helper\jquery-ui.min.js" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\EnumsBank\EnumsBankGridPartial.cshtml" />
+    <Content Include="Areas\MDSubjects\Views\EnumsFunction\EnumsFunctionGridPartial.cshtml" />
+    <Content Include="Views\Account\LogIn.cshtml" />
+    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\CompanyInfo.cshtml" />
+    <Content Include="Views\Account\CompanyInfoGridPartail.cshtml" />
+    <Content Include="Views\Shared\MjestaComboPartial.cshtml" />
+    <Content Include="Views\Shared\MjestaNameTemplate.cshtml" />
+    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
+    <Content Include="Views\Account\RegisterSuccess.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\MDEntities\Models\" />
+    <Folder Include="Areas\MDEntities\Views\Shared\" />
+    <Folder Include="Areas\MDGeneral\Models\" />
+    <Folder Include="Areas\MDGeneral\Views\Shared\" />
+    <Folder Include="Areas\MDPlaces\Models\" />
+    <Folder Include="Areas\MDPlaces\Views\Shared\" />
+    <Folder Include="Areas\MDSubjects\Views\Shared\DisplayTemplates\" />
+    <Folder Include="Areas\Projects\Models\" />
+    <Folder Include="Fb\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
+      <Project>{76D7E3F3-BEDF-4299-AA36-DF6C82549114}</Project>
+      <Name>BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dal\DalEf.csproj">
+      <Project>{27F7D95B-5C9D-408E-9B15-0E8A409D950F}</Project>
+      <Name>DalEf</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EnumsBank\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EnumsBank\CreateAndEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\MDSubjects\Views\EnumsFunction\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\MDSubjects\Views\EnumsFunction\CreateAndEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrTaxesCashSubSmall.resx">
+      <DependentUpon>xrTaxesCashSubSmall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrCashBoxSmall.resx">
+      <DependentUpon>xrCashBoxSmall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrTaxesCashSub.resx">
+      <DependentUpon>xrTaxesCashSub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrCashBox.resx">
+      <DependentUpon>xrCashBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrInvocesClaimsDetails.resx">
+      <DependentUpon>xrInvocesClaimsDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrPayoff.resx">
+      <DependentUpon>xrPayoff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrDispatch.resx">
+      <DependentUpon>xrDispatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrDocuments.resx">
+      <DependentUpon>xrDocuments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrInvoice.resx">
+      <DependentUpon>xrInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrOtherExpensses.resx">
+      <DependentUpon>xrOtherExpensses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrQuote.resx">
+      <DependentUpon>xrQuote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrTravelBill.resx">
+      <DependentUpon>xrTravelBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrTravelCosts.resx">
+      <DependentUpon>xrTravelCosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrTravelOrder.resx">
+      <DependentUpon>xrTravelOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrWorkOrder.resx">
+      <DependentUpon>xrWorkOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrWorkOrderTimeSub.resx">
+      <DependentUpon>xrWorkOrderTimeSub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrTaxesSub.resx">
+      <DependentUpon>xrTaxesSub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrFutureClaimsDetails.resx">
+      <DependentUpon>xrFutureClaimsDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrUnbilledDetails.resx">
+      <DependentUpon>xrUnbilledDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Areas\Documents\Reports\xrCompensation.resx">
+      <DependentUpon>xrCompensation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>80</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/AlphaWebCommodityBookkeeping</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

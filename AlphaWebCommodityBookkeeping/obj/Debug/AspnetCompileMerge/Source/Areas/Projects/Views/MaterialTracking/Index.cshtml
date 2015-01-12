@@ -1,0 +1,44 @@
+﻿<script type="text/javascript">
+
+    function RowClicked(s, e) {
+        Cursor();
+        //var id = s.keys[e.visibleIndex];
+        var vi = e.visibleIndex - s.pageIndex * s.pageRowSize;
+        var id = s.keys[vi];
+        var actionURL = '@Url.Content("~/Projects/MaterialTracking/CreateAndEdit/")' + id;
+        window.location = actionURL;
+    }
+
+</script>
+
+@{
+    ViewBag.Title = "Index";
+
+    bool p = false;
+    if (!(bool)ViewData["isDefaultList"])
+    { 
+        @Html.Hidden("linkName", "RadParent")
+        @Html.Hidden("linkId", "MaterialTrackingSpan")
+    }
+    else
+    { 
+        @Html.Hidden("linkName", "ProjektiParent")
+        @Html.Hidden("linkId", "ProjectMaterialTrackingSpan")
+        p = true;
+    }
+
+
+}
+
+@*
+@Html.Hidden("linkName", "RadParent")
+@Html.Hidden("linkId", "MaterialTrackingSpan")
+*@
+<h2 class="pt"> Praćenje materijala </h2>
+<a class="butPrimary " href="@Url.Content("~/Projects/MaterialTracking/CreateAndEdit/0?projekt=" + p )">
+<span> Dodaj </span>
+</a>
+<div class="clearb"></div>  
+
+
+@Html.Partial("MaterialTrackingGridPartial")

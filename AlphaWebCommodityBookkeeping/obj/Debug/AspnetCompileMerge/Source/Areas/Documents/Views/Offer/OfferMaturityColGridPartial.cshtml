@@ -1,0 +1,84 @@
+﻿@model BusinessObjects.Documents.cDocuments_Offer_MaturityCol
+
+ @{
+     var grid = Html.DevExpress().GridView(
+            settings =>
+            {
+                settings.Name = "gvOfferMaturityGrid";
+                settings.CallbackRouteValues = new { Controller = "Offer", Action = "RefreshOfferMaturityColGridPartial" };
+                settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Offer", Action = "AddNewItemMaturityCol" };
+                settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Offer", Action = "UpdateItemMaturityCol" };
+                settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Offer", Action = "DeleteItemMaturityCol" };
+
+                settings.CommandColumn.SetHeaderTemplateContent(c =>
+                {
+                    ViewContext.Writer.Write(
+                        Html.DevExpress().HyperLink(settingsHy => { settingsHy.Name = "addNewOfferMaturityColItem"; settingsHy.Properties.Text = "Dodaj"; settingsHy.Properties.ClientSideEvents.Click = "function NoviCLick(s, e) {gvOfferMaturityGrid.AddNewRow(); }"; }).GetHtml());
+                });
+
+                settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                settings.SettingsBehavior.ConfirmDelete = true;
+
+                settings.CommandColumn.Visible = true;
+                settings.CommandColumn.NewButton.Visible = false;
+                settings.CommandColumn.NewButton.Text = "Novi";
+                settings.CommandColumn.DeleteButton.Visible = true;
+                settings.CommandColumn.DeleteButton.Text = "Obriši";
+                settings.CommandColumn.EditButton.Visible = true;
+                settings.CommandColumn.EditButton.Text = "Uredi";
+                settings.CommandColumn.CancelButton.Text = "Odustani";
+                settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+                settings.KeyFieldName = "Ordinal";
+
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "Ordinal";
+                    column.ReadOnly = true;
+                    column.Caption = "Rbr.";
+                    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                    column.Width = 50;
+                    var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                    spinEditProperties.AllowNull = false;
+                    spinEditProperties.DecimalPlaces = 0;
+                    spinEditProperties.DisplayFormatString = "n0";
+                    spinEditProperties.DisplayFormatInEditMode = true;
+                    spinEditProperties.MinValue = 0;
+                    spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                    spinEditProperties.Width = 50;
+                });
+
+                settings.Columns.Add("PaymentDate", "Datum plaćanja", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "PaymentAmount";
+                    column.Caption = "Iznos";
+                    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                    column.Width = 100;
+                    var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                    spinEditProperties.AllowNull = false;
+                    spinEditProperties.DecimalPlaces = 2;
+                    spinEditProperties.DisplayFormatString = "c";
+                    spinEditProperties.DisplayFormatInEditMode = true;
+                    spinEditProperties.MinValue = 0;
+                    spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                    spinEditProperties.Width = 100;
+                });
+
+
+
+                settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+
+            });
+   }
+                  @grid.Bind(Model).GetHtml()
+                
+          

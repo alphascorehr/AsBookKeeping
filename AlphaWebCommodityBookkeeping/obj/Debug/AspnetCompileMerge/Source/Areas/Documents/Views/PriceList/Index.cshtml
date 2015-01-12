@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    $(document).ready(function () {
+        $("*").css("cursor", "default");
+    });
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+    function RowClicked(s, e) {
+        Cursor();
+        //var id = s.keys[e.visibleIndex];
+        var vi = e.visibleIndex - s.pageIndex * s.pageRowSize;
+        var id = s.keys[vi];
+        var actionURL = '@Url.Content("~/Documents/PriceList/CreateAndEdit/")' + id;
+        window.location = actionURL;
+    }
+
+// ]]>
+</script>
+@if (!(bool)ViewData["isDefaultList"])
+{
+    @Html.Hidden("linkName", "KomercijalaParent")
+    @Html.Hidden("linkId", "PriceListSpan")
+}
+else
+{
+    @Html.Hidden("linkName", "ProizvodiParent")
+    @Html.Hidden("linkId", "Cjenik") 
+}
+
+@*<h2 class="button-panel-title">
+		<div class="button-panel"></div>
+        @if (!(bool)ViewData["isDefaultList"])
+        {
+		<span class="title">Cjenici</span>
+        }
+        else
+        {
+            <span class="title">Osnovni cjenik</span>
+        }
+</h2>
+<div class="title-rule"></div>*@
+@{
+    string caption = "Osnovni cjenik";
+    if (!(bool)ViewData["isDefaultList"])
+        {
+            caption = "Cjenici";
+        }
+}
+
+@if (!(bool)ViewData["isDefaultList"])
+{
+       <h2 class="pt"> @caption </h2>
+<a class="butPrimary " href="@Url.Content("~/Documents/PriceList/CreateAndEdit/0")">
+<span> Novi cjenik </span>
+</a>
+<div class="clearb"></div>
+}
+
+@if (!(bool)ViewData["isDefaultList"])
+{
+    @Html.Partial("PriceListGridPartial")
+}
+else
+{
+    @Html.Partial("EntityPriceListGridPartial")
+}
+
+

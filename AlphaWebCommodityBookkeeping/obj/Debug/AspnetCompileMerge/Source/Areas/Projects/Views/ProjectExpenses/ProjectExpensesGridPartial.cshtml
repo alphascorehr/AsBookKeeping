@@ -1,0 +1,138 @@
+﻿@using System.Data
+
+@*@{
+    DalEf.ProjectsEntities context = new DalEf.ProjectsEntities();
+    DalEf.MDSubjectsEntities contextSub = new DalEf.MDSubjectsEntities();
+}*@
+@{
+    DalEf.ProjectsEntities context = new DalEf.ProjectsEntities();
+    var data = context.vProjectExpenses.OrderByDescending(p => p.Id).Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+    }
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvProjectExpensesGrid";
+                settings.CallbackRouteValues = new { Controller = "ProjectExpenses", Action = "ProjectExpensesGridPartial" };
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "#";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            //Html.ActionLink("Uredi", "CreateAndEdit",  new { Id = DataBinder.Eval(c.DataItem, "Id") }) + "&nbsp" +
+                            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                                new { onclick = "return confirm('Da li stvarno želite obrisati odabrani trošak?')", @class = "gridDelButton" })
+                        );
+                    });
+                    //column.SetHeaderTemplateContent(c =>
+                    //{
+                    //    ViewContext.Writer.Write(
+                    //        Html.ActionLink("New task", "CreateAndEdit", "EnumsTask", new { area = "Projects", Id = 0 }, null).ToHtmlString()
+                    //    );
+                    //});
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.Width = 20;
+                });
+                
+                settings.KeyFieldName = "Id";
+
+                settings.Settings.ShowFilterRow = false;
+                settings.Settings.ShowGroupPanel = false;
+                settings.Settings.ShowFooter = false;
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "Projectname";
+                    column.Caption = "Projekt";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Projects/ProjectExpenses/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + ">" + DataBinder.Eval(c.DataItem, "Projectname") + "</a>"
+                        );
+                    });
+
+                });
+                settings.Columns.Add("SubjectName", "Klijent");
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "Projects_ProjectId";
+                //    column.Caption = "Projekt";
+
+                //    var items = (from p in context.Projects_Project select new {p.Id, p.Name});
+                                 
+                //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                //    comboBoxProperties.Height = 20;
+                //    comboBoxProperties.DataSource = items;
+                //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //    comboBoxProperties.FilterMinLength = 0;
+                //    comboBoxProperties.TextField = "Name";
+                //    comboBoxProperties.ValueField = "Id";
+                //    comboBoxProperties.ValueType = typeof(int);
+                //});
+
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "MDSubjects_SubjectId";
+                //    column.Caption = "Subject";
+                //    column.Width = 150;
+                //    var items = contextSub.vContractors.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+                //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                //    comboBoxProperties.Height = 20;
+                //    comboBoxProperties.DataSource = items;
+                //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //    comboBoxProperties.FilterMinLength = 0;
+                //    comboBoxProperties.TextField = "Name";
+                //    comboBoxProperties.ValueField = "Id";
+                //    comboBoxProperties.ValueType = typeof(int);
+                //    comboBoxProperties.Width = 150;
+                //    //comboBoxProperties.ClientSideEvents.ValueChanged = "ProductIdChanged";
+                //});
+
+                settings.HtmlRowCreated = (sender, e) =>
+                {
+                    if (e.RowType == DevExpress.Web.ASPxGridView.GridViewRowType.Data)
+                    {
+                        e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#eeeeee';");
+                        e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white';");
+                    }
+                };
+                //settings.Columns.Add("Activitydate", "Datum", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                //settings.Columns.Add("BillingMethod", "Nacin placanja", DevExpress.Web.Mvc.MVCxGridViewColumnType.ComboBox);
+                //settings.Columns.Add("IsBillable", "IsBillable", DevExpress.Web.Mvc.MVCxGridViewColumnType.CheckBox);
+                
+                //settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+                //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            //}).BindToLINQ("DalEf.ProjectsEntities", "Projects_Project_Expenses").GetHtml()
+            //}).BindToLINQ("", "", new
+            //            EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+            //            {
+            //                e.KeyExpression = "Id";
+            //                DalEf.ProjectsEntities context = new DalEf.ProjectsEntities();
+            //                e.QueryableSource = context.vProjectExpenses
+            //                .Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+            //            })).GetHtml()
+            }).Bind(data).GetHtml()
+
+            
+            
+            
+            
+

@@ -1,0 +1,13 @@
+﻿@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrFutureClaimsDetails
+
+@Html.DevExpress().ReportViewer(
+    settings => {
+        settings.Name = "ReportViewerFuture";
+        settings.Report = Model;
+        //settings.LoadingPanelText = "Učitavanje";
+        settings.ShowLoadingPanelImage = false;
+        settings.CallbackRouteValues = new { Controller = "Reports", Action = "PrintFuture" };
+        settings.ExportRouteValues = new { Controller = "Reports", Action = "ReportExportToFuture" };
+        //settings.ClientSideEvents.EndCallback = "hideLoadingpanel()";
+    }
+).GetHtml()

@@ -1,0 +1,729 @@
+﻿@using System.Data;
+
+
+
+@{
+    ViewBag.Title = "Edit";
+    DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+    DalEf.MDEntitiesEntities contextEnt = new DalEf.MDEntitiesEntities();
+    DalEf.DocumentsEntities contextDoc = new DalEf.DocumentsEntities();
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+
+        }
+    });
+    var icustomer;
+    var initValues = new Array(); /* Step 1. - define global scope array */
+    var invoiced;
+    var quoted;
+    var dispatched;
+    var invoicedId;
+    var quotedId;
+    var dispatchedId;
+    var coppied;
+    var coppiedId;
+    var reportType;
+   
+    $(document).ready(function () {
+        //if ('@ViewData["reportType"]' != "") {
+        var report = '@ViewData["reportType"]';
+        reportType = report;
+        $("*").css("cursor", "default");
+
+        $('#ReportViewer1_LPV').attr('display', 'none');
+
+        switch (report)
+        {
+            case "0":
+            case 0:
+            case "1":
+            case 1:
+                $('#main').hide();
+                $('#unbilled').hide();
+                $('#future').hide();
+                ReportViewer1.Refresh()
+                $('#main').show();
+                ShowPrint();
+                break;
+            case "2":
+            case 2:
+                $('#main').hide();
+                $('#unbilled').hide();
+                $('#future').hide();
+                ReportViewerUnbilled.Refresh()
+                $('#unbilled').show();
+                ShowPrint();
+                break;
+            case "3":
+            case 3:
+                $('#main').hide();
+                $('#unbilled').hide();
+                $('#future').hide();
+                ReportViewerFuture.Refresh()
+                $('#future').show();
+                ShowPrint();
+                break;
+        }
+
+
+        //if (report == "0" || reportType == "1")
+        //{
+        //    $('#main').hide();
+        //    $('#unbilled').hide();
+        //    $('#future').hide();
+        //    ReportViewer1.Refresh()
+        //    $('#main').show();
+        //    ShowPrint();
+        //}
+        //else if (report == "2")
+        //{
+        //    $('#main').hide();
+        //    $('#unbilled').hide();
+        //    $('#future').hide();
+        //    ReportViewerUnbilled.Refresh()
+        //    $('#unbilled').show();
+        //    ShowPrint();
+        //}
+        //else if (report == "3")
+        //{
+        //    $('#main').hide();
+        //    $('#unbilled').hide();
+        //    $('#future').hide();
+        //    ReportViewerFuture.Refresh()
+        //    $('#future').show();
+        //    ShowPrint();
+        //}
+        //reportType = report;
+
+
+       @* var pero = '@ViewData["Cache"]';
+        alert(pero);*@
+
+     });
+
+
+
+    
+    
+
+
+    function ShowPrint() {
+        $('.footer').hide();
+        $('#DefaultEmements').slideToggle('slow');
+        $('#printDiv').slideToggle('slow');
+        $('#printImg1').hide();
+        $('#mailImg').hide();
+
+        $('#printLink').attr('onclick', 'ClosePrint()');
+        $('#printImg1').attr('title', 'Zatvori ispis dokumenta');
+        $('#printImg1').show('slow');
+        //$('#printImg').fadeIn('slow');
+    }
+
+    function ClosePrint() {
+        $('#DefaultEmements').slideToggle('slow');
+        $('#printDiv').slideToggle('slow');
+
+        $('#printImg1').hide();
+
+        $('#printImg1').hide('slow');
+
+        $('#printLink').attr('onclick', 'ShowPrint()');
+        $('#printImg1').attr('title', 'Ispiši dokument');
+        //$('#printImg').fadeIn('slow');
+        //$('#mailImg').fadeIn('slow');
+
+        $('.footer').show();
+    }
+
+    function Mail() {
+        $('#mailErr').hide();
+        $('#mailOk').hide();
+        
+
+        var SubjectId = parseInt($('#SubjectId_VI').attr('value'));
+        if (SubjectId == null || SubjectId == "" || SubjectId == "0") {
+            return false;
+        }
+//        var actionURL = '@Url.Content("~/Documents/Offer/FindEmailById")';
+//        $.post(actionURL, { subjectId: SubjectId }, function (result) {
+//            SendTo.SetValue(result);
+            Subject.SetValue(sub);
+//        });
+        $('.footer').hide();
+        $('#DefaultEmements').slideToggle('slow');
+        $('#mailDiv').slideToggle('slow');
+        $('#printImg1').hide();
+        $('#mailImg').hide();
+
+
+        $('#mailLink').attr('onclick', 'CloseMail()');
+        $('#mailImg').attr('title', 'Zatvori slanje dokumenta');
+        $('#mailImg').attr('src', '@Url.Content("~/Content/images/mail_send48.png")');
+        $('#mailImg').fadeIn('slow');
+    }
+
+    function CloseMail() {
+        $('#DefaultEmements').slideToggle('slow');
+        $('#mailDiv').slideToggle('slow');
+
+        $('#mailImg').hide();
+
+        $('#mailImg').attr('src', '@Url.Content("~/Content/images/mail_send48.png")');
+
+
+        $('#mailLink').attr('onclick', 'Mail()');
+        $('#mailImg').attr('title', 'Pošalji dokument');
+        $('#printImg1').fadeIn('slow');
+        $('#mailImg').fadeIn('slow');
+
+        $('.footer').show();
+    }
+
+    function SendReportByEmail() {
+        $('#mailErr').hide();
+        $('#mailOk').hide();
+        var Id = parseInt($('#Id').attr('value'));
+        if (Id == null || Id == "" || Id == "0") {
+            return false;
+        }
+        //$("*").css("cursor", "wait");
+        var sendTo = SendTo.GetValue();
+        var sendToCC = SendToCC.GetValue();
+        var subject = Subject.GetValue();
+        var body = Body.GetValue();
+        var clientName = $('#SubjectId_I').attr('value');
+        if (clientName == null || clientName == "" || clientName == "0") {
+            return false;
+        }
+        /* Id, SentTo, SendToCC, Subject, Body */
+        var actionURL = '@Url.Content("~/Documents/Offer/SendReportByEmail")';
+        $.post(actionURL, { Id: Id, SendTo: sendTo, SendToCC: sendToCC, Subject: subject, Body: body, ClientName: clientName }, function (result) {
+            if (result == "Ok") {
+                $('#mailErr').hide();
+                $('#mailOk').fadeIn('slow');
+                $('#mailOkLabel').html(SendTo.GetValue());
+            }
+            else {
+                $('#mailOk').hide();
+                $('#mailErr').fadeIn('slow');
+                $('#mailErrLabel').html(result.toString());
+            }
+        });
+        //$("*").css("cursor", "auto");
+    }
+
+
+    
+
+    function genReport(tip, source) {
+        var actionURL = '@Url.Content("~/Reports/IndexPost")';
+            reportType = 0;
+            $('#main').hide();
+            $('#unbilled').hide();
+            $('#future').hide();
+            Klijent.SetValue("");
+            $.post(actionURL, { tip: tip, source: source }, function (result) {
+                ReportViewer1.Refresh()
+                $('#main').show();
+                ShowPrint();
+            });
+        }
+
+    
+    function genReportNefakt(vrstadokumenta) {
+        var actionURL = '@Url.Content("~/Reports/IndexPostVrstaDockumenta")';
+        reportType = 2;
+        $('#main').hide();
+        $('#unbilled').hide();
+        $('#future').hide();
+        Klijent.SetValue("");
+        $.post(actionURL, { vrstadokumenta: vrstadokumenta }, function (result) {
+            ReportViewerUnbilled.Refresh()
+            $('#unbilled').show();
+            ShowPrint();
+         });
+     }
+
+    function genReportNaDan(tip)
+    {
+        var actionURL = '@Url.Content("~/Reports/IndexPostNaDan")';
+        reportType = 3;
+        $('#main').hide();
+        $('#unbilled').hide();
+        $('#future').hide();
+        Klijent.SetValue("");
+        //$.post(actionURL + '/' + tip, function (result) {
+        $.post(actionURL, { tip: tip }, function (result) {
+            ReportViewerFuture.Refresh()
+            $('#future').show();
+            ShowPrint();
+        });
+    }
+
+
+    function Filter()
+    {
+        var actionURL = '@Url.Content("~/Reports/Filter")';
+        var client = Klijent.GetValue();
+        var datumOd = $('#DatumOd_I').attr('value');
+        var datumDo = $('#DatumDo_I').attr('value');
+        var valutaOd = $('#ValutaOd_I').attr('value');
+        var valutaDo = $('#ValutaDo_I').attr('value');
+        $.post(actionURL, { reportType: reportType, client: client, datumOd: datumOd, datumDo: datumDo, valutaOd: valutaOd, valutaDo: valutaDo, filtered: true }, function () {
+            //$('#main').hide();
+            //$('#unbilled').hide();
+            //$('#future').hide();
+
+            //ReportViewer1.Refresh();
+
+            switch (reportType)
+            {
+                case "0":
+                case 0:
+                case 1:
+                case "1":
+                    ReportViewer1.Refresh();
+                    //$('#main').show();
+                    break;
+                case "2":
+                case 2:
+                    ReportViewerUnbilled.Refresh();
+                    //$('#unbilled').show();
+                    break;
+                case "3":
+                case 3:
+                    ReportViewerFuture.Refresh();
+                    //$('#future').show();
+                    break;
+            }
+        })
+    }
+
+    function FilterClear()
+    {
+        Klijent.SetValue('');
+        DatumOd.SetText('')
+        DatumDo.SetText('')
+        ValutaOd.SetText('')
+        ValutaDo.SetText('')
+        switch (reportType) {
+            case "0":
+            case 0:
+            case 1:
+            case "1":
+                ReportViewer1.Refresh();
+                //$('#main').show();
+                break;
+            case "2":
+            case 2:
+                ReportViewerUnbilled.Refresh();
+                //$('#unbilled').show();
+                break;
+            case "3":
+            case 3:
+                ReportViewerFuture.Refresh();
+                //$('#future').show();
+                break;
+        }
+    }
+
+    function hideLoadingpanel()
+    {
+        $('#ReportViewer1_LPV').attr('display', 'none');
+        
+    }
+
+ // ]]>
+</script>
+
+
+@{
+    string caption = "Nova ponuda";
+   
+}
+
+@using (Html.BeginForm("CreateAndEdit", "Offer", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+                               
+    
+    @Html.Hidden("linkName", "ReportsParent")
+    @Html.Hidden("linkId", "ReportsSpan")
+    
+      
+    @Html.Hidden("prevTecaj")
+    
+    @Html.Hidden("HiddenValueAction")     
+    
+ 
+    
+
+
+	    
+    @*<a class="butPrimary " href="@Url.Content("~/Documents/Invoice/CreateAndEdit/0")">
+    <span> Novi račun </span>
+    </a>*@
+    <div id="MailPrint" class="span-48" style="text-align:right">
+   @*<a id="mailLink" href="#" id="mailLink" onclick="Mail();"><img id="mailImg" src="@Url.Content("~/Content/images/mail_send48.png")" title="Pošalji pdf na email" /></a>*@
+    <a id="printLink1" href="#"  onclick="ShowPrint();"><img id="printImg1" style="display: none" src="@Url.Content("~/Content/images/close.png")" title="Ispiši dokument" /></a>
+    
+
+	
+	
+<div class="clearb"></div>   
+
+
+
+    @*<a id="CreateDocInvoiceImg" href="#" onclick="jqConfirm('genInvoice');"><img  src="@Url.Content("~/Content/images/invoice-icon.png")" title="Kreiraj račun" alt="Kreiraj račun" /></a>
+    <a id="CreateDocQuoteImg" href="#" onclick="jqConfirm('genQuote');"><img  src="@Url.Content("~/Content/images/Quote-icon.png")" title="Kreiraj predračun" alt="Kreiraj predračun" /></a>
+    <a id="CreateDocDispatchImg" href="#" onclick="jqConfirm('genDispatch');"><img  src="@Url.Content("~/Content/images/Dispatch-icon.png")" title="Kreiraj otpremnicu" alt="Kreiraj otpremnicu" /></a>
+    <a id="CreateDocOfferImg" href="#" onclick="jqConfirm('genCopy');"><img  src="@Url.Content("~/Content/images/CopyIcon.png")" title="Kopiraj dokument" alt="Kopiraj dokument" /></a>*@
+    </div>
+    //CreateDoc
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+    <div class="clearb"></div>
+<div id="DefaultEmements">    
+                                          
+	 
+             @*prvi parametar je (tip) koji se prosljeduje u storu , a drugi je (source) 0 za izlazne fakture, 1 za ulazne fakture, 2 za nefakturiano, 3 za dospjeca
+             Source = 0 za izlazne fakture
+             Source = 1 za ulazne fakture
+             Source = 2 za nefakturiano
+             Source = 3 za dospjeca
+
+             Tip = 0 - Ukupna potrazivanja
+             Tip = 1 - Dospjela potrazivanja
+             Tip = 2 - Nedospjela potrazivanja
+             Tip = 30 - Od = 0  do = 30 potrazivanja
+             Tip = 31 - Od = 30 do = 60 potrazivanja
+             Tip = 32 - Od = 60 do = 90 potrazivanja
+             Tip = 4 - preko 90 potrazivanja*@
+
+
+
+    @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).FirstPage)
+    {
+    
+    @Html.DevExpress().DockManager(
+    settings =>
+    {
+        settings.Name = "dockManager";
+        //settings.ClientSideEvents.PanelShown = "function(s, e) { SetWidgetButtonVisible(e.panel.panelUID, false) }";
+        //settings.ClientSideEvents.PanelCloseUp = "function(s, e) { SetWidgetButtonVisible(e.panel.panelUID, true) }";
+
+    }
+).GetHtml()
+
+
+
+
+ 
+    
+@Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel1";
+        settings.PanelUID = "Mail";
+        settings.OwnerZoneUID = "leftZone";
+        settings.HeaderText = "Otvorena potraživanja";
+
+        settings.VisibleIndex = 0;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+
+            ViewContext.Writer.Write("<table width=\"100%\"><tr>");
+            ViewContext.Writer.Write("<td><a href=\"#\" onclick=\"genReport(2, 0)\">Nedospjelo</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(0, 0)\">Ukupna potraživanja</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(1, 0)\">Dospjela potraživanja</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(30, 0)\">Dospjelo 0-30 dana</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(31, 0)\">Dospjelo 31-60 dana</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(32, 0)\">Dospjelo 61-90 dana</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(4, 0)\">Dospjelo preko 90 dana</a></td></tr>");
+            ViewContext.Writer.Write("</table>");
+        });
+    }
+).GetHtml()
+
+@Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel2";
+        settings.PanelUID = "Mail2";
+        settings.OwnerZoneUID = "rightZone";
+        settings.HeaderText = "Otvorena dugovanja";
+
+        settings.VisibleIndex = 1;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+
+            ViewContext.Writer.Write("<table width=\"100%\"><tr>");
+            ViewContext.Writer.Write("<td><a href=\"#\" onclick=\"genReport(2, 1)\">Nedospjelo</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(0, 1)\">Ukupna potraživanja</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(1, 1)\">Dospjela potraživanja</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(30, 1)\">Dospjelo 0-30 dana</a></a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(31, 1)\">Dospjelo 31-60 dana</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(32, 1)\">Dospjelo 61-90 dana</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReport(4, 1)\">Dospjelo preko 90 dana</a></td></tr>");
+            ViewContext.Writer.Write("</table>");
+        });
+    }
+).GetHtml()    
+        
+        
+        @Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel3";
+        settings.PanelUID = "Mail3";
+        settings.OwnerZoneUID = "rightZone";
+        settings.HeaderText = "Nefakturirano";
+
+        settings.VisibleIndex = 2;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+
+            ViewContext.Writer.Write("<table width=\"100%\"><tr>");
+            ViewContext.Writer.Write("<td><a href=\"#\" onclick=\"genReportNefakt(0)\">Uukupno</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReportNefakt(2)\">Ponude</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReportNefakt(5)\">Predracuni</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReportNefakt(7)\">Radni nalozi</a></td></tr>");
+            ViewContext.Writer.Write("</table>");
+        });
+    }
+).GetHtml()    
+    
+
+
+  @Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel4";
+        settings.PanelUID = "Mail4";
+        settings.OwnerZoneUID = "rightZone";
+        settings.HeaderText = " Dospjeca na dan";
+
+        settings.VisibleIndex = 3;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+
+            ViewContext.Writer.Write("<table width=\"100%\"><tr>");
+            ViewContext.Writer.Write("<td>Potraživanja</td></tr>");
+            ViewContext.Writer.Write("<td><a href=\"#\" onclick=\"genReportNaDan(20)\">Danas</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReportNaDan(21)\">5 dana</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td> <a href=\"#\" onclick=\"genReportNaDan(22)\">10 dana</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReportNaDan(23)\">15 dana</a></td></tr>");
+            ViewContext.Writer.Write("<td>Dugovanja</td></tr>");
+            ViewContext.Writer.Write("<td><a href=\"#\" onclick=\"genReportNaDan(24)\">Danas</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReportNaDan(25)\">5 dana</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReportNaDan(26)\">10 dana</a></td></tr>");
+            ViewContext.Writer.Write("<tr><td><a href=\"#\" onclick=\"genReportNaDan(27)\">15 dana</a></td></tr>");
+            ViewContext.Writer.Write("</table>");
+        });
+    }
+).GetHtml()          
+            
+    
+
+@Html.DevExpress().DockZone(
+    settings =>
+    {
+        settings.Name = "dockZone1";
+        settings.ZoneUID = "leftZone";
+        settings.ControlStyle.CssClass = "leftZone";
+        settings.Width = 400;
+        settings.PanelSpacing = 10;
+    }
+).GetHtml()
+@Html.DevExpress().DockZone(
+    settings =>
+    {
+        settings.Name = "dockZone2";
+        settings.ZoneUID = "rightZone";
+        settings.ControlStyle.CssClass = "rightZone";
+        settings.Width = 500;
+        settings.PanelSpacing = 10;
+    }
+).GetHtml() 
+                                  
+    }
+
+ 
+
+  </div> 
+    
+    
+        DalEf.MDSubjectsEntities data = new DalEf.MDSubjectsEntities();
+        var cl = data.MDSubjects_Subject.OfType<DalEf.MDSubjects_Company>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+
+        //(string)HttpRuntime.Cache["Pero"];
+        //var ds = (DalEf.MDSubjects_Company)HttpRuntime.Cache["Company"];
+
+    
+      <div id="printDiv" style="height:1000px; display:none">
+
+          <table width="80%" border="0">
+              <tr>
+                <td width="10%">Klijent:</td><td width="50%" colspan="3">@Html.DevExpress().ComboBox(settings => { settings.Name = "Klijent"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 407; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; settings.Properties.NullDisplayText = "Odaberite klijenta"; }).BindList(cl).GetHtml()</td>
+                <td width="30%"><a class="butMedium green"  onclick="Filter()" href="#"><span>Filter</span></a>
+                &nbsp;
+                    <a class="butMedium green"  onclick="FilterClear()" href="#"><span>Ponisti</span></a>
+                    </td>
+              </tr>
+              <tr>
+                <td width="10%">Datum od:</td><td width="30%">@Html.DevExpress().DateEdit(settings => { settings.Name = "DatumOd"; settings.Width = 116; }).GetHtml()</td>
+                <td width="10%">Datum do:</td><td width="20%">@Html.DevExpress().DateEdit(settings => { settings.Name = "DatumDo"; settings.Width = 116; }).GetHtml()</td><td width="10%">
+              </tr>
+              <tr>
+                <td width="10%">Valuta od:</td><td width="30%">@Html.DevExpress().DateEdit(settings => { settings.Name = "ValutaOd"; settings.Width = 116; }).GetHtml()</td>
+                <td width="10%">Valuta do:</td><td width="20%">@Html.DevExpress().DateEdit(settings => { settings.Name = "ValutaDo"; settings.Width = 116; }).GetHtml()</td><td width="10%">
+              </tr>
+              <tr>
+                <td width="10%"></td><td width="30%"></td><td width="10%"></td><td width="20%"></td><td width="10%"></td>
+              </tr>
+          </table>
+    
+<div id="main" style="display:none">
+@Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbar";
+                settings.ReportViewerName = "ReportViewer1";
+            }
+        ).GetHtml()
+
+        @Html.Partial("ReportForMainPage", ViewData["Report"])
+</div>
+<div id="unbilled" style="display:none">
+@Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbarUnbilled";
+                settings.ReportViewerName = "ReportViewerUnbilled";
+            }
+        ).GetHtml()
+
+        @Html.Partial("ReportForMainPageUnbilled", ViewData["Report"])
+</div>
+<div id="future" style="display:none">
+@Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbarFuture";
+                settings.ReportViewerName = "ReportViewerFuture";
+            }
+        ).GetHtml()
+
+        @Html.Partial("ReportForMainPageFuture", ViewData["Report"])
+</div>
+
+
+
+    </div>        
+                
+       
+    
+    <div id="mailDiv" style="height:1000px; display:none">
+            <div id='large-badges'></div><div id="mailErr" style="display:none" class='notifyBox bad'>
+                <h3>Greška prilikom slanja.</h3>
+                    <ul>
+                    <li> Detalji: </li>
+                        <ul>
+                        <li> <label id="mailErrLabel"></label> </li>
+                        </ul>
+                    </ul>
+                    
+            </div>
+
+            <div class="notifyBox " id="mailOk" style="display:none">
+            <h3>Poruka je uspjesno poslana.</h3>
+                    <ul>
+                    <li> Ponuda je poslana na adresu: </li>
+                        <ul>
+                        <li> <label id="mailOkLabel"></label> </li>
+                        </ul>
+                    </ul>
+            
+           </div>
+        <div class="clearb"></div>
+
+        <div class="span-23" style="position: relative;">
+	        
+		        <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Email adresa:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().TextBox(settings => { settings.Name = "SendTo"; settings.Width = 200; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+
+                <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">CC:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().TextBox(settings => { settings.Name = "SendToCC"; settings.Width = 200; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+            
+
+                <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">Subjekt poruke:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().TextBox(settings => { settings.Name = "Subject"; settings.Width = 200; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+
+                <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">Poruka:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().Memo(settings => { settings.Name = "Body"; settings.Height = 80; settings.Width = 600; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+
+                <div class="clearb"></div>
+    
+                <div class="span-40 append-1">
+                    <div class="span-16 append-1"></div>
+                    <div class="span-10 append-1">
+                            <a href="#" class="button_large launch-invitepop-invoice " onclick="SendReportByEmail()">
+                 
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pošalji&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                    </div>
+                    @*<div class="span-2 append-1"></div>
+                    <div class="span-10 append-1">
+                            <a href="@Url.Content("#")" class="button_large2 launch-invitepop-invoice " onclick="CloseMail()">
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                    </div>
+                    <div class="span-8 append-1"></div>*@
+                </div>
+
+        </div>
+    </div>   
+    
+                                    
+}
+

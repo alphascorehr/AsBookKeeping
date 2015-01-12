@@ -1,0 +1,27 @@
+﻿@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrDispatch
+   
+   @{
+    Layout = "~/Views/Shared/_report.cshtml";
+}
+
+      
+
+   
+   
+           
+@using (Html.BeginForm("DispatchReport", "Dispatch"))
+{
+    
+    <div>
+    
+    @Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbar";
+                settings.ReportViewerName = "ReportViewer1";
+            }
+        ).GetHtml()
+
+        @Html.Partial("DispatchReportPartial", Model, new ViewDataDictionary() { { "dispatchId", ViewData["DispatchId"] } })
+    </div>
+}

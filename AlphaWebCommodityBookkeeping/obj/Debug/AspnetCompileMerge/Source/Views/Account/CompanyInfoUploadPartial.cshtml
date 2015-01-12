@@ -1,0 +1,46 @@
+﻿@*@using (Html.BeginForm("CertUpload", "Account", FormMethod.Post, new { @class = "imagePreview" }))
+{
+    *@<div class="uploadContainer">
+
+        <div class="span-40" style="position: relative;" >
+            <div id="client_section">
+                <div class="span-18 form-layout-left">
+                    @Html.DevExpress().UploadControl(
+            settings =>
+            {
+                settings.Name = "ucUploadCert";
+                settings.CallbackRouteValues = new { Controller = "Account", Action = "CallbacksCertificateUpload" };
+                //settings.ControlStyle.CssClass = "editorArea";
+                settings.BrowseButton.Text = "Odaberi certifikat";
+                settings.ShowProgressPanel = false;
+                settings.Width = 360;
+                settings.NullText = "Pronađi certifikat za fiskalizaciju";
+                //settings.ValidationSettings.Assign(UploadControlDemosHelper.ValidationSettings);
+
+                //settings.ClientSideEvents.FileUploadComplete = "function(s,e){ if(e.callbackData != '') $('#previewImage').attr('src', e.callbackData); }";
+                settings.ClientSideEvents.FileUploadComplete = "function(s,e){ toastr.success(\"Certifikat je uspješno uvezen\") }";
+            }).GetHtml()
+                </div>
+                <div class="span-12 form-layout-center">
+                    <label for="customerid" class="no-pointer">Lozinka</label>
+                    <input type="password" id="pass" name="pass">
+                </div>
+
+       
+      @*  <div class="editorArea text">
+            Allowed image types: jpeg, gif<br />
+            Maximum file size: 5MB
+        </div>*@
+@*        <label>&nbsp;</label>*@
+                <div class="span-6 form-layout-right">
+                    <div class="editorArea">
+                        <input type="button" value="Spremi certifikat" onclick="ucUploadCert.Upload(); $('#pass').val('')" />
+                    </div>
+                </div>
+                </div> 
+        </div>
+    </div>
+   @* <div class="imageContainer">
+        <img alt="" id="previewImage" src="@Url.Content("~/Content/ImagePreview.gif")" />
+    </div>*@
+@*}*@

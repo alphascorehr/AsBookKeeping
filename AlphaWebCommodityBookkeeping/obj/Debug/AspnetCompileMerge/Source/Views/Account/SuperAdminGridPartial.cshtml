@@ -1,0 +1,74 @@
+﻿@using System.Data
+@model BusinessObjects.MDSubjects.cAuth_Company
+
+@{
+    DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+    var data = context.Auth_Company.OrderByDescending(p => p.Id);
+}
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvSuperAdminGrid";
+                settings.CallbackRouteValues = new { Controller = "Account", Action = "SuperAdminGridPartial" };
+                settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Account", Action = "UpdateAccount" };
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.Settings.ShowFilterRow = true;
+                settings.Settings.ShowFilterRowMenu = true;
+                settings.CommandColumn.Visible = true;
+                settings.CommandColumn.Width = 40;
+                settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+                settings.CommandColumn.ClearFilterButton.Visible = true;
+                settings.CommandColumn.EditButton.Visible = true;
+                settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+
+       
+                
+                settings.KeyFieldName = "Id";
+
+               
+               settings.Columns.Add("Name", "Korisnik", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+               //settings.Columns.Add("OIB", "OIB", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+               settings.Columns.Add("Email", "Email", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+               settings.Columns.Add("NumberOfUsers", "No.Users", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+               settings.Columns.Add("NumberOfUsersOrdered", "No.UsersOrdered", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+               settings.Columns.Add("ActivationDate", "ActivationDate", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+               settings.Columns.Add("NumbnerOfDays", "No.OfDays", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+
+        
+                settings.HtmlRowCreated = (sender, e) =>
+                {
+                    if (e.RowType == DevExpress.Web.ASPxGridView.GridViewRowType.Data)
+                    {
+                        e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#eeeeee';");
+                        e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white';");
+                    }
+                };
+
+                //settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+                //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).Bind(data).GetHtml()
+            
+            
+            
+            
+@*            BindToLINQ("", "", new
+EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+{
+    e.KeyExpression = "Id";
+    DalEf.MDPlacesEntities context = new DalEf.MDPlacesEntities();
+    e.QueryableSource = context.MDPlaces_Enums_Geo_Place;
+})).GetHtml();
+            *@
+            
+            
+            
+            

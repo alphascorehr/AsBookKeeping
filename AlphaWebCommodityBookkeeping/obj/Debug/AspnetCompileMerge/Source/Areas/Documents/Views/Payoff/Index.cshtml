@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("*").css("cursor", "default");
+    });
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+    function RowClicked(s, e) {
+        Cursor();
+        //var id = s.keys[e.visibleIndex];
+        var vi = e.visibleIndex - s.pageIndex * s.pageRowSize;
+        var id = s.keys[vi];
+        var actionURL = '@Url.Content("~/Documents/Payoff/CreateAndEdit/")' + id;
+        window.location = actionURL;
+    }
+    function Print(id) {
+        var actionURL = '@Url.Content("~/Documents/Payoff/Print")';
+        $.post(actionURL + '/' + id, function (result) {
+
+            //ReportViewer1.Refresh();
+            ReportViewer1.Print();
+        });
+    }
+</script>
+
+@*@Html.Hidden("linkName", "ProjektiParent")*@
+@Html.Hidden("linkName", "RadParent")
+@Html.Hidden("linkId", "PayoffSpan")
+
+<h2 class="pt"> Obračun izvršenih radova</h2>
+<a class="butPrimary " href="@Url.Content("~/Documents/Payoff/CreateAndEdit/0")">
+<span> Novi obračun </span>
+</a>
+<div class="clearb"></div>
+		
+@Html.Partial("PayoffGoodsGridPartial")
+
+
+ <div id="mailDiv" style="display:none">
+       
+    @Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbarPrint";
+                settings.ReportViewerName = "ReportViewer1";
+                
+            }
+        ).GetHtml()
+
+     
+           @Html.Partial("PayoffReportPartial", ViewData["Report"], new ViewDataDictionary() { { "PayoffId", 0 } })  
+  
+ </div>

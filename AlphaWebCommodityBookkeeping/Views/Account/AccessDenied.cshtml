@@ -1,0 +1,22 @@
+﻿@using BusinessObjects.Security;
+
+@{
+    DalEf.MDSubjectsEntities data = new DalEf.MDSubjectsEntities();
+    var company = data.Auth_Company.FirstOrDefault(p => p.Id == ((PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+    string companyName = "";
+    if (company != null)
+    {
+        companyName = company.Name;
+    }
+ }
+
+<h2>Pristup je zabranjen!</h2>
+
+
+    <div class="clearb"></div>
+        <div class="notifyBox bad" id="acc">
+                <h3>Pristup traženom dokumentu je zabranjen od strane administratora vaše tvrtke</h3>
+                <ul>
+                     <li>Tvrtka: @companyName</li>
+                </ul>  
+    </div>

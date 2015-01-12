@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="2" virtualPath="/Views/Shared/_report.cshtml" hash="ffffffffead2c138" filehash="ffffebe0d844cfaf" flags="110000" assembly="App_Web_semutxv1" type="ASP._Page_Views_Shared__report_cshtml">
+    <filedeps>
+        <filedep name="/Views/Shared/_report.cshtml" />
+    </filedeps>
+</preserve>

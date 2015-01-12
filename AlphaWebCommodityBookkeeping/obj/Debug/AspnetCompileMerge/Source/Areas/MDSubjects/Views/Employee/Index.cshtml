@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    $(document).ready(function () {
+        if ('@ViewData["ShowHideButton"]' == 'hideButton') {
+            $('#new').hide();
+            $('#acc').fadeIn('slow');
+        }
+    });
+
+
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+
+
+
+
+@Html.Hidden("linkName", "TvrtkaParent")
+@Html.Hidden("linkId", "")
+<h2 class="pt"> Djelatnici </h2>
+ @if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+ {
+    <div id="new"><a  class="butPrimary " href="@Url.Content("~/MDSubjects/Employee/CreateAndEdit/0")">
+    <span> Novi djelatnik </span>
+    </a>
+    </div>
+         
+    <div class="clearb"></div>
+        <div class="notifyBox bad" id="acc" style="display:none">
+                <h3>Kreiran je dozvoljeni broj korisnika</h3>
+                <ul>
+                     <li> Molimo nadoplatite korisnički račun</li>
+                </ul>  
+    </div>
+ }
+ 
+
+
+    @Html.Partial("EmployeeGridPartial")
+
+     

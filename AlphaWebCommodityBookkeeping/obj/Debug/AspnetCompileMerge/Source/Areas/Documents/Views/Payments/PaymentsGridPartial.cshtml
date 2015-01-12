@@ -1,0 +1,169 @@
+﻿@using System.Data
+
+@{
+    DalEf.MDSubjectsEntities contextEnt = new DalEf.MDSubjectsEntities();
+    DalEf.DocumentsEntities context = new DalEf.DocumentsEntities();
+    var data = context.vPayments.OrderByDescending(p => p.Id).Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+ }
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvPaymentsGrid";
+                settings.CallbackRouteValues = new { Controller = "Payments", Action = "PaymentsGridPartial" };
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.Settings.ShowFilterRow = true;
+                settings.Settings.ShowFilterRowMenu = true;
+                settings.Settings.ShowGroupPanel = true;
+                settings.SettingsPager.PageSize = 13;
+                settings.CommandColumn.Visible = true;
+                settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+                settings.CommandColumn.ClearFilterButton.Visible = true;
+                settings.Settings.ShowHeaderFilterButton = true;
+                settings.SettingsPopup.HeaderFilter.Height = 200;
+                settings.SettingsText.HeaderFilterOkButton = "Ok";
+                settings.SettingsText.HeaderFilterCancelButton = "Odustani";
+                settings.SettingsText.HeaderFilterSelectAll = "Označi sve";
+                //settings.Theme = "Office2010Blue";
+
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+
+                            //Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }, new { @class = "gridEditButton" }) + "&nbsp" +
+                            //Html.ActionLink("Obriši", "#", new { Id = DataBinder.Eval(c.DataItem, "Id")  },
+                            //  new { onclick = "Delete()", @class = "gridDelButton" })
+                               "<a href=\"#\" onclick=\"Delete(" + DataBinder.Eval(c.DataItem, "Id") + ")\" class=\"gridDelButton\"></a>"
+                        );
+                    });
+                    //column.SetHeaderTemplateContent(c =>
+                    //{
+                    //    ViewContext.Writer.Write(
+                    //        Html.ActionLink("Nova faktura", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                    //    );
+                    //});
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;        
+                    column.Width = 24;
+                });
+                
+                settings.KeyFieldName = "Id";
+
+                //settings.Settings.ShowFilterRow = false;
+                //settings.Settings.ShowGroupPanel = false;
+                //settings.Settings.ShowFooter = false;
+
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "BankId";
+                //    column.Caption = "Banka";
+                //    column.Width = 150;
+                //    var items = contextEnt.MDSubjects_Enums_Bank;
+
+                //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                //    comboBoxProperties.Height = 20;
+                //    comboBoxProperties.DataSource = items;
+                //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                //    comboBoxProperties.FilterMinLength = 0;
+                //    comboBoxProperties.TextField = "Name";
+                //    comboBoxProperties.ValueField = "Id";
+                //    comboBoxProperties.ValueType = typeof(int);
+                //    comboBoxProperties.Width = 150;
+                //});
+
+                //settings.Columns.Add("OrdinalNumber", "Red.broj", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "OrdinalNumber";
+                //    column.Caption = "Red.broj";
+                //    column.Width = 40;
+                //});
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "OrdinalNumber";
+                    column.Caption = "Rb";
+                    column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;        
+
+                    column.Width = 35;
+                    //column.SetDataItemTemplateContent(c =>
+                    //{
+                    //    ViewContext.Writer.Write(
+                    //        "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Documents/Payments/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + ">" + DataBinder.Eval(c.DataItem, "OrdinalNumber") + "</a>"
+                    //    );
+                    //});
+
+                });
+
+                
+                //settings.Columns.Add("Name", "Klijent", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add(column =>
+                    {
+                    column.FieldName = "DocumentDateTime";
+                    column.Caption = "Datum izvoda";
+                    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit;
+                    var dateEditproperties = column.PropertiesEdit as DateEditProperties;
+                    dateEditproperties.DisplayFormatString = "dd.MM.yyyy";
+                    column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;        
+                    column.Width = 95;
+                    });
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "UniqueIdentifier";
+                    column.Caption = "Broj izvoda";
+                    column.ColumnType = MVCxGridViewColumnType.TextBox;
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Documents/Payments/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + ">" + DataBinder.Eval(c.DataItem, "UniqueIdentifier") + "</a>"
+                        );
+                    });
+
+                });
+                
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "Name";
+                    column.Caption = "Banka";
+                    column.Width = 380;
+                });
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "AccountBalance";
+                    column.Caption = "Stanje na računu";
+                    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                    var spinEditproperties = column.PropertiesEdit as SpinEditProperties;
+                    spinEditproperties.DisplayFormatString = "c";
+                });
+
+
+                settings.HtmlRowCreated = (sender, e) =>
+                {
+                    if (e.RowType == DevExpress.Web.ASPxGridView.GridViewRowType.Data)
+                    {
+                        e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#eeeeee';");
+                        e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white';");
+                    }
+                };
+                settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            //}).BindToLINQ("", "", new
+            //            EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+            //            {
+            //                e.KeyExpression = "Id";
+            //                DalEf.DocumentsEntities context = new DalEf.DocumentsEntities();
+            //                e.QueryableSource = context.vPayments.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+            //            })).GetHtml()
+            }).Bind(data).GetHtml()

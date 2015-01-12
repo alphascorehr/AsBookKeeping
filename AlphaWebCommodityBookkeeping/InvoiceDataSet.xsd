@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:mstns="http://tempuri.org/nwindDataSet.xsd" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" id="InvoiceDataSet" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection ConnectionStringObject="Data Source=db-1;Initial Catalog=AlphaWebCommodityBookkeeping;User ID=sa;Password=AldebaraN7;MultipleActiveResultSets=True;Application Name=EntityFramework" IsAppSettingsProperty="false" Modifier="Assembly" ParameterPrefix="@" Provider="System.Data.SqlClient" Name="Connection" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vInvoiceAdapter" Name="vInvoice" UserDataComponentName="vInvoiceAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Connection" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Id, UniqueIdentifier, CompanyUsingServiceId, Name, SubjectType, SubjectTypeText, Oib, OrdinalNumber, DocumentDateTime, MaturityDate, RetailValue FROM dbo.vInvoice</CommandText>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="UniqueIdentifier" DataSetColumn="UniqueIdentifier" />
+              <Mapping SourceColumn="CompanyUsingServiceId" DataSetColumn="CompanyUsingServiceId" />
+              <Mapping SourceColumn="Name" DataSetColumn="Name" />
+              <Mapping SourceColumn="SubjectType" DataSetColumn="SubjectType" />
+              <Mapping SourceColumn="SubjectTypeText" DataSetColumn="SubjectTypeText" />
+              <Mapping SourceColumn="Oib" DataSetColumn="Oib" />
+              <Mapping SourceColumn="OrdinalNumber" DataSetColumn="OrdinalNumber" />
+              <Mapping SourceColumn="DocumentDateTime" DataSetColumn="DocumentDateTime" />
+              <Mapping SourceColumn="MaturityDate" DataSetColumn="MaturityDate" />
+              <Mapping SourceColumn="RetailValue" DataSetColumn="RetailValue" />
+            </Mappings>
+          </TableAdapter>
+        </Tables>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="InvoiceDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vInvoice">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" type="xs:int" />
+              <xs:element name="UniqueIdentifier">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CompanyUsingServiceId" type="xs:int" />
+              <xs:element name="Name">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SubjectType" type="xs:short" />
+              <xs:element name="SubjectTypeText">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="18" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Oib" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OrdinalNumber" type="xs:int" />
+              <xs:element name="DocumentDateTime" type="xs:dateTime" />
+              <xs:element name="MaturityDate" type="xs:dateTime" />
+              <xs:element name="RetailValue" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//vInvoice" />
+      <xs:field xpath="Id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

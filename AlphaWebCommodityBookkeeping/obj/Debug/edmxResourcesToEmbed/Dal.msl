@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="alphascore_bisl4ModelStoreContainer" CdmEntityContainer="alphascore_bisl4Entities">
+    <EntitySetMapping Name="IzborSortimenata">
+      <EntityTypeMapping TypeName="alphascore_bisl4Model.IzborSortimenata">
+        <MappingFragment StoreEntitySet="IzborSortimenata">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sorta" ColumnName="Sorta" />
+          <ScalarProperty Name="DuzinaVegetacije" ColumnName="DuzinaVegetacije" />
+          <ScalarProperty Name="OptimalniRokSjetve" ColumnName="OptimalniRokSjetve" />
+          <ScalarProperty Name="PreporucenaGustoca" ColumnName="PreporucenaGustoca" />
+          <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+          <ScalarProperty Name="Predstavnik" ColumnName="Predstavnik" />
+          <ScalarProperty Name="Katalog" ColumnName="Katalog" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pesticidi">
+      <EntityTypeMapping TypeName="alphascore_bisl4Model.Pesticidi">
+        <MappingFragment StoreEntitySet="Pesticidi">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IDFIS" ColumnName="IDFIS" />
+          <ScalarProperty Name="Kultura" ColumnName="Kultura" />
+          <ScalarProperty Name="NazivStetocine" ColumnName="NazivStetocine" />
+          <ScalarProperty Name="NazivSZB" ColumnName="NazivSZB" />
+          <ScalarProperty Name="AktivnaTvar" ColumnName="AktivnaTvar" />
+          <ScalarProperty Name="Doza" ColumnName="Doza" />
+          <ScalarProperty Name="KarencaDan" ColumnName="KarencaDan" />
+          <ScalarProperty Name="MaksimalniBrojTretiranja" ColumnName="MaksimalniBrojTretiranja" />
+          <ScalarProperty Name="Klasa" ColumnName="Klasa" />
+          <ScalarProperty Name="VlasnikRegistracije" ColumnName="VlasnikRegistracije" />
+          <ScalarProperty Name="SZB" ColumnName="SZB" />
+          <ScalarProperty Name="Predstavnik" ColumnName="Predstavnik" />
+          <ScalarProperty Name="DatumIsteka" ColumnName="DatumIsteka" />
+          <ScalarProperty Name="VrijemePrimjene" ColumnName="VrijemePrimjene" />
+          <ScalarProperty Name="Djelovanje" ColumnName="Djelovanje" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

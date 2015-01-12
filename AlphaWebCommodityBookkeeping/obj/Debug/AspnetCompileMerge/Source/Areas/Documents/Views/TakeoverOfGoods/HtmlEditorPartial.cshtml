@@ -1,0 +1,42 @@
+﻿
+
+@Html.DevExpress().HtmlEditor(
+    settings =>
+    {
+        settings.Name = "heFeatures";
+        settings.CallbackRouteValues = new { Controller = "HtmlEditor", Action = "FeaturesPartial" };
+        settings.Width = 550;
+
+        settings.SettingsImageUpload.UploadCallbackRouteValues = new { Controller = "TakeoverOfGoods", Action = "FeaturesImageUpload" };
+        
+
+
+        if(ViewData["ActiveView"] != null)
+            settings.ActiveView = (HtmlEditorView)ViewData["ActiveView"];
+        if(ViewData["Html"] != null)
+            settings.Html = (string)ViewData["Html"];
+        if(Session["Options"] != null) {
+            //HtmlEditorFeaturesDemoOptions options = (HtmlEditorFeaturesDemoOptions)Session["Options"];
+            //settings.SettingsHtmlEditing.AllowScripts = options.AllowScripts;
+            //settings.SettingsHtmlEditing.AllowIFrames = options.AllowIFrames;
+            //settings.SettingsHtmlEditing.AllowFormElements = options.AllowFormElements;
+            //settings.SettingsHtmlEditing.UpdateDeprecatedElements = options.UpdateDeprecatedElements;
+            //settings.SettingsHtmlEditing.UpdateBoldItalic = options.UpdateBoldItalic;
+            //settings.SettingsHtmlEditing.EnterMode = options.EnterMode;
+            //settings.Settings.AllowContextMenu = options.AllowContextMenu;
+            //settings.Settings.AllowDesignView = options.AllowDesignView;
+            //settings.Settings.AllowHtmlView = options.AllowHtmlView;
+            //settings.Settings.AllowPreview = options.AllowPreview;
+        }
+
+        //Action<object, DevExpress.Web.ASPxFileManager.FileManagerActionEventArgsBase> editHandler = (sender, e) => {
+        //    ((DevExpress.Web.ASPxFileManager.FileManagerActionEventArgsBase)e).Cancel = Utils.IsSiteMode;
+        //    ((DevExpress.Web.ASPxFileManager.FileManagerActionEventArgsBase)e).ErrorText = Utils.GetReadOnlyMessageText();
+        //};
+
+        //settings.ImageSelectorItemDeleting = (sender, e) => editHandler(sender, e);
+        //settings.ImageSelectorFolderCreating = (sender, e) => editHandler(sender, e);
+        //settings.ImageSelectorFileUploading = (sender, e) => editHandler(sender, e);
+        //settings.ImageSelectorItemMoving = (sender, e) => editHandler(sender, e);
+        //settings.ImageSelectorItemRenaming = (sender, e) => editHandler(sender, e);
+    }).GetHtml()

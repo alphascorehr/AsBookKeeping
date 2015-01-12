@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    $(document).ready(function () {
+        $("*").css("cursor", "default");
+    });
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+
+    function Delete(id)
+    {
+
+        var conf = confirm("Zelite li obrisati?");
+
+        if (conf) {
+            var url = '@Url.Content("~/Documents/Payments/DeletePayment")';
+            $.post(url, { id: id }, function (result) {
+                if (result == 0) {
+                    gvPaymentsGrid.Refresh();
+                }
+                else {
+                    alert("Birani izvod se ne smije brisati");
+                }
+            });
+        }
+    }
+// ]]>
+</script>
+
+@Html.Hidden("linkName", "KomercijalaParent")
+@Html.Hidden("linkId", "PaymentsSpan")
+<h2 class="pt"> Izvodi banke </h2>
+<a class="butPrimary " href="@Url.Content("~/Documents/Payments/CreateAndEdit/0")">
+<span> Novi izvod </span>
+</a>
+<div class="clearb"></div>
+
+
+@Html.Partial("PaymentsGridPartial")
+
+
+

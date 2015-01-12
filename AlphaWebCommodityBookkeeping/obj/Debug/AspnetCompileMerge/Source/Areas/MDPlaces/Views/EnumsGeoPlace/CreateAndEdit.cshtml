@@ -1,0 +1,169 @@
+﻿@model BusinessObjects.MdPlaces.cMDPlaces_Enums_Geo_Place
+
+@{
+    ViewBag.Title = "Edit";
+    DalEf.MDPlacesEntities context = new DalEf.MDPlacesEntities();
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+    var selectedName = "";
+
+
+
+    function OnStartCallback(s, e) {
+        return false;
+    }
+    function OnEndCallback(s, e) {
+        return false;
+    }
+
+    function onEdit(e) {
+
+    }
+
+    function OnSelectedIndexChanged(s, e) {
+        debugger;
+        return false;
+    }
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                Name: "required",
+                ZIPCode: "required",
+                RegionId: "required",
+                Distance: "required"
+            },
+            messages: {
+                Name: "Molimo unesite naziv",
+                ZIPCode: "Molimo unesite zip code",
+                RegionId: "Molimo unesite županiju",
+                Distance: "Molimo unesite udaljenost"
+            }
+        });
+
+    });
+ 
+// ]]>
+</script>
+
+@{
+    string caption = "Novo mjesto";
+    if (Model.Name != "")
+    {
+        caption = "Mjesto: " + Model.Name;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "EnumsGeoPlace", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData); 
+                                            
+@Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "")    
+    
+    
+    <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	 <h2 class="pt"><div class="span-33"> @caption </div></h2>
+    
+     
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+
+                
+            <div class="span-23" style="position: relative;">
+                  
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Naziv:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+                </div>
+
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Poštanski broj:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "ZIPCode"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.ZIPCode).GetHtml()
+                </div>
+                     
+               
+             </div>   
+
+            <div class="span-23">
+
+                <div class="span-12 form-layout-left" >
+				    <label for="invoice_number" class="tool-tip"><span title="">Županija:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right" >
+                    @Html.DevExpress().ComboBox(settings => { settings.Name = "RegionId"; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(context.MDPlaces_Enums_Geo_Region).Bind(Model.RegionId).GetHtml()
+                </div>
+
+                 <div class="span-12 form-layout-left" >
+				    <label for="invoice_number" class="tool-tip"><span title="">Udaljenost:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right" >
+                    @Html.DevExpress().SpinEdit(settings => { settings.Name = "Distance"; settings.Height = 24; settings.Width = 200; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 0; settings.Properties.MaxValue = 10000000; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Distance).GetHtml()
+                </div>
+               
+
+            </div>
+    
+             <div class="clearb" style="padding-top:20px"></div>
+    
+            
+    
+            
+            
+
+  <div class="clearb"></div>
+            
+    
+    
+   
+<div class="clearb"></div>
+
+    <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/MDPlaces/EnumsGeoPlace/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+    
+    
+                                                                                                                                      
+     
+
+}

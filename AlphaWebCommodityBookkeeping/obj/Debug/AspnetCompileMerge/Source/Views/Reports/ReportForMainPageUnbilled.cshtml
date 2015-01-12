@@ -1,0 +1,13 @@
+﻿@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrUnbilledDetails
+
+@Html.DevExpress().ReportViewer(
+    settings => {
+        settings.Name = "ReportViewerUnbilled";
+        settings.Report = Model;
+        //settings.LoadingPanelText = "Učitavanje";
+        settings.ShowLoadingPanelImage = false;
+        settings.CallbackRouteValues = new { Controller = "Reports", Action = "PrintUnbilled" };
+        settings.ExportRouteValues = new { Controller = "Reports", Action = "ReportExportToUnbilled" };
+        //settings.ClientSideEvents.EndCallback = "hideLoadingpanel()";
+    }
+).GetHtml()

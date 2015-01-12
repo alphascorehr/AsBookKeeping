@@ -1,0 +1,36 @@
+﻿@model BusinessObjects.MDGeneral.cMDGeneral_Enums_KindOfTransportation_List
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+
+@Html.Hidden("linkName", "TvrtkaParent")
+@Html.Hidden("linkId", "")
+
+ <h2 class="pt"> Vrste prijevoza </h2>
+			@if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{		
+			
+	<a class="butPrimary " href="@Url.Content("~/MDGeneral/EnumsKindOfTransportation/CreateAndEdit/0")">
+<span> Nova vrsta prijevoza </span>
+</a>
+<div class="clearb"></div>
+}
+@Html.Partial("EnumsKindOfTransportationGridPartail")
+
+
+
+ 

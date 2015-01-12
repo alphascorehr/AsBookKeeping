@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="alphascore_bisl4Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="alphascore_bisl4Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="IzborSortimenata" EntityType="alphascore_bisl4Model.IzborSortimenata" />
+    <EntitySet Name="Pesticidi" EntityType="alphascore_bisl4Model.Pesticidi" />
+  </EntityContainer>
+  <EntityType Name="IzborSortimenata">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sorta" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="DuzinaVegetacije" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="OptimalniRokSjetve" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="PreporucenaGustoca" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Napomena" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Predstavnik" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Katalog" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Pesticidi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDFIS" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Kultura" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="NazivStetocine" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="NazivSZB" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="AktivnaTvar" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Doza" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="KarencaDan" Type="Double" />
+    <Property Name="MaksimalniBrojTretiranja" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Klasa" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="VlasnikRegistracije" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="SZB" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Predstavnik" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="DatumIsteka" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="VrijemePrimjene" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Djelovanje" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+  </EntityType>
+</Schema>

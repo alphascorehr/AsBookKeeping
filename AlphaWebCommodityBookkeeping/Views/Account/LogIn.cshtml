@@ -1,0 +1,199 @@
+﻿@model  AlphaWebCommodityBookkeeping.Models.LogOnModel
+
+
+@{
+    ViewBag.Title = "LogOn";
+    Layout = "~/Views/Shared/LogOn.cshtml";
+}
+
+
+
+<script type="text/javascript">
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+
+    $().ready(function () {
+
+        //document.login.UserName.focus();
+        $('#UserName').focus();
+
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                UserName: "required",
+                Password: "required"
+            },
+            messages: {
+                UserName: "Molimo unesite korisničko ime",
+                Password: "Molimo unesite lozinku"
+            }
+        });
+
+        $("#the_form").submit(function () {
+            if ($('#forgotten').val() == '1') {
+                $('#form_login').html('');
+                $('#form_openid').html('');
+            }
+            else if ($('#openid').val() == '1') {
+                $('#form_login').html('');
+                $('#form_forgot').html('');
+            }
+            else {
+                $('#form_forgot').html('');
+                $('#form_openid').html('');
+            }
+        });
+
+    });
+
+    function switchForms(src, dst, element) {
+        if (!src.is(':visible'))
+            return;
+        src.slideUp('normal', function () {
+            dst.slideDown(function () {
+                element.focus();
+            });
+        });
+    }
+
+    function forgot() {
+        $('#forgotten').val('1');
+        $('#openid').val('');
+
+        var form = $('#form_forgot').is(':visible')
+			 ? $('#form_forgot')
+			 : $('#form_login');
+
+        //switchForms(form, $('#form_forgot'), document.login.email);
+        switchForms(form, $('#form_forgot'), $('#email'));
+    }
+
+    function login() {
+        $('#forgotten').val('');
+        $('#openid').val('');
+        $(['form_forgot', 'form_openid']).each(function () {
+            //switchForms($('#' + this), $('#form_login'), document.login.username);
+            switchForms($('#' + this), $('#form_login'), $('#username'));
+        });
+    }
+
+    function SendMail() {
+        var email = $('#email').attr('value');
+        var actionURL = '@Url.Content("~/Account/SendUserAcc")';
+        $.post(actionURL, { email: email }, function (result) {
+            if (result == true) {
+                $('#status').html("<b>Podaci su poslani");
+                $('#status').css('color', 'green');
+            }
+            else {
+                $('#status').html('Podaci nisu pronađeni.');
+                $('#status').css('color', 'red');
+            }
+        });
+    }
+</script>
+
+
+
+@using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new { id = "myForm" , name = "myForm"}))
+{
+  @*  <div id="outer">
+	<div id="middle">
+		<div id="inner">
+			<div class="name-container">
+						</div>
+			<div class="secure-info with-search">
+				<div class="secure-lock"></div>
+				
+								<div class="find-login"></div>
+							</div>*@
+    <br /><br /><br />
+			<div class="form-pad-top clearb"></div>
+			<div class="boxMain" style="position: relative; overflow: hidden; height: 100%;">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td class="login-table" width="275">
+															<div class="company-name">
+									<div class="fn org">Alpha računi</div>
+								</div>
+								<div class="login-info">
+									Prijava
+								</div>
+													</td>
+						<td>
+
+							<div class="login-right-container">
+							
+								
+	
+									
+															@*<form name="login" action="/" method="post" id="the_form" onsubmit="document.getElementById('javascriptDisabled').value=0">*@
+																		<div id="form_forgot" class="form-block" style="display: none;">
+										<p>Upišite e-mail adresu koju ste koristili prilikom registracije</p>
+								
+										<label for="email">Email adresa:</label>
+										<input class=" " name="email" id="email" style="width: 408px;" maxlength="255" type="text" /><br />
+								
+										<div class="button-submit login"><input class="" onclick="SendMail()" name="Submit" value="Pošalji"  /></div>
+										<div style="margin:17px 0 0 15px;float: left; width: 165px;"><a class="" href="javascript:login();">Povratak na prijavu</a></div>
+
+                                        
+									</div>
+							
+							<label id="status"></label>
+																											<div id="form_login" class="form-block" style="display: block;">
+								
+										<label for="username">Korisničko ime:</label>
+										<input class=" " name="UserName" id="UserName" style="width: 250px;" maxlength="50" type="text" />
+                                        @*<label class="error" for="UserName_I" generated="true"></label>*@
+								
+										<label for="password">Lozinka:</label>
+										<input class=" " name="Password" id="Password" style="width: 250px;" maxlength="120" value="" type="password"><br>
+                                        @*<label class="error" for="Password_I" generated="true"></label>*@
+						
+										<div class="button-submit login"><input class=" " name="Submit" value="Prijava" title="Prijava" type="submit"></div>
+																					<div style="margin:17px 0 0 20px;float: left; width: 235px;"><a class="" href="javascript:forgot();">Zaboravili ste korisničko ime ili lozinku?</a><p /><a class="" href="@Url.Content("~/Account/Register")">Postanite korisnik</a></div>
+																			</div>
+							
+									
+								@*</form>*@
+								<font color="#cc0000" size="4">@Html.ValidationSummary()</font>
+								<div class="clearb"></div>
+								
+																
+							</div>
+
+						</td>
+					</tr>
+				</tbody></table>
+	
+	
+			</div>
+			<div class="login-box-shadow"></div>
+    <div id="mailErr" style="display:none" class='notifyBox bad'>
+            
+                <h3>Pogrešno korisničko ime ili lozinka</h3>
+                    <ul>
+                    <li>  </li>
+                        <ul>
+                        <li> <label id="mailErrLabel"></label> </li>
+                        </ul>
+                    </ul>
+                    
+            </div>
+    
+@*		</div>
+	</div>
+</div>*@
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        // slide down welcome
+        $('#welcome').slideDown();
+    });
+</script>*@
+    
+
+}

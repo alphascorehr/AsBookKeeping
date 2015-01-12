@@ -1,0 +1,37 @@
+﻿@model BusinessObjects.MdPlaces.cMDPlaces_Enums_Geo_Place_List
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+
+
+@Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "")
+
+  <h2 class="pt">Mjesta</h2>
+@if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{
+	<a class="butPrimary " href="@Url.Content("~/MDPlaces/EnumsGeoPlace/CreateAndEdit/0")">
+<span> Novo mjesto </span>
+</a>
+<div class="clearb"></div>
+}
+
+@Html.Partial("EnumsPlaceGridPartial")
+
+     
+ 

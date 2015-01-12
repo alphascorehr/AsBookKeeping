@@ -1,0 +1,1619 @@
+﻿@model BusinessObjects.Documents.cDocuments_Offer
+
+@{
+    ViewBag.Title = "Edit";
+    DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+    DalEf.MDEntitiesEntities contextEnt = new DalEf.MDEntitiesEntities();
+    DalEf.DocumentsEntities contextDoc = new DalEf.DocumentsEntities();
+}
+
+<script type="text/javascript">
+    //<![CDATA[
+
+
+    $(window).bind('beforeunload', function () {
+        if ('@ViewData["Action"]' == "locked") {
+            return;
+        }
+        //if (AreControlsModifiedVar)
+        //{
+        //    return "No pressure, but check out the important announcement in the middle of the screen?";
+        //}
+
+        //return "Good bye";
+        var url = '@Url.Content("~/Documents/Offer/unlockTheDoc")';
+        $.post(url, function (result) {
+            return "Url is about to be changed, kill the lock";
+        });
+
+    });
+
+
+    function noUnload() {
+        $(window).unbind('beforeunload');
+    }
+
+
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+
+        }
+    });
+    var icustomer;
+    var initValues = new Array(); /* Step 1. - define global scope array */
+    var invoiced;
+    var quoted;
+    var dispatched;
+    var invoicedId;
+    var quotedId;
+    var dispatchedId;
+    var coppied;
+    var coppiedId;
+    var AreControlsModifiedVar = false;
+    $(document).ready(function () {
+        if ('@ViewData["Action"]' == "print") {
+            ShowPrint(); /* The document was silently saved, show the report */
+        }
+        else if ('@ViewData["Action"]' == "locked") {
+            alert(lockText);
+            window.history.back(-1);
+        }
+  
+        initValues = GetValues(); /* Step 2. - get initial values from controls */
+        $("#myForm").validate({
+            rules: {
+                SubjectId: "required",
+                DocumentDateTime: "required",
+                MaturityDate: "required"
+            },
+            messages: {
+                SubjectId: "Obavezno polje",
+                DocumentDateTime: "Obavezno polje",
+                MaturityDate: "Obavezno polje"
+            }
+
+        });
+        $("#myFormCli").validate({
+            rules: {
+                ClientName: "required",
+                SubjectType: "required",
+                Mjesta3: "required",
+                UlicaBroj: "required",
+                ClientOIB: "required"
+            },
+            messages: {
+                ClientName: "Obavezno polje",
+                SubjectType: "Obavezno polje",
+                Mjesta3: "Obavezno polje",
+                UlicaBroj: "Obavezno polje",
+                ClientOIB: "Obavezno polje"
+            }
+
+        });
+        $("#myFormPro").validate({
+            rules: {
+                ProductName: "required",
+                Label: "required",
+                TaxRateId: "required",
+                UnitId: "required",
+                WholesalePrice: "required"
+            },
+            messages: {
+                ProductName: "Obavezno polje",
+                Label: "Obavezno polje",
+                TaxRateId: "Obavezno polje",
+                UnitId: "Obavezno polje",
+                WholesalePrice: "Obavezno polje"
+            }
+
+        });
+        $("#myFormSrv").validate({
+            rules: {
+                ServiceLabel: "required",
+                ServiceName: "required",
+                ServiceTaxRateId: "required",
+                ServiceUnitId: "required",
+                WholesalePriceSrv: "required"
+            },
+            messages: {
+                ServiceLabel: "Obavezno polje",
+                ServiceName: "Obavezno polje",
+                ServiceTaxRateId: "Obavezno polje",
+                ServiceUnitId: "Obavezno polje",
+                WholesalePriceSrv: "Obavezno polje"
+            }
+
+        });
+
+
+        //        var id = '@Model.Id';
+        //        if (id == 0) {
+        //            $('#MailPrint').hide();
+        //        }
+
+        SubjectIdChanged();
+        TecajToHiddenVal();
+        EnableProductIdChanged = false;
+
+
+        $('#cBoxBillTo').click(function () {
+            if (this.checked) {
+                $("#BillToDiv").slideDown('slow');
+            } else {
+                $("#BillToDiv").slideUp('slow');
+            }
+        });
+
+        $('#cBoxShipTo').click(function () {
+            if (this.checked) {
+                $("#ShipToDiv").slideDown('slow');
+            } else {
+                $("#ShipToDiv").slideUp('slow');
+            }
+        });
+
+
+        var BillAddr = $('#BillToAddress_Street_I').attr('value')
+        if (BillAddr != null && BillAddr != "") {
+            $("#BillToDiv").slideDown('slow');
+            $('#cBoxBillTo').attr('checked', true);
+        }
+
+        var ShipAddr = $('#ShipToAddress_Street_I').attr('value')
+        if (ShipAddr != null && ShipAddr != "") {
+            $("#ShipToDiv").slideDown('slow');
+            $('#cBoxShipTo').attr('checked', true);
+        }
+
+        $("#AddButton").click(function () {
+
+            $.post("/Documents/Offer/CreateItem", function (result) {
+                debugger;
+                $("#roottbody").append($(result));
+
+            });
+        });
+
+
+        $('#CreateDocInvoiceImg').show();
+        $('#CreateDocDispatchImg').show();
+        $('#CreateDocQuoteImg').show();
+        invoiced = '@Model.Invoiced';
+        quoted = '@Model.Quoted';
+        dispatched = '@Model.Dispatched';
+        invoicedId = '@Model.Documents_InvoiceId';
+        quotedId = '@Model.Documents_QuoteId';
+        dispatchedId = '@Model.Documents_DispatchedId';
+        ShowDocDiv();
+
+        $('#Person').click(function () {
+
+            if (this.checked) {
+                var actionURL = '@Url.Content("~/Documents/Offer/FindIndividualCustomer")';
+                $.post(actionURL, function (result) {
+                    icustomer = parseInt(result)
+                    $("#PersonDiv").slideDown('slow');
+                    $('#SubjectId_I').attr('disabled', true);
+                    $('#SubjectId_VI').attr('disabled', true);
+                    $('#SubjectId_B-1').hide();
+                    $('#lblAddClient').hide();
+                    SubjectId.AddItem('Individualni kupac', icustomer);
+                    SubjectId.SetText('Individualni kupac');
+                    $('#avansi').fadeOut();
+                });
+
+
+            } else {
+                $("#PersonDiv").slideUp('slow');
+                $('#SubjectId_I').attr('disabled', false);
+                $('#SubjectId_VI').attr('disabled', false);
+                $('#SubjectId_B-1').show();
+                $('#lblAddClient').show();
+                SubjectId.SetSelectedIndex(1)
+                SubjectId.RemoveItem('Individualni kupac', icustomer);
+                $('#avansi').fadeIn();
+            }
+        });
+
+
+        if ('@Model.BillToAddress_Name' != "") {
+            $("#PersonDiv").slideDown('slow');
+            $('#Person').attr('value', true);
+        }
+        else { $('#Person').attr('value', false); }
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            modal: true,
+            buttons: {
+                "Da": function () {
+                    $(this).dialog("close");
+                    CreateDoc(docAction);
+                },
+                "Ne": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        /* End of Document ready */
+    });
+    var docAction;
+    function jqConfirm(docType) {
+        docAction = docType;
+        $("#myForm").validate();
+        var v = $("#myForm").valid();
+
+        if (v) {
+            var text = "";
+            switch (docType) {
+                case "genInvoice":
+                    text = "Da li želite kreirati račun iz ponude br. " + '@Model.UniqueIdentifier' + "?"
+                    break;
+                case "genQuote":
+                    text = "Da li želite kreirati predračun iz ponude br. " + '@Model.UniqueIdentifier' + "?"
+                    break;
+                case "genDispatch":
+                    text = "Da li želite kreirati otpremnicu iz ponude br. " + '@Model.UniqueIdentifier' + "?"
+                    break;
+                case "genCopy":
+                    text = "Da li želite kopirati ponudu br. " + '@Model.UniqueIdentifier' + "?"
+                    break;
+            }
+            $('#dialogtext').text(text);
+            $("#dialog").dialog("open");
+        }
+    }
+
+    function ShowDocDiv() {
+        var div = $('#GeneratedDocsDiv');
+        var id = '@Model.Id';
+        if (id == 0) { $('#CreateDocOfferImg').hide(); }
+        var link;
+        if (invoiced == "True") {
+            $('#invDiv').show();
+            link = '@Url.Content("~/Documents/Invoice/CreateAndEdit/")' + invoicedId;
+            $('#invoice').attr('href', link);
+            $('#CreateDocInvoiceImg').hide();
+            div.fadeIn('slow');
+        }
+        if (dispatched == "True") {
+            $('#disDiv').show();
+            link = '@Url.Content("~/Documents/Dispatch/CreateAndEdit/")' + dispatchedId;
+            $('#dispatch').attr('href', link);
+            $('#CreateDocDispatchImg').hide();
+            div.fadeIn('slow');
+        }
+        if (quoted == "True") {
+            $('#quoDiv').show();
+            link = '@Url.Content("~/Documents/Quote/CreateAndEdit/")' + quotedId;
+            $('#quote').attr('href', link);
+            $('#CreateDocQuoteImg').hide();
+            div.fadeIn('slow');
+        }
+        var a = '@ViewData["Action"]';
+        if (coppied == "True" || a.indexOf("_") != -1) {
+            if (a.indexOf("_") != -1) { coppiedId = a.split("_")[1]; }
+
+            $('#copyDiv').show();
+            link = '@Url.Content("~/Documents/Offer/CreateAndEdit/")' + coppiedId;
+            $('#copy').attr('href', link);
+            div.fadeIn('slow');
+        }
+    }
+
+
+
+    function CreateDoc(docType) {
+        AreControlsModified();
+
+        //if (v){
+        if (AreControlsModifiedVar || isGridModified) {
+                $('#HiddenValueAction').attr('value', docType);
+                document.myForm.submit();
+            }
+            else {
+                var Id = parseInt($('#Id').attr('value'));
+                var actionURL = '@Url.Content("~/Documents/Offer/CreateDoc")';
+                var redirectURL;
+                $.post(actionURL, { FromDocumentId: Id, docType: docType }, function (result) {
+                    if (docType == 'genInvoice') {
+                        invoicedId = result;
+                        invoiced = 'True';
+                        ShowDocDiv();
+                    }
+                    else if (docType == 'genQuote') {
+                        quotedId = result;
+                        quoted = 'True';
+                        ShowDocDiv();
+                    }
+                    else if (docType == 'genDispatch') {
+                        dispatchedId = result;
+                        dispatched = "True";
+                        ShowDocDiv();
+                    }
+                    else {
+                        coppied = "True";
+                        coppiedId = result;
+                        ShowDocDiv();
+                    }
+                });
+            }
+        //}
+
+    }
+
+    $(".delete").live('click', function (event) {
+        $(this).parent().parent().remove();
+    });
+
+//    function OnStartCallback(s, e) {
+//        isCallback = false;
+//        EnableProductIdChanged = false;
+//        if (e.command == "DELETEROW" || e.command == "CANCELEDIT") {
+//            isCallback = true;
+//        }
+
+//        if (e.command == "ADDNEWROW" || e.command == "STARTEDIT") {
+//            //$('#gvDocumentItemsCol_DXEditor0').css({ 'border': '0' })
+//            $('#SubjectId_I').attr('readonly', true); // ne radi
+//            $('#CourseValue_I').attr('readonly', true);
+//        }
+//        else {
+//            $('#SubjectId_I').attr('readonly', false); // ne radi
+//            $('#CourseValue_I').attr('readonly', false);
+//        }
+//        return false;
+//    }
+    function OnEndCallback(s, e) {
+        $('#gvDocumentItemsCol_DXEditor0').css({ 'border': '0' })
+        if (isCallback) {
+            var actionURL = '@Url.Content("~/Documents/Offer/Calc")';
+            $.post(actionURL, { isCallback: true }, function (result) {
+                $('#Ukupno').html(result[0]);
+                $('#Pdv').html(result[1]);
+                $('#ZaPlatiti').html(result[2]);
+                $('#Rabat').html(result[3]);
+            });
+            isCallback = false;
+
+        }
+        if (gridInEdit) {
+            $('#addNevDocumentItem').hide();
+        }
+        return false;
+    }
+
+    function OnInit(s, e) {
+        var actionURL = '@Url.Content("~/Documents/Offer/Calc")';
+        $.post(actionURL, { isCallback: true }, function (result) {
+            $('#Ukupno').html(result[0]);
+            $('#Pdv').html(result[1]);
+            $('#ZaPlatiti').html(result[2]);
+            $('#Rabat').html(result[3]);
+        });
+        return false;
+    }
+
+
+
+    //1-Proizvod
+    //3-Cijena
+    //4-JM
+    //5-Kolicina
+    //6-rabat %
+    //8-Porezna stopa
+    //10-Jed.Cijena
+    //11-Ukupno
+    //    
+
+    function ProductIdChanged(s, e) {
+        var ProizvodId = parseInt($('#gvDocumentItemsCol_DXEditor2_VI').attr('value'));
+        gvDocumentItemsCol_DXEditor4.SetValue(""); /* Cijena */
+        gvDocumentItemsCol_DXEditor5.SetValue(""); /* JM */
+        gvDocumentItemsCol_DXEditor6.SetValue("1"); /* Kolicina */
+        gvDocumentItemsCol_DXEditor7.SetValue("0"); /* Rabat */
+        gvDocumentItemsCol_DXEditor9.SetValue(""); /* Porezna stopa */
+        gvDocumentItemsCol_DXEditor11.SetValue(""); /* Jed.cijena */
+        gvDocumentItemsCol_DXEditor12.SetValue(""); /* Ukupno */
+
+        var Tec = $('#CourseValue_I').attr('value');
+        if (Tec == null || Tec == "") {
+            Tec = 1;
+        }
+
+
+        if (ProizvodId != null && $('#SubjectId_VI').attr('value') != null && $('#SubjectId_VI').attr('value') != 0 && $('#SubjectId_VI').attr('value') != NaN) {
+            var actionURL = '@Url.Content("~/Documents/Offer/ProductIdChanged")';
+            $.post(actionURL, { proizvodId: ProizvodId, tecaj: Tec }, function (result) {
+                gvDocumentItemsCol_DXEditor4.inputElement.value = result[0]
+                gvDocumentItemsCol_DXEditor11.inputElement.value = result[0];  /* po defaultu stavi jed. cijenu kao cijenu (rabat je po defaultu 0%) */
+                //$('#Cijena').attr('value', result[3]);
+                //Tecaj();
+                Ukupno(); /* odmah izracunaj ukupnu cijenu */
+                if (result[1] != 0) {
+                    gvDocumentItemsCol_DXEditor5.SetValue(result[1]); /* Jm */
+                }
+                if (result[2] != 0) {
+                    gvDocumentItemsCol_DXEditor9.SetValue(result[2]); /* porez % */
+                }
+                Calc();
+            });
+
+        }
+        else {
+            alert("Molimo, odaberite klijenta");
+            gvDocumentItemsCol.CancelEdit();
+        }
+
+
+    }
+
+    function TecajToHiddenVal() {
+        var tecaj = parseFloat($('#CourseValue_I').attr('value').replace(',', '.'));
+        if (tecaj == "" || tecaj == null) {
+            tecaj = 1;
+        }
+        $('#prevTecaj').attr('value', tecaj);
+    }
+
+    function Tecaj() {
+        var tecaj = document.getElementById("CourseValue_I").value
+        var t = parseFloat($('#CourseValue_I').attr('value').replace(',', '.'));
+
+
+        var prevTecaj = parseFloat($('#prevTecaj').attr('value').replace(',', '.'));
+
+        if (t != "" && t != null && t != NaN && !isNaN(t)) {
+            var actionURL = '@Url.Content("~/Documents/Offer/TecajChanged")';
+            $.post(actionURL, { Tecaj: tecaj, PrevTecaj: prevTecaj }, function (result) {
+                gvDocumentItemsCol.Refresh();
+                $('#Ukupno').html(result[0]);
+                $('#Pdv').html(result[1]);
+                $('#ZaPlatiti').html(result[2]);
+                $('#Rabat').html(result[3]);
+            });
+
+
+        }
+
+    }
+
+
+    function Calc() {
+        var ordinal = $('#gvDocumentItemsCol_DXEditor1_I').attr('value');
+        var taxId = $('#gvDocumentItemsCol_DXEditor9_VI').attr('value');
+        var wholeSaleprice = $('#gvDocumentItemsCol_DXEditor12_I').attr('value');
+        //var rabat = $('#gvDocumentItemsCol_DXEditor6_I').attr('value').replace('%', '');
+        var rabat = parseFloat($('#gvDocumentItemsCol_DXEditor7_I').attr('value').replace('%', '').replace(',', '.'));
+        var cijena = $('#gvDocumentItemsCol_DXEditor4_I').attr('value');
+        var kolicina = $('#gvDocumentItemsCol_DXEditor6_I').attr('value');
+        if (ordinal == null || ordinal == NaN || ordinal == "") {
+            ordinal = 0;
+        }
+        var Tec = $('#CourseValue_I').attr('value');
+        if (Tec == null || Tec == "") {
+            Tec = 1;
+        }
+        if (taxId != null && taxId != "") {
+            var actionURL = '@Url.Content("~/Documents/Offer/Calc")';
+            $.post(actionURL, { IsCallback: false, Ordinal: ordinal, TaxId: taxId, WholeSalePrice: wholeSaleprice, Cijena: cijena, Kolicina: kolicina, Rabat: rabat, Tecaj: Tec }, function (result) {
+                $('#Ukupno').html(result[0]);
+                $('#Pdv').html(result[1]);
+                $('#ZaPlatiti').html(result[2]);
+                $('#Rabat').html(result[3]);
+            });
+        }
+    }
+
+    function SubjectIdChanged(s, e) {
+        /* SubjectId se trpa u Session */
+        var SubjectId = parseInt($('#SubjectId_VI').attr('value'));
+
+        if (SubjectId == null || SubjectId == "" || SubjectId == "0" || isNaN(SubjectId)) {
+            return false;
+        }
+        $('#AdresaKlijentaDiv').slideUp('slow');
+        if (SubjectId != null) {
+            var actionURL = '@Url.Content("~/Documents/Offer/SubjectIdChanged")';
+            $.post(actionURL, { subjectId: SubjectId }, function (result) {
+                var oib = result[0];
+                var adresa = result[1];
+                var mjesto = result[2];
+                if (oib == null) {
+                    oib = "Nije unešen";
+                }
+                if (adresa == null) {
+                    adresa = "Nije unešena";
+                }
+                if (mjesto == null) {
+                    mjesto = "Nije unešeno";
+                }
+                $('#oib').html("OIB: " + oib)
+                $('#ulica').html("Adresa: " + adresa);
+                $('#mjesto').html("Mjesto: " + mjesto);
+                var a = '@Model.BillToAddress_PlaceId';
+                var b = '@Model.BillToAddress_Street';
+                if ('@Model.BillToAddress_PlaceId' == "" && '@Model.BillToAddress_Street' == "") {
+                    var billToAddr = result[3];
+                    var billToPlaceName = result[4];
+                    var billToPlaceId = result[5];
+                    if (billToPlaceId != 0 && billToPlaceName != "") {
+                        BillToAddress_PlaceId.AddItem(billToPlaceName, billToPlaceId);
+                        BillToAddress_PlaceId.SetText(billToPlaceName);
+                    }
+                    if (billToAddr != "") {
+                        BillToAddress_Street.SetValue(billToAddr);
+                    }
+                    //if (billToPlaceId != null || billToPlaceName != null || billToAddr != null) {
+                    if (billToPlaceName != "") {
+                        $('#cBoxBillTo').attr('checked', true);
+                        $("#BillToDiv").slideDown('slow');
+                    }
+                }
+                else {
+                    $('#cBoxBillTo').attr('checked', true);
+                    $("#BillToDiv").slideDown('slow');
+                }
+            });
+            $('#AdresaKlijentaDiv').slideDown('slow');
+
+            //gvFreeAvansesGrid.PerformCallback();
+        }
+        //gvDocumentItemsCol.CancelEdit();
+        //ProductIdChanged();
+        return SubjectId;
+    }
+
+    function JedCijena(s, e) {
+        var Rabat = parseFloat($('#gvDocumentItemsCol_DXEditor7_I').attr('value').replace(',', '.'));
+        var Cijena = parseFloat($('#gvDocumentItemsCol_DXEditor4_I').attr('value').replace(',', '.'));
+        if (Rabat != null && Cijena != null && Cijena != NaN) {
+            gvDocumentItemsCol_DXEditor11.inputElement.value = (Cijena - (Cijena / 100 * Rabat)).toString().replace(".", ",");
+            Ukupno();
+        }
+    }
+
+    function Ukupno(s, e) {
+        var kol = parseFloat($('#gvDocumentItemsCol_DXEditor6_I').attr('value').replace(',', '.'));
+        var jedCijena = parseFloat($('#gvDocumentItemsCol_DXEditor11_I').attr('value').replace(',', '.'));
+
+        if (kol != null && jedCijena != null && kol != NaN && jedCijena != NaN && kol != undefined) {
+            gvDocumentItemsCol_DXEditor12.inputElement.value = (kol * jedCijena).toString().replace(".", ","); /* Ukupno(WholeSalePrice) */
+        }
+        Calc();
+    }
+
+    function gvPaymentSelectionChanged(s, e) {
+
+    }
+
+    function gvPaymentFocusedRowChanged(s, e) {
+
+    }
+
+    function MjestaComboDropDown(s, e) {
+        if (selectedName != "") {
+
+        }
+
+    }
+
+
+    function MjestaComboValidation(s, e) {
+        if (e.value == null || e.value == "")
+            return;
+
+        var mjestoId = Number(e.value);
+        if (isNaN(mjestoId))
+            e.isValid = false;
+    }
+
+//    function Print() {
+
+//        $('.footer').hide();
+//        $('#DefaultEmements').slideToggle('slow');
+//        $('#printDiv').slideToggle('slow');
+//        $('#printImg').hide();
+//        $('#mailImg').hide();
+
+
+//        $('#printLink').attr('onclick', 'ClosePrint()');
+//        $('#printImg').attr('title', 'Zatvori ispis dokumenta');
+//        $('#printImg').attr('src', '@Url.Content("~/Content/images/close.png")');
+//        $('#printImg').fadeIn('slow');
+//    }
+
+//    function ClosePrint() {
+//        $('#DefaultEmements').slideToggle('slow');
+//        $('#printDiv').slideToggle('slow');
+
+//        $('#printImg').hide();
+
+//        $('#printImg').attr('src', '@Url.Content("~/Content/images/Printer_Blue48.png")');
+
+
+//        $('#printLink').attr('onclick', 'Print()');
+//        $('#printImg').attr('title', 'Ispiši dokument');
+//        $('#printImg').fadeIn('slow');
+//        $('#mailImg').fadeIn('slow');
+
+//        $('.footer').show();
+    //    }
+
+    /*
+    Step 3. - 
+    */
+
+    function GetValues() {
+        var list = new Array(SubjectId, BillToAddress_Street, BillToAddress_PlaceId, ShipToAddress_Street, ShipToAddress_PlaceId, DocumentDateTime, MaturityDate, DispatchDate, MDGeneral_Enums_CurrencyId, CourseValue, DispatchCompanyId, Conditions, DispatchDescription, Description);
+        var array = new Array();
+        for (i = 0; i <= list.length - 1; i++) {
+            //var val = $('#' + list[i]).attr('value');
+            var val = list[i];
+            array[i] = val.GetValue();
+        }
+
+        return array;
+    }
+
+    isGridModified = false;
+    function Print() {
+        $("#myForm").validate();
+        var v = $("#myForm").valid();
+
+        if (v) {
+            if (AreControlsModified() || isGridModified) {
+                $('#HiddenValueAction').attr('value', 'print');
+                document.myForm.submit();
+            }
+            else {
+                ShowPrint();
+            }
+        }
+    }
+
+    function AreControlsModified() {
+        //alert('AreControlsModified');
+        var newValues = new Array();
+        newValues = GetValues();
+
+        for (i = 0; i <= newValues.length - 1; i++) {
+            if (initValues[i] != newValues[i]) {
+                //return true;
+                AreControlsModifiedVar = true;
+                //alert('mod');
+                break;
+            }
+        }
+        //return false;
+        //AreControlsModifiedVar = false;
+    }
+    isCallback = false;
+    function OnStartCallback(s, e) {
+        /* check if grid has been modified */
+        if (e.command == "DELETEROW" || e.command == "UPDATEEDIT" || e.command == "ADDNEWROW") {
+            isGridModified = true;
+        }
+
+        if (e.command == "DELETEROW" || e.command == "CANCELEDIT") {
+            isCallback = true;
+        }
+      
+        if (e.command == "DELETEROW" || e.command == "UPDATEEDIT") {
+            refreshAvansPayment = true;
+        }
+        if (e.command == "DELETEROW" || e.command == "CANCELEDIT") {
+            isCallback = true;
+        }
+        if (e.command == "STARTEDIT" || e.command == "ADDNEWROW") {
+            gridInEdit = true;
+            $('.button_large').attr('onclick', '');
+            $('#genInvoice').attr('onclick', '');
+            $('#genQuote').attr('onclick', '');
+            $('#genDispatch').attr('onclick', '');
+            $('#genCopy').attr('onclick', '');
+            $('#printLink').attr('onclick', '');
+
+        }
+        if (e.command == "CANCELEDIT" || e.command == "UPDATEEDIT") {
+            gridInEdit = false;
+            $('.button_large').attr('onclick', '$(this).closest("form").submit()');
+            $('#genInvoice').attr('onclick', 'jqConfirm("genInvoice")');
+            $('#genQuote').attr('onclick', 'jqConfirm("genQuote")');
+            $('#genDispatch').attr('onclick', 'jqConfirm("genDispatch")');
+            $('#genCopy').attr('onclick', 'jqConfirm("genCopy")');
+            $('#printLink').attr('onclick', 'Print()');
+            $('#addNevDocumentItem').show()
+        }
+    }
+
+    function ShowPrint() {
+        $('.footer').hide();
+        $('#DefaultEmements').slideToggle('slow');
+        $('#printDiv').slideToggle('slow');
+        $('#printImg').hide();
+        $('#mailImg').hide();
+
+        $('#printLink').attr('onclick', 'ClosePrint()');
+        $('#printImg').attr('title', 'Zatvori ispis dokumenta');
+        $('#printImg').attr('src', '@Url.Content("~/Content/images/close.png")');
+        $('#printImg').fadeIn('slow');
+    }
+
+    function ClosePrint() {
+        $('#DefaultEmements').slideToggle('slow');
+        $('#printDiv').slideToggle('slow');
+
+        $('#printImg').hide();
+
+        $('#printImg').attr('src', '@Url.Content("~/Content/images/Printer_Blue48.png")');
+
+        $('#printLink').attr('onclick', 'Print()');
+        $('#printImg').attr('title', 'Ispiši dokument');
+        $('#printImg').fadeIn('slow');
+        $('#mailImg').fadeIn('slow');
+
+        $('.footer').show();
+    }
+
+    function Mail() {
+        $('#mailErr').hide();
+        $('#mailOk').hide();
+        var sub = "Ponuda br. " + '@Model.UniqueIdentifier';
+
+        var SubjectId = parseInt($('#SubjectId_VI').attr('value'));
+        if (SubjectId == null || SubjectId == "" || SubjectId == "0") {
+            return false;
+        }
+//        var actionURL = '@Url.Content("~/Documents/Offer/FindEmailById")';
+//        $.post(actionURL, { subjectId: SubjectId }, function (result) {
+//            SendTo.SetValue(result);
+            Subject.SetValue(sub);
+//        });
+        $('.footer').hide();
+        $('#DefaultEmements').slideToggle('slow');
+        $('#mailDiv').slideToggle('slow');
+        $('#printImg').hide();
+        $('#mailImg').hide();
+
+
+        $('#mailLink').attr('onclick', 'CloseMail()');
+        $('#mailImg').attr('title', 'Zatvori slanje dokumenta');
+        $('#mailImg').attr('src', '@Url.Content("~/Content/images/close.png")');
+        $('#mailImg').fadeIn('slow');
+    }
+
+    function CloseMail() {
+        $('#DefaultEmements').slideToggle('slow');
+        $('#mailDiv').slideToggle('slow');
+
+        $('#mailImg').hide();
+
+        $('#mailImg').attr('src', '@Url.Content("~/Content/images/mail_send48.png")');
+
+
+        $('#mailLink').attr('onclick', 'Mail()');
+        $('#mailImg').attr('title', 'Pošalji dokument');
+        $('#printImg').fadeIn('slow');
+        $('#mailImg').fadeIn('slow');
+
+        $('.footer').show();
+    }
+
+    function SendReportByEmail() {
+        $('#mailErr').hide();
+        $('#mailOk').hide();
+        var Id = parseInt($('#Id').attr('value'));
+        if (Id == null || Id == "" || Id == "0") {
+            return false;
+        }
+        //$("*").css("cursor", "wait");
+        var sendTo = SendTo.GetValue();
+        var sendToCC = SendToCC.GetValue();
+        var subject = Subject.GetValue();
+        var body = Body.GetValue();
+        var clientName = $('#SubjectId_I').attr('value');
+        if (clientName == null || clientName == "" || clientName == "0") {
+            return false;
+        }
+        /* Id, SentTo, SendToCC, Subject, Body */
+        var actionURL = '@Url.Content("~/Documents/Offer/SendReportByEmail")';
+        $.post(actionURL, { Id: Id, SendTo: sendTo, SendToCC: sendToCC, Subject: subject, Body: body, ClientName: clientName }, function (result) {
+            if (result == "Ok") {
+                $('#mailErr').hide();
+                $('#mailOk').fadeIn('slow');
+                $('#mailOkLabel').html(SendTo.GetValue());
+            }
+            else {
+                $('#mailOk').hide();
+                $('#mailErr').fadeIn('slow');
+                $('#mailErrLabel').html(result.toString());
+            }
+        });
+        //$("*").css("cursor", "auto");
+    }
+
+    function showClientPopup()
+    {
+        ClientName.SetValue("");
+        ClientOIB.SetValue("");
+        SubjectType.SetValue("");
+        Mjesta3.SetValue("");
+        UlicaBroj.SetValue("");
+        pcModalModeCli.Show();
+        Mjesta3.PerformCallback();
+    }
+
+    function AddClient() {
+        var ClName = ClientName.GetValue();
+        var ClOIB = ClientOIB.GetValue();
+        var SubType = SubjectType.GetValue();
+        var MjestoId = Mjesta3.GetValue();
+        var Ulicabroj = UlicaBroj.GetValue();
+        $("#myFormCli").validate();
+        var v = $("#myFormCli").valid();
+
+        if (v) {
+            var actionUrl = '@Url.Content("~/MDSubjects/Company/AddClient")'
+            $.post(actionUrl, { Name: ClName, OIB: ClOIB, SubjectType: SubType, Mjesto: MjestoId, UlicaBroj: Ulicabroj }, function (result) {
+                var id = parseInt(result);
+                //var id = 1000;
+                if (id > 0) {
+                    SubjectId.AddItem(ClName, id);
+                    SubjectId.SetText(ClName);
+                    pcModalModeCli.Hide();
+                    SubjectIdChanged();
+                }
+            });
+        }
+    }
+    function PopupSubjectTypeChanged() {
+        var subType = SubjectType.GetValue();
+        if (subType == 0) {
+            $('#Oibdiv').removeClass('required');
+            //$('#ClientOIB').rules("remove", "required");
+
+        }
+        else {
+            $('#Oibdiv').addClass('required');
+            //$('#ClientOIB').rules("add", "required");
+
+        }
+    }
+
+    function showProductPopup() {
+        ProductName.SetValue("");
+        TaxRateId.SetValue("");
+        WholesalePrice.SetValue("");
+        Label.SetValue("");
+        UnitId.SetValue("");
+        pcModalMode.Show();
+    }
+    function showServicePopup() {
+        ServiceName.SetValue("");
+        ServiceTaxRateId.SetValue("");
+        ServiceLabel.SetValue("");
+        WholesalePriceSrv.SetValue("");
+        ServiceUnitId.SetValue("");
+        pcModalModeSrv.Show();
+    }
+
+    function AddProduct() {
+        var Name = ProductName.GetValue();
+        var Tax = TaxRateId.GetValue();
+        var WSprice = WholesalePrice.GetValue();
+        var Lbl = Label.GetValue();
+        var Unit = UnitId.GetValue();
+
+        $("#myFormPro").validate();
+        var v = $("#myFormPro").valid();
+
+        if (v) {
+            //if (Name != null && Tax != null && WSprice != null && Label != null && Unit != null) {
+            var actionUrl = '@Url.Content("~/MDEntities/Product/AddProduct")'
+            $.post(actionUrl, { Name: Name, Tax: Tax, WSprice: WSprice, Label: Lbl, Unit: Unit }, function (result) {
+                var id = parseInt(result);
+                //var id = 1000;
+                if (id > 0) {
+                    gvDocumentItemsCol.CancelEdit();
+                    pcModalMode.Hide()
+                }
+            });
+        }
+    }
+
+    function AddService() {
+        var Name = ServiceName.GetValue();
+        var Tax = ServiceTaxRateId.GetValue();
+        var Label = ServiceLabel.GetValue();
+        var Wsprice = WholesalePriceSrv.GetValue();
+        var Unit = ServiceUnitId.GetValue();
+        $("#myFormSrv").validate();
+        var v = $("#myFormSrv").valid();
+
+        if (v) {
+            //if (Name != null && Tax != null && Label != null && Wsprice != null && Unit != null) {
+            var actionUrl = '@Url.Content("~/MDEntities/Service/AddService")'
+            $.post(actionUrl, { Name: Name, Tax: Tax, Wsprice: Wsprice, Unit: Unit }, function (result) {
+                var id = parseInt(result);
+                //var id = 1000;
+                if (id > 0) {
+                    gvDocumentItemsCol.CancelEdit();
+                    pcModalModeSrv.Hide()
+                }
+            });
+        }
+
+    }
+
+
+    var idGl;
+    function GetDesc(id) {
+        idGl = id;
+        var actionUrl = '@Url.Content("~/Documents/Offer/GetDesc")'
+        $.post(actionUrl, { id: id }, function (result) { DescriptionDesc.SetValue(result) });
+        pcModalModeDesc.Show();
+    }
+
+    function AddDesc() {
+        var actionUrl = '@Url.Content("~/Documents/Offer/AddDesc")'
+        var memo = DescriptionDesc.GetText();
+        $.post(actionUrl, { id: idGl, desc: memo }, function (result) {
+            pcModalModeDesc.Hide();
+            gvDocumentItemsCol.Refresh();
+        });
+    }
+
+ // ]]>
+</script>
+
+
+@{
+    string caption = "Nova ponuda";
+    if (Model.UniqueIdentifier != "")
+    {
+        caption = "Ponuda br. " + Model.UniqueIdentifier;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "Offer", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);                                    
+    
+    @Html.Hidden("linkName", "KomercijalaParent")
+    @Html.Hidden("linkId", "OfferSpan")
+    
+      
+    @Html.Hidden("prevTecaj")
+    
+    @Html.Hidden("HiddenValueAction")     
+    
+ <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+     <div class="notifyBox " id="GeneratedDocsDiv" style="display:none">
+           <div id="invDiv" style="display:none">
+            <h3>Za dokument je kreiran račun.</h3>
+                    <ul>
+                    <li> Za prikaz kliknite <a id="invoice" href="#">ovdje</a></li>
+                    </ul>
+        </div>    
+        <div id="disDiv" style="display:none">
+            <h3>Za dokument je kreirana otpremnica.</h3>
+                    <ul>
+                    <li> Za prikaz kliknite <a id="dispatch" href="#">ovdje</a></li>
+                    </ul>
+        </div>   
+        <div id="quoDiv" style="display:none">
+            <h3>Za dokument je kreiran predračun.</h3>
+                    <ul>
+                    <li> Za prikaz kliknite <a id="quote" href="#">ovdje</a></li>
+                    </ul>
+        </div>    
+        <div id="copyDiv" style="display:none">
+            <h3>Dokument je kopiran.</h3>
+                    <ul>
+                    <li> Za prikaz kliknite <a id="copy" href="#">ovdje</a></li>
+                    </ul>
+        </div>        
+           </div>
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	    <h2 class="pt"><div class="span-22"> @caption </div></h2>
+    @*<a class="butPrimary " href="@Url.Content("~/Documents/Invoice/CreateAndEdit/0")">
+    <span> Novi račun </span>
+    </a>*@
+    <div id="MailPrint" class="span-23" style="text-align:right">
+    <a id="mailLink" href="#" id="mailLink" onclick="Mail();"><img id="mailImg" src="@Url.Content("~/Content/images/mail_send48.png")" title="Pošalji pdf na email" /></a>
+    <a id="printLink" href="#"  onclick="Print();"><img id="printImg" src="@Url.Content("~/Content/images/Printer_Blue48.png")" title="Ispiši dokument" /></a>
+    <h2 class='pt'></h2>
+	<div id="dashboard-create-new-panel" class="button-panel" >
+	<div class="dropdown-button large-green">
+	<span>Kreiraj</span>
+	<ul>
+		<li>
+		<a id="genInvoice" class="konj" href="#" onclick="jqConfirm('genInvoice');">
+		Račun&nbsp;
+		</a>
+	</li>
+		<li>
+		<a id="genQuote" class="konj" href="#" onclick="jqConfirm('genQuote');">
+		Predračun&nbsp;
+		</a>
+	</li>
+		<li>
+		<a id="genDispatch" class="konj" href="#" onclick="jqConfirm('genDispatch');">
+		Otpremnicu&nbsp;
+		</a>
+	</li>
+        <li>
+		<a id="genCopy" class="konj" href="#" onclick="jqConfirm('genCopy');">
+		Kopiju&nbsp;
+		</a>
+	</li>
+	</ul>
+</div>
+
+		</div>
+	
+<div class="clearb"></div>   
+
+
+
+    @*<a id="CreateDocInvoiceImg" href="#" onclick="jqConfirm('genInvoice');"><img  src="@Url.Content("~/Content/images/invoice-icon.png")" title="Kreiraj račun" alt="Kreiraj račun" /></a>
+    <a id="CreateDocQuoteImg" href="#" onclick="jqConfirm('genQuote');"><img  src="@Url.Content("~/Content/images/Quote-icon.png")" title="Kreiraj predračun" alt="Kreiraj predračun" /></a>
+    <a id="CreateDocDispatchImg" href="#" onclick="jqConfirm('genDispatch');"><img  src="@Url.Content("~/Content/images/Dispatch-icon.png")" title="Kreiraj otpremnicu" alt="Kreiraj otpremnicu" /></a>
+    <a id="CreateDocOfferImg" href="#" onclick="jqConfirm('genCopy');"><img  src="@Url.Content("~/Content/images/CopyIcon.png")" title="Kopiraj dokument" alt="Kopiraj dokument" /></a>*@
+    </div>
+    //CreateDoc
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+<div id="DefaultEmements">    
+                                            @*//Lijevi div*@
+	<div class="span-23" style="position: relative;">
+	    <div id="client_section">
+		    <div class="span-6 required form-layout-left">
+			    <label for="customerid" class="no-pointer">Klijent:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+			    @Html.DevExpress().ComboBox(settings => { settings.Name = "SubjectId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.ClientSideEvents.GotFocus = "function(s, e) { TecajToHiddenVal(); }"; settings.Properties.ClientSideEvents.ValueChanged = "SubjectIdChanged"; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(context.MDSubjects_Subject.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.SubjectType != (short)BusinessObjects.Common.SubjectType.Employee)).Bind(Model.SubjectId).GetHtml()
+                 <a href="#" onclick="showClientPopup()"><label id="lblAddClient">Dodaj klijenta</label></a>
+                <br />
+                @Html.CheckBox("Person")&nbsp;Klijent izvan šifarnika
+		    </div>
+        </div>
+
+       <div id="PersonDiv" style="display:none">
+		    <div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Ime klijenta:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "BillToAddress_Name"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BillToAddress_Name).GetHtml()
+		    </div>
+        </div>
+
+        <div id="AdresaKlijentaDiv" style="display:none">
+		    <div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Adresa:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                <label id="oib" class="no-pointer"></label><br />
+                <label id="ulica" class="no-pointer"></label>&nbsp;<label id="broj" class="no-pointer"></label><br />
+                <label id="mjesto" class="no-pointer"></label><br />
+		    </div>
+        </div>
+
+      
+
+        
+
+       <div id="client_section">
+		    <div class="span-6 form-layout-left">
+			  @Html.CheckBox("cBoxBillTo")
+              
+		    </div>
+		    <div class="span-16 form-layout-right">
+                @*@Html.DevExpress().CheckBox(settings => { settings.Name = "BillTo"; settings.Properties.ClientSideEvents.CheckedChanged = "function(s, e) { BillToFn(); }"; }).GetHtml()*@
+                <label for="customerid" class="no-pointer"><b>Račun slati na drugu adresu:</b></label>
+		    </div>
+        </div>
+       
+        <div id="BillToDiv"  style="display:none" >
+		    <div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Ulica i broj:</label>
+		    </div>
+		    <div class="span-16 form-layout-right">
+			    @Html.DevExpress().TextBox(settings => { settings.Name = "BillToAddress_Street"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BillToAddress_Street).GetHtml()
+		    </div>
+                
+           @*<div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Broj:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "BillToAddress_Number"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BillToAddress_Number).GetHtml()
+                
+		    </div>*@
+        
+		    <div class="span-6  form-layout-left">
+			    <label for="customerid" class="no-pointer">Mjesto:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                @Html.Partial("MjestaComboPartial", Model.BillToAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "BillToAddress_PlaceId" }, { "controllerName", "Offer" }, { "height", 20 }, { "width", 200 } })
+		    </div>
+        </div>
+
+        <div id="client_section">
+		    <div class="span-6 form-layout-left">
+			  @Html.CheckBox("cBoxShipTo")
+              
+		    </div>
+		    <div class="span-16 form-layout-right">
+                @*@Html.DevExpress().CheckBox(settings => { settings.Name = "BillTo"; settings.Properties.ClientSideEvents.CheckedChanged = "function(s, e) { BillToFn(); }"; }).GetHtml()*@
+                <label for="customerid" class="no-pointer"><b>Robu slati na drugu adresu:</b></label>
+		    </div>
+        </div>
+       
+        <div id="ShipToDiv"  style="display:none" >
+		    <div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Ulica i broj:</label>
+		    </div>
+		    <div class="span-16 form-layout-right">
+			    @Html.DevExpress().TextBox(settings => { settings.Name = "ShipToAddress_Street"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.ShipToAddress_Street).GetHtml()
+		    </div>
+                
+           @*<div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Broj:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "ShipToAddress_Number"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.ShipToAddress_Number).GetHtml()
+                
+		    </div>*@
+        
+		    <div class="span-6  form-layout-left">
+			    <label for="customerid" class="no-pointer">Mjesto:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                @Html.Partial("MjestaComboPartial2", Model.ShipToAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "ShipToAddress_PlaceId" }, { "controllerName", "Offer" }, { "height", 20 }, { "width", 200 } })
+		    </div>
+        </div>
+</div>
+
+    
+    
+                                            @*//Desni div*@
+<div class="span-23" id="desniDiv">
+	<div class="span-12 required form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Datum ponude:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().DateEdit(settings => { settings.Name = "DocumentDateTime"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.DocumentDateTime).GetHtml()
+
+	</div>
+
+    <div class="span-12 required form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Valjanost ponude:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().DateEdit(settings => { settings.Name = "MaturityDate"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.MaturityDate).GetHtml()
+
+	</div>
+
+    <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Planirani datum isporuke:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().DateEdit(settings => { settings.Name = "DispatchDate"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.DispatchDate).GetHtml()
+
+	</div>
+	
+    <div id="client_section">
+		    <div class="span-12  form-layout-left">
+			    <label for="customerid" class="no-pointer">Valuta:</label>
+		    </div>
+		    <div class="span-10 form-layout-right">
+			    @Html.DevExpress().ComboBox(settings => { settings.Name = "MDGeneral_Enums_CurrencyId"; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(BusinessObjects.MDGeneral.cMDGeneral_Enums_Currency_List.GetcMDGeneral_Enums_Currency_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.MDGeneral_Enums_CurrencyId ?? 0))).Bind(Model.MDGeneral_Enums_CurrencyId).GetHtml()
+		    </div>
+        </div>
+
+          <div id="client_section">
+		    <div class="span-12 form-layout-left">
+			    <label for="customerid" class="no-pointer">Tečaj:</label>
+		    </div>
+		    <div class="span-10 form-layout-right">
+			    @Html.DevExpress().SpinEdit(settings => { settings.Name = "CourseValue"; settings.Height = 24; settings.Width = 200; settings.Properties.DisplayFormatString = "n6"; settings.Properties.ClientSideEvents.GotFocus = "function(s, e) { TecajToHiddenVal(); }"; settings.Properties.ClientSideEvents.ValueChanged = "function(s, e) { Tecaj(); }"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 100000000; settings.Properties.DecimalPlaces = 6; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.CourseValue).GetHtml()
+		    </div>
+        </div>
+      
+        <div id="client_section">
+		    <div class="span-12 form-layout-left">
+			    <label for="customerid" class="no-pointer">Način isporuke:</label>
+		    </div>
+		    <div class="span-10 form-layout-right">
+			    @Html.DevExpress().ComboBox(settings => { settings.Name = "DispatchTypeId"; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(BusinessObjects.Documents.cDocuments_Enums_DispatchType_List.GetcDocuments_Enums_DispatchType_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.DispatchTypeId ?? 0))).Bind(Model.DispatchTypeId).GetHtml()
+		    </div>
+        </div>
+       
+        <div id="client_section">
+		    <div class="span-12 form-layout-left">
+			    <label for="customerid" class="no-pointer">Prijevoznik:</label>
+		    </div>
+		    <div class="span-10 form-layout-right">
+			    @Html.DevExpress().ComboBox(settings => { settings.Name = "DispatchCompanyId"; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(context.MDSubjects_Subject.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.SubjectType != (short)BusinessObjects.Common.SubjectType.Employee)).Bind(Model.DispatchCompanyId).GetHtml()
+		    </div>
+        </div>
+
+	
+	
+	</div>
+    <div class="clearb"></div>
+    
+     <div class="clearb"></div>
+     <table width="100%" border="0">
+    <tr>
+    <td width="68%" style="text-align:left">
+    <a class="butMedium green " href="#" onclick="gvDocumentItemsCol.AddNewRow()" title="Unesi novu stavku računa"><span> Dodaj stavku </span></a> 
+    </td>
+    <td width="16%" style="text-align:right">
+        <a class="butSmall green " href="#" onclick="showProductPopup()" title="Unesi novi vrstu artika u šifarnik artikala"><span> Kreiraj novi artikl </span></a> 
+    </td>
+
+    <td width="16%" style="text-align:right">
+        <a class="butSmall green " href="#" onclick="showServicePopup()" title="Unesi novu vrstu usluge u šifarnik usluga"><span> Kreiraj novu uslugu </span></a> 
+    </td>
+    </tr></table>
+    @Html.Partial("DocumentItemsColGridPartial", Model.Documents_ItemsCol, new ViewDataDictionary() { { "controllerName", "Offer" } })
+    <div class="totals">
+	<div class="rule top"></div>
+	
+    <div class="float_right">
+        <div class="box">
+		<table class="table-totals" cellspacing="0">
+			<tbody>			
+				<tr id="amount-row">
+					<td style="width: 20px">&nbsp;</td>
+					<th style="width: 150px">Ukupno: <span class="currency">(USD)</span></th>
+					<td class="last-column">@Html.DevExpress().Label(settings => { settings.Name = "Ukupno"; settings.Text = "0.00"; }).GetHtml()</td>
+				</tr>
+				<tr id="paid-row">
+					<td style="width: 20px">&nbsp;</td>
+					<th style="width: 150px">Pdv:</th>
+					<td class="last-column">@Html.DevExpress().Label(settings => { settings.Name = "Pdv"; settings.Text = "0.00"; }).GetHtml()</td>
+				</tr>
+                <tr id="paid-row">
+					<td style="width: 20px">&nbsp;</td>
+					<th style="width: 150px">Rabat:</th>
+					<td class="last-column">@Html.DevExpress().Label(settings => { settings.Name = "Rabat"; settings.Text = "0.00"; }).GetHtml()</td>
+				</tr>
+				<tr id="outstanding-row" class="invoice-total-box">
+					<td style="width: 20px">&nbsp;</td>
+					<th style="width: 150px">Za platiti:</th>
+					<td class="last-column">@Html.DevExpress().Label(settings => { settings.Name = "ZaPlatiti"; settings.Text = "0.00"; }).GetHtml()</td>
+				</tr>
+			</tbody>
+		</table>
+        </div>
+	</div>
+    </div>
+    
+    
+    <div class="clearb"></div>
+        <div class="append-bottom-1 form-layout">
+	<div class="span-20 append-4 append-bottom-1 iefix-2">
+		<label for="terms">Uvjeti</label>
+		@Html.DevExpress().Memo(settings => { settings.Name = "Conditions"; settings.Height = 60; settings.Width = 440; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Conditions).GetHtml()
+		
+	</div>
+    <div class="span-14 append-bottom-1">
+
+		<label for="notes">Opis isporuke</label>
+		@Html.DevExpress().Memo(settings => { settings.Name = "DispatchDescription"; settings.Height = 60; settings.Width = 440; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.DispatchDescription).GetHtml()
+	</div>
+	
+</div>
+    <div class="append-bottom-1 form-layout">
+	<div class="span-20 append-4 append-bottom-1 iefix-2">
+		<label for="terms">Napomena</label>
+		@Html.DevExpress().Memo(settings => { settings.Name = "Description"; settings.Height = 60; settings.Width = 920; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Description).GetHtml()
+		
+	</div>
+    
+	
+</div>
+    
+    
+   
+<div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit(); noUnload();">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/Documents/Offer/Odustani")" onclick="noUnload();" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+               
+  </div> 
+    
+
+    
+      <div id="printDiv" style="height:1000px; display:none">
+    @*<iframe name="frame" width="100%" height="100%" scrolling="no" frameborder="0">
+  <p>Your browser does not support iframes.</p>
+</iframe>*@ 
+@Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbar";
+                settings.ReportViewerName = "ReportViewer1";
+            }
+        ).GetHtml()
+
+        @Html.Partial("OfferReportPartial", ViewData["Report"], new ViewDataDictionary() { { "OfferId", ViewData["OfferId"] } })
+    </div>        
+                
+       
+    
+    <div id="mailDiv" style="height:1000px; display:none">
+            <div id='large-badges'></div><div id="mailErr" style="display:none" class='notifyBox bad'>
+                <h3>Greška prilikom slanja.</h3>
+                    <ul>
+                    <li> Detalji: </li>
+                        <ul>
+                        <li> <label id="mailErrLabel"></label> </li>
+                        </ul>
+                    </ul>
+                    
+            </div>
+
+            <div class="notifyBox " id="mailOk" style="display:none">
+            <h3>Poruka je uspjesno poslana.</h3>
+                    <ul>
+                    <li> Ponuda je poslana na adresu: </li>
+                        <ul>
+                        <li> <label id="mailOkLabel"></label> </li>
+                        </ul>
+                    </ul>
+            
+           </div>
+        <div class="clearb"></div>
+
+        <div class="span-23" style="position: relative;">
+	        
+		        <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Email adresa:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().TextBox(settings => { settings.Name = "SendTo"; settings.Width = 200; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+
+                <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">CC:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().TextBox(settings => { settings.Name = "SendToCC"; settings.Width = 200; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+            
+
+                <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">Subjekt poruke:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().TextBox(settings => { settings.Name = "Subject"; settings.Width = 200; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+
+                <div class="span-6  form-layout-left">
+			        <label for="customerid" class="no-pointer">Poruka:</label>
+
+		        </div>
+		        <div class="span-16 form-layout-right">
+			        @Html.DevExpress().Memo(settings => { settings.Name = "Body"; settings.Height = 80; settings.Width = 600; settings.ShowModelErrors = false; }).GetHtml()
+		        </div>
+
+                <div class="clearb"></div>
+    
+                <div class="span-40 append-1">
+                    <div class="span-16 append-1"></div>
+                    <div class="span-10 append-1">
+                            <a href="#" class="button_large launch-invitepop-invoice " onclick="SendReportByEmail()">
+                 
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pošalji&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                    </div>
+                    @*<div class="span-2 append-1"></div>
+                    <div class="span-10 append-1">
+                            <a href="@Url.Content("#")" class="button_large2 launch-invitepop-invoice " onclick="CloseMail()">
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                    </div>
+                    <div class="span-8 append-1"></div>*@
+                </div>
+
+        </div>
+    </div>   
+    
+    <div id="dialog" title="Molimo potvrdite">
+	        <p><span  class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><label id="dialogtext"></label></p>
+        </div>                                   
+}
+
+@using (Html.BeginForm("CreateAndEdit", "#", FormMethod.Post, new { id = "myFormPro", name = "myFormPro" }))
+{
+ @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalMode";
+            settings.Width = 100;
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = true;
+            settings.HeaderText = "Dodaj proizvod";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            settings.SetContent(() =>
+            {
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Naziv:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsS => { settingsS.Name = "ProductName"; settingsS.Height = 24; settingsS.Width = 200; settingsS.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Šifra:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsS => { settingsS.Name = "Label"; settingsS.Height = 24; settingsS.Width = 200; settingsS.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Porezna stopa:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingscb => { settingscb.Name = "TaxRateId"; settingscb.Width = 200; settingscb.Properties.TextField = "Name"; settingscb.Properties.ValueField = "Id"; settingscb.ShowModelErrors = false; }).BindList(contextEnt.MDEntities_Enums_TaxRate.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || p.CompanyUsingServiceId == 0)).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Jedinica mjere:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingsa => { settingsa.Name = "UnitId"; settingsa.Width = 200; settingsa.Properties.TextField = "Name"; settingsa.Properties.ValueField = "Id"; settingsa.ShowModelErrors = false; settingsa.Properties.ValueType = typeof(int); }).BindList(contextEnt.MDEntities_Enums_Unit.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || p.CompanyUsingServiceId == 0)).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Veleproajna cijena:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().SpinEdit(settingsSp => { settingsSp.Name = "WholesalePrice"; settingsSp.Properties.MaxValue = 9999999; settingsSp.Properties.DecimalPlaces = 2; settingsSp.Width = 200; settingsSp.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-12 form-layout-right\"><a class=\"butMedium green\"  onclick=\"AddProduct()\" href=\"#\"><span>Dodaj proizvod</span></a></div>");
+                //ViewContext.Writer.Write(");
+                //ViewContext.Writer.Write("</div><b class=\"Clear\"></b>");
+            });
+        }).GetHtml()
+}
+        @using (Html.BeginForm("CreateAndEdit", "#", FormMethod.Post, new { id = "myFormSrv", name = "myFormSrv" }))
+        {
+         @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalModeSrv";
+            settings.Width = 100;
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = true;
+            settings.HeaderText = "Dodaj uslugu";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            settings.SetContent(() =>
+            {
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Šifra:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsLbl => { settingsLbl.Name = "ServiceLabel"; settingsLbl.Height = 24; settingsLbl.Width = 200; settingsLbl.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Naziv:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsS => { settingsS.Name = "ServiceName"; settingsS.Height = 24; settingsS.Width = 200; settingsS.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Porezna stopa:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingscb => { settingscb.Name = "ServiceTaxRateId"; settingscb.Width = 200; settingscb.Properties.TextField = "Name"; settingscb.Properties.ValueField = "Id"; settingscb.ShowModelErrors = false; }).BindList(contextEnt.MDEntities_Enums_TaxRate.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || p.CompanyUsingServiceId == 0)).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Jedinica mjere:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingsq => { settingsq.Name = "ServiceUnitId"; settingsq.Width = 200; settingsq.Properties.TextField = "Name"; settingsq.Properties.ValueField = "Id"; settingsq.ShowModelErrors = false; settingsq.Properties.ValueType = typeof(int); }).BindList(contextEnt.MDEntities_Enums_Unit.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || p.CompanyUsingServiceId == 0)).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Veleproajna cijena:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().SpinEdit(settingsSp => { settingsSp.Name = "WholesalePriceSrv"; settingsSp.Properties.MaxValue = 9999999; settingsSp.Properties.DecimalPlaces = 2; settingsSp.Width = 200; settingsSp.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-12 form-layout-right\"><a class=\"butMedium green\"  onclick=\"AddService()\" href=\"#\"><span>Dodaj uslugu</span></a></div>");
+            });
+        }).GetHtml()
+        }
+        @using (Html.BeginForm("CreateAndEdit", "#", FormMethod.Post, new { id = "myFormCli", name = "myFormCli" }))
+        {
+
+        @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalModeCli";
+            settings.Width = 100;
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = true;
+            settings.HeaderText = "Dodaj klijenta";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            settings.SetContent(() =>
+            {
+                ViewContext.Writer.Write("<div class=\"span-6 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Vrsta klijenta:</label></div><div class=\"span-16 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingsSt => { settingsSt.Name = "SubjectType"; settingsSt.Properties.ClientSideEvents.ValueChanged = "PopupSubjectTypeChanged"; settingsSt.Properties.ValueField = "Id"; settingsSt.Properties.TextField = "Name"; settingsSt.Properties.ValueType = typeof(byte); settingsSt.Height = 24; settingsSt.Width = 200; settingsSt.ShowModelErrors = false; }).BindList(new AlphaWebCommodityBookkeeping.Areas.Documents.Models.SubjectTypes()).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-6 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Naziv klijenta:</label></div><div class=\"span-16 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsCli => { settingsCli.Name = "ClientName"; settingsCli.Height = 24; settingsCli.Width = 200; settingsCli.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div id=\"Oibdiv\" class=\"span-6 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">OIB:</label></div><div class=\"span-16 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsOib => { settingsOib.Name = "ClientOIB"; settingsOib.Properties.MaxLength = 11; settingsOib.Height = 24; settingsOib.Width = 200; settingsOib.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-6 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Mjesto:</label></div><div class=\"span-16 form-layout-right\">");
+                //@Html.Partial("MjestaComboPartial2", Model.ShipToAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "ShipToAddress_PlaceId11" }, { "controllerName", "Invoice" }, { "height", 20 }, { "width", 200 } });
+                @Html.DevExpress().ComboBox(
+                 cbsettings =>
+                 {
+                     cbsettings.Name = "Mjesta3";
+                     cbsettings.Height = 20;
+                     cbsettings.Width = 200;
+                     cbsettings.Properties.DropDownWidth = 350;
+                     cbsettings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                     cbsettings.CallbackRouteValues = new { Controller = "Offer", Action = "MjestaComboPartial3" };
+                     cbsettings.Properties.EnableCallbackMode = true;
+                     cbsettings.Properties.EnableSynchronization = DefaultBoolean.True;
+                     cbsettings.Properties.CallbackPageSize = 15;
+                     cbsettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                     cbsettings.Properties.TextField = "Name";
+                     cbsettings.Properties.TextFormatString = "{0}";
+                     cbsettings.Properties.ValueField = "Id";
+                     cbsettings.Properties.ConvertEmptyStringToNull = true;
+                     cbsettings.Properties.ValueType = typeof(int);
+                     cbsettings.Properties.FilterMinLength = 0;
+                     cbsettings.Properties.Columns.Add("Name", "Naziv", System.Web.UI.WebControls.Unit.Percentage(80));
+                     cbsettings.Properties.Columns.Add("Zip", "Pošt. broj", System.Web.UI.WebControls.Unit.Percentage(20));
+                 }
+                  ).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-6 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Ulica i broj:</label></div><div class=\"span-16 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsOib => { settingsOib.Name = "UlicaBroj"; settingsOib.Height = 24; settingsOib.Width = 200; settingsOib.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-16 form-layout-right\"><a class=\"butMedium green\"  onclick=\"AddClient()\" href=\"#\"><span>Dodaj klijenta</span></a></div>");
+
+
+            });
+        }).GetHtml()
+        }
+
+
+         @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalModeDesc";
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = true;
+            settings.HeaderText = "Dodaj napomenu";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.Middle;
+            settings.SetContent(() =>
+            {
+
+                @Html.DevExpress().Memo(settingsMemo => { settingsMemo.Name = "DescriptionDesc"; settingsMemo.Width = 800; settingsMemo.Height = 100; }).GetHtml();
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-12 form-layout-right\"><a class=\"butMedium green\"  onclick=\"AddDesc()\" href=\"#\"><span>Dodaj napomenu</span></a></div>");
+            });
+        }).GetHtml()

@@ -1,0 +1,157 @@
+﻿@model BusinessObjects.Projects.cProjects_Project_TeamMemebersCol
+
+ @{
+     DalEf.MDEntitiesEntities contextEnt = new DalEf.MDEntitiesEntities();
+     DalEf.MDSubjectsEntities contextSub = new DalEf.MDSubjectsEntities();
+      var grid = Html.DevExpress().GridView(
+                    settings =>
+                    {
+                        settings.Name = "gvProjectTeamMemebersCol";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.SettingsPager.PageSize = 5;
+                        settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                        settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+                        settings.CommandColumn.SetHeaderTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write(
+                                Html.DevExpress().HyperLink(settingsHy => { settingsHy.Name = "addNewTeamMemeber"; settingsHy.Properties.Text = "Dodaj"; settingsHy.Properties.ClientSideEvents.Click = "function NoviCLick(s, e) {gvProjectTeamMemebersCol.AddNewRow(); }"; }).GetHtml());
+                        });
+
+                        settings.CallbackRouteValues = new { Controller = "Project", Action = "RefreshProjectTeamMemebersColGridPartial" };
+                        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Project", Action = "AddNewItem" };
+                        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Project", Action = "UpdateItem" };
+                        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Project", Action = "DeleteItem" };
+                        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                        settings.SettingsBehavior.ConfirmDelete = true;
+                        settings.SettingsBehavior.AllowFocusedRow = true;
+
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.NewButton.Visible = false;
+                        settings.CommandColumn.NewButton.Text = "Novi";
+                        settings.CommandColumn.DeleteButton.Visible = true;
+                        settings.CommandColumn.DeleteButton.Text = "Obriši";
+                        settings.CommandColumn.EditButton.Visible = true;
+                        settings.CommandColumn.EditButton.Text = "Uredi";
+                        settings.CommandColumn.CancelButton.Text="Odustani";
+                        settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                        settings.CommandColumn.ShowSelectCheckbox = false;
+
+                        
+                        
+                        settings.KeyFieldName = "Id";
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "MDSubjects_SubjectId";
+                            column.Caption = "Izvršitelj projekta";
+                            column.Width = 150;
+                            var items = contextSub.vContractors.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+                            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                            comboBoxProperties.Height = 20;
+                            comboBoxProperties.DataSource = items;
+                            comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                            comboBoxProperties.FilterMinLength = 0;
+                            comboBoxProperties.TextField = "Name";
+                            comboBoxProperties.ValueField = "Id";
+                            comboBoxProperties.ValueType = typeof(int);
+                            comboBoxProperties.Width = 150;
+                            //comboBoxProperties.ClientSideEvents.ValueChanged = "ProductIdChanged";
+                        });
+                        
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "MDEntities_ServiceId";
+                            column.Caption = "Usluga";
+                            column.Width = 150;
+                            var items = contextEnt.MDEntities_Entity.OfType<DalEf.MDEntities_Service>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+                            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                            comboBoxProperties.Height = 20;
+                            comboBoxProperties.DataSource = items;
+                            comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                            comboBoxProperties.FilterMinLength = 0;
+                            comboBoxProperties.TextField = "Name";
+                            comboBoxProperties.ValueField = "Id";
+                            comboBoxProperties.ValueType = typeof(int);
+                            comboBoxProperties.Width = 150;
+                            //comboBoxProperties.ClientSideEvents.ValueChanged = "ProductIdChanged";
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Id";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Visible = false;
+
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+                            spinEditProperties.NullText = "0";
+                            
+                          
+                        });
+
+                            settings.Columns.Add(column =>
+                          {
+                              column.FieldName = "ContractorRebillRatePerHour";
+                              column.Caption = "Cijena po satu";
+                              column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                              column.Width = 100;
+                              var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                              spinEditProperties.AllowNull = false;
+                              spinEditProperties.DecimalPlaces = 2;
+                              spinEditProperties.DisplayFormatString = "c";
+                              spinEditProperties.DisplayFormatInEditMode = false;
+                              spinEditProperties.MinValue = 0;
+                              spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                              spinEditProperties.Width = 100;
+                              //spinEditProperties.ClientSideEvents.ValueChanged = "JedCijena";
+                          });
+
+                           
+
+                            settings.Columns.Add(column =>
+                            {
+                                column.FieldName = "ContractoRebillFlatAmount";
+                                column.Caption = "Ugovorena cijena";
+                                column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                                column.Visible = false;
+                                var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                                spinEditProperties.AllowNull = false;
+                                spinEditProperties.DecimalPlaces = 2;
+                                spinEditProperties.DisplayFormatString = "c";
+                                spinEditProperties.DisplayFormatInEditMode = true;
+                                spinEditProperties.MinValue = 0;
+                                spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                                spinEditProperties.Width = 70;
+                                
+                            });
+
+                         
+
+                     
+                        
+                        settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                        settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+                        //settings.ClientSideEvents.Init = "function(s, e){ OnInit(s, e) }";
+                        
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "WholesaleValue");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TaxAmmount");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Custom)
+                        //settings.Settings.ShowFooter = true;
+                        //settings.Settings.ShowGroupFooter = true;
+
+                    });
+   }
+                  @grid.Bind(Model).GetHtml()

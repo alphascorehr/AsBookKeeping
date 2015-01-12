@@ -1,0 +1,37 @@
+﻿@model int?
+
+
+    @Html.DevExpress().ComboBox(
+             settings =>
+             {
+                 settings.Name = ViewData["cmbMjestaName"].ToString();
+                 settings.Height = (int)ViewData["height"];
+                 settings.Width = (int)ViewData["width"];
+                 settings.Properties.DropDownWidth = 350;
+                 settings.Properties.DropDownStyle = DropDownStyle.DropDown;
+                 settings.CallbackRouteValues = new { Controller = ViewData["controllerName"].ToString(), Action = "MjestaComboPartial3" };
+                 settings.Properties.EnableCallbackMode = true;
+                 settings.Properties.EnableSynchronization = DefaultBoolean.True;
+                 settings.Properties.CallbackPageSize = 15;
+                 settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                 settings.Properties.TextField = "Name";
+                 settings.Properties.TextFormatString = "{0}";
+                 settings.Properties.ValueField = "Id";
+                 settings.Properties.ConvertEmptyStringToNull = true;
+                 //settings.Properties.ClientSideEvents.Init = "MjestaComboInit";
+                 //settings.Properties.ClientSideEvents.Validation = "MjestaComboValidation";
+                 //settings.Properties.ClientSideEvents.DropDown = "MjestaComboDropDown";
+                 //settings.Properties.ClientSideEvents.Init = "function(s, e){ Key1.Value = '@Model.Key' }";
+                 //settings.Properties.DataSource = (KreditniZahtjevBusinessObjects.cMjestaList)ViewData["cmbMjesta"];
+                 settings.Properties.ValueType = typeof(int);
+                 //settings.Properties.ClientSideEvents.SelectedIndexChanged = "OnIndexChange";
+                 settings.Properties.FilterMinLength = 0;
+                 settings.Properties.Columns.Add("Name", "Naziv", System.Web.UI.WebControls.Unit.Percentage(80));
+                 settings.Properties.Columns.Add("Zip", "Pošt. broj", System.Web.UI.WebControls.Unit.Percentage(20));
+                 //settings.Properties.ClientSideEvents.BeginCallback = "OnStartCallback";
+                 //settings.Properties.ClientSideEvents.EndCallback = "OnComboEndCallback";
+                 //settings.Properties.ClientSideEvents.SelectedIndexChanged = "OnSelectedIndexChanged";
+                 //settings.Properties.ClientSideEvents.Init = "MjestaComboInit";
+                 
+             }
+              ).BindList(AlphaWebCommodityBookkeeping.Models.MjestaComboProvider3.GetPersonsRange, AlphaWebCommodityBookkeeping.Models.MjestaComboProvider.GetPersonByID).Bind(Model).GetHtml()

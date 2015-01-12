@@ -1,0 +1,274 @@
+﻿@model BusinessObjects.Documents.cDocuments_PriceList_ItemsCol
+
+ @{
+     DalEf.MDEntitiesEntities contextEnt = new DalEf.MDEntitiesEntities();
+      var grid = Html.DevExpress().GridView(
+                    settings =>
+                    {
+                        settings.Name = "gvPriceListCol";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.SettingsPager.PageSize = 5;
+                        settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                        settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+                        settings.CallbackRouteValues = new { Controller = "PriceList", Action = "RefreshPriceListColGridPartial" };
+                        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "PriceList", Action = "AddNewItem" };
+                        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "PriceList", Action = "UpdateItem" };
+                        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "PriceList", Action = "DeleteItem" };
+                        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                        settings.SettingsBehavior.ConfirmDelete = true;
+
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.NewButton.Visible = false;
+                        settings.CommandColumn.NewButton.Text = "Novi";
+                        settings.CommandColumn.DeleteButton.Visible = true;
+                        settings.CommandColumn.DeleteButton.Text = "Obriši";
+                        settings.CommandColumn.EditButton.Visible = true;
+                        settings.CommandColumn.EditButton.Text = "Uredi";
+                        settings.CommandColumn.CancelButton.Text="Odustani";
+                        settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                        settings.CommandColumn.EditButton.Image.Url = @Url.Content("~/Content/images/pls_uredi_16.png");
+                        settings.CommandColumn.EditButton.Image.ToolTip = "Uredi";
+                        settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                        settings.CommandColumn.DeleteButton.Image.Url = @Url.Content("~/Content/images/pls_brisi_16.png");
+                        settings.CommandColumn.DeleteButton.Image.ToolTip = "Očisti rezultate pretrage";
+                        settings.CommandColumn.UpdateButton.Image.Url = @Url.Content("~/Content/images/pls_snimi_16.png");
+                        settings.CommandColumn.UpdateButton.Image.ToolTip = "Očisti rezultate pretrage";
+                        settings.CommandColumn.CancelButton.Image.Url = @Url.Content("~/Content/images/pls_zatvori_16.png");
+                        settings.CommandColumn.CancelButton.Image.ToolTip = "Očisti rezultate pretrage";
+                        settings.CommandColumn.ClearFilterButton.Visible = true;
+
+                        settings.CommandColumn.Width = 40;
+                        
+                        settings.KeyFieldName = "Ordinal";
+                        settings.CommandColumn.SetHeaderTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write(
+                                Html.DevExpress().HyperLink(settingsHy => { settingsHy.Name = "addNewPriceListCol"; settingsHy.Properties.Text = "Dodaj"; settingsHy.Properties.ImageUrl = @Url.Content("~/Content/images/pls_dodaj_16.png"); settingsHy.Properties.ClientSideEvents.Click = "function NoviCLick(s, e) {gvPriceListCol.AddNewRow(); }"; }).GetHtml());
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Ordinal";
+                            column.ReadOnly = true;
+                            column.Caption = "Rbr.";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 50;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 0;
+                            spinEditProperties.DisplayFormatString = "n0";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 0;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            spinEditProperties.Width = 50;
+                        });
+                        
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "MDEntities_EntityId";
+                            column.Caption = "Proizvod";
+                            //column.Width = 300;
+                            var items = contextEnt.MDEntities_Entity.OfType<DalEf.MDEntities_Product>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+                            column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                            var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                            comboBoxProperties.Height = 20;
+                            comboBoxProperties.DataSource = items;
+                            comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                            comboBoxProperties.FilterMinLength = 0;
+                            comboBoxProperties.TextField = "Name";
+                            comboBoxProperties.ValueField = "Id";
+                            comboBoxProperties.ValueType = typeof(int);
+                            //comboBoxProperties.Width = 300;
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Id";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Visible = false;
+
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+                            spinEditProperties.NullText = "0";
+                            
+                          
+                        });
+
+                            settings.Columns.Add(column =>
+                          {
+                              column.FieldName = "CalcualtedWholesalePrice";
+                              column.Caption = "Izračunata Veleprodajna Cijena";
+                              column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                              //column.Width = 200;
+                              var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                              spinEditProperties.AllowNull = false;
+                              spinEditProperties.DecimalPlaces = 2;
+                              spinEditProperties.DisplayFormatString = "c";
+                              spinEditProperties.DisplayFormatInEditMode = false;
+                              spinEditProperties.MinValue = 0;
+                              spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                              //spinEditProperties.Width = 200;
+                          });
+
+                            //settings.Columns.Add(column =>
+                            //{
+                            //    column.FieldName = "UnitId";
+                            //    column.Caption = "Jed. mjere";
+                            //    column.Width = 80;
+
+                            //    var items = contextEnt.MDEntities_Enums_Unit;
+
+                            //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                            //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                            //    comboBoxProperties.Height = 20;
+                            //    comboBoxProperties.DataSource = items;
+                            //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                            //    comboBoxProperties.FilterMinLength = 0;
+                            //    comboBoxProperties.TextField = "Label";
+                            //    comboBoxProperties.ValueField = "Id";
+                            //    comboBoxProperties.ValueType = typeof(int);
+                            //    comboBoxProperties.Width = 80;
+                            //});
+
+                         
+                            settings.Columns.Add(column =>
+                            {
+                                column.FieldName = "WholesalePrice";
+                                column.Caption = "Veleprodajna cijena";
+                                column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                                //column.Width = 200;
+                                var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                                spinEditProperties.AllowNull = false;
+                                spinEditProperties.DecimalPlaces = 2;
+                                spinEditProperties.DisplayFormatString = "c";
+                                spinEditProperties.DisplayFormatInEditMode = true;
+                                spinEditProperties.MinValue = 0;
+                                spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                                //spinEditProperties.Width = 200;
+                            });
+
+                            //settings.Columns.Add(column =>
+                            //{
+                            //    column.FieldName = "WholesalePriceOption1";
+                            //    column.Caption = "Veleprodajnacijena opcija 1";
+                            //    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            //    column.Visible = false;
+                            //    var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            //    spinEditProperties.AllowNull = false;
+                            //    spinEditProperties.DecimalPlaces = 2;
+                            //    spinEditProperties.DisplayFormatString = "c";
+                            //    spinEditProperties.DisplayFormatInEditMode = true;
+                            //    spinEditProperties.MinValue = 0;
+                            //    spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            //    spinEditProperties.Width = 70;
+                            //});
+
+                            //settings.Columns.Add(column =>
+                            //{
+                            //    column.FieldName = "TaxRateId";
+                            //    column.Caption = "Por. stopa";
+                            //    column.Width = 70;
+                            //    var items = contextEnt.MDEntities_Enums_TaxRate;
+                                
+                            //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                            //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                            //    comboBoxProperties.Height = 20;
+                            //    comboBoxProperties.DataSource = items;
+                            //    comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                            //    comboBoxProperties.FilterMinLength = 0;
+                            //    comboBoxProperties.TextField = "Name";
+                            //    comboBoxProperties.ValueField = "Id";
+                            //    comboBoxProperties.ValueType = typeof(int);
+                            //    comboBoxProperties.Width = 70;
+                            //});
+
+                            //settings.Columns.Add(column =>
+                            //{
+                            //    column.FieldName = "TaxAmmount";
+                            //    column.Caption = "Rabat iznos";
+                            //    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            //    column.Visible = false;
+                            //    var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            //    spinEditProperties.AllowNull = false;
+                            //    spinEditProperties.DecimalPlaces = 2;
+                            //    spinEditProperties.DisplayFormatString = "c";
+                            //    spinEditProperties.DisplayFormatInEditMode = true;
+                            //    spinEditProperties.MinValue = 0;
+                            //    spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            //    spinEditProperties.Width = 70;
+                            //});
+
+                            //settings.Columns.Add(column =>
+                            //{
+                            //    column.FieldName = "Ammount";
+                            //    column.Caption = "Jed. cijena";
+                            //    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            //    column.Width = 100;
+                            //    var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            //    spinEditProperties.AllowNull = false;
+                            //    spinEditProperties.DecimalPlaces = 2;
+                            //    spinEditProperties.DisplayFormatString = "c";
+                            //    spinEditProperties.DisplayFormatInEditMode = true;
+                            //    spinEditProperties.MinValue = 0;
+                            //    spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            //    spinEditProperties.Width = 100;
+                            //});
+
+                            //settings.Columns.Add(column =>
+                            //{
+                            //    column.FieldName = "Quantity";
+                            //    column.Caption = "Količina";
+                            //    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            //    column.Width = 70;
+                            //    var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            //    spinEditProperties.AllowNull = false;
+                            //    spinEditProperties.DecimalPlaces = 2;
+                            //    spinEditProperties.DisplayFormatString = "n2";
+                            //    spinEditProperties.DisplayFormatInEditMode = true;
+                            //    spinEditProperties.MinValue = 0;
+                            //    spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            //    spinEditProperties.Width = 70;
+                            //});
+                        
+                         //settings.Columns.Add(column =>
+                         //   {
+                         //       column.FieldName = "WholesaleValue";
+                         //       column.Caption = "Ukupno";
+                         //       column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                         //       column.Width = 100;
+                         //       var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                         //       spinEditProperties.AllowNull = false;
+                         //       spinEditProperties.DecimalPlaces = 2;
+                         //       spinEditProperties.DisplayFormatString = "c";
+                         //       spinEditProperties.DisplayFormatInEditMode = true;
+                         //       spinEditProperties.MinValue = 0;
+                         //       spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                         //       spinEditProperties.Width = 100;
+                         //   });
+                       
+                        
+
+                        settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                        settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+                    });
+   }
+                  @grid.Bind(Model).GetHtml()

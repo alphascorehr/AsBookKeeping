@@ -1,0 +1,130 @@
+﻿@model List<DalEf.vPaymentsInAdvance>
+
+@using System.Data
+
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvFreeAvansesGrid";
+                settings.CallbackRouteValues = new { Controller = "IncomingInvoice", Action = "RefreshFreeAvansesGridPartial" };
+
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                //settings.Settings.ShowFilterRow = true;
+                //settings.Settings.ShowFilterRowMenu = true;
+                //settings.SettingsPager.PageSize = 13;
+                //settings.CommandColumn.Visible = true;
+                //settings.CommandColumn.ClearFilterButton.Visible = true;
+                //settings.CommandColumn.ClearFilterButton.Text = "Očisti";
+
+                //settings.Columns.Add(column =>
+                //{
+                //    //column.Caption = "#";
+                //    column.SetDataItemTemplateContent(c =>
+                //    {
+                //        ViewContext.Writer.Write(
+                            
+                //            Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }, new { @class = "gridEditButton" }) + "&nbsp" +
+                //            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                //                new { onclick = "return confirm('Da li stvarno želite obrisati?')", @class = "gridDelButton" })
+                //        );
+                //    });
+                //    //column.SetHeaderTemplateContent(c =>
+                //    //{
+                //    //    ViewContext.Writer.Write(
+                //    //        Html.ActionLink("Nova faktura", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                //    //    );
+                //    //});
+                //    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                //    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                //    column.Width = 40;
+                //});
+
+                settings.KeyFieldName = "PaymentItemId";
+                
+                //settings.Settings.ShowFilterRow = false;
+                //settings.Settings.ShowGroupPanel = false;
+                //settings.Settings.ShowFooter = false;
+              
+
+                settings.Columns.Add("UniqueIdentifier", "Broj izv.", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("DocumentDateTime", "Datum izv.", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                settings.Columns.Add("Ammount", "Iznos avansa", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+                settings.Columns.Add("AdvancePaymentAmmount", "Slobodno", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+
+                   settings.Columns.Add(column =>
+                       {
+
+                           column.FieldName = "UseForClosing";
+                           column.Caption = "Zatvori";
+                           column.Width = 150;
+                           column.SetDataItemTemplateContent(c =>
+                           {
+                               Html.DevExpress().CheckBox(checkSettings =>
+                                   {
+                                       checkSettings.Name = "UseForClosing" + c.KeyValue;
+                                       checkSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                       checkSettings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+                                      
+
+                                       checkSettings.ControlStyle.BackColor = System.Drawing.Color.Green;
+                                       //spinSettings.Properties.ClientSideEvents.ValueChanged = String.Format("function(s,e) {{ OnPaymentValueChanged(s, '{0}', {1}, '{2}', '{3}', '{4}') }}" ,
+                                       //c.Column.FieldName, c.KeyValue, (c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue")).ToString().Replace(",", "."), (c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillDocument")).ToString().Replace(",", "."), Url.Action("UpdateValue", "Payments", new { area = "Documents" }));
+                                       checkSettings.Properties.ClientSideEvents.ValueChanged = String.Format("function(s,e) {{ UseForClosingValueChanged(s, {0}, '{1}') }}",
+                                         c.KeyValue, Url.Action("UpdateFreeAvans", "Invoice", new { area = "Documents" }));
+
+
+
+
+                                   }).Bind(DataBinder.Eval(c.DataItem, c.Column.FieldName)).GetHtml();
+                           });
+
+                       });
+
+
+                   settings.Columns.Add(column =>
+                   {
+                       column.FieldName = "AmmountForClosing";
+                       column.Caption = "Iznos";
+                       column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                       column.Width = 100;
+                       var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                       spinEditProperties.AllowNull = false;
+                       spinEditProperties.DecimalPlaces = 2;
+                       spinEditProperties.DisplayFormatString = "n2";
+                       spinEditProperties.DisplayFormatInEditMode = false;
+                       spinEditProperties.MinValue = 0;
+                       spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                       spinEditProperties.Width = 100;
+
+                   });
+                
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "Percentage";
+                //    column.Caption = "Postotak";
+
+                //    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit;
+
+                //    var spinProperties = column.PropertiesEdit as DevExpress.Web.ASPxEditors.SpinEditProperties;
+
+                //    spinProperties.Height = 20;
+                //    spinProperties.MinValue = 0;
+                //    spinProperties.DecimalPlaces = 1;
+                //});
+
+                
+                //settings.Columns.Add("Percentage", "Postotak" , DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                //settings.Columns.Add("Description", "Opis", DevExpress.Web.Mvc.MVCxGridViewColumnType.Memo);
+
+               
+                //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).Bind(Model).GetHtml()

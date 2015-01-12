@@ -1,0 +1,333 @@
+﻿@model BusinessObjects.MDSubjects.cMDSubjects_Obrt
+          
+
+@{
+    ViewBag.Title = "CreateAndEdit";
+}
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+    var selectedName = "";
+
+    $.validator.setDefaults({
+        submitHandler: function() {
+           document.myForm.submit();
+        }
+    });
+
+    $().ready(function() {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                OIB: {
+                    required: true,
+                    oib: true,
+                    digits: true,
+                    //remote: '@Url.Action("IsOibUnique", "Account")'
+                },
+                ImeVlasnika: "required",
+                PrezimeVlasnika: "required",
+                HomeAddress_PlaceId: "required"
+            },
+            messages: {
+                OIB: { required: "Molimo, unesite OIB", oib: "Neispravan OIB", remote: "Vec registriran"},
+                ImeVlasnika: "Molimo unesite ime",
+                PrezimeVlasnika: "Molimo unesite prezime",
+                HomeAddress_PlaceId: "Molimo unesite mjesto"
+            }
+        });
+
+    });
+
+    
+
+    function MjestaComboInit(s, e) {
+        var data = {};
+
+        if (s.lastChangedValue != null) {
+            data.id = s.lastChangedValue.toString()
+
+            $.post("http://localhost:2150/MDSubjects/Obrt/SearchMjestaById", data, function (data) {
+                if (data.Success) {
+
+                    selectedName = data.Results.Name
+                    s.filterStrategy.filter = selectedName
+                    s.inputElement.value = selectedName
+                    
+                }
+                else {
+                    // nothing found
+                }
+
+            });
+        }
+    }
+
+    function MjestaComboValidation(s, e) {
+        if (e.value == null || e.value == "")
+            return;
+
+        var mjestoId = Number(e.value);
+        if (isNaN(mjestoId))
+            e.isValid = false;
+    }
+
+    function OnStartCallback(s, e) {
+        return false;
+    }
+    function OnEndCallback(s, e) {
+        return false;
+    }
+
+    function onEdit(e) {
+
+    }
+
+  // ]]>
+</script>
+
+@{
+    string caption = "Novi obrt";
+    if (Model.Name != "")
+    {
+        caption = "Obrt  " + Model.Name;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "Obrt", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);
+    
+    
+                                                         
+    @Html.Hidden("linkName", "KlijentiParent")
+    
+    
+    <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	    <h2 class="pt"><div class="span-22"> @caption </div></h2>
+   
+
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+<div id="DefaultEmements">    
+                                            @*//Lijevi div*@
+	<div class="span-23" style="position: relative;">
+	    <div id="client_section">
+		    <div class="span-7 required form-layout-left">
+			    <label for="customerid" class="no-pointer">Naziv obrta:</label>
+
+		    </div>
+		    <div class="span-15 form-layout-right">
+			    @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+		    </div>
+        </div>
+
+                <div class="span-7 required form-layout-left">
+		    <label for="customerid" class="no-pointer">OIB:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().TextBox(settings => { settings.Name = "OIB"; settings.Properties.MaxLength = 11; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.OIB).GetHtml()
+		</div>
+
+        <div class="span-7  form-layout-left">
+		    <label for="customerid" class="no-pointer">Jmbg:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().TextBox(settings => { settings.Name = "JMBG"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.JMBG).GetHtml()
+		</div>
+
+          <div class="span-7 required form-layout-left">
+		    <label for="customerid" class="no-pointer">Ime vlasnika:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().TextBox(settings => { settings.Name = "ImeVlasnika"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.ImeVlasnika).GetHtml()
+		</div>
+       
+          <div class="span-7 required form-layout-left">
+		    <label for="customerid" class="no-pointer">Prezime vlasnika:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().TextBox(settings => { settings.Name = "PrezimeVlasnika"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.PrezimeVlasnika).GetHtml()
+		</div>
+
+           <div class="span-7  form-layout-left">
+		    <label for="customerid" class="no-pointer">Sezonski obrt:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().CheckBox(settings => { settings.Name = "SezonskiObrt"; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.SezonskiObrt).GetHtml()
+		</div>
+
+               <div class="span-7  form-layout-left">
+		    <label for="customerid" class="no-pointer">Osnovna djelatnost:</label>
+
+		</div>
+		<div class="span-15 form-layout-right">
+	        @Html.DevExpress().ComboBox(settings => { settings.Name = "MDSubjects_Enums_CoreBussinessId"; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(BusinessObjects.MDSubjects.cMDSubjects_Enums_CoreBussiness_List.GetcMDSubjects_Enums_CoreBussiness_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.MDSubjects_Enums_CoreBussinessId ?? 0))).Bind(Model.MDSubjects_Enums_CoreBussinessId).GetHtml()
+		</div>
+      
+
+        
+       
+       
+</div>
+
+    
+    
+                                            @*//Desni div*@
+<div class="span-23">
+	<div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title=""></span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		<b>Adresa sjedišta:
+        
+	</div>
+
+    <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Ulica i broj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "HomeAddress_Street"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.HomeAddress_Street).GetHtml()
+
+	</div>
+
+@*     <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Broj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right"> 
+		@Html.DevExpress().TextBox(settings => { settings.Name = "HomeAddress_Number"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.HomeAddress_Number).GetHtml()
+
+	</div>*@
+
+
+       <div class="span-12 required form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Mjesto:</span></label>
+	</div>
+	<div class="span-10 form-layout-right"> 
+		@Html.Partial("MjestaComboPartial", Model.HomeAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "HomeAddress_PlaceId" }, { "controllerName", "Obrt" }, { "height", 20 }, { "width", 200 } })
+
+	</div>
+
+    
+
+     <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title=""></span></label>
+	</div>
+	<div class="span-10 form-layout-right"> 
+		<b>Račun slati na adresu:
+
+	</div>
+
+    <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Ulica i broj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right"> 
+		@Html.DevExpress().TextBox(settings => { settings.Name = "BillToAddress_Street"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BillToAddress_Street).GetHtml()
+
+	</div>
+
+@*    <div class="span-12  form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Broj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "BillToAddress_Number"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BillToAddress_Number).GetHtml()
+
+	</div>*@
+	
+    <div id="client_section">
+		    <div class="span-12  form-layout-left">
+			    <label for="customerid" class="no-pointer">Mjesto:</label>
+		    </div>
+		    <div class="span-10 form-layout-right">
+			    @Html.Partial("MjestaComboPartial", Model.BillToAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "BillToAddress_PlaceId" }, { "controllerName", "Company" }, { "height", 20 }, { "width", 200 } })
+		    </div>
+        </div>
+
+    
+      
+   
+
+	
+	
+	</div>
+    <div class="clearb"></div>
+   
+    @Html.Partial("AccountsColGridPartial", Model.MDSubjects_Subject_AccountsCol, new ViewDataDictionary() { { "controllerName", "Obrt" } })
+    <br>
+                     
+    @Html.Partial("ContactsColGridPartial", Model.MDSubjects_Subject_ContactsCol, new ViewDataDictionary() { { "controllerName", "Obrt" } })
+    
+    <div class="clearb"></div>
+        <div class="append-bottom-1 form-layout">
+	<div class="span-20 append-4 append-bottom-1 iefix-2">
+		<label for="terms">BillToAddress_Description</label>
+		@Html.DevExpress().Memo(settings => { settings.Name = "BillToAddress_Description"; settings.Height = 60; settings.Width = 440; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BillToAddress_Description).GetHtml()
+		
+	</div>
+    <div class="span-14 append-bottom-1">
+
+		<label for="notes">HomeAddress_Description</label>
+		@Html.DevExpress().Memo(settings => { settings.Name = "HomeAddress_Description"; settings.Height = 60; settings.Width = 440; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.HomeAddress_Description).GetHtml()
+	</div>
+	
+</div>
+    <div class="append-bottom-1 form-layout">
+	<div class="span-20 append-4 append-bottom-1 iefix-2">
+		<label for="terms">Opis djelatnosti</label>
+		@Html.DevExpress().Memo(settings => { settings.Name = "DjelatnostOpis"; settings.Height = 60; settings.Width = 920; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.DjelatnostOpis).GetHtml()
+		
+	</div>
+    
+	
+</div>
+    
+    
+   
+<div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/MDSubjects/Obrt/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+               
+  </div> 
+    <div id="printDiv" style="height:480px; display:none">TODO: Ispis dokumenta za printanje</div>       
+                
+    
+                 
+}
+

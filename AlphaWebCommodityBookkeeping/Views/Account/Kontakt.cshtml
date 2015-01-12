@@ -1,0 +1,119 @@
+﻿ <script type="text/javascript">
+
+     $.validator.setDefaults({
+         submitHandler: function () {
+             document.myForm.submit();
+
+         }
+     });
+
+     $(document).ready(function () {
+         $("#myForm").validate({
+             rules: {
+                 emailAddr: { required: true, email: true },
+                 Body: "required"
+             },
+             messages: {
+                 emailAddr: { required: "Obavezno polje", email: "Neispravna email adresa" },
+                 Body: "Obavezno polje"
+             }
+
+         });
+
+         if ('@ViewData["Ret"]' == "ok") {
+             $('#mailOk').fadeIn('slow');
+             $('#mailErr').hide();
+         }
+         else if ('@ViewData["Ret"]' == "err") {
+             $('#mailErr').fadeId('slow');
+             $('#mailOk').hide();
+         }
+     });
+    
+    </script>
+    @if (!Request.IsAuthenticated)
+    {
+    <br /><br />
+    }
+ <h2>Kontakt i podrška</h2>
+  <div id='large-badges'></div><div id="mailErr" style="display:none" class='notifyBox bad'>
+                <h3>Greška prilikom slanja.</h3>
+                   @* <ul>
+                    <li>  Molimo provjerite e</li>
+                        <ul>
+                        <li> <label id="mailErrLabel"></label> </li>
+                        </ul>
+                    </ul>*@
+                    <br /><br />
+                    
+            </div>
+             <div class="notifyBox " id="mailOk" style="display:none">
+            <h3>Poruka je uspješno poslana.</h3>
+                    <ul>
+                    <li> Zahvaljujemo na upitu </li>
+                       @* <ul>
+                        <li> <label id="mailOkLabel"></label> </li>
+                        </ul>*@
+                    </ul>
+            
+           </div>
+        <div class="clearb"></div>
+@if (Request.IsAuthenticated)
+{
+
+
+
+
+    DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+    string email = "";
+    var itemSubject = context.Auth_Company.FirstOrDefault(p => p.Id == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+    if (itemSubject != null)
+    {
+        email = itemSubject.Email;
+    }
+
+        <label>Odgovor će biti poslan na adresu<b> @email </b></label>
+
+  
+
+
+}
+
+
+
+
+
+
+
+  @using (Html.BeginForm("Kontakt", "Account", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+  {
+      
+      if (!Request.IsAuthenticated)
+      {
+            <br /><br />
+            <div class="clearb"></div>
+                      <table><tr>
+                <td>
+            <label>Vaša email adresa:&nbsp;&nbsp;  </label></td><td>
+            @Html.DevExpress().TextBox(settings => { settings.Name = "emailAddr"; settings.Width = 200; settings.Properties.MaxLength = 60; }).GetHtml()
+            </td></tr></table>
+      }
+
+      Html.DevExpress().Memo(settings => { settings.Name = "Body"; settings.Width = System.Web.UI.WebControls.Unit.Percentage(100); settings.Height = 300; }).GetHtml();
+      
+        <br />
+        <div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pošalji&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+               @* <a href="@Url.Content("~/Documents/TakeOverOfGoods/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>*@
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+  }

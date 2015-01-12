@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+
+<div id="kzlist">
+<div id="kzlisttop"></div>
+<div id="kzlistmiddle">
+<h2 style="font-size:24px;color:#5c5c5c; font-family:Arial; margin-top:20px; margin-left:5px; font-weight:normal;  text-shadow: 1px 1px 0px #fff;">Osobe</h2>
+
+@* <p>
+        @Html.ActionLink("Dodaj", "CreateAndEdit", new { id = 0 }) |
+    </p>
+    <table border="0" style="width:85%; margin-top:10px;" align="left">
+        <tr height="33" style="background-color:#c7c7c7; font-family:Verdana, Geneva, sans-serif; font-size:10px; font-weight:bold; color:#5c5c5c;  text-shadow: 1px 1px 0px #e5e5e5; ">
+           
+            <th style="width: 70%; border-left: 1px solid #818181; border-top: 1px solid #818181;border-bottom: 1px solid #fff;">
+                Naziv banke
+            </th>
+             <th style="width: 30%; border-left: 1px solid #818181; border-top: 1px solid #818181;border-bottom: 1px solid #fff;">
+               Broj računa
+            </th>
+            <th style="border-left: 1px solid #818181; border-top: 1px solid #818181;border-bottom: 1px solid #fff; border-right: 1px solid #FFF;">RADNJA</th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr height="33" style="background-color:#e6e6e6; font-family: Arial, Helvetica, sans-serif; font-size:12px; font-weight:bold; color:#303030;  text-shadow: 1px 1px 0px #e5e5e5;">
+            <td align="center" style=" padding-left:3px; width: 50%; border-left: 1px solid #818181; border-top: 1px solid #818181;border-bottom: 1px solid #fff;">@Html.DisplayFor(modelItem => item.Name)</td>
+            <td align="center" style=" padding-left:3px; width: 20%; border-left: 1px solid #818181; border-top: 1px solid #818181;border-bottom: 1px solid #fff;">@Html.DisplayFor(modelItem => item.Number)</td>
+            <td align="center" style=" padding-left:3px; width: 13% border-left: 1px solid #818181; border-top: 1px solid #818181;border-bottom: 1px solid #fff; border-right: 1px solid #FFF;">
+                @Html.ActionLink("Izmjeni", "CreateAndEdit", new { id = item.Id })
+                @Html.ActionLink("Obriši", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+    
+    </table>*@
+  
+
+  <div style="float:left">
+    @Html.Partial("PersonGridPartial")
+
+      <div style=" margin-top: 10px; font-size:large ">
+    @Html.ActionLink("Nazad", "Index", "Home", new { area = "" }, null)
+</div>
+    </div>
+
+  
+</div>
+
+<div id="kzlistbottom"></div>
+</div>
+

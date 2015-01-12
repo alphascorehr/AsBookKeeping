@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="2" virtualPath="/Areas/MDSubjects/Views/Person/PersonGridPartial.cshtml" hash="ffffffffead2c138" filehash="d281027f1bd" flags="110000" assembly="App_Web_nmol2wrl" type="ASP._Page_Areas_MDSubjects_Views_Person_PersonGridPartial_cshtml">
+    <filedeps>
+        <filedep name="/Areas/MDSubjects/Views/Person/PersonGridPartial.cshtml" />
+    </filedeps>
+</preserve>

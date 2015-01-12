@@ -1,0 +1,51 @@
+﻿@using System.Data
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvSoleProprietorGrid";
+                settings.CallbackRouteValues = new { Controller = "SoleProprietor", Action = "SoleProprietorGridPartial" };
+
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "#";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }) + "&nbsp" +
+                            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                                new { onclick = "return confirm('Da li stvarno želite obrisati odabranu osobu?')" })
+                        );
+                    });
+                    column.SetHeaderTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            Html.ActionLink("Novi", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                        );
+                    });
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.Width = 70;
+                });
+                
+                settings.KeyFieldName = "Id";
+
+                settings.Settings.ShowFilterRow = false;
+                settings.Settings.ShowGroupPanel = false;
+                settings.Settings.ShowFooter = false;
+
+                settings.Columns.Add("Name", "Ime", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("EstablishedDate", "Datum osnivanja", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+
+
+               
+                settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).BindToLINQ("", "", new
+                        EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+                        {
+                            e.KeyExpression = "Id";
+                            DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+                            e.QueryableSource = context.MDSubjects_Subject.OfType<DalEf.MDSubjects_SoleProprietor>().Where(p=> p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+                        })).GetHtml()

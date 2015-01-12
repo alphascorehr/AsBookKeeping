@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "CreateAndEdit";
+}
+
+
+@model BusinessObjects.MDEntities.cMDEntities_Enums_EntityGroup
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                Name: "required",
+                Label: "required"
+            },
+            messages: {
+                Name: "Molimo unesite oznaku",
+                Label: "Molimo unesite naziv"
+            }
+        });
+
+    });
+  // ]]>
+</script>
+
+@{
+    string caption = "Nova grupa proizvoda";
+    if (Model.Name != "")
+    {
+        caption = "Grupa proizvoda " + Model.Name;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "EnumsEntityGroup", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);
+                                                                        
+    @Html.Hidden("linkName", "TvrtkaParent")
+    @Html.Hidden("linkId", "EntityGroup")
+     
+    <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	 <h2 class="pt"><div class="span-22"> @caption </div></h2>
+    
+     
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+
+                
+            <div class="span-23" style="position: relative;">
+                  
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Naziv:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Properties.MaxLength = 100; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+                </div>
+
+                    
+                <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Šifra:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "Label"; settings.Properties.MaxLength = 20; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Label).GetHtml()
+                </div>
+
+                  <div class="span-6 form-layout-left">
+			        <label for="customerid" class="no-pointer">Primarna grupa:</label>
+		        </div>
+                <div class="span-16 form-layout-right">
+                @Html.DevExpress().ComboBox(settings => { settings.Name = "MDEntities_Enums_EntityParentGroupId"; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(BusinessObjects.MDEntities.cMDEntities_Enums_EntityGroup_List.GetcMDEntities_Enums_EntityGroup_List(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, (Model.MDEntities_Enums_EntityParentGroupId ?? 0), Model.Id)).Bind(Model.MDEntities_Enums_EntityParentGroupId).GetHtml()
+                </div>
+                   
+             </div>   
+
+            <div class="span-23">
+
+               @* <div class="span-12 form-layout-left" >
+				    <label for="invoice_number" class="tool-tip"><span title="">Grupa:</span></label>
+	            </div>
+	            <div class="span-10 form-layout-right" >
+                    
+                </div>*@
+
+                
+               
+
+            </div>
+    
+             <div class="clearb" style="padding-top:20px"></div>
+    
+  <div class="clearb"></div>
+            
+    
+    
+   
+<div class="clearb"></div>
+
+    <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/MDEntities/EnumsEntityGroup/Odustani")" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+    
+    
+    
+       
+
+                                   
+}

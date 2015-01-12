@@ -1,0 +1,10 @@
+﻿@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrDocuments
+
+@Html.DevExpress().ReportViewer(
+    settings => {
+        settings.Name = "ReportViewer1";
+        settings.Report = Model;
+        settings.CallbackRouteValues = new { Controller = "Quote", Action = "QuoteReportPartial", id = ViewData["QuoteId"] };
+        settings.ExportRouteValues = new { Controller = "Quote", Action = "ReportViewerExportTo", id = ViewData["QuoteId"] };
+    }
+).GetHtml()

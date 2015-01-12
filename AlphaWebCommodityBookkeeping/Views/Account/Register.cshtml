@@ -1,0 +1,315 @@
+﻿@model BusinessObjects.MDSubjects.cAuth_Company
+
+
+
+
+
+
+@{
+    ViewBag.Title = "Registracija ~ Book keeping na webu";
+    Layout = "~/Views/Shared/LogOn.cshtml";
+}
+
+
+
+@*<script src="http://localhost/jquery.validate.js" type="text/javascript"></script>*@
+
+
+@*<script src="~/Scripts/jquery-1.4.4.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.js" type="text/javascript"></script>*@
+
+@*    var oib = document.getElementById("OIB_I").value;*@
+
+<script type="text/javascript">
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+
+    });
+
+    $(document).ready(function () {
+
+      
+
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                Name: "required",
+                Account: "required",
+                OIB: {
+                    required: true,
+                    oib: true,
+                    remote: {
+                        type: 'POST', 
+                        url: '@Url.Action("IsOibUnique", "Account")' 
+                        }
+                },
+                ContactPerson: {
+                    required: true,
+                    minlength: 5
+                },
+                BusinessPhone: {
+                    required: true,
+                    minlength: 5
+                },
+                Email: {
+                    required: true,
+                    email: true
+                },
+                Email2: {
+                    required: true,
+                    equalTo: "#Email_I"
+                },
+                agree: "required",
+                HomeAddress_PlaceId: "required"
+            },
+            messages: {
+                Name: "Molimo unesite naziv",
+                Account: "Molimo, unesite broj žiro računa",
+                OIB: { required: "Molimo, unesite OIB", oib: "Neispravan OIB", remote: "Oib je već registriran" },
+                ContactPerson: "Kontakt osoba nije ispravno unesena",
+                BusinessPhone: "Broj telefona nije ispravno unesen",
+                Email: "Nije unesena ispravna e-mail adresa",
+                Email2: {
+                    required: "Molimo ponovite lozinku",
+                    equalTo: "Email adrese nisu iste"
+                },
+                agree: "Uvjeti korištenja nisu prihvaćeni",
+                HomeAddress_PlaceId: "Molimo, unesite mjesto"
+            }
+        });
+
+    });
+
+       function OnStartCallback(s, e) {
+        var data = {};
+        if (s.lastChangedValue != null) {
+            data.id = s.lastChangedValue.toString()
+
+//            $.post("http://localhost:2150/MDSubjects/Person/SearchMjestaById", data, function (data) {
+//                if (data.Success) {
+//                    
+//                    selectedName = data.Results.Name
+//                    s.filterStrategy.filter = selectedName
+//                    s.inputElement.value = selectedName
+//                    //                    s.TextChanged()
+//   
+
+//                    //                    s.filterStrategy.filter = selectedName
+//                    //                    s.filterStrategy.Filtering()
+
+
+
+//                    //                    s.SetLastSuccessValue(data.Results.Id)
+
+//                    //                    s.SetValue(data.Results.Id)
+//                    //                s.RemoveItem(s.SelectedIndex())
+//                    //                s.AddItem(data.Results.Name, data.Results.Id, null)
+//                    //                s.RaiseValueChanged()
+//                    //                s.SetValue(data.Results.Id)
+//                    //                s.SetText(data.Results.Name)
+
+//                    // results found
+//                }
+//                else {
+//                    // nothing found
+//                }
+
+//            });
+        }
+    }
+
+
+
+     function MjestaComboInit(s, e) {
+        var data = {};
+
+        if (s.lastChangedValue != null) {
+            data.id = s.lastChangedValue.toString()
+
+//            $.post("http://localhost:2150/MDSubjects/Person/SearchMjestaById", data, function (data) {
+//                if (data.Success) {
+//                    
+//                    selectedName = data.Results.Name
+//                    s.filterStrategy.filter = selectedName
+//                    s.inputElement.value = selectedName
+//                    //                    s.TextChanged()
+//   
+
+//                    //                    s.filterStrategy.filter = selectedName
+//                    //                    s.filterStrategy.Filtering()
+
+
+
+//                    //                    s.SetLastSuccessValue(data.Results.Id)
+
+//                    //                    s.SetValue(data.Results.Id)
+//                    //                s.RemoveItem(s.SelectedIndex())
+//                    //                s.AddItem(data.Results.Name, data.Results.Id, null)
+//                    //                s.RaiseValueChanged()
+//                    //                s.SetValue(data.Results.Id)
+//                    //                s.SetText(data.Results.Name)
+
+//                    // results found
+//                }
+//                else {
+//                    // nothing found
+//                }
+
+//            });
+        }
+    }
+</script>
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+ 
+    
+    
+ @*      <div id="outer">
+	<div id="middle">
+		<div id="inner">*@
+			@*<div class="name-container">
+						</div>*@
+			@*<div class="secure-info with-search">
+				<div class="secure-lock"></div>
+				
+								<div class="find-login"></div>
+							</div>*@
+    <br /><br /><br />
+			<div class="form-pad-top clearb"></div>
+			<div class="boxMain" style="position: relative; overflow: hidden; height: 100%;">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tbody><tr>
+						<td class="login-table" width="150">
+															<div class="company-name">
+									<div class="fn org"></div>
+								</div>
+								<div class="login-info">
+									
+								</div>
+													</td>
+						<td>
+
+							<div class="login-right-container">
+							
+								
+	
+									
+								
+							
+							
+                                <div id="form_login" class="form-block" style="display: block;">
+								    <table width="100%">
+                                       <tr><td width="30%" valign="top">
+   										<label for="username"><b>Naziv tvrtke:</label>
+                                        </td><td width="70%">
+										@Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Properties.EncodeHtml = false; settings.Properties.MaxLength = 100; settings.Properties.EnableDefaultAppearance = true; settings.ShowModelErrors = false; settings.Height = 24; settings.Width = 300; }).Bind(Model.Name).GetHtml()
+                                       </td></tr>
+								            
+                                        <tr><td width="30%" valign="top">
+										<label for="password"><b>OIB:</label>
+										</td><td width="70%">
+                                        @Html.DevExpress().TextBox(settings => { settings.Name = "OIB"; settings.ShowModelErrors = false; settings.Properties.MaxLength = 11; settings.Properties.ClientInstanceName = "OIB"; settings.Height = 24; settings.Width = 300; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.OIB).GetHtml()
+                                         </td></tr>
+
+                                        <tr><td width="30%" valign="top">
+                                        <label for="username"><b>Broj korisnika:</label>
+                                        </td><td width="70%">
+										@Html.DevExpress().SpinEdit(settings => { settings.Name = "NumberOfUsers"; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 100; settings.Height = 24; settings.Width = 300; }).Bind(Model.NumberOfUsers).GetHtml()
+                                        </td></tr>
+                                        
+                                        <tr><td width="30%" valign="top">
+                                        <label for="username"><b>Kontakt osoba:</label>
+                                        </td><td width="70%">
+                                        @Html.DevExpress().TextBox(settings => { settings.Name = "ContactPerson"; settings.Height = 24; settings.Width = 300; settings.Properties.MaxLength = 100; }).Bind(Model.ContactPerson).GetHtml()
+                                        </td></tr>
+
+                                        <tr><td width="30%" valign="top">
+                                        <label for="username"><b>Telefon:</label>
+                                        </td><td width="70%">
+                                        @Html.DevExpress().TextBox(settings => { settings.Name = "BusinessPhone"; settings.Height = 24; settings.Width = 300; settings.Properties.MaxLength = 50; }).Bind(Model.BusinessPhone).GetHtml()
+                                        </td></tr>
+
+                                        <tr><td width="30%" valign="top">
+                                        <label for="username"><b>Email:</label>
+                                        </td><td width="70%">
+                                        @Html.DevExpress().TextBox(settings => { settings.Name = "Email"; settings.Height = 20; settings.Width = 300; settings.Properties.MaxLength = 100;  }).Bind(Model.Email).GetHtml()
+                                        </td></tr>
+
+                                        <tr><td width="30%" valign="top">
+                                        <label for="username"><b>Ponovite email:</label>
+                                        </td><td width="70%">
+                                        @Html.DevExpress().TextBox(settings => { settings.Name = "Email2"; settings.Height = 20; settings.Width = 300; settings.Properties.MaxLength = 100; }).GetHtml()
+                                        </td></tr>
+
+                                        <tr><td width="30%" valign="top">
+                                        <label for="username"><b>Mjesto:</label>
+                                        </td><td width="70%">
+                                        @Html.Partial("MjestaComboPartial", Model.HomeAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "HomeAddress_PlaceId" }, { "controllerName", "Account" }, { "height", 10 }, { "width", 300 } })
+                                        </td></tr>
+
+                                        <tr><td width="30%" valign="top">
+                                        <label for="username"><b>Ulica i broj:</label>
+                                        </td><td width="70%">
+                                        @Html.DevExpress().TextBox(settings => { settings.Name = "HomeAddress_Street"; settings.Height = 24; settings.Width = 300; settings.Properties.MaxLength = 100; }).Bind(Model.HomeAddress_Street).GetHtml()
+                                        </td></tr>
+
+
+                                         <tr><td width="30%" valign="top">
+                                        <label for="username"><b>Žiro račun</label>
+                                        </td><td width="70%">
+                                        @Html.DevExpress().TextBox(settings => { settings.Name = "Account"; settings.Height = 24; settings.Width = 300; settings.Properties.MaxLength = 100; }).Bind(Model.Account).GetHtml()
+                                        </td></tr>
+
+                                        @*<tr><td width="30%" valign="top">
+                                        <label for="username"><b>Broj:</label>
+                                        </td><td width="70%">
+                                        @Html.DevExpress().TextBox(settings => { settings.Name = "HomeAddress_Number"; settings.Properties.MaxLength = 8; settings.Height = 24; settings.Width = 300; settings.Properties.MaxLength = 20; }).Bind(Model.HomeAddress_Number).GetHtml()
+                                        </td></tr>*@
+
+                                        <tr><td width="100%" colspan="2">
+                                        <table width="100%"><tr><td>
+                                        <input type="checkbox" name="agree" value="" />&nbsp;&nbsp;Klikom u ovu kućicu slažete se da prihvaćate <a href="@Url.Content("~/Account/UvjetiKoristenja")">uvjete korištenja servisa.</a> 
+                                        </td></tr></table>
+                                        <tr><td width="100%" colspan="2">
+                                        <table width="100%"><tr><td>
+                                        &nbsp;
+                                        </td></tr></table>
+                                        </td></tr>
+
+                                        </table>
+										<div class="button-submit login"><input class=" " name="Submit" value="Pošalji" title="Registracija" type="submit"></div>
+                                        <div class="span-6"></div>
+                                        <div class="button-submit login"><input class=" " name="Submit" value="Odustani" title="Odustani" onclick="window.location.href='@Url.Content("~/Account/LogIn")'" type="button" ></div>
+																					<div style="margin:17px 0 0 20px;float: left; width: 235px;"></div>
+																			</div>
+							
+									
+								@*</form>*@
+								
+								<div class="clearb"></div>
+								
+																
+							</div>
+
+						</td>
+					</tr>
+				</tbody></table>
+	
+	
+			</div>
+			@*<div class="login-box-shadow"></div>*@
+@*		</div>
+	</div>
+</div>*@
+    
+    
+    
+    
+    
+       
+}
+

@@ -1,0 +1,35 @@
+﻿@model BusinessObjects.MdPlaces.cMDPlaces_Enums_Geo_Region_List
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+
+@Html.Hidden("linkName", "SifarniciParent")
+@Html.Hidden("linkId", "")
+
+  <h2 class="pt"> Županije </h2>
+  @if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+{
+    <a class="butPrimary " href="@Url.Content("~/MDPlaces/EnumsGeoRegion/CreateAndEdit/0")">
+<span> Nova županija </span>
+</a>
+<div class="clearb"></div>
+    
+}
+    @Html.Partial("EnumsGeoRegionGridPartial")
+
+     

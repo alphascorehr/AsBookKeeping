@@ -1,0 +1,125 @@
+﻿@using System.Data
+@using System.Linq
+
+ @{
+     DalEf.MDPlacesEntities contextEnt = new DalEf.MDPlacesEntities();
+        var grid = Html.DevExpress().GridView(
+
+         settings =>
+         {
+             settings.Name = "gvEmployeeGrid";
+             settings.CallbackRouteValues = new { Controller = "Employee", Action = "EmployeeGridPartial" };
+             settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+             settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+             settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+             settings.SettingsText.EmptyDataRow = "Nema podataka";
+             settings.Settings.ShowFilterRow = true;
+             settings.Settings.ShowFilterRowMenu = true;
+             settings.CommandColumn.Visible = true;
+             settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+             settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+             settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+             settings.CommandColumn.ClearFilterButton.Visible = true;
+
+             settings.Columns.Add(column =>
+             {
+                 column.Caption = "";
+                 column.SetDataItemTemplateContent(c =>
+                 {
+                     var companyId = DataBinder.Eval(c.DataItem, "CompanyUsingServiceId");
+                     if (Csla.ApplicationContext.User.IsInRole("Admin") && companyId != null)
+                     {
+                         ViewContext.Writer.Write(
+
+                          //Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }, new { @class = "gridEditButton" }) + "&nbsp" +
+                          Html.ActionLink("Obriši", "Delete", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                              new { onclick = "return confirm('Da li stvarno želite obrisati djelatnika?')", @class = "gridDelButton" })
+                      );
+                     }
+                     else
+                     {
+                         var row = c.Grid.GetRow(c.ItemIndex);
+                     }
+                 });
+                 //column.SetHeaderTemplateContent(c =>
+                 //{
+                 //    ViewContext.Writer.Write(
+                 //        Html.ActionLink("Nova osoba", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                 //    );
+                 //});
+                 column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                 column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                 column.Width = 20;
+             });
+
+             settings.KeyFieldName = "Id";
+
+
+             settings.Columns.Add(column =>
+             {
+                 column.FieldName = "FirstName";
+                 column.Caption = "Ime i prezime";
+                 column.Width = 250;
+                 column.SetDataItemTemplateContent(c =>
+                 {
+                     var companyId = DataBinder.Eval(c.DataItem, "CompanyUsingServiceId");
+                     if (Csla.ApplicationContext.User.IsInRole("Admin") && companyId != null)
+                     {
+                         ViewContext.Writer.Write(
+                         "<a onclick=\"Cursor();\" href=" + @Url.Content("~/MDSubjects/Employee/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + ">" + DataBinder.Eval(c.DataItem, "FirstName") + "</a>");
+                     }
+                 });
+             });
+             //settings.Columns.Add("FirstName", "Ime", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+             //settings.Columns.Add("LastName", "Prezime", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+             settings.Columns.Add("UserName", "Korisničko ime", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+
+             settings.Columns.Add(column =>
+             {
+                 column.FieldName = "MDPlaces_Enums_OgranizationalUnitId";
+                 column.Caption = "Org. jedinica";
+                 var items = contextEnt.MDPlaces_Enums_OgranizationalUnit.Where(p=> p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+
+                 column.ColumnType = MVCxGridViewColumnType.ComboBox;
+
+                 var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+
+                 comboBoxProperties.Height = 20;
+                 comboBoxProperties.DataSource = items;
+                 comboBoxProperties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                 comboBoxProperties.FilterMinLength = 0;
+                 comboBoxProperties.TextField = "Name";
+                 comboBoxProperties.ValueField = "Id";
+                 comboBoxProperties.ValueType = typeof(int);
+             });
+
+             settings.Columns.Add(column =>
+             {
+                 column.FieldName = "IsAdmin";
+                 column.Caption = "Administrator";
+                 column.ColumnType = MVCxGridViewColumnType.CheckBox;
+                 column.Width = 80;
+
+             });
+             settings.HtmlRowCreated = (sender, e) =>
+             {
+                 if (e.RowType == DevExpress.Web.ASPxGridView.GridViewRowType.Data)
+                 {
+                     e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#eeeeee';");
+                     e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white';");
+                 }
+             };
+             settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+             settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+         });
+
+  }
+     @grid.BindToLINQ("", "", new
+                        EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+                        {
+                            e.KeyExpression = "Id";
+                            DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+                            e.QueryableSource = context.MDSubjects_Subject.OfType<DalEf.MDSubjects_Employee>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.Inactive == false);
+                        })).GetHtml()

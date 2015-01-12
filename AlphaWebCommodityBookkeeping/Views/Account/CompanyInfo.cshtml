@@ -1,0 +1,757 @@
+﻿@model BusinessObjects.MDSubjects.cAuth_Company
+@{
+    ViewBag.Title = "Index";
+}
+
+ @Html.Hidden("linkName", "KorisnickiRacunParent")
+ 
+
+@{
+    DalEf.MDGeneralEntities context = new DalEf.MDGeneralEntities();
+    var currency = context.vEnums_Currency;
+}
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+
+    });
+    var activetab = 0;
+    $(document).ready(function () {
+        activetab = '@ViewData["activeTab"]';
+        $('#subnav').hide()
+
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                Name: "required",
+                ContactPerson: {
+                    required: true,
+                    minlength: 5
+                },
+                BusinessPhone: {
+                    required: true,
+                    minlength: 5
+                },
+                Email: {
+                    required: true,
+                    email: true
+                },
+                HomeAddress_PlaceId: "required",
+                HomeAddress_Street: "required"
+            },
+            messages: {
+                Name: "Molimo unesite naziv",
+                ContactPerson: "Kontakt osoba nije ispravno unesena",
+                BusinessPhone: "Broj telefona nije ispravno unesen",
+                Email: "Nije unesena ispravna e-mail adresa",
+                agree: "Uvjeti korištenja nisu prihvaćeni",
+                HomeAddress_PlaceId: "Molimo, unesite mjesto"
+            }
+        });
+
+
+        var $items = $('#vtab>ul>li');
+        $items.click(function () {
+            $items.removeClass('selected');
+            $(this).addClass('selected');
+
+            var index = $items.index($(this));
+            $('#activeTab').attr('value', index);
+            $('#vtab>div').hide().eq(index).show();
+        }).eq(activetab).click();
+
+
+        resizeImg('InvoiceLogo');
+
+        
+        imagePreview();
+    });
+
+    function Submit(tab) {
+        $('#activeTab').attr('value', tab);
+        //$(this).closest('form').submit()
+        document.myForm.submit();
+    }
+
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+
+    $().ready(function () {
+        $('#OIB').css({ 'background-color': 'LightGray' });
+        $('#OIB_I').css({ 'background-color': 'LightGray' });
+    });
+
+
+//    $(function () {
+//        var $items = $('#vtab>ul>li');
+//        $items.click(function () {
+//            $items.removeClass('selected');
+//            $(this).addClass('selected');
+
+//            var index = $items.index($(this));
+//            $('#activeTab').attr('value', index);
+//            $('#vtab>div').hide().eq(index).show();
+//        }).eq(activetab).click();
+//    });
+
+
+    function getImage() {
+        var actionURL = '@Url.Action("GetImage", "Account")';
+        $.post(actionURL, function (result) {
+            //$('#InvoiceLogo').attr('src', '@Url.Content("~/Content/ImagePreview.gif")');
+            $('#InvoiceLogo').attr('src', actionURL);
+            //            resizeImg('InvoiceLogo');
+
+            getImgSize(actionURL);
+
+        });
+    }
+
+    var maxWidth = 300;
+    function getImgSize(imgSrc) {
+        var newImg = new Image();
+        newImg.src = imgSrc;
+        var height = newImg.height;
+        var width = newImg.width;
+        if (width > maxWidth) {
+            //resizeImg('InvoiceLogo');
+            $('#' + img).attr('width', 300);
+        }
+        
+
+
+
+        //p = $(newImg).ready(function () {
+            //return { width: newImg.width, height: newImg.height };
+        //});
+            //alert(p[0]['width'] + " " + p[0]['height']);
+        //alert(width);
+        //resizeImg('InvoiceLogo');
+    }
+
+
+    function resizeImg(imgSrc) {
+        $('#' + imgSrc).attr('width', 300);
+//        var newImg = new Image();
+//        newImg.src = imgSrc;
+//        var height = newImg.height;
+//        var width = newImg.width;
+//        alert(width);
+//        var height = parseInt($('#' + img).height());
+//        var factor = width / maxWidth;
+//        var newWidth = width / factor;
+//        $('#' + img).hide();
+//        $('#' + img).attr('width', newWidth);
+//        $('#' + img).show();
+     }
+
+
+     
+                this.imagePreview = function () {
+                    /* CONFIG */
+
+                    xOffset = 10;
+                    yOffset = 10;
+
+                    // these 2 variable determine popup's distance from the cursor
+                    // you might want to adjust to get the right result
+
+                    /* END CONFIG */
+                    $("#InvoiceLogo").hover(function (e) {
+                        this.t = this.title;
+                        this.title = "";
+
+                        var c = (this.t != "") ? "<br/>" + this.t : "";
+                        var src = $("#InvoiceLogo").attr('src');
+                        $("body").append("<p id='preview'><img src='" + src + "' alt='Image preview' />" + c + "</p>");
+                        $("#preview")
+			            .css("top", (e.pageY - xOffset) + "px")
+			            .css("left", (e.pageX + yOffset) + "px")
+			            .fadeIn("fast");
+                    },
+	            function () {
+	                this.title = this.t;
+	                $("#preview").remove();
+	            });
+
+                    $("a.preview").mousemove(function (e) {
+                        $("#preview")
+			            .css("top", (e.pageY - xOffset) + "px")
+			            .css("left", (e.pageX + yOffset) + "px");
+                    });
+                };
+
+                function FiskalizacijaTest()
+                {
+                    $('#jir').text("");
+                    var actionURL = '@Url.Action("FiskalizacijaTest", "Account")';
+                    $.post(actionURL, function (result) {
+                        var status = result.Item1;
+                        var message = result.Item2;
+                        var httpretCode = result.Item3;
+
+
+                        if (status == 0) {
+                            //toastr.success('Ok', 'Fiskalizacija je uspjesna.');
+                            $('#jir').text("Dobiveni Jir: " + message);
+                            $('#jir').css({ 'color': 'green', 'font-weight': 'bold' })
+                            
+                        }
+                        else {
+                            $('#jir').text("Greska: " + message + " " + httpretCode);
+                            $('#jir').css({ 'color': 'red', 'font-weight': 'bold' })
+                        }
+                        
+                   
+                    })
+                }
+
+// ]]>
+</script>
+
+@* <h2 class="button-panel-title">
+		<div class="button-panel"></div>
+		<span class="title">Korisnički račun</span>
+</h2>
+    @Html.Partial("CompanyInfoGridPartail")
+
+     
+    
+*@
+
+@using (Html.BeginForm("CompanyInfo", "Account", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.Hidden("activeTab")
+    
+    @Html.HiddenFor(model => model.Id, new { id = "Id" });
+    @Html.HiddenFor(model => model.EntityKeyData);
+     
+<div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+ 
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+    <h2 class="pt"><div class="span-22">Korisnički račun</div></h2>
+   
+    <div class="clearb"></div>  
+    
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+    
+<div id="vtab">
+        <ul>
+            <li class="home selected" title="Osnovni podaci"></li>
+            <li class="login" title="Logotip tvrtke"></li>
+            <li class="support" title="Licenca"></li>
+            <li class="number" title="Početni broj dokumenta"></li>
+            
+        </ul>
+        <div>
+            <h4>
+                Osnovni podaci</h4>
+           
+                                            @*Lijevi div*@
+	<div class="span-18" style="position: relative;">
+	    <div id="client_section">
+		    <div class="span-6 required form-layout-left">
+			    <label for="customerid" class="no-pointer">Naziv tvrtke:</label>
+
+		    </div>
+		    <div class="span-10 form-layout-right">
+			    @Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+		    </div>
+        </div>
+
+        
+@*		    <div class="span-6 form-layout-left">
+			  <label for="customerid" class="no-pointer">OIB:</label>
+              
+		    </div>
+		    <div class="span-10 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "OIB"; settings.ReadOnly = true; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.OIB).GetHtml()
+               
+		    </div>*@
+        
+       
+            <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Kontakt osoba:</label>
+              
+		    </div>
+		    <div class="span-10 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "ContactPerson"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.ContactPerson).GetHtml()
+               
+		    </div>
+           <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">e-mail:</label>
+              
+		    </div>
+		    <div class="span-10 form-layout-right">
+		        @Html.DevExpress().TextBox(settings => { settings.Name = "Email"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Email).GetHtml()
+               
+		    </div>
+            <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Ulica i broj:</label>
+              
+		    </div>
+		    <div class="span-10 form-layout-right">
+		        @Html.DevExpress().TextBox(settings => { settings.Name = "HomeAddress_Street"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.HomeAddress_Street).GetHtml()
+               
+		    </div>
+            <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Mjesto:</label>
+              
+		    </div>
+		    <div class="span-10 form-layout-right">
+		@Html.Partial("MjestaComboPartial", Model.HomeAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "HomeAddress_PlaceId" }, { "controllerName", "Account" }, { "height", 10 }, { "width", 230 } })
+               
+		    </div>
+ 
+      
+        
+               <div class="span-6 required form-layout-left">
+			        <label for="customerid" class="no-pointer">Telefon:</label>
+              
+		    </div>
+		    <div class="span-10 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "BusinessPhone"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.BusinessPhone).GetHtml()
+               
+		    </div>
+
+            <div class="span-6 form-layout-left">
+			        <label for="customerid" class="no-pointer">Faks:</label>
+              
+		    </div>
+		    <div class="span-10 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "Fax"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Fax).GetHtml()
+               
+		    </div>
+
+       
+	     
+</div>
+
+    
+    
+                                            @*Desni div*@
+<div class="span-18">
+
+
+@*    <div class="span-7 required form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Email:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "Email"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Email).GetHtml()
+
+	</div>*@
+
+    <div class="span-7 form-layout-left">
+				<label for="customerid" class="no-pointer">OIB:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+                @Html.DevExpress().TextBox(settings => { settings.Name = "OIB"; settings.ReadOnly = true; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.OIB).GetHtml()
+
+	</div>
+    <div class="span-7 required form-layout-left">
+				<label for="invoice_number" class="no-pointer">Vrsta računa:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().ComboBox(settings => { settings.Name = "PDVType"; settings.Height = 24; settings.Width = 230; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(Int32); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(new AlphaWebCommodityBookkeeping.Areas.MDSubjects.Models.PDVTypes()).Bind(Model.PDVType).GetHtml()
+
+	</div>
+
+    <div class="span-7 required form-layout-left">
+				<label for="invoice_number" class="no-pointer">Valuta:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().ComboBox(settings => { settings.Name = "MDGeneral_Enums_CurrencyId"; 
+    settings.Height = 24; settings.Width = 230; 
+    settings.Properties.TextField = "Label"; 
+    settings.Properties.ValueField = "Id"; 
+    settings.Properties.ValueType = typeof(Int32); 
+    settings.ShowModelErrors = false; 
+    settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; 
+    settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; 
+    settings.Properties.ValidationSettings.SetFocusOnError = true; 
+    settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(currency).Bind(Model.MDGeneral_Enums_CurrencyId).GetHtml()
+
+	</div>
+
+        <div class="span-7 form-layout-left">
+				<label for="invoice_number" class="no-pointer">Žiro račun 1:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "Account"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Account).GetHtml()
+
+	</div>
+        <div class="span-7 form-layout-left">
+				<label for="invoice_number" class="no-pointer">Žiro račun 2:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "Account1"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Account1).GetHtml()
+
+	</div>
+        <div class="span-7 form-layout-left">
+				<label for="invoice_number" class="no-pointer">Žiro račun 3:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "Account2"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Account2).GetHtml()
+
+	</div>
+        <div class="span-7 form-layout-left">
+				<label for="invoice_number" class="no-pointer">Žiro račun 4:</label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "Account3"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Account3).GetHtml()
+
+	</div>
+
+
+@*	<div class="span-7 required form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Ulica i broj:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "HomeAddress_Street"; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.HomeAddress_Street).GetHtml()
+
+	</div>*@
+
+    
+
+@*    <div class="span-7 required form-layout-left">
+				<label for="invoice_number" class="tool-tip"><span title="">Mjesto:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.Partial("MjestaComboPartial", Model.HomeAddress_PlaceId, new ViewDataDictionary() { { "cmbMjestaName", "HomeAddress_PlaceId" }, { "controllerName", "Account" }, { "height", 10 }, { "width", 230 } })
+	</div>*@
+	
+	</div>
+    <h4>Fiskalizacija</h4>
+<br />
+            <div class="span-40" style="position: relative;">
+	            <div id="client_section">
+		            <div class="span-25 form-layout-left">
+			            <label for="customerid" class="no-pointer">Pravilo slijednosti numeričkih brojeva računa za cijelu tvrtku:</label>
+
+		            </div>
+		            <div class="span-13 form-layout-right">
+			            @Html.DevExpress().ComboBox(settings =>
+                        {
+                            settings.Name = "FiscalizationConsistenceCode";
+                            settings.Height = 24;
+                            settings.Width = 230; settings.ShowModelErrors = false;
+                            settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                            settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                            settings.Properties.ValidationSettings.SetFocusOnError = true;
+                            settings.Properties.ValidationSettings.ValidateOnLeave = true;
+                            settings.Properties.Items.Add("Po poslovnom prostoru", "P");
+                            settings.Properties.Items.Add("Po naplatnom uređaju", "N");
+                        }).Bind(Model.FiscalizationConsistenceCode).GetHtml()
+		            </div>
+                </div>
+            </div>
+<h4>Certifikat za fiskalizaciju</h4>
+            
+@*            <div class="span-18">
+                <div class="span-7 form-layout-left">
+				            <label for="customerid" class="no-pointer">OIB:</label>
+	            </div>
+	            <div class="span-10 form-layout-right">
+                            @Html.DevExpress().TextBox(settings => { settings.Name = "OIB1"; settings.ReadOnly = true; settings.Height = 24; settings.Width = 230; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).GetHtml()
+	            </div>
+                 <div class="clearb"></div>
+            </div>*@
+   
+
+            <fieldset style="padding-left :5px; border:none; width: 600px"> 
+                
+                    <br />
+                 @Html.Partial("CompanyInfoUploadPartial", null, new ViewDataDictionary() { { "controllerName", "CompanyInfo" } })
+                 <br>
+                <a class="butMedium green" href="#" onclick="FiskalizacijaTest()" title="Test fiskalizacije"><span>Test fiskalizacije</span></a> 
+                <br><br>
+                <label id="jir"></label>
+            </fieldset>
+
+           
+   
+     <div class="span-40 append-1">
+                <div class="span-10 append-1"></div>
+                <div class="span-10 append-1">
+                        <a href="#" id="btn1" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                 
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                </div>
+                <div class="span-2 append-1"></div>
+                <div class="span-10 append-1">
+                        <a href="@Url.Content("~/Account/CompanyInfo")" class="button_large2 launch-invitepop-invoice ">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                </div>
+                <div class="span-8 append-1"></div>
+            </div>
+
+   
+
+        <div class="clearb"></div>
+
+          
+ 
+  </div>
+        
+        <div>
+            <h4>Logo tvrtke</h4>
+    
+                @Html.DevExpress().BinaryImage(settings => { settings.Name = "InvoiceLogo"; }).Bind(Model.InvoiceLogo).GetHtml()
+
+                <br /><br />
+
+
+               @Html.Partial("UploadPartial", null, new ViewDataDictionary() { { "controllerName", "Account" } })
+
+             <div class="clearb"></div>
+
+                           
+              <div class="span-40 append-1">
+                <div class="span-10 append-1"></div>
+                <div class="span-10 append-1">
+                        <a href="#" id="btn2" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                </div>
+                <div class="span-2 append-1"></div>
+                <div class="span-10 append-1">
+                        <a href="@Url.Content("~/Account/CompanyInfo")" class="button_large2 launch-invitepop-invoice ">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                </div>
+                <div class="span-8 append-1"></div>
+            </div>
+
+   
+
+            <div class="clearb"></div>
+
+
+        </div>
+        
+
+
+
+        <div>
+        
+        
+            <h4>Licenciranje</h4>
+            <br />
+
+             <div class="span-24" style="position: relative;">
+	                
+		                <div class="span-12  form-layout-left">
+			                <label for="customerid" class="no-pointer">Datum aktivacije računa:</label>
+
+		                </div>
+		                <div class="span-10 form-layout-right">
+			                @Html.DevExpress().Label(settings => { settings.Name = "ActivationDate"; settings.Properties.DisplayFormatString = "{d}"; }).Bind(Model.ActivationDate).GetHtml()
+		                </div>
+                    
+
+                    @{
+                                                 int NumberOfdays = Convert.ToInt32(Model.NumbnerOfDays);
+                                                 string sub = "N/A";
+                                                 if (NumberOfdays == 30)
+                                                 {
+                                                     sub = "Mjesecno";
+                                                 }
+
+
+                                                 DateTime dt = DateTime.Now;
+                                                 DateTime Expirationdate = Model.ActivationDate.AddDays(NumberOfdays);
+                                                 TimeSpan ts = Expirationdate.Subtract(dt);
+                                                 int DaysRemaining = Convert.ToInt32(ts.Days);
+                    }
+
+                    
+		                <div class="span-12  form-layout-left">
+			                <label for="customerid" class="no-pointer">Učestalost plaćanja:</label>
+
+		                </div>
+		                <div class="span-10 form-layout-right">
+			                <label>@sub</label>
+		                </div>
+                    
+
+                    
+		                <div class="span-12  form-layout-left">
+			                <label for="customerid" class="no-pointer">Licenca vrijedi još:</label>
+
+		                </div>
+		                <div class="span-10 form-layout-right">
+			                <label>@DaysRemaining dan(a)</label>
+		                </div>
+                    
+
+                     <div class="span-12 form-layout-left">
+			                <label for="customerid" class="no-pointer">Broj korisnika servisa:</label>
+
+		                </div>
+		                <div class="span-10 form-layout-right">
+			                @Html.DevExpress().Label(settings => { settings.Name = "NumberOfUsers"; }).Bind(Model.NumberOfUsers).GetHtml()
+		                </div>
+                        <br /><br />
+                        <div class="span-12  form-layout-left">
+			                <label for="customerid" class="no-pointer">&nbsp;</label>
+
+		                </div>
+		         
+            </div>
+
+            <div class="clearb"></div>
+    
+            
+
+        </div>
+   
+        
+        <div>
+        
+        
+            <h4>Početni broj dokumenata</h4>
+
+            	<div class="span-18" style="position: relative;">
+	                    
+		                    <div class="span-6  form-layout-left">
+			                    <label for="customerid" class="no-pointer">Otpremnica:</label>
+		                    </div>
+		                    <div class="span-10 form-layout-right">
+			                    @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberDispatch"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberDispatch).GetHtml()
+		                    </div>
+
+                            <div class="span-6  form-layout-left">
+			                    <label for="customerid" class="no-pointer">Ulazni račun:</label>
+		                    </div>
+		                    <div class="span-10 form-layout-right">
+			                    @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberIncomingInvoice"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberIncomingInvoice).GetHtml()
+		                    </div>
+                            
+                            <div class="span-6  form-layout-left">
+			                    <label for="customerid" class="no-pointer">Račun:</label>
+		                    </div>
+		                    <div class="span-10 form-layout-right">
+			                    @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberInvoice"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberInvoice).GetHtml()
+		                    </div>
+
+                            <div class="span-6  form-layout-left">
+			                    <label for="customerid" class="no-pointer">Ponuda:</label>
+		                    </div>
+		                    <div class="span-10 form-layout-right">
+			                    @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberOffer"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberOffer).GetHtml()
+		                    </div>
+
+                             <div class="span-6  form-layout-left">
+			                    <label for="customerid" class="no-pointer">Narudžbenica:</label>
+		                    </div>
+		                    <div class="span-10 form-layout-right">
+			                    @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberOrderForm"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberOrderForm).GetHtml()
+		                    </div>
+
+                             <div class="span-6  form-layout-left">
+			                    <label for="customerid" class="no-pointer">Izvod banke:</label>
+		                    </div>
+		                    <div class="span-10 form-layout-right">
+			                    @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberPayment"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberPayment).GetHtml()
+		                    </div>
+	     
+                </div>
+
+    
+    
+                                           
+                <div class="span-18">
+
+                    <div class="span-7  form-layout-left">
+				                <label for="invoice_number" class="no-pointer">Obračun:</label>
+	                </div>
+	                <div class="span-10 form-layout-right">
+		                @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberPayoff"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberPayoff).GetHtml()
+
+	                </div>
+
+                    <div class="span-7  form-layout-left">
+				                <label for="invoice_number" class="no-pointer">Cjenik:</label>
+	                </div>
+	                <div class="span-10 form-layout-right">
+		                @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberPriceList"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberPriceList).GetHtml()
+
+	                </div>
+
+                     <div class="span-7  form-layout-left">
+				                <label for="invoice_number" class="no-pointer">Predračun:</label>
+	                </div>
+	                <div class="span-10 form-layout-right">
+		                @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberQuote"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberQuote).GetHtml()
+	                </div>
+
+                    <div class="span-7  form-layout-left">
+				                <label for="invoice_number" class="no-pointer">Zapisnik:</label>
+	                </div>
+	                <div class="span-10 form-layout-right">
+		                @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberTakeoverOfGoods"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberTakeoverOfGoods).GetHtml()
+	                </div>
+	
+                    <div class="span-7  form-layout-left">
+				                <label for="invoice_number" class="no-pointer">Putni nalog:</label>
+	                </div>
+	                <div class="span-10 form-layout-right">
+		                @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberTravelOrder"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberTravelOrder).GetHtml()
+	                </div>
+
+                     <div class="span-7  form-layout-left">
+				                <label for="invoice_number" class="no-pointer">Radni nalog:</label>
+	                </div>
+	                <div class="span-10 form-layout-right">
+		                @Html.DevExpress().SpinEdit(settings => { settings.Name = "FirstNumberWorkOrder"; settings.Properties.SpinButtons.ShowIncrementButtons = false; settings.Properties.MinValue = 1; settings.Properties.MaxValue = 10000000; settings.Height = 24; settings.Width = 100; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.FirstNumberWorkOrder).GetHtml()
+	                </div>
+
+	                </div>
+
+                    
+                         <div class="clearb"></div>
+ 
+    
+                        <div class="span-40 append-1">
+                            <div class="span-10 append-1"></div>
+                            <div class="span-10 append-1">
+                                    <a href="#" id="btn3" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit()">
+                 
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                            </div>
+                            <div class="span-2 append-1"></div>
+                            <div class="span-10 append-1">
+                                    <a href="@Url.Content("~/Account/CompanyInfo")" class="button_large2 launch-invitepop-invoice ">
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                            </div>
+                            <div class="span-8 append-1"></div>
+                        </div>
+
+         </div>
+         
+     
+    </div>
+    
+    
+     
+}
+             

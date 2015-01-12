@@ -1,0 +1,118 @@
+﻿@*@model BusinessObjects.MDSubjects.cMDSubjects_Enums_CompanyType_List*@
+
+@using System.Data
+
+@{
+    var context = new DalEf.MDSubjectsEntities();
+    List<DalEf.vEnums_CompanyType> data;
+
+    if (Csla.ApplicationContext.User.IsInRole("SuperAdmin"))
+    {
+       data = (context.vEnums_CompanyType.OrderBy(p => p.CompanyUsingServiceId).ThenBy(p=> p.Name)).ToList();
+                
+    }
+    else
+    {
+        data = (context.vEnums_CompanyType.Where(p => p.Inactive != true && ((p.CompanyUsingServiceId ?? 0) == 0 || p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId)).OrderByDescending(p => p.CompanyUsingServiceId).ThenBy(p => p.Name)).ToList();
+    }
+        
+   
+}
+
+@Html.DevExpress().GridView( settings =>
+    {
+        settings.Name = "gvEnumsCompanyType";
+        settings.CallbackRouteValues = new { Controller = "EnumsCompanyType", Action = "EnumsCompanyTypeGridPartial" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+        settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowFilterRowMenu = true;
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.Width = 40;
+        settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+        settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+        settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+        settings.CommandColumn.ClearFilterButton.Visible = true;
+
+
+        settings.HtmlRowPrepared = (sender, e) =>
+        {
+            if (data.Count > 0 && e.KeyValue != null)
+            {
+                var companyId = data.SingleOrDefault(p => p.Id == (int)e.KeyValue).CompanyUsingServiceId;
+                if ((Csla.ApplicationContext.User.IsInRole("SuperAdmin") && (companyId ?? 0) != 0) || (Csla.ApplicationContext.User.IsInRole("Admin") && (companyId ?? 0) == 0) || Csla.ApplicationContext.User.IsInRole("Staff"))
+                {
+
+                    e.Row.BackColor = System.Drawing.Color.LightGray;
+                }
+            }
+        };
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(c =>
+            {
+                var companyId = DataBinder.Eval(c.DataItem, "CompanyUsingServiceId");
+                if ((Csla.ApplicationContext.User.IsInRole("SuperAdmin") && ((int?)companyId ?? 0) == 0) || (Csla.ApplicationContext.User.IsInRole("Admin") && ((int?)companyId ?? 0) != 0))
+                {
+                    ViewContext.Writer.Write(
+                        //Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }, new { @class = "gridEditButton" }) + "&nbsp" +
+                        Html.ActionLink("Obriši", "Delete", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                            new { onclick = "return confirm('Da li stvarno želite obrisati odabrani tip tvrtke?')", @class = "gridDelButton"  })
+                    );
+                }
+            });
+            //column.SetHeaderTemplateContent(c =>
+            //{
+            //    ViewContext.Writer.Write(
+            //        Html.ActionLink("Nova vrsta", "CreateAndEdit", new { Id = 0}).ToHtmlString()
+            //    );
+            //});
+            column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+            column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            column.Width = 20;
+        });
+
+        settings.KeyFieldName = "Id";
+
+        //settings.Settings.ShowFilterRow = false;
+        //settings.Settings.ShowGroupPanel = false;
+        //settings.Settings.ShowFooter = false;
+
+        //settings.Columns.Add("Name", "Vrsta", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Name";
+            column.Caption = "Maziv";
+            column.SetDataItemTemplateContent(c =>
+            {
+                var companyId = DataBinder.Eval(c.DataItem, "CompanyUsingServiceId");
+                if ((Csla.ApplicationContext.User.IsInRole("SuperAdmin") && ((int?)companyId ?? 0) == 0) || (Csla.ApplicationContext.User.IsInRole("Admin") && ((int?)companyId ?? 0) != 0))
+                {
+                    ViewContext.Writer.Write(
+                    "<a onclick=\"Cursor();\" href=" + @Url.Content("~/MDSubjects/EnumsCompanyType/CreateAndEdit/" + DataBinder.Eval(c.DataItem, "Id")) + ">" + DataBinder.Eval(c.DataItem, "Name") + "</a>");
+                }
+                else
+                {
+                    ViewContext.Writer.Write(DataBinder.Eval(c.DataItem, "Name"));
+                }
+            });
+        });
+
+        if (Csla.ApplicationContext.User.IsInRole("SuperAdmin"))
+        {
+            settings.Columns.Add("ClientName", "Unos koristi klijent", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+            settings.Columns.Add("Inactive", "Neaktivno", DevExpress.Web.Mvc.MVCxGridViewColumnType.CheckBox);
+        }
+
+        //settings.ClientSideEvents.Init = "function(s, e) { s.PerformCallback(); }";
+        //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+        //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+    }).Bind(data).GetHtml()
+

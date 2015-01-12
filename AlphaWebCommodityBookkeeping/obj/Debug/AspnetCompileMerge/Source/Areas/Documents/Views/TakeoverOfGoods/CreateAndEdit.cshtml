@@ -1,0 +1,119 @@
+﻿@model BusinessObjects.Documents.cDocuments_TakeoverOfGoods
+
+@{
+    DalEf.DocumentsEntities context = new DalEf.DocumentsEntities();
+    }
+
+
+    <script type="text/javascript">
+    
+        $(window).bind('beforeunload', function () {
+            if ('@ViewData["Action"]' == "locked") {
+            return;
+        }
+        //if (AreControlsModifiedVar)
+        //{
+        //    return "No pressure, but check out the important announcement in the middle of the screen?";
+        //}
+
+        //return "Good bye";
+        var url = '@Url.Content("~/Documents/TakeoverOfGoods/unlockTheDoc")';
+        $.post(url, function (result) {
+            return "Url is about to be changed, kill the lock";
+        });
+
+    });
+
+
+    function noUnload() {
+        $(window).unbind('beforeunload');
+    }
+
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+
+        }
+    });
+
+    $(document).ready(function () {
+        $("#myForm").validate({
+            rules: {
+                Documents_PayoffId: {required:true, min:1}
+            },
+            messages: {
+                Documents_PayoffId: { required: "Obavezno polje", min: "Obavezno polje" }
+            }
+
+        });
+        if ('@ViewData["Action"]' == "locked") {
+            alert(lockText);
+            window.history.back(-1);
+        }
+      
+
+    });
+    
+    </script>
+
+@Html.Hidden("linkName", "RadParent")
+@Html.Hidden("linkId", "TakeoverOfGoodsSpan")
+
+@using (Html.BeginForm("CreateAndEdit", "TakeOverOfGoods", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    
+       @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData); 
+
+<div class="span-23" style="position: relative;">
+             <div class="span-6 required form-layout-left">
+			    <label for="customerid" class="no-pointer">Obračun:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+			    @Html.DevExpress().ComboBox(settings => { settings.Name = "Documents_PayoffId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.TextField = "UniqueIdentifier"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(context.Documents_Document.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.DocumentType == (short)BusinessObjects.Common.DocumentType.Payoff)).Bind(Model.Documents_PayoffId).GetHtml()
+                 
+		    </div>
+
+</div>                                                 
+                             
+    <div class="span-23" id="desniDiv"></div>
+    
+                        
+                  <div class="clearb"></div>                               
+ @Html.DevExpress().HtmlEditor(
+    settings =>
+    {
+        settings.Name = "TakeoverDescription";
+        //settings.CallbackRouteValues = new { Controller = "TakeoverOfGoods", Action = "HtmlEditor" };
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.Settings.AllowHtmlView = false;
+        settings.Settings.AllowPreview = false;
+        settings.Settings.AllowContextMenu = DefaultBoolean.True;
+        settings.SettingsHtmlEditing.AllowScripts = false;
+        settings.SettingsHtmlEditing.EnterMode = HtmlEditorEnterMode.Default;
+    }).Bind(Model.TakeoverDescription).GetHtml()
+    
+  @*  @Html.DevExpress().Memo(settings => { settings.Name = "TakeoverDescription"; }).Bind(Model.TakeoverDescription).GetHtml()
+*@
+    <br />
+       
+<div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit(); noUnload();">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/Documents/TakeOverOfGoods/Odustani")" onclick="noUnload();" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+    
+               
+  
+}

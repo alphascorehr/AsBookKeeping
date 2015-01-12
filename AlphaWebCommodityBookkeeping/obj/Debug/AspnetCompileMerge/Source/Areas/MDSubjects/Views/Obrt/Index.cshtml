@@ -1,0 +1,133 @@
+﻿@model BusinessObjects.MDSubjects.cMDSubjects_Obrt
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+
+    $(document).ready(function () {
+        $('#new').click(function () {
+            $('#list1').slideToggle("slow");
+        })
+
+        //  list animation  
+        var fadeDuration = 150; //time in milliseconds
+
+        $('#list1 li a').hover(function () {
+            $(this).animate({ paddingLeft: '30px' }, fadeDuration);
+            $(this).children('span').show().animate({ left: -5 }, fadeDuration);
+        }, function () {
+            $(this).animate({ paddingLeft: '15px' }, fadeDuration);
+            $(this).children('span').animate({ left: -35 }, fadeDuration).fadeOut(fadeDuration);
+        });
+    });
+
+// ]]>
+</script>
+
+<style>
+/* list1 */
+       #list1 {
+        list-style: none;
+        width: 400px;
+        border-top: 1px solid #eee;
+        margin: 35px 0 0;   
+        float: right;
+        position: relative;
+      }
+       #list1 li {
+        border-bottom: 1px solid #eee;
+        position: relative;
+        background: none;
+        padding: 0;
+        margin: 0;
+        float: none;
+      }
+       #list1 li a {
+        color: #492b23;
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        border: 0;
+        /* IE is the myspace of browsers! */        
+        position: relative;
+        height: 1%;
+        /* /IE */
+      }
+       #list1 li a:hover { 
+        background: #ecf6f5; 
+        color: #3f5f5a;
+      }
+       #list1 li a span {
+        position: absolute;
+        left: -35px;
+        top: 50%;
+        margin: -4px 0 0;
+        height: 8px;
+        width: 24px;
+        background: url(@Url.Content("~/Content/images/arrow.png") 0 0 no-repeat;
+        display: none;
+      }
+      /* 
+        In this example there is now IE6 specific Style Sheet but if there was
+        this hack would go there. Just for the record I do not reccomend using '* html' hack.
+        Done and done.
+      */  
+      *  #list1 li a span {
+        background: url(@Url.Content("~/Content/images/arrow.png")) 0 0 no-repeat;
+      }
+</style>
+
+
+
+@Html.Hidden("linkName", "KlijentiParent")
+
+
+@Html.Hidden("linkId", "Klijenti1")
+
+
+
+<h2 class="pt"> Klijenti </h2>
+<a id="new" class="butPrimary " href="#">
+<span> Dodaj klijenta </span>
+</a>
+<div class="clearb"></div>
+  
+
+
+@*<div style="text-align:right; display:none" id ="newLinks">*@
+<ul style="text-align:right; display:none" id="list1">
+@*<li>
+<a href="@Url.Content("~/MDSubjects/Obrt/CreateAndEdit/0")" style="padding-right: 15px;">Novi obrt<span style="left: -35px; display: none;"></span></a>
+</li>*@
+<li>
+<a href="@Url.Content("~/MDSubjects/Company/CreateAndEdit/0")" style="padding-right: 15px;">Nova pravna osoba<span style="left: -35px; display: none;"></span></a>
+</li>
+@*<li>
+<a href="@Url.Content("~/MDSubjects/SoleProprietor/CreateAndEdit/0")" style="padding-right: 15px;">Nova slobodna djelatnost<span style="left: -35px; display: none;"></span></a>
+</li>*@
+<li>
+<a href="@Url.Content("~/MDSubjects/Person/CreateAndEdit/0")" style="padding-right: 15px;">Nova fizička osoba<span style="left: -35px; display: none;"></span></a>
+@*<a href="@Url.Content("~/MDSubjects/Person/CreateAndEdit/0")" class="butPrimarySmall">Nova osoba</a><br />*@
+</li>
+</ul>
+@*</div>*@
+<br />
+
+
+    @Html.Partial("ObrtGridPartial")
+
+
+
+

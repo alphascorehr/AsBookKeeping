@@ -1,0 +1,98 @@
+﻿@using System.Data
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvPersonGrid";
+                settings.CallbackRouteValues = new { Controller = "Company", Action = "CompanyGridPartial" };
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.Columns.Add(column =>
+                {
+                    column.Caption = "#";
+                    column.SetDataItemTemplateContent(c =>
+                    {
+                        ViewContext.Writer.Write(
+                            Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }) + "&nbsp" +
+                            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                                new { onclick = "return confirm('Da li stvarno želite obrisati odabranu tvrtku?')" })
+                        );
+                    });
+                    //column.SetHeaderTemplateContent(c =>
+                    //{
+                    //    ViewContext.Writer.Write(
+                    //        Html.ActionLink("Nova tvrtka", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                    //    );
+                    //});
+                    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    column.Width = 70;
+                });
+                
+                settings.KeyFieldName = "Id";
+
+                settings.Settings.ShowFilterRow = false;
+                settings.Settings.ShowGroupPanel = false;
+                settings.Settings.ShowFooter = false;
+
+                settings.Columns.Add("EstablishedDate", "Datum osnivanja", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "MDSubjects_Enums_CompanyTypeId";
+                    column.Caption = "Vrsta";
+
+
+                    var items = BusinessObjects.MDSubjects.cMDSubjects_Enums_CompanyType_List.GetcMDSubjects_Enums_CompanyType_List();
+
+                    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.ComboBox;
+
+                    var comboBoxProperties = column.PropertiesEdit as DevExpress.Web.ASPxEditors.ComboBoxProperties;
+
+                    comboBoxProperties.Height = 20;
+                    comboBoxProperties.DataSource = items;
+                    comboBoxProperties.IncrementalFilteringMode = DevExpress.Web.ASPxEditors.IncrementalFilteringMode.Contains;
+                    comboBoxProperties.FilterMinLength = 0;
+                    comboBoxProperties.TextField = "Name";
+                    comboBoxProperties.ValueField = "Id";
+                    comboBoxProperties.ValueType = typeof(int);
+                });
+
+                settings.Columns.Add("NumberOfEmployees", "broj zaposlenih", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+
+                settings.Columns.Add(column =>
+                {
+                    column.FieldName = "MDSubjects_Enums_CoreBussinessId";
+                    column.Caption = "Djelatnost";
+
+
+                    var items = BusinessObjects.MDSubjects.cMDSubjects_Enums_CoreBussiness_List.GetcMDSubjects_Enums_CoreBussiness_List();
+
+                    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.ComboBox;
+
+                    var comboBoxProperties = column.PropertiesEdit as DevExpress.Web.ASPxEditors.ComboBoxProperties;
+
+                    comboBoxProperties.Height = 20;
+                    comboBoxProperties.DataSource = items;
+                    comboBoxProperties.IncrementalFilteringMode = DevExpress.Web.ASPxEditors.IncrementalFilteringMode.Contains;
+                    comboBoxProperties.FilterMinLength = 0;
+                    comboBoxProperties.TextField = "Name";
+                    comboBoxProperties.ValueField = "Id";
+                    comboBoxProperties.ValueType = typeof(int);
+                });
+
+                settings.Columns.Add("CRO_OIB", "OIB", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                
+                settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).BindToLINQ("", "", new
+                        EventHandler<DevExpress.Data.Linq.LinqServerModeDataSourceSelectEventArgs>((s, e) =>
+                        {
+                            e.KeyExpression = "Id";
+                            DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+                            e.QueryableSource = context.MDSubjects_Subject.OfType<DalEf.MDSubjects_Company>().Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+                        })).GetHtml()

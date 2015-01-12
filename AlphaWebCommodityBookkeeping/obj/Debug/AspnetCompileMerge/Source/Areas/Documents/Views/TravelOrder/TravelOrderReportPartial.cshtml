@@ -1,0 +1,11 @@
+﻿@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrTravelOrder
+           
+           @Html.DevExpress().ReportViewer(
+    settings => {
+        settings.Name = "ReportViewer1";
+        settings.Report = Model;
+        settings.CallbackRouteValues = new { Controller = "TravelOrder", Action = "TravelOrderReportPartial", id = ViewData["travelOrderId"] };
+        settings.ExportRouteValues = new { Controller = "TravelOrder", Action = "ReportViewerExportTo", id = ViewData["travelOrderId"] };
+    }
+).GetHtml()
+

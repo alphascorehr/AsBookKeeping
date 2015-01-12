@@ -1,0 +1,73 @@
+﻿@using System.Data
+
+@{
+    var context = new DalEf.DocumentsEntities();
+    List<DalEf.vEntityPriceList> data;
+
+    data = context.vEntityPriceList.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.IsDefault == true).ToList();
+  
+        
+   
+}
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvEntityPriceListGrid";
+                settings.CallbackRouteValues = new { Controller = "PriceList", Action = "EntityPriceListGridPartial" };
+
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+                settings.Settings.ShowFilterRow = true;
+                settings.Settings.ShowFilterRowMenu = true;
+                settings.SettingsPager.PageSize = 13;
+                settings.CommandColumn.Visible = true;
+                settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                settings.CommandColumn.ClearFilterButton.Image.Url = @Url.Content("~/Content/images/clear.png");
+                settings.CommandColumn.ClearFilterButton.Image.ToolTip = "Očisti rezultate pretrage";
+                settings.CommandColumn.ClearFilterButton.Visible = true;
+                
+                    //settings.Columns.Add(column =>
+                    //{
+                    //    column.Caption = "#";
+                    //    column.SetDataItemTemplateContent(c =>
+                    //    {
+                    //        ViewContext.Writer.Write(
+                    //            Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }) + "&nbsp" +
+                    //            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                    //                new { onclick = "return confirm('Da li stvarno želite obrisati?')" })
+                    //        );
+                    //    });
+                    //    //column.SetHeaderTemplateContent(c =>
+                    //    //{
+                    //    //    ViewContext.Writer.Write(
+                    //    //        Html.ActionLink("Novi cjenik", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                    //    //    );
+                    //    //});
+                    //    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                    //    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                    //    column.Width = 70;
+                    //});
+                
+                
+                settings.KeyFieldName = "Id";
+
+                //settings.Settings.ShowFilterRow = false;
+                //settings.Settings.ShowGroupPanel = false;
+                //settings.Settings.ShowFooter = false;
+
+                settings.Columns.Add("Name", "Naziv proizvoda", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("EntityTypeName", "Tip proizvoda", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("EntityGroupName", "Grupa proizvoda", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("WholesalePrice", "Veleprodajna cijena", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+          
+                
+             
+
+               
+                settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).Bind(data).GetHtml()

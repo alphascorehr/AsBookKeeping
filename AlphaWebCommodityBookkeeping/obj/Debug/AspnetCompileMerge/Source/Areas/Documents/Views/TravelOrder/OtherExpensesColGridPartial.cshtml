@@ -1,0 +1,144 @@
+﻿@model BusinessObjects.Documents.cDocuments_TravelOrder_OtherExpensesCol
+
+@{
+    var grid = Html.DevExpress().GridView(
+                    settings =>
+                    {
+                        settings.Name = "gvOtherExpensesCol";
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.SettingsPager.PageSize = 10;
+                        settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                        settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                        settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                        settings.SettingsText.EmptyDataRow = "Nema podataka";
+
+                        settings.CommandColumn.SetHeaderTemplateContent(c =>
+                        {
+                            ViewContext.Writer.Write(
+                                Html.DevExpress().HyperLink(settingsHy => { settingsHy.Name = "addNewOtherExpenses"; settingsHy.Properties.ImageUrl = @Url.Content("~/Content/images/pls_dodaj_16.png"); settingsHy.Properties.ClientSideEvents.Click = "function NoviCLick(s, e) {gvOtherExpensesCol.AddNewRow(); }"; }).GetHtml());
+                        });
+
+                        settings.CallbackRouteValues = new { Controller = "TravelOrder", Action = "RefreshOtherExpensesColGridPartial" };
+                        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "TravelOrder", Action = "AddNewExpenses" };
+                        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "TravelOrder", Action = "UpdateExpenses" };
+                        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "TravelOrder", Action = "DeleteExpenses" };
+                        settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                        settings.SettingsBehavior.ConfirmDelete = true;
+                        settings.SettingsBehavior.AllowFocusedRow = true;
+
+
+                        settings.CommandColumn.Width = 40;
+                        settings.CommandColumn.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                        settings.CommandColumn.HeaderStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                        settings.CommandColumn.Visible = true;
+                        settings.CommandColumn.NewButton.Visible = false;
+                        settings.CommandColumn.NewButton.Text = "Novi";
+                        settings.CommandColumn.DeleteButton.Visible = true;
+                        settings.CommandColumn.ButtonType = System.Web.UI.WebControls.ButtonType.Image;
+                        //settings.CommandColumn.DeleteButton.Text = "Obriši";
+                        settings.CommandColumn.DeleteButton.Image.Url = @Url.Content("~/Content/images/pls_brisi_16.png");
+                        settings.CommandColumn.DeleteButton.Image.ToolTip = "Obriši";
+                        settings.CommandColumn.EditButton.Visible = true;
+                        //settings.CommandColumn.EditButton.Text = "Uredi";
+                        settings.CommandColumn.EditButton.Image.Url = @Url.Content("~/Content/images/pls_uredi_16.png");
+                        settings.CommandColumn.EditButton.Image.ToolTip = "Uredi";
+                        //settings.CommandColumn.CancelButton.Text="Odustani";
+                        settings.CommandColumn.CancelButton.Image.Url = @Url.Content("~/Content/images/pls_zatvori_16.png");
+                        settings.CommandColumn.CancelButton.Image.ToolTip = "Odustani";
+                        //settings.CommandColumn.UpdateButton.Text = "Prihvati";
+                        settings.CommandColumn.UpdateButton.Image.Url = @Url.Content("~/Content/images/pls_snimi_16.png");
+                        settings.CommandColumn.UpdateButton.Image.ToolTip = "Snimi";
+                        settings.CommandColumn.ShowSelectCheckbox = false;
+
+                        
+                        
+                        settings.KeyFieldName = "Ordinal";
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Ordinal";
+                            column.ReadOnly = true;
+                            column.Caption = "Rbr.";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 30;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 0;
+                            spinEditProperties.DisplayFormatString = "n0";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 0;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            spinEditProperties.Width = 30;
+                            
+                            
+                        });
+                        
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Id";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Visible = false;
+
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+                            spinEditProperties.NullText = "0";
+                            
+                          
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Description";
+                            column.Caption = "Opis troška";
+                            column.ColumnType = MVCxGridViewColumnType.TextBox;
+
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Ammount";
+                            column.Caption = "Iznos";
+                            column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                            column.Width = 55;
+                            var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                            spinEditProperties.AllowNull = false;
+                            spinEditProperties.DecimalPlaces = 2;
+                            spinEditProperties.DisplayFormatString = "n2";
+                            spinEditProperties.DisplayFormatInEditMode = true;
+                            spinEditProperties.MinValue = 1;
+                            spinEditProperties.MaxValue = 10000000000;
+                            spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                            //spinEditProperties.Width = 55;
+                            //spinEditProperties.ClientSideEvents.ValueChanged = "Calc";
+                        });
+
+                        settings.Columns.Add(column =>
+                        {
+                            column.FieldName = "Admited";
+                            column.Caption = "Priznato";
+                            column.ColumnType = MVCxGridViewColumnType.CheckBox;
+                            column.Width = 55;
+
+                            var checkBoxProperties = column.PropertiesEdit as CheckBoxProperties;
+                            checkBoxProperties.AllowGrayed = false;
+                            checkBoxProperties.ValueType = typeof(bool);
+                            //checkBoxProperties.ClientSideEvents.Init = "IsAdmitedInit";
+                        });
+
+
+
+                        settings.ClientSideEvents.BeginCallback = "function(s, e) { OnOtherExpensesStartCallback(s, e); }";
+                        settings.ClientSideEvents.EndCallback = "function(s, e) { OnOtherExpensesEndCallback(s, e); }";
+                        settings.ClientSideEvents.Init = "function(s, e){ OnOtherExpensesInit(s, e) }";
+                        
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "WholesaleValue");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Sum, "TaxAmmount");
+                        //settings.TotalSummary.Add(DevExpress.Data.SummaryItemType.Custom)
+                        //settings.Settings.ShowFooter = true;
+                        //settings.Settings.ShowGroupFooter = true;
+
+                    });
+   }
+                  @grid.Bind(Model).GetHtml()

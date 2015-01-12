@@ -1,0 +1,22 @@
+﻿@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrQuote
+
+@{
+    ViewBag.Title = "QuoteReport";
+}
+
+@using (Html.BeginForm("QuoteReport", "Quote"))
+{
+    
+    <div>
+    
+    @Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbar";
+                settings.ReportViewerName = "ReportViewer1";
+            }
+        ).GetHtml()
+
+        @Html.Partial("QuoteReportPartial", Model, new ViewDataDictionary() { { "QuoteId", ViewData["QuoteId"] } })
+    </div>
+}

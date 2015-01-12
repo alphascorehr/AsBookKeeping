@@ -1,0 +1,789 @@
+﻿@using System.Data;    
+     <!--[if IE 7]>
+    <style type="text/css">
+        #vtab > ul > li.selected{
+            border-right: 1px solid #fff !important;
+        }
+        #vtab > ul > li {
+            border-right: 1px solid #ddd !important;
+        }
+        #vtab > div { 
+            z-index: -1 !important;
+            left:1px;
+        }
+    </style>
+    <![endif]-->
+
+    
+<script type="text/javascript">
+//<![CDATA[
+    $(document).ready(function () {
+        if ('@ViewData["Message"]' != '-1') {
+            $('#acc').fadeIn('slow');
+        }
+
+       
+        
+
+        //$('.dropdown-button').click(function () {
+        //    $('.dropdown-button').toggleClass('show-menu');
+        //});
+        //$(".main_bg").click(function () {
+        //    if ($('.dropdown-button').hasClass('show-menu'))
+        //    {
+        //        $('.dropdown-button').removeClass('show-menu');
+        //    }
+        //    return;
+        //});
+    });
+
+
+    
+
+     $(function () {
+        var $items = $('#vtab>ul>li');
+        $items.click(function () {
+            $items.removeClass('selected');
+            $(this).addClass('selected');
+
+            var index = $items.index($(this));
+            $('#vtab>div').hide().eq(index).show();
+        }).eq(0).click();
+    });
+
+     //function showMenu()
+     //{
+     //    $('.dropdown-button').toggleClass('show-menu');
+    //}
+     function ShowWidgetPanel(widgetPanelUID) {
+         var panel = dockManager.GetPanelByUID(widgetPanelUID);
+         panel.Show();
+     }
+     function SetWidgetButtonVisible(widgetName, visible) {
+         if (!visible)
+             $('#widgetButton_' + widgetName).addClass('disabled')
+         else
+             $('#widgetButton_' + widgetName).removeClass();
+     }
+   
+     function addCommas(nStr) {
+         if (nStr == "")
+         {
+             return "0,00";
+         }
+         nStr += '';
+         x = nStr.split(',');
+         x1 = x[0];
+         x2 = x.length > 1 ? '.' + x[1] : '';
+         var rgx = /(\d+)(\d{3})/;
+         while (rgx.test(x1)) {
+             x1 = x1.replace(rgx, '$1' + ',' + '$2');
+         }
+         return x1 + x2;
+     }
+
+     function Print(tip, source, report)
+     {
+         var url = '@Url.Content("~/Reports/IndexPost")';
+         var url1 = '@Url.Content("~/Reports/Index")';
+         window.location.replace(url1);
+         $.post(url, { tip: tip, source: source, reportType: report }, function () {
+             return;
+         })
+     }
+
+    function PrintNfakturirano(vrstadokumenta, report)
+    {
+        var url = '@Url.Content("~/Reports/IndexPostVrstaDockumenta")';
+        var url1 = '@Url.Content("~/Reports/Index")';
+        $.post(url, { vrstadokumenta: vrstadokumenta, reportType: report }, function () {
+            window.location.replace(url1);;
+        })
+    }
+
+    function PrintNaDan(tip, report)
+    {
+        var url = '@Url.Content("~/Reports/IndexPostNaDan")';
+        var url1 = '@Url.Content("~/Reports/Index")';
+        window.location.replace(url1);
+        $.post(url, { tip: tip, reportType: report }, function () {
+            return;
+        })
+    }
+
+   
+
+   
+
+// ]]>
+</script>
+
+
+@{
+    DalEf.DocumentsEntities data = new DalEf.DocumentsEntities();
+    var it = data.uspInvoicesClaims(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, null).SingleOrDefault();
+    //string whatYouWant = number.ToString("#,##0");
+    decimal? dospjelaPotrazivanja = it.MaturedClaims;
+    //string.Format("{0:#,###,###.##}", it.MaturedClaims);
+    int numberOfUnd = it.NumOfUndistributed;
+
+    decimal? ukupnaPotrazivanja = it.TotalClaims;
+    decimal? nedospjelo = it.NotMaturedClaims ?? 0.00M;
+    decimal? dospjelo30 = it.MaturedClaims30;
+    decimal? dospjelo60 = it.MaturedClaims60;
+    decimal? dospjelo90 = it.MaturedClaims90;
+    decimal? dospjelo90plus = it.MaturedClaims90Plus;
+
+    var dug = data.uspIncomingInvoicesClaims(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, null).SingleOrDefault();
+    decimal? dospjelaDugovanja = dug.MaturedClaims;
+    decimal? ukupnaDogovanja = dug.TotalClaims;
+    decimal? nedospjelodug = dug.NotMaturedClaims ?? 0.00M;
+    decimal? dospjelo30dug = dug.MaturedClaims30;
+    decimal? dospjelo60dug = dug.MaturedClaims60;
+    decimal? dospjelo90dug = dug.MaturedClaims90;
+    decimal? dospjelo90plusdug = dug.MaturedClaims90Plus;
+    int numberOfUnddub = dug.NumOfUndistributed;
+    
+
+    var otvoreni = data.uspMyDocumentsInStatus(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).EmployeeSubjectId, 0).OrderByDescending(p => p.LastActivityDate);
+    var poslani = data.uspMyDocumentsInStatus(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).EmployeeSubjectId, 1).OrderByDescending(p => p.LastActivityDate);
+
+    var Nefakturirano = data.uspUnbilled(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId).SingleOrDefault() ;
+    decimal? ukupnoNefakt = Nefakturirano.OfferAmmount;
+    decimal? predracuni = Nefakturirano.QuoteAmmount;
+    decimal? radniNalozi = Nefakturirano.WorkOrderAmmount;
+    decimal? nefaktTotal = Nefakturirano.Total;
+
+    var stanjenaDan = data.uspMaymentState(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId).FirstOrDefault();
+
+    decimal? stanje = stanjenaDan.AccountBalance ?? 0.00M;
+    string naDan = Convert.ToDateTime(stanjenaDan.OnDay).ToShortDateString();
+    decimal? potrDanas = stanjenaDan.InvoiceToday ?? 0.00M;
+    decimal? potr5 = stanjenaDan.Invoice5Days ?? 0.00M;
+    decimal? potr10 = stanjenaDan.Invoice10Days ?? 0.00M;
+    decimal? potr15 = stanjenaDan.Invoice15Days ?? 0.00M;
+
+    decimal? dugDanas = stanjenaDan.IncomingInvoiceToday ?? 0.00M;
+    decimal? dug5 = stanjenaDan.IncomingInvoice5Days ?? 0.00M;
+    decimal? dug10 = stanjenaDan.IncomingInvoice10Days ?? 0.00M;
+    decimal? dug15 = stanjenaDan.IncomingInvoice15Days ?? 0.00M;
+
+   
+}
+
+
+<div class="notifyBox bad" id="acc" style="display:none">
+            <h3>Vaš korisnički račun isteći će u roku @ViewData["Message"] dana.</h3>
+            <ul>
+                 <li> Molimo nadoplatite korisnički račun</li>
+            </ul>
+</div>
+
+ @if (!((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).FirstPage)
+ {
+@*<div class="notifyBox bad" style="display:block">
+<h3>Logirani korisnik nije ovlašten za pregled otvorenih računa.</h3>
+            
+</div>*@
+ }
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("linkName", "Pocetna");
+                                       
+   
+ <table width="100%" border="0">
+ <tr>
+ <td width="10%"></td>
+<td width="25%">
+ 
+   
+    </td>
+     <td width="5%">
+    <img id="imgOk" src="@Url.Content("~/Content/images/ok.jpg")" style="display:none" width="20px" height="20px"/>
+    </td>
+     <td width="15%"></td>
+     <td width="25%">
+ 
+   
+    </td>
+     <td width="60%">
+<h2 class='pt'></h2>
+			<div id="dashboard-create-new-panel" class="button-panel" >
+			<div class="dropdown-button large-green">
+	<span>Dodaj</span>
+	<ul>
+		<li>
+		<a  href="@Url.Content("~/Documents/Offer/CreateAndEdit/0")">
+		Ponudu
+		</a>
+	</li>
+		<li>
+		<a  href="@Url.Content("~/Documents/Invoice/CreateAndEdit/0")">
+		Račun
+		</a>
+	</li>
+		<li>
+		<a  href="@Url.Content("~/Documents/Quote/CreateAndEdit/0")">
+		Predračun
+		</a>
+	</li>
+		<li>
+		<a  href="@Url.Content("~/Documents/WorkOrder/CreateAndEdit/0")">
+		Radni nalog
+		</a>
+	</li>
+		<li>
+		<a  href="@Url.Content("~/Documents/TravelOrder/CreateAndEdit/0")">
+		Putni nalog
+		</a>
+	</li>
+      
+	<li>
+		<a  href="@Url.Content("~/Documents/Dispatch/CreateAndEdit/0")">
+		Otpremnicu
+		</a>
+	</li>
+        <li>
+		<a  href="@Url.Content("~/Documents/OrderForm/CreateAndEdit/0")">
+		Narudžbu
+		</a>
+	</li>
+    <li>
+		<a  href="@Url.Content("~/Documents/Virmani/CreateAndEdit/0")">
+		Virman
+		</a>
+	</li>
+		</ul>
+</div>
+
+		</div>
+	</td>
+     </tr>
+     </table>
+
+<div class="clearb"></div>@*           
+
+                                       
+    <div id="vtab">
+        <ul>
+     
+            <li class="jedan selected"></li>
+            <li class="dva"></li>
+      
+         
+        </ul>
+        <div style="display:none">
+            <h4>Otvoreni računi</h4>
+              @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).FirstPage)
+              {
+                   @Html.Partial("PaymentClosureGridPartial")
+                 <br />
+                 @Html.Partial("IncomingPaymentClosureGridPartial")
+             
+              }
+
+        </div>
+        <div style="display:none">
+            <h4>Otvoreni računi</h4>
+                @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).FirstPage)
+                {
+                     @Html.Partial("PaymentClosureChartPartial")
+               
+                }
+        </div>
+    </div>*@
+    
+    
+    
+   
+
+    if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).FirstPage)
+    {
+    
+    @Html.DevExpress().DockManager(
+    settings =>
+    {
+        settings.Name = "dockManager";
+        settings.ClientSideEvents.PanelShown = "function(s, e) { SetWidgetButtonVisible(e.panel.panelUID, false) }";
+        settings.ClientSideEvents.PanelCloseUp = "function(s, e) { SetWidgetButtonVisible(e.panel.panelUID, true) }";
+
+    }
+).GetHtml()
+
+
+ @Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel0";
+        settings.PanelUID = "panel0";
+        settings.OwnerZoneUID = "leftZone";
+        settings.HeaderText = "Moji otvoreni dokumenti";
+        settings.VisibleIndex = 0;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Height = System.Web.UI.WebControls.Unit.Pixel(467);
+        settings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Vertical;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+            System.Web.Mvc.MvcHtmlString hlink = System.Web.Mvc.MvcHtmlString.Empty;
+            string link = "";
+            ViewContext.Writer.Write("<table width=\"100%\">");
+            foreach (var item in otvoreni)
+            {
+                string str = "";
+                if (item.Name.Length > 22)
+                {
+                    str =  item.Name.Substring(0, Math.Min(item.Name.Length, 22));
+                    str += "...";
+                }
+                else
+                {
+                    str = item.Name.ToString();
+                }
+                if (@item.UniqueIdentifier.StartsWith("IR"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(),  @Url.Content("~/Documents/Invoice"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Invoice/CreateAndEdit/" + item.Id) + "\"><font color = \"#E41B17\">" + item.UniqueIdentifier + "</font></small></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("UR"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(),  @Url.Content("~/Documents/IncomingInvoice"));
+                    link = "<a onclick=\"Cursor();\" href=" + @Url.Content("~/Documents/IncomingInvoice/CreateAndEdit/" + item.Id) + "> <font color = \"#800000\">" + item.UniqueIdentifier + "</font></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("PON"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/Offer"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Offer/CreateAndEdit/" + item.Id) + "\"><font color = \"#347235\">" + item.UniqueIdentifier + "</font></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("RN"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/WorkOrder"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/WorkOrder/CreateAndEdit/" + item.Id) + "\"><font color = \"#E56717\">" + item.UniqueIdentifier + "</font></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("PN"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/TravelOrder"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/TravelOrder/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("OBR"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/Payoff"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Payoff/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                    
+                }
+                else if (@item.UniqueIdentifier.StartsWith("ZAP"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/TakeoverOfGoods/"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/TakeoverOfGoods/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("NAR"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/OrderForm"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/OrderForm/CreateAndEdit/" + item.Id) + "\"><font color = \"#800080\">" + item.UniqueIdentifier + "</font></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("OTP"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/OrderForm"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Dispatch/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("PRE"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/Quote"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Quote/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                    
+                }
+                ViewContext.Writer.Write("<tr>");
+                // ViewContext.Writer.Write(<"td href=\" onclick=\"Print >" + @link + "</td>")
+                ViewContext.Writer.Write("<td width=\"38%\"><font small><b>" + @link + "</b></font></td>");
+                ViewContext.Writer.Write("<td width=\"62%\"><font color = \"#37403f\"><b>" + @str + "</b></font color></td></tr><tr>");
+                ViewContext.Writer.Write("<td width=\"100%\" colspan=\"2\"><font color = \"#808080\"><small>" + @item.LastActivityDate + "</font></td>");
+                ViewContext.Writer.Write("</tr>");
+            }
+            ViewContext.Writer.Write("</table>");
+        });
+    }
+).GetHtml()
+
+    @Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel01";
+        settings.PanelUID = "panel01";
+        settings.OwnerZoneUID = "leftZone";
+        settings.HeaderText = "Moji poslani dokumenti";
+        settings.VisibleIndex = 1;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Height = System.Web.UI.WebControls.Unit.Pixel(467);
+        settings.ScrollBars = System.Web.UI.WebControls.ScrollBars.Vertical;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<table width=\"100%\">");
+            System.Web.Mvc.MvcHtmlString hlink = System.Web.Mvc.MvcHtmlString.Empty;
+            string link = "";
+            foreach (var item in poslani)
+            {
+                string str = "";
+                if (item.Name.Length > 25)
+                {
+                    str = item.Name.Substring(0, Math.Min(item.Name.Length, 25));
+                    str += "...";
+                }
+                else
+                {
+                    str = item.Name.ToString();
+                }
+                if (@item.UniqueIdentifier.StartsWith("IR"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(),  @Url.Content("~/Documents/Invoice"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Invoice/CreateAndEdit/" + item.Id) + "\"><font color = \"#E41B17\">" + item.UniqueIdentifier + "</font></small></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("UR"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(),  @Url.Content("~/Documents/IncomingInvoice"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/IncomingInvoice/CreateAndEdit/" + item.Id) + "\"><font color = \"#800000\">" + item.UniqueIdentifier + "</font></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("PON"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/Offer"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Offer/CreateAndEdit/" + item.Id) + "\"><font color = \"#347235\">" + item.UniqueIdentifier + "</font></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("RN"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/WorkOrder"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/WorkOrder/CreateAndEdit/" + item.Id) + "\"><font color = \"#E56717\">" + item.UniqueIdentifier + "</font></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("PN"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/TravelOrder"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/TravelOrder/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("OBR"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/Payoff"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Payoff/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                    
+                }
+                else if (@item.UniqueIdentifier.StartsWith("ZAP"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/TakeoverOfGoods/"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/TakeoverOfGoods/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("NAR"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/OrderForm"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/OrderForm/CreateAndEdit/" + item.Id) + "\"><font color = \"#800080\">" + item.UniqueIdentifier + "</font></a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("OTP"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/OrderForm"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Dispatch/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                }
+                else if (@item.UniqueIdentifier.StartsWith("PRE"))
+                {
+                    //hlink = @Html.ActionLink(@item.UniqueIdentifier, "CreateAndEdit/" + @item.Id.ToString(), @Url.Content("~/Documents/Quote"));
+                    link = "<a href=\"" + @Url.Content("~/Documents/Quote/CreateAndEdit/" + item.Id) + "\">" + item.UniqueIdentifier + "</a>";
+                    
+                }
+                ViewContext.Writer.Write("<tr>");
+                ViewContext.Writer.Write("<td width=\"38%\"><font small><b>" + @link + "</b></font></td>");
+                ViewContext.Writer.Write("<td width=\"62%\"><font color = \"#37403f\"><b>" + @str + "</b></font color></td></tr><tr>");
+                ViewContext.Writer.Write("<td width=\"100%\" colspan=\"2\"><font color = \"#808080\"><small>" + @item.LastActivityDate + "</font></td>");
+                //ViewContext.Writer.Write("<td width=\"75%\"></td>");
+                ViewContext.Writer.Write("</tr>");
+            }
+            ViewContext.Writer.Write("</table>");
+        });
+    }
+).GetHtml()
+    
+@Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel1";
+        settings.PanelUID = "Mail";
+        settings.OwnerZoneUID = "rightZone";
+        
+        if (numberOfUnd > 0)
+        { 
+            settings.HeaderText = "Otvorena potraživanja";
+            settings.ShowFooter = true;
+            settings.FooterText = "Iznosi dogovanja ...." + @numberOfUnd;
+            settings.Styles.Footer.ForeColor = System.Drawing.Color.Yellow;
+        }
+        else
+        {
+            settings.HeaderText = "Otvorena potraživanja";
+        }
+        settings.VisibleIndex = 0;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+
+            ViewContext.Writer.Write("<table width=\"100%\"><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><b><font color=\"red\" size=\"4\">" + string.Format("{0:#,###,##0.00}", it.MaturedClaims) + "</a>&nbsp;kn</font></td>");
+            @Html.DevExpress().Label(sets => { sets.Name = "l1"; sets.Properties.DisplayFormatString = "{N2}"; }).GetHtml();
+            //@Html.DevExpress().SpinEdit(sets => { sets.Name = "l1"; sets.Properties.DisplayFormatString = "n2"; }).GetHtml();
+            // prvi parametar je (tip) koji se prosljeduje u storu , a drugi je (source) 0 za izlazne fakture, 1 za ulazne fakture, 2 za nefakturiano, 3 za dospjeca
+            // @Source = 0 za izlazne fakture
+            // @Source = 1 za ulazne fakture
+            // @Source = 2 za nefakturiano
+            // @Source = 3 za dospjeca
+
+            // @Tip = 0 - Ukupna potrazivanja
+            // @Tip = 1 - Dospjela potrazivanja
+            // @Tip = 2 - Nedospjela potrazivanja
+            // @Tip = 30 - Od = 0  do = 30 potrazivanja
+            // @Tip = 31 - Od = 30 do = 60 potrazivanja
+            // @Tip = 32 - Od = 60 do = 90 potrazivanja
+            // @Tip = 4 - preko 90 potrazivanja
+
+
+            //All- @VrstaDokumenta = 0 
+            //Offer - @VrstaDokumenta = 2 
+            //Quote - @VrstaDokumenta = 5
+            //WorkOrder - @VrstaDokumenta = 7
+
+
+            //ViewContext.Writer.Write("<td width=\"50%\"><a href=\"#\" onclick=\"Print(2, 0)\">Nedospjelo: " + string.Format("{0:#,###,##0.00}", @nedospjelo) + "</a>&nbsp;kn</td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(2, 0, 0)\">Nedospjelo: </a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @nedospjelo) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><a href=\"#\" onclick=\"Print(1, 0, 0)\">Dospjela potraživanja</a></td>");
+            //ViewContext.Writer.Write("<td width=\"50%\"><a href=\"#\" onclick=\"Print(30, 0)\">Dospjelo 0-30 dana:</a> " + string.Format("{0:#,###,##0.00}", @dospjelo30) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(30, 0, 0)\">Dospjelo 0-30 dana:</a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dospjelo30) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><b><font color=\"blue\" size=\"4\">" + string.Format("{0:#,###,##0.00}", @ukupnaPotrazivanja) + "&nbsp;kn</font></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(31, 0, 0)\">Dospjelo 31-60 dana:</a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dospjelo60) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><a href=\"#\" onclick=\"Print(0, 0, 0)\">Ukupna potraživanja</a></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(32, 0, 0)\">Dospjelo 61-90 dana:</a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dospjelo90) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(4, 0, 0)\">Dospjelo preko 90 dana: </a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dospjelo90plus) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr></table>");
+        });
+    }
+).GetHtml()
+
+    
+ @Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel2";
+        settings.PanelUID = "panel2";
+        settings.OwnerZoneUID = "rightZone";
+        //settings.HeaderText = "Otvorena dugovanja";
+        if (numberOfUnd > 0)
+        {
+            settings.HeaderText = "Otvorena dugovanja";
+            settings.ShowFooter = true;
+            settings.FooterText = "Ovi iznosi možda nisu točni jer na " + @numberOfUnddub + " izvoda nisu povezana plaćanja s računima!";
+            settings.Styles.Footer.ForeColor = System.Drawing.Color.Black;
+            settings.Styles.Footer.BackColor = System.Drawing.Color.Red;
+        }
+        else
+        {
+            settings.HeaderText = "Otvorena dugovanja.";
+           
+        }
+        settings.VisibleIndex = 1;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<table width=\"100%\"><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><b><font color=\"red\" size=\"4\">" + string.Format("{0:#,###,##0.00}", @dospjelaDugovanja) + "&nbsp;kn</font></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(2, 1, 1)\">Nedospjelo: </a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @nedospjelodug) + "</a>&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><a href=\"#\" onclick=\"Print(1, 1, 1)\">Dospjela dugovanja</a></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(30, 1, 1)\">Dospjelo 0-30 dana: </a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dospjelo30dug) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><b><font color=\"blue\" size=\"4\">" + string.Format("{0:#,###,##0.00}", @ukupnaDogovanja) + "&nbsp;kn</font></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(31, 1, 1)\">Dospjelo 31-60 dana: </a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dospjelo60dug) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><a href=\"#\" onclick=\"Print(0, 1, 1)\">Ukupna dugovanja</td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(32, 1, 1)\">Dospjelo 61-90 dana: </a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dospjelo90dug) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"Print(4, 1, 1)\">Dospjelo preko 90 dana: </a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dospjelo90plusdug) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr></table>");
+        });
+    }
+).GetHtml() 
+    
+ @Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel3";
+        settings.PanelUID = "panel3";
+        settings.OwnerZoneUID = "rightZone";
+        settings.HeaderText = "Nefakturirani dokumenti";
+        settings.VisibleIndex = 2;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<table width=\"100%\"><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><b><font color=\"blue\" size=\"4\">" + string.Format("{0:#,###,##0.00}", nefaktTotal) + "&nbsp;kn</font></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"PrintNfakturirano(2, 2)\">Nefakturirane Ponude:</td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @ukupnoNefakt) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"><a href=\"#\" onclick=\"PrintNfakturirano(0, 2)\">Ukupno nefakturirano</a></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"PrintNfakturirano(5, 2)\">Nefakturirani Predračuni:</a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @predracuni) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"45%\"></td>");
+            ViewContext.Writer.Write("<td width=\"30%\"><a href=\"#\" onclick=\"PrintNfakturirano(7, 2)\">Nefakturirani Radni nalozi:</a></td>");
+            ViewContext.Writer.Write("<td width=\"25%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @radniNalozi) + "</a>&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("</tr></table>");
+        });
+    }
+).GetHtml() 
+    
+    
+ @Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel4";
+        settings.PanelUID = "panel4";
+        settings.OwnerZoneUID = "rightZone";
+        settings.HeaderText = string.Format("{0:#,###,##0.00}", @stanje) + " kn - stanje računa na dan " + naDan;
+        settings.VisibleIndex = 3;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.Styles.Header.ForeColor = System.Drawing.Color.Black;
+        settings.SetContent(() =>
+        {
+
+            //@Tip = 20 - IRA Danas
+            //@Tip = 21 - IRA 5 dana
+            //@Tip = 22 - IRA 10 dana
+            //@Tip = 23 - IRA 15 dana
+            //@Tip = 24 - URA Danas
+            //@Tip = 25 - URA 5 dana
+            //@Tip = 26 - URA 10 dana
+            //@Tip = 27 - URA 15 dana
+
+
+            ViewContext.Writer.Write("<table width=\"100%\"><tr>");
+            ViewContext.Writer.Write("<td width=\"50%\" colspan=\"3\"><b>Potraživanja koja će dospjeti:</td>");
+            ViewContext.Writer.Write("<td width=\"50%\" colspan=\"2\"><b>Dugovanja koja će dospjeti:</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+            ViewContext.Writer.Write("<td width=\"22%\"><a href=\"#\" onclick=\"PrintNaDan(20, 3)\">Danas:</a></td>");
+            ViewContext.Writer.Write("<td width=\"22%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @potrDanas) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("<td>&nbsp;</td>");
+            ViewContext.Writer.Write("<td width=\"22%\"><a href=\"#\" onclick=\"PrintNaDan(24, 3)\">Danas:</a></td>");
+            ViewContext.Writer.Write("<td width=\"22%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dugDanas) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+
+            ViewContext.Writer.Write("<td width=\"22%\"><a href=\"#\" onclick=\"PrintNaDan(21, 3)\">U slijedećih 5 dana:</a></td>");
+            ViewContext.Writer.Write("<td width=\"22%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @potr5) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("<td>&nbsp;</td>");
+            ViewContext.Writer.Write("<td width=\"22%\"><a href=\"#\" onclick=\"PrintNaDan(25, 3)\">U slijedećih 5 dana:</a></td>");
+            ViewContext.Writer.Write("<td width=\"22%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dug5) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+
+            ViewContext.Writer.Write("<td width=\"22%\"><a href=\"#\" onclick=\"PrintNaDan(22, 3)\">U slijedećih 10 dana:</a></td>");
+            ViewContext.Writer.Write("<td width=\"22%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @potr10) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("<td>&nbsp;</td>");
+            ViewContext.Writer.Write("<td width=\"22%\"><a href=\"#\" onclick=\"PrintNaDan(26, 3)\">U slijedećih 10 dana:</a></td>");
+            ViewContext.Writer.Write("<td width=\"22%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dug10) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+
+            ViewContext.Writer.Write("<td width=\"22%\"><a href=\"#\" onclick=\"PrintNaDan(23, 3)\">U slijedećih 15 dana:</a></td>");
+            ViewContext.Writer.Write("<td width=\"22%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @potr15) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("<td>&nbsp;</td>");
+            ViewContext.Writer.Write("<td width=\"22%\"><a href=\"#\" onclick=\"PrintNaDan(27, 3)\">U slijedećih 15 dana:</a></td>");
+            ViewContext.Writer.Write("<td width=\"22%\" align=\"right\">" + string.Format("{0:#,###,##0.00}", @dug15) + "&nbsp;kn</td>");
+            ViewContext.Writer.Write("</tr><tr>");
+
+
+            ViewContext.Writer.Write("</tr></table>");
+        });
+    }
+).GetHtml()     
+    
+
+ @Html.DevExpress().DockPanel(
+    settings =>
+    {
+        settings.Name = "panel5";
+        settings.PanelUID = "panel5";
+        settings.OwnerZoneUID = "rightZone";
+        settings.HeaderText = "Promet";
+        settings.VisibleIndex = 4;
+        settings.ShowCloseButton = false;
+        settings.AllowDragging = false;
+        settings.Styles.Header.Font.Bold = true;
+        settings.SetContent(() =>
+        {
+            Html.RenderPartial("PrometChart");
+        });
+    }
+).GetHtml() 
+        
+    
+@*<div class="widgetPanel">
+    @foreach (string widget in WidgetsDemoHelper.GetWidgets())
+    {
+        @Html.DevExpress().Image(
+            settings =>
+            {
+                settings.Name = "widgetButton_" + widget;
+                settings.ImageUrl = Url.Content(string.Format("~/Content/Docking/Images/Widgets/{0}.png", widget));
+                settings.ControlStyle.Cursor = "pointer";
+                settings.ToolTip = "Show " + widget;
+                settings.Properties.ClientSideEvents.Click = string.Format("function(s, e) {{ ShowWidgetPanel('{0}') }}", widget);
+            }
+        ).GetHtml()
+    }
+</div>*@
+@Html.DevExpress().DockZone(
+    settings =>
+    {
+        settings.Name = "dockZone1";
+        settings.ZoneUID = "leftZone";
+        settings.ControlStyle.CssClass = "leftZone";
+        settings.Width = 340;
+        settings.PanelSpacing = 10;
+    }
+).GetHtml()
+@Html.DevExpress().DockZone(
+    settings =>
+    {
+        settings.Name = "dockZone2";
+        settings.ZoneUID = "rightZone";
+        settings.ControlStyle.CssClass = "rightZone";
+        settings.Width = 560;
+        settings.PanelSpacing = 10;
+    }
+).GetHtml() 
+    
+                                                                   
+                                    
+                                       
+}
+
+    
+
+        
+}

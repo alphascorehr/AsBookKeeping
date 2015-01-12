@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<preserve resultType="2" virtualPath="/Views/Account/SuperAdmin.cshtml" hash="ffffffffead2c138" filehash="129d01ce0684" flags="110000" assembly="App_Web_2xfhh54y" type="ASP._Page_Views_Account_SuperAdmin_cshtml">
+    <filedeps>
+        <filedep name="/Views/Account/SuperAdmin.cshtml" />
+    </filedeps>
+</preserve>

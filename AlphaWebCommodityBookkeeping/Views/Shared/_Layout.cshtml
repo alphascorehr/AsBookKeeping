@@ -1,0 +1,280 @@
+﻿@using DevExpress.Web.Mvc
+@using DevExpress.Web.Mvc.UI
+@using Csla.Web.Mvc
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+    <link rel="shortcut icon" href="/Resources/favicon.ico" />
+
+    <link href="@Url.Content("~/Content/MainStyle.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Widgets.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/toastr.min.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/helper/jquery.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/helper/jquery.validate.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/helper/jqModal.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/helper/jquery-ui.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/helper/toastr.min.js")"></script>
+
+    <title>AlphaOnline</title>
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+        new Script { ExtensionSuite = ExtensionSuite.GridView },
+        new Script { ExtensionSuite = ExtensionSuite.Editors },
+        new Script { ExtensionSuite = ExtensionSuite.Chart },
+        new Script { ExtensionSuite = ExtensionSuite.Report }
+    )
+
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout, Theme = "DevEx" },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = "DevEx" },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor, Theme = "DevEx" },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "DevEx" },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Chart, Theme = "DevEx" },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Report, Theme = "DevEx" }
+    )
+
+    <script type="text/javascript">
+        var lockText = "Dokument editira drugi korisnik, snimanje je onemogućeno.";
+        var SelflockText = "Molimo, odjavite se sa aplikacije i prijavite ponovo.";
+        var gridInEdit = false;
+        function Focus(s) {
+            $('#subnav').children().children().children().children().removeClass('active');
+            $(s).addClass('active');
+            Cursor();
+        }
+        function Cursor() {
+            $("*").css("cursor", "wait");
+        }
+        function CursorOff() {
+            $("*").css("cursor", "default");
+        }
+
+        function unloadPage() {
+            //alert(window.location.href);
+        }
+
+        $(document).ready(function () {
+            window.onunload = unloadPage();
+            $("html").bind("ajaxStart", function () {
+                $("*").css("cursor", "wait");
+            }).bind("ajaxStop", function () {
+                $("*").css("cursor", "auto");
+                $("a").css("cursor", "pointer");
+                $("img").css("cursor", "pointer");
+                $("span").css("cursor", "pointer");
+                $(".dxpPageNumber_DevEx").css("cursor", "pointer");
+                $('.dxeCalendarDay_DevEx').css("cursor", "pointer");
+                $('.nav-toplinks').css("cursor", "pointer");
+            });
+
+            var HorseMessage = "Molimo, snimite stavku!";
+            $('.button_large').click(function () {
+                if (gridInEdit) {
+                    alert(HorseMessage);
+                }
+                else {
+                    $(this).closest('form').submit();
+                }
+            });
+            $('.konj').click(function () {
+                if (gridInEdit) {
+                    alert(HorseMessage);
+                }
+                else {
+                    jqConfirm(this.id);
+                }
+
+            });
+            $('#printLink').click(function () {
+                if (gridInEdit) {
+                    alert(HorseMessage);
+                }
+                else {
+                    Print();
+                }
+            });
+
+            $('.dropdown-button').click(function () {
+                $('.dropdown-button').toggleClass('show-menu');
+            });
+
+
+            var hide = $('#hideQuickSubnav').attr('value');
+            if (hide == undefined) {
+                // we're not in the document, show subnav
+                $('#quickSubnav').fadeIn('slow');
+            }
+            else {
+                $('#quickSubnav').hide();
+            }
+
+
+            $('.butPrimary').click(function () {
+                Cursor();
+            });
+
+            $('#subnav').children().children().children().hide(); // sakrij sve subnav elemente
+
+            $('#Rad').click('RadParent', mainMenu); // link je #, focusiraj nav-mainlinks element
+            $('#Komercijala').click('KomercijalaParent', mainMenu);
+            $('#Projekti').click('ProjektiParent', mainMenu);
+            $('#Proizvodi').click('ProizvodiParent', mainMenu);
+            $('#Klijenti').click('KlijentiParent', mainMenu);
+            $('#Reporti').click('ReportiParent', mainMenu);
+            $('#Tvrtka').click('TvrtkaParent', mainMenu);
+            $('#KorisnickiRacun').click('KorisnickiRacunParent', mainMenu);
+            $('#Sifarnici').click('SifarniciParent', mainMenu);
+            $('#MobileApp').click('MobileAppParent', mainMenu);
+            $('#Virmani').click('VirmaniParent', mainMenu);
+            $('#Blagajne').click('BlagajneParent', mainMenu);
+
+            var test = $('#linkName').attr('value');
+            $('#' + test).addClass("active");
+            if (test == "Pocetna") {
+                $('#subnav').hide();
+                $('#PocetnaParent').addClass('active');
+            }
+            else {
+                 $('.' + test).fadeIn('slow');
+                var SpanId = $('#linkId').attr('value');
+                $('#' + SpanId).addClass('active');
+            }
+
+            if (test == "TvrtkaParent") {
+                $('#Tvrtka').css({ backgroundColor: "#ccc" });
+            }
+            else if (test == "KorisnickiRacunParent") {
+                $('#KorisnickiRacun').css({ backgroundColor: "#ccc" });
+            }
+            else if (test == "SifarniciParent") {
+                $('#Sifarnici').css({ backgroundColor: "#ccc" })
+            }
+            else if (test == "MobileAppParent") {
+                $('#MobileApp').css({ backgroundColor: "#ccc" })
+            }
+        });
+
+        function mainMenu(s) {
+            $('.active').removeClass('active');
+            $('#' + s.data).addClass('active');
+
+            $('#subnav').children().children().children().hide();
+            $('#subnav').children().children().children().children().removeClass('active');
+            $('#subnav').show();
+            $('.' + s.data).fadeIn('slow');
+
+            if (s.data == "TvrtkaParent") {
+                $('#Tvrtka').css({ backgroundColor: "#ccc" })
+            }
+            else if (s.data == "KorisnickiRacunParent") {
+                $('#KorisnickiRacun').css({ backgroundColor: "#ccc" })
+            }
+            else if (s.data == "SifarniciParent") {
+                $('#Sifarnici').css({ backgroundColor: "#ccc" })
+            }
+            else if (s.data == "MobileAppParent") {
+                $('#MobileApp').css({ backgroundColor: "#ccc" })
+            }
+        }
+    </script>
+
+
+</head>
+<body class="trial">
+    <div id="MasterContainer">
+
+        <div class="main_bg">
+
+            @if (Request.IsAuthenticated)
+            {
+
+
+                <div id="navmain" class="fresh-header">
+                    <div class="container  relative-box">
+                        <ul class="nav-toplinks">
+
+                            @if (Csla.ApplicationContext.User.IsInRole("SuperAdmin") || Csla.ApplicationContext.User.IsInRole("Admin"))
+                            {
+                                <li id="KorisnickiRacunParent"><a id="KorisnickiRacun" href="@Url.Content("~/Account/CompanyInfo")">Korisnički račun</a></li>
+                                <li id="TvrtkaParent"><a id="Tvrtka" href="@Url.Content("~/Sifrarnici/Tvrtka")">Tvrtka</a></li>
+                                <li id="SifarniciParent"><a id="Sifarnici" href="@Url.Content("~/Sifrarnici/Index")">Šifarnici</a></li>
+                            }
+
+                            <li><a href="#">Pomoć</a></li>
+                            @if (Csla.ApplicationContext.User.IsInRole("SuperAdmin"))
+                            {
+                                <li id="SuperAdminParent"><a id="SuperAdmin" href="@Url.Content("~/Account/SuperAdmin")">SuperAdmin</a></li>
+                            }
+                            <li class="last"><a href="@Url.Content("~/Account/LogOff")">Odjava<b> @Context.User.Identity.Name</b></a></li>
+
+                        </ul>
+                        <div>
+                            <br /><br />
+                            <div class="nav-mainlinks-container ">
+                                <ul class="nav-mainlinks">
+
+
+                                    <li class="" id="KomercijalaParent">
+                                        <span><a href="#" id="Komercijala">&nbsp;Komercijala&nbsp;</a></span>
+                                    </li>
+
+
+                                    <li id="KlijentiParent">
+                                        <span><a href="#" id="Klijenti">&nbsp;&nbsp;&nbsp;Klijenti&nbsp;&nbsp;&nbsp;</a></span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="clearb"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="subnav" class="fresh-header">
+                    <div class="container ">
+                        <ul class="">
+
+                            @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).Invoice)
+                            {
+                                <li style="display:none" class="KomercijalaParent"><span id="InvoiceSpan" class="KomercijalaParentSpan"><strong><a href="@Url.Content("~/Documents/Invoice")" onclick="Focus('#InvoiceSpan')"><span>Računi</span></a></strong></span></li>
+                            }
+
+                            @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).IncomingInvoice)
+                            {
+                                <li style="display:none" class="KomercijalaParent"><span id="IncomingInvoiceSpan" class="KomercijalaParentSpan"><strong><a href="@Url.Content("~/Documents/IncomingInvoice")" onclick="Focus('#IncomingInvoiceSpan')"><span>Ulazni računi</span></a></strong></span></li>
+                            }
+
+                            @if (((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).PriceList)
+                            {
+                                <li style="display:none" class="KomercijalaParent"><span id="PriceListSpan" class="KomercijalaParentSpan"><strong><a href="@Url.Content("~/Documents/PriceList/Index/false")" onclick="Focus('#PriceListSpan')"><span>Cjenici</span></a></strong></span></li>
+                            }
+
+
+                            <li style="display:none" class="ProizvodiParent"><span id="Cjenik" class="ProizvodiParentSpan"><strong><a href="@Url.Content("~/Documents/PriceList/Index/true")" onclick="Focus('#Cjenik')"><span>Osnovni cjenik</span></a></strong></span></li>
+                            <li style="display:none" class="ProizvodiParent"><span id="ExcellImport" class="ProizvodiParentSpan"><strong><a href="@Url.Content("~/MDEntities/ExcellImport")" onclick="Focus('#ExcellImport')"><span>Import</span></a></strong></span></li>
+
+
+                            <li style="display:none" class="KlijentiParent"><span id="Klijenti1" class="KlijentiParentSpan"><strong><a href="@Url.Content("~/MDSubjects/Company")" onclick="Focus('#Klijenti1')"><span>Klijenti</span></a></strong></span></li>
+                            <li style="display:none" class="KlijentiParent"><span id="CompanyUpload" class="KlijentiParentSpan"><strong><a href="@Url.Content("~/MDSubjects/Company/CompanyUpload")" onclick="Focus('#CompanyUpload')"><span>Import</span></a></strong></span></li>
+
+                        </ul>
+                        <div class="clearb"></div>
+                    </div>
+                </div>
+            }
+            <div class="container ">
+                @RenderBody()
+            </div>
+
+            <div class="footer">
+                @RenderPage("~/Views/Shared/_footer.cshtml")
+            </div>
+        </div>
+    </div>
+</body>
+</html>

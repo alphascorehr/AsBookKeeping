@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Tvrtka";
+}
+
+
+@Html.Hidden("linkName", "TvrtkaParent")
+@Html.Hidden("linkId", "")
+
+<script type="text/javascript"><!--
+    $(document).ready(function () {
+
+        //  list animation  
+        var fadeDuration = 150; //time in milliseconds
+
+        $('#list1 li a').hover(function () {
+            $(this).animate({ paddingLeft: '30px' }, fadeDuration);
+            $(this).children('span').show().animate({ left: -5 }, fadeDuration);
+        }, function () {
+            $(this).animate({ paddingLeft: '15px' }, fadeDuration);
+            $(this).children('span').animate({ left: -35 }, fadeDuration).fadeOut(fadeDuration);
+        });
+
+    });
+
+ 
+</script>
+
+@*<h2 class="button-panel-title">
+		<div class="button-panel"></div>
+		<span class="title">Tvrtka</span>
+</h2>
+
+<div class="clearb"></div>
+<div class="title-rule"></div>*@
+ <h2 class="pt"> Tvrtka </h2>
+
+
+<ul id="list1">
+<li>
+<a href="@Url.Content("~/MDSubjects/Employee")" style="padding-left: 15px;">Djelatnici<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDPlaces/EnumsOgranizationalUnit")" style="padding-left: 15px;">Organizacijske jedinice<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDEntities/EnumsEntityGroup")" style="padding-left: 15px;">Grupe proizvoda<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/Projects/EnumsExpensType")" style="padding-left: 15px;">Vrste troškova<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/Projects/EnumsTask")" style="padding-left: 15px;">Vrste zadataka<span style="left: -35px; display: none;"></span></a>
+</li>
+<li>
+<a href="@Url.Content("~/MDGeneral/EnumsKindOfTransportation")" style="padding-left: 15px;">Vrste prijevoza<span style="left: -35px; display: none;"></span></a>
+</li>
+</ul>
+@*<table>
+<tr><td><a href="@Url.Content("~/MDSubjects/Employee")">Djelatnici</a></td></tr>
+<tr><td><a href="@Url.Content("~/MDPlaces/EnumsOgranizationalUnit")">Organizacijske jedinice</a></td></tr>
+<tr><td><a href="@Url.Content("~/MDEntities/EnumsEntityGroup")">Grupe proizvoda</a></td></tr>
+<tr><td><a href="@Url.Content("~/Projects/EnumsExpensType")">Vrste troškova</a></td></tr>
+<tr><td><a href="@Url.Content("~/Projects/EnumsTask")">Vrste zadataka</a></td></tr>
+</table>*@
+       
+      

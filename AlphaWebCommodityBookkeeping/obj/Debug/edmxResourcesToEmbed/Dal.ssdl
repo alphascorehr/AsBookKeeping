@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="alphascore_bisl4Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="alphascore_bisl4ModelStoreContainer">
+    <EntitySet Name="IzborSortimenata" EntityType="alphascore_bisl4Model.Store.IzborSortimenata" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pesticidi" EntityType="alphascore_bisl4Model.Store.Pesticidi" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="IzborSortimenata">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Sorta" Type="nvarchar" MaxLength="255" />
+    <Property Name="DuzinaVegetacije" Type="nvarchar" MaxLength="255" />
+    <Property Name="OptimalniRokSjetve" Type="nvarchar" MaxLength="255" />
+    <Property Name="PreporucenaGustoca" Type="nvarchar" MaxLength="255" />
+    <Property Name="Napomena" Type="nvarchar" MaxLength="255" />
+    <Property Name="Predstavnik" Type="nvarchar" MaxLength="255" />
+    <Property Name="Katalog" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Pesticidi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IDFIS" Type="nvarchar" MaxLength="255" />
+    <Property Name="Kultura" Type="nvarchar" MaxLength="255" />
+    <Property Name="NazivStetocine" Type="nvarchar" MaxLength="255" />
+    <Property Name="NazivSZB" Type="nvarchar" MaxLength="255" />
+    <Property Name="AktivnaTvar" Type="nvarchar" MaxLength="255" />
+    <Property Name="Doza" Type="nvarchar" MaxLength="255" />
+    <Property Name="KarencaDan" Type="float" />
+    <Property Name="MaksimalniBrojTretiranja" Type="nvarchar" MaxLength="255" />
+    <Property Name="Klasa" Type="nvarchar" MaxLength="255" />
+    <Property Name="VlasnikRegistracije" Type="nvarchar" MaxLength="255" />
+    <Property Name="SZB" Type="nvarchar" MaxLength="255" />
+    <Property Name="Predstavnik" Type="nvarchar" MaxLength="255" />
+    <Property Name="DatumIsteka" Type="nvarchar" MaxLength="255" />
+    <Property Name="VrijemePrimjene" Type="nvarchar" MaxLength="255" />
+    <Property Name="Djelovanje" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+</Schema>

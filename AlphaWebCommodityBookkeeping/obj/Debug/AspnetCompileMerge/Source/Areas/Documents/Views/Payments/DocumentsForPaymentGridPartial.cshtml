@@ -1,0 +1,229 @@
+﻿
+ @{
+     DalEf.DocumentsEntities contextDocuments = new DalEf.DocumentsEntities();
+     var grid = Html.DevExpress().GridView(
+                   settings =>
+                   {
+                       settings.Name = "gvDocumentsForPayment";
+                       settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                       settings.SettingsPager.PageSize = 5;
+                       settings.SettingsPager.Summary.Position = DevExpress.Web.ASPxPager.PagerButtonPosition.Right;
+                       settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                       settings.SettingsText.EmptyDataRow = "Nema podataka";
+                       settings.SettingsLoadingPanel.Text = "Učitavanje";
+                       settings.CallbackRouteValues = new { Controller = "Payments", Action = "RefreshDocumentsForPaymentGridPartial" };
+                       settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Payments", Action = "UpdateDocumentsForPaymentItem" };
+                       settings.SettingsEditing.Mode = GridViewEditingMode.Inline;
+                       settings.SettingsBehavior.ConfirmDelete = true;
+
+                       //settings.CommandColumn.Visible = true;
+                       //settings.CommandColumn.NewButton.Visible = false;
+                       //settings.CommandColumn.DeleteButton.Visible = false;
+                       //settings.CommandColumn.EditButton.Visible = true;
+                       //settings.CommandColumn.EditButton.Text = "Uredi";
+                       //settings.CommandColumn.CancelButton.Text = "Odustani";
+                       //settings.CommandColumn.UpdateButton.Text = "Prihvati";
+
+                      
+                       
+                       settings.KeyFieldName = "Id";
+
+                       settings.Columns.Add(column =>
+                       {
+                           column.FieldName = "Name";
+                           column.Caption = "Klijent";
+                           column.ReadOnly = true;
+                           column.ColumnType = MVCxGridViewColumnType.TextBox;
+                           column.Width = 250;
+                           var textEditProperties = column.PropertiesEdit as TextEditProperties;
+
+                           textEditProperties.Width = 250;
+                       });
+
+                       settings.Columns.Add(column =>
+                       {
+                           column.FieldName = "DocumentTypeName";
+                           column.Caption = "Tip dokumenta";
+                           column.ColumnType = MVCxGridViewColumnType.TextBox;
+                           column.Width = 95;
+                           column.ReadOnly = true;
+                           var textBoxProperties = column.PropertiesEdit as TextBoxProperties;
+
+                           textBoxProperties.Width = 95;
+                       });
+
+                       settings.Columns.Add(column =>
+                       {
+                           column.FieldName = "UniqueIdentifier";
+                           column.Caption = "Broj dokumenta";
+                           column.ReadOnly = true;
+                           column.ColumnType = MVCxGridViewColumnType.TextBox;
+                           column.Width = 95;
+                           var textEditProperties = column.PropertiesEdit as TextEditProperties;
+
+                           textEditProperties.Width = 95;
+                       });
+
+                       settings.Columns.Add(column =>
+                       {
+                           column.FieldName = "DocumentDateTime";
+                           column.Caption = "Datum";
+                           column.ReadOnly = true;
+                           column.ColumnType = MVCxGridViewColumnType.DateEdit;
+                           column.Width = 70;
+                           column.CellStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Center;
+                           var spinEditProperties = column.PropertiesEdit as DateEditProperties;
+
+                           spinEditProperties.AllowNull = false;
+                           spinEditProperties.Width = 70;
+                           spinEditProperties.DisplayFormatString = "dd.MM.yyyy";
+                           
+                       });
+
+                       settings.Columns.Add(column =>
+                       {
+
+                           column.FieldName = "RetailValue";
+                           column.Caption = "Iznos";
+                           column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                           column.Width = 105;
+                           column.ReadOnly = true;
+                           var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                           spinEditProperties.AllowNull = false;
+                           spinEditProperties.DecimalPlaces = 2;
+                           spinEditProperties.DisplayFormatString = "c";
+                           spinEditProperties.DisplayFormatInEditMode = false;
+                           spinEditProperties.MinValue = 0;
+                           spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                           spinEditProperties.Width = 105;
+                       });
+
+                       //settings.Columns.Add(column =>
+                       //{
+
+                       //    column.FieldName = "PayedTillDocument";
+                       //    column.Caption = "Plaćeno do izvoda";
+                       //    column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                       //    column.Width = 150;
+                       //    column.ReadOnly = true;
+                     
+                       //    var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                       //    spinEditProperties.AllowNull = false;
+                       //    spinEditProperties.DecimalPlaces = 2;
+                       //    spinEditProperties.DisplayFormatString = "c";
+                       //    spinEditProperties.DisplayFormatInEditMode = false;
+                       //    spinEditProperties.MinValue = 0;
+                       //    spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                       //    spinEditProperties.Width = 150;
+                       //});
+
+                       settings.Columns.Add(column =>
+                       {
+
+                           column.FieldName = "PayedTillNow";
+                           column.Caption = "Plaćeno do sada";
+                           column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                           column.Width = 105;
+                           column.ReadOnly = true;
+
+                           var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                           spinEditProperties.AllowNull = false;
+                           spinEditProperties.DecimalPlaces = 2;
+                           spinEditProperties.DisplayFormatString = "c";
+                           spinEditProperties.DisplayFormatInEditMode = false;
+                           spinEditProperties.MinValue = 0;
+                           spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                           spinEditProperties.Width = 105;
+                       });
+
+
+
+                       settings.Columns.Add(column =>
+                       {
+
+                           column.FieldName = "PayUpdate";
+                           column.Caption = "Plaćeno po izvodu";
+                           column.Width = 120;
+                           column.SetDataItemTemplateContent(c =>
+                           {
+                               Html.DevExpress().SpinEdit(spinSettings =>
+                                   {
+                                       spinSettings.Name = "PayedSpin" + c.KeyValue;
+                                       spinSettings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                       spinSettings.Height = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                                       spinSettings.Properties.DisplayFormatString = "c";
+                                       spinSettings.ControlStyle.BackColor = System.Drawing.Color.LightGreen;
+                                       spinSettings.Properties.Style.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Right;
+                                       //spinSettings.Properties.ClientSideEvents.ValueChanged = String.Format("function(s,e) {{ OnPaymentValueChanged(s, '{0}', {1}, '{2}', '{3}', '{4}') }}" ,
+                                       //c.Column.FieldName, c.KeyValue, (c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue")).ToString().Replace(",", "."), (c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillDocument")).ToString().Replace(",", "."), Url.Action("UpdateValue", "Payments", new { area = "Documents" }));
+                                       spinSettings.Properties.ClientSideEvents.ValueChanged = String.Format("function(s,e) {{ OnPaymentValueChanged(s, '{0}', {1}, '{2}') }}",
+                                        c.Column.FieldName, c.KeyValue, Url.Action("UpdateValue", "Payments", new { area = "Documents" }));
+
+                                       if (((decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue") - (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillNow") + (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "Payed")) < 0)
+                                           spinSettings.Properties.MaxValue = 0;
+                                       else
+                                           spinSettings.Properties.MaxValue = ((decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue") - (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillNow") + (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "Payed"));
+                                       
+                                       if (spinSettings.Properties.MaxValue <= 0)
+                                           spinSettings.ReadOnly = true;
+                                       //if (((decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue") - (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillNow")) > 0)
+                                       //{
+                                       //    spinSettings.Properties.MaxValue = ((decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue") - (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillNow") + (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "Payed"));
+                                       //    //if (((decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillDocument") + (decimal)DataBinder.Eval(c.DataItem, c.Column.FieldName)) > (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue"))
+                                       //    //{
+                                       //    //    spinSettings.ControlStyle.BackColor = System.Drawing.Color.Red;
+                                       //    //}
+                                       //}
+                                       //else
+                                       //{
+                                        
+                                       //    spinSettings.ReadOnly = true;
+                                       //}
+                                       
+                                       //if (ViewData["isNew"] == "True")
+                                       //{
+                                       //    if (((decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue") - (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillNow")) > 0)
+                                       //        spinSettings.Properties.MaxValue = ((decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue") - (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillNow"));
+                                       //    else
+                                       //        spinSettings.Properties.MaxValue = 0;
+                                       //}
+                                       //else
+                                       //    if (((decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue") - (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillNow") + (decimal)DataBinder.Eval(c.DataItem, c.Column.FieldName)) > 0)
+                                       //        spinSettings.Properties.MaxValue = ((decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "RetailValue") - (decimal)c.Grid.GetRowValuesByKeyValue(c.KeyValue, "PayedTillNow") + (decimal)DataBinder.Eval(c.DataItem, c.Column.FieldName));
+                                       //    else
+                                       //        spinSettings.Properties.MaxValue = (decimal)DataBinder.Eval(c.DataItem, c.Column.FieldName);
+                                       
+                                       spinSettings.Properties.SpinButtons.ShowIncrementButtons = false;
+                                   }).Bind(DataBinder.Eval(c.DataItem, c.Column.FieldName)).GetHtml();
+                           });
+                           //column.Caption = "Plaćeno";
+                           //column.ColumnType = MVCxGridViewColumnType.SpinEdit;
+                           //column.Width = 100;
+                           //column.CellStyle.BackColor = System.Drawing.Color.Green;
+                           //var spinEditProperties = column.PropertiesEdit as SpinEditProperties;
+
+                           //spinEditProperties.AllowNull = false;
+                           //spinEditProperties.DecimalPlaces = 2;
+                           //spinEditProperties.DisplayFormatString = "c";
+                           //spinEditProperties.DisplayFormatInEditMode = false;
+                           //spinEditProperties.MinValue = (decimal)0.00;
+                           //spinEditProperties.SpinButtons.ShowIncrementButtons = false;
+                           //spinEditProperties.Width = 100;
+                           //spinEditProperties.ClientSideEvents.Validation = "PayedValidation";
+                           //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnDocumentsForPaymentStartCallback(s, e); }";
+                           //settings.ClientSideEvents.EndCallback = "function(s, e) { OnDocumentsForPaymentEndCallback(s, e); }";
+                       });
+
+                      
+                       settings.ClientSideEvents.BeginCallback = "function(s, e) { OnDocumentsForPaymentStartCallback(s, e); }";
+                       settings.ClientSideEvents.EndCallback = "function(s, e) { OnDocumentsForPaymentEndCallback(s, e); }";
+                       //settings.ClientSideEvents.FocusedRowChanged = "gvDocumentsForPaymentRowChanged";
+
+                   });
+                        
+   }
+                  @grid.Bind(Model).GetHtml()

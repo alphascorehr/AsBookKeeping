@@ -1,0 +1,120 @@
+﻿    @{
+    DalEf.DocumentsEntities context = new DalEf.DocumentsEntities();
+    var data = context.vChartDugujePotrazuje.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId);
+    }
+
+     @using (Html.BeginForm()) {
+
+
+                    ChartControlSettings settings = new ChartControlSettings();
+                    settings.Name = "chart";
+                    settings.BorderOptions.Visible = false;
+                    settings.Height = 400;
+                    settings.Width = 700;
+                    settings.Legend.AlignmentHorizontal = LegendAlignmentHorizontal.Right;
+
+                    Series series = new Series("Serie", DevExpress.XtraCharts.ViewType.Pie);
+                    series.Label.Visible = false;
+
+                    ((PiePointOptions)series.PointOptions).PercentOptions.ValueAsPercent = false;
+                    ((PiePointOptions)series.PointOptions).ValueNumericOptions.Format = NumericFormat.Number;
+                    ((PieSeriesLabel)series.Label).Position = PieSeriesLabelPosition.Radial;
+                    series.LegendPointOptions.PointView = PointView.Argument;
+                    
+                    series.ArgumentDataMember = "Tip";
+                    series.ValueDataMembers[0] = "Suma";
+
+                    //series.LegendText = "Duguje";
+                    settings.Series.Add(series);
+                    settings.PaletteBaseColorNumber = 3;
+                    //Series series1 = new Series("Serie1", DevExpress.XtraCharts.ViewType.Pie);
+                    //series1.Label.Visible = false;
+
+                    //((PiePointOptions)series1.PointOptions).PercentOptions.ValueAsPercent = false;
+                    //((PiePointOptions)series1.PointOptions).ValueNumericOptions.Format = NumericFormat.Number;
+                    //((PieSeriesLabel)series1.Label).Position = PieSeriesLabelPosition.Radial;
+
+                    //series1.ArgumentDataMember = "Potrazuje";
+                    //series1.ValueDataMembers[0] = "Potrazuje";
+
+                    //series1.LegendText = "Potrazuje";
+                    //settings.Series.Add(series1);
+
+
+                    //settings.Series.AddRange(new Series[] { series, series1 });
+                    //Series series = new Series();
+                    //series.Name = "Duguje";
+                    //series.ArgumentDataMember = "Duguje";
+                    //series.ValueDataMembers[0] = "Duguje";
+                    ////series1.DataFilters.Add(new DataFilter("Year", "System.Int32",
+                    ////    DataFilterCondition.Equal, 2003));
+
+                    //// Create a second series in a similar manner.
+                    //Series series2 = new Series();
+                    //series2.Name = "Potrazuje";
+                    //series2.ArgumentDataMember = "Potrazuje";
+                    //series2.ValueDataMembers[0] = "Potrazuje";
+                    ////series2.DataFilters.Add(new DataFilter("Year", "System.Int32",
+                    ////    DataFilterCondition.Equal, 2004));
+
+                    //// Add both series to the chart's collection.
+                    //settings.Series.Add(series);
+                    //settings.Series.Add(series2);
+
+
+                    //settings.BoundDataChanged = (s, e) =>
+                    //{
+                    //    MVCxChartControl chart = (MVCxChartControl)s;
+                    //    PieSeriesViewBase view = (PieSeriesViewBase)chart.Series[0].View;
+                        
+                    //    //if (options.ExplodePoint != null)
+                    //    //{
+                    //    //    SeriesPoint explodedPoint = null;
+                    //    //    foreach (SeriesPoint point in chart.Series[0].Points)
+                    //    //    {
+                    //    //        if (point.Argument == options.ExplodePoint)
+                    //    //        {
+                    //    //            explodedPoint = point;
+                    //    //            break;
+                    //    //        }
+                    //    //    }
+                    //    //    if (explodedPoint != null)
+                    //    //    {
+                    //    //        view.ExplodedPoints.Add(explodedPoint);
+                    //    //    }
+                    //    //}
+                    //    //else
+                    //    //{
+                    //    //    view.ExplodeMode = options.ExplodeMode;
+                    //    //}
+                        
+                    //};
+                    SimpleDiagram3D diagram = settings.Diagram as SimpleDiagram3D;
+                    if (diagram != null) {
+                        diagram.RotationType = RotationType.UseAngles;
+                        diagram.RotationOrder = RotationOrder.ZXY;
+                        diagram.RotationAngleX = -35;
+                        diagram.RotationAngleZ = 15;
+                    } else {
+                        series.Label.TextColor = System.Drawing.Color.Black;
+                        series.Label.BackColor = System.Drawing.Color.Transparent;
+                        series.Label.Font = new System.Drawing.Font("Tahoma", 8, System.Drawing.FontStyle.Bold);
+                        series.Label.LineVisible = true;
+                        series.Label.Border.Visible = false;
+                    }
+                    //series.Label.Antialiasing = options.LabelPosition == PieSeriesLabelPosition.Radial;
+
+                    settings.Titles.Add(new ChartTitle() {
+                        Font = new System.Drawing.Font("Tahoma", 18),
+                        Text = "Dugovanje / Potraživanje"
+                    });
+                    settings.Titles.Add(new ChartTitle() {
+                        Alignment = System.Drawing.StringAlignment.Far,
+                        Dock = ChartTitleDockStyle.Bottom,
+                        Font = new System.Drawing.Font("Tahoma", 8),
+                        TextColor = System.Drawing.Color.Gray,
+                        Text = ""
+                    });
+
+                    @Html.DevExpress().Chart(settings).Bind(data).GetHtml()
+                }

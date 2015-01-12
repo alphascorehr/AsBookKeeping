@@ -1,0 +1,32 @@
+﻿@*@using (Html.BeginForm("Callbacks", "Account", FormMethod.Post, new { @class = "imagePreview" }))
+{*@
+    <div class="uploadContainer">
+        <label>Odaberi sliku:</label>
+        @Html.DevExpress().UploadControl(
+            settings => {
+                settings.Name = "ucCallbacks";
+                settings.Width = 300;
+                settings.BrowseButton.Text = "Odaberi";
+                settings.CallbackRouteValues = new { Controller = "Account", Action = "CallbacksImageUpload" };
+                //settings.ControlStyle.CssClass = "editorArea";
+
+                settings.ShowProgressPanel = false;
+                //settings.ValidationSettings.Assign(UploadControlDemosHelper.ValidationSettings);
+                
+                settings.ClientSideEvents.FileUploadComplete = "function(s,e){ if(e.callbackData != '') $('#previewImage').attr('src', e.callbackData); getImage();}";
+                //settings.ClientSideEvents.FileUploadStart = "$('#InvoiceLogo').attr('src', '');";
+                settings.ClientSideEvents.FileUploadStart = "function(s,e){ if(e.callbackData != '') $('#InvoiceLogo').attr('src', '')}";
+            }).GetHtml()
+        <label>&nbsp;</label>
+        <div class="editorArea text">
+            Dozvoljeni tipovi slika: jpeg, gif<br />
+        </div>
+        <label>&nbsp;</label>
+        <div class="editorArea">
+            <input type="button" value="Pošalji" onclick="ucCallbacks.Upload()" />
+        </div>
+    </div>
+   @* <div class="imageContainer">
+        <img alt="" id="previewImage" src="@Url.Content("~/Content/ImagePreview.gif")" />
+    </div>*@
+@*}*@

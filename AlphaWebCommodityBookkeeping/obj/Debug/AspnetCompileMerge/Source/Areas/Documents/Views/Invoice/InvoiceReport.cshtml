@@ -1,0 +1,27 @@
+﻿@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrDocuments
+   
+   @{
+    Layout = "~/Views/Shared/_report.cshtml";
+}
+
+      
+
+   
+   
+           
+@using (Html.BeginForm("InvoiceReport", "Invoice"))
+{
+    
+    <div>
+    
+    @Html.DevExpress().ReportToolbar(
+            settings =>
+            {
+                settings.Name = "ReportToolbar";
+                settings.ReportViewerName = "ReportViewer1";
+            }
+        ).GetHtml()
+
+        @Html.Partial("InvoiceReportPartial", Model, new ViewDataDictionary() { { "invoiceId", ViewData["invoiceId"] } })
+    </div>
+}

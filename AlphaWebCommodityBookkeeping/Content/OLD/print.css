@@ -1,0 +1,33 @@
+html {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+body {
+	margin: 0 10pt;
+	padding: 0;
+}
+
+#navmain,
+#subnav,
+#dev-tools,
+.footer,
+.report .filters,
+.report .export,
+.report .print,
+#invoice-history,
+#adaptive-b2b-payment,
+#account_not_uptodate_message,
+#system-is-suspended,
+.no_print {
+	display: none !important;
+}
+
+.container {
+	width: 100% !important;
+	padding: 0;
+	margin: 0;
+}
+div.legend p {
+	width: 85%;
+}

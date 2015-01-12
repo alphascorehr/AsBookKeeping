@@ -1,0 +1,40 @@
+﻿<script type="text/javascript">
+
+    function RowClicked(s, e) {
+        Cursor();
+        //var id = s.keys[e.visibleIndex];
+        var vi = e.visibleIndex - s.pageIndex * s.pageRowSize;
+        var id = s.keys[vi];
+        var actionURL = '@Url.Content("~/Projects/TimeTrackingLog/CreateAndEdit/")' + id;
+        window.location = actionURL;
+    }
+
+
+</script>
+
+@{
+    ViewBag.Title = "Index";
+
+    bool p = false;
+    if (!(bool)ViewData["isDefaultList"])
+    { 
+        @Html.Hidden("linkName", "RadParent")
+        @Html.Hidden("linkId", "TimeTrackingSpan")
+    }
+    else
+    { 
+        @Html.Hidden("linkName", "ProjektiParent")
+        @Html.Hidden("linkId", "ProjectTimeTrackingSpan")
+        p = true;
+    }
+    
+}
+
+<h2 class="pt"> Praćenje vremena </h2>
+<a class="butPrimary " href="@Url.Content("~/Projects/TimeTrackingLog/CreateAndEdit/0?projekt=" + p )">
+<span> Dodaj </span>
+</a>
+<div class="clearb"></div>  
+
+
+@Html.Partial("TimeTrackingLogGridPartial")

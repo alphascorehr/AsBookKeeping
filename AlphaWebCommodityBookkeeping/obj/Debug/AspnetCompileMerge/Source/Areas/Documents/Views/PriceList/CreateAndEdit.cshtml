@@ -1,0 +1,431 @@
+﻿@model BusinessObjects.Documents.cDocuments_PriceList
+
+@{
+    ViewBag.Title = "CreateAndEdit";
+    DalEf.MDSubjectsEntities context = new DalEf.MDSubjectsEntities();
+    DalEf.MDEntitiesEntities contextEnt = new DalEf.MDEntitiesEntities();
+}
+
+<script type="text/javascript">
+
+    $(window).bind('beforeunload', function () {
+        if ('@ViewData["Action"]' == "locked") {
+            return;
+        }
+        //if (AreControlsModifiedVar)
+        //{
+        //    return "No pressure, but check out the important announcement in the middle of the screen?";
+        //}
+
+        //return "Good bye";
+        var url = '@Url.Content("~/Documents/PriceList/unlockTheDoc")';
+        $.post(url, function (result) {
+            return "Url is about to be changed, kill the lock";
+        });
+
+    });
+
+
+    function noUnload() {
+        $(window).unbind('beforeunload');
+    }
+
+
+    function OnStartCallback(s, e) {
+        return false;
+    }
+    function OnEndCallback(s, e) {
+        return false;
+    }
+
+    $.validator.setDefaults({
+        submitHandler: function () {
+            document.myForm.submit();
+        }
+    });
+
+    $().ready(function () {
+        // validate signup form on keyup and submit
+        $("#myForm").validate({
+            rules: {
+                MDSubjects_SubjectId: "required",
+                UniqueIdentifier: "required",
+                OrdinalNumber: "required",
+                OrdinalNumberInYear: "required",
+                CreationDateTime: "required"
+
+            },
+            messages: {
+                MDSubjects_SubjectId: "Obavezno polje",
+                UniqueIdentifier: "Obavezno polje",
+                OrdinalNumber: "Obavezno polje",
+                OrdinalNumberInYear: "Obavezno polje",
+                CreationDateTime: "Obavezno polje"
+            }
+        });
+
+        SubjectIdChanged();
+
+        if ('@ViewData["Action"]' == "locked") {
+            alert(lockText);
+            window.history.back(-1);
+        }
+      
+    });
+
+    function SubjectIdChanged(s, e) {
+        var SubjectId = parseInt($('#MDSubjects_SubjectId_VI').attr('value'));
+        if (SubjectId == null || SubjectId == "" || SubjectId == "0" || isNaN(SubjectId)) {
+            return false;
+        }
+        $('#AdresaKlijentaDiv').slideUp('slow');
+        /* SubjectId se trpa u Session */
+        if (SubjectId != null) {
+            var actionURL = '@Url.Content("~/Documents/PriceList/SubjectIdChanged")';
+            $.post(actionURL, { subjectId: SubjectId }, function (result) {
+                var oib = result[0];
+                var ulica = result[1];
+                var broj = result[2];
+                var mjesto = result[3];
+                var adresa = ulica;
+                if (oib == null) {
+                    oib = "Nije unešen";
+                }
+                if (ulica == null) {
+                    adresa = "Nije unešena";
+                }
+                if (mjesto == null) {
+                    mjesto = "Nije unešeno";
+                }
+                $('#oib').html("OIB: " + oib)
+                $('#ulica').html("Adresa: " + adresa);
+                $('#mjesto').html("Mjesto: " + mjesto);
+            });
+            $('#AdresaKlijentaDiv').slideDown('slow');
+        }
+        //gvDocumentItemsCol.CancelEdit();
+        return SubjectId;
+    }
+
+    function OnEndCallback(s, e) {
+        $('#gvPriceListCol_DXEditor0').css({ 'border': '0' })
+        
+        return false;
+    }
+
+    function AddClient() {
+        var ClName = ClientName.GetValue();
+        var ClOIB = ClientOIB.GetValue();
+        var SubType = SubjectType.GetValue();
+        if (ClName != null && ClOIB != null && SubType != null) {
+            var actionUrl = '@Url.Content("~/MDSubjects/Company/AddClient")'
+            $.post(actionUrl, { Name: ClName, OIB: ClOIB, SubjectType: SubType }, function (result) {
+                var id = parseInt(result);
+                //var id = 1000;
+                if (id > 0) {
+                    MDSubjects_SubjectId.AddItem(ClName, id);
+                    MDSubjects_SubjectId.SetText(ClName);
+                    pcModalModeCli.Hide();
+                    SubjectIdChanged();
+                }
+            });
+        }
+    }
+
+    function AddProduct() {
+        var Name = ProductName.GetValue();
+        var Tax = TaxRateId.GetValue();
+        var WSprice = WholesalePrice.GetValue();
+        var Lbl = Label.GetValue();
+        var Unit = UnitId.GetValue();
+        if (Name != null && Tax != null && WSprice != null && Label != null && Unit != null) {
+            var actionUrl = '@Url.Content("~/MDEntities/Product/AddProduct")'
+            $.post(actionUrl, { Name: Name, Tax: Tax, WSprice: WSprice, Label: Lbl, Unit: Unit }, function (result) {
+                var id = parseInt(result);
+                //var id = 1000;
+                if (id > 0) {
+                    //gvDocumentItemsCol.CancelEdit();
+                    pcModalMode.Hide()
+                }
+            });
+        }
+    }
+
+    function AddService() {
+        var Name = ServiceName.GetValue();
+        var Tax = ServiceTaxRateId.GetValue();
+        var Label = ServiceLabel.GetValue();
+        var Wsprice = WholesalePriceSrv.GetValue();
+        var Unit = ServiceUnitId.GetValue();
+        if (Name != null && Tax != null && Label != null && Wsprice != null && Unit != null) {
+            var actionUrl = '@Url.Content("~/MDEntities/Service/AddService")'
+            $.post(actionUrl, { Name: Name, Tax: Tax, Wsprice: Wsprice, Unit: Unit }, function (result) {
+                var id = parseInt(result);
+                //var id = 1000;
+                if (id > 0) {
+                    //gvDocumentItemsCol.CancelEdit();
+                    pcModalModeSrv.Hide()
+                }
+            });
+        }
+
+    }
+    function OnStartCallback(s, e) {
+        if (e.command == "STARTEDIT" || e.command == "ADDNEWROW") {
+            gridInEdit = true;
+            $('.button_large').attr('onclick', '');
+        }
+        if (e.command == "CANCELEDIT" || e.command == "UPDATEEDIT") {
+            gridInEdit = false;
+            $('.button_large').attr('onclick', '$(this).closest("form").submit()');
+        }
+    }
+
+</script>
+
+@{
+    string caption = "Novi cjenik";
+    if (Model.UniqueIdentifier != "")
+    {
+        caption = "Cjenik br. " + Model.UniqueIdentifier;
+    }
+}
+
+@using (Html.BeginForm("CreateAndEdit", "PriceList", FormMethod.Post, new { id = "myForm", name = "myForm" }))
+{
+    @Html.HiddenFor(model => model.Id);
+    @Html.HiddenFor(model => model.EntityKeyData);                                      
+    
+    @Html.Hidden("linkName", "KomercijalaParent")
+    @Html.Hidden("linkId", "PriceListSpan")                                                                                                                                
+                
+    
+
+
+ <div id='large-badges'></div><div id='ValSum' style="display:none" class='notifyBox bad'>Please fix these errors. </div>
+
+
+    
+    
+<div class="clearb"></div>
+<div class="clearb"></div>
+
+	<h2 class="pt"><div class="span-22"> @caption </div></h2>
+    @*<div class="span-23" style="text-align:right">
+    <a href="#" onclick="Print();"><img src="@Url.Content("~/Content/images/mail_send48.png")" title="Pošalji pdf na email" /></a>
+    
+    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+    <a href="#" onclick="Print();"><img src="@Url.Content("~/Content/images/Printer_Blue48.png")" title="Ispiši dokument" /></a>
+    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+    <a href="#" onclick="Print();"><img src="@Url.Content("~/Content/images/Quick_Printer_Blue48.png")" title="Brzi ispis" /></a>
+    </div>*@
+	
+	<div class="clearb"></div>
+	<div class="title-rule"></div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" class="newTable">
+	<tr><td colspan='5'></td></tr>
+	</table>
+
+    
+    	<div class="span-23" style="position: relative;">
+	    <div id="client_section">
+		    <div class="span-6 required form-layout-left">
+			    <label for="customerid" class="no-pointer">Klijent:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+			    @Html.DevExpress().ComboBox(settings => { settings.Name = "MDSubjects_SubjectId"; settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith; settings.Height = 24; settings.Width = 200; settings.Properties.ClientSideEvents.ValueChanged = "SubjectIdChanged"; settings.Properties.TextField = "Name"; settings.Properties.ValueField = "Id"; settings.Properties.ValueType = typeof(int); settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).BindList(context.MDSubjects_Subject.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.SubjectType != (short)BusinessObjects.Common.SubjectType.Employee)).Bind(Model.MDSubjects_SubjectId).GetHtml()
+                  <a href="javascript:pcModalModeCli.Show();"><label id="lblAddClient">Dodaj klijenta</label></a>
+                <br />
+		    </div>
+        </div>
+
+       
+
+        <div id="AdresaKlijentaDiv" style="display:none">
+		    <div class="span-6 form-layout-left">
+			    <label for="customerid" class="no-pointer">Adresa:</label>
+
+		    </div>
+		    <div class="span-16 form-layout-right">
+                <label id="oib" class="no-pointer"></label><br />
+                <label id="ulica" class="no-pointer"></label>&nbsp;<label id="broj" class="no-pointer"></label><br />
+                <label id="mjesto" class="no-pointer"></label><br />
+		    </div>
+        </div>
+
+</div>
+    
+    <div class="span-23">
+       <div class="span-12 required form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Naziv:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().TextBox(settings => { settings.Name = "Name"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Name).GetHtml()
+
+	</div>
+
+	<div class="span-12 required form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Vrijedi od:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().DateEdit(settings => { settings.Name = "DateStart"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.DateStart).GetHtml()
+
+	</div>
+
+    <div class="span-12 required form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Vrijedi do:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().DateEdit(settings => { settings.Name = "DateEnd"; settings.Height = 24; settings.Width = 200; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.DateEnd).GetHtml()
+
+	</div>
+
+    @*  <div class="span-12 required form-layout-left">
+				<label for="invoice_number" class="no-pointer"><span title="">Inicijalni:</span></label>
+	</div>
+	<div class="span-10 form-layout-right">
+		@Html.DevExpress().CheckBox(settings => { settings.Name = "IsDefault"; settings.Height = 24; settings.Width = 148; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.IsDefault).GetHtml()
+
+	</div>*@
+	
+	</div>
+    <div class="clearb"></div>
+        <a href="javascript:pcModalMode.Show();" class="jqModal">Dodaj proizvod</a>
+<a href="javascript:pcModalModeSrv.Show();" class="jqModal">Dodaj uslugu</a>
+     @Html.Partial("PriceListColgridPartial", Model.Documents_PriceList_ItemsCol, new ViewDataDictionary() { { "controllerName", "PriceList" } })
+    
+        <div class="clearb"></div>
+    <div class="append-bottom-1 form-layout">
+	<div class="span-20 append-4 append-bottom-1 iefix-2">
+		<label for="terms">Napomena</label>
+		
+		@Html.DevExpress().Memo(settings => { settings.Name = "Description"; settings.Height = 60; settings.Width = 920; settings.ShowModelErrors = false; settings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText; settings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom; settings.Properties.ValidationSettings.SetFocusOnError = true; settings.Properties.ValidationSettings.ValidateOnLeave = true; }).Bind(Model.Description).GetHtml()
+	</div>
+    <div class="span-14 append-bottom-1">
+
+		<label for="notes"></label>
+		
+	</div>
+	
+</div>               
+
+<div class="clearb"></div>
+              <div class="span-40 append-1">
+        <div class="span-10 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="#" class="button_large launch-invitepop-invoice " onclick="$(this).closest('form').submit(); noUnload();">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snimi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-2 append-1"></div>
+        <div class="span-10 append-1">
+                <a href="@Url.Content("~/Documents/PriceList/Odustani")" onclick="noUnload();" class="button_large2 launch-invitepop-invoice ">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Odustani&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+        </div>
+        <div class="span-8 append-1"></div>
+    </div>
+                            
+}
+
+  @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalMode";
+            settings.Width = 100;
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = false;
+            settings.HeaderText = "Dodaj proizvod";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            settings.SetContent(() =>
+            {
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Naziv:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsS => { settingsS.Name = "ProductName"; settingsS.Height = 24; settingsS.Width = 200; settingsS.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Šifra:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsS => { settingsS.Name = "Label"; settingsS.Height = 24; settingsS.Width = 200; settingsS.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Porezna stopa:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingscb => { settingscb.Name = "TaxRateId"; settingscb.Width = 200; settingscb.Properties.TextField = "Name"; settingscb.Properties.ValueField = "Id"; settingscb.ShowModelErrors = false; }).BindList(contextEnt.MDEntities_Enums_TaxRate.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || p.CompanyUsingServiceId == 0)).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Jedinica mjere:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingsa => { settingsa.Name = "UnitId"; settingsa.Width = 200; settingsa.Properties.TextField = "Name"; settingsa.Properties.ValueField = "Id"; settingsa.ShowModelErrors = false; settingsa.Properties.ValueType = typeof(int); }).BindList(contextEnt.MDEntities_Enums_Unit.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || p.CompanyUsingServiceId == 0)).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Veleproajna cijena:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().SpinEdit(settingsSp => { settingsSp.Name = "WholesalePrice"; settingsSp.Width = 200; settingsSp.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-12 form-layout-right\"><a class=\"butMedium green\"  onclick=\"AddProduct()\" href=\"#\"><span>Dodaj proizvod</span></a></div>");
+                //ViewContext.Writer.Write(");
+                //ViewContext.Writer.Write("</div><b class=\"Clear\"></b>");
+            });
+        }).GetHtml()
+         @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalModeSrv";
+            settings.Width = 100;
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = false;
+            settings.HeaderText = "Dodaj uslugu";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            settings.SetContent(() =>
+            {
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Šifra:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsLbl => { settingsLbl.Name = "ServiceLabel"; settingsLbl.Height = 24; settingsLbl.Width = 200; settingsLbl.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Naziv:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsS => { settingsS.Name = "ServiceName"; settingsS.Height = 24; settingsS.Width = 200; settingsS.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Porezna stopa:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingscb => { settingscb.Name = "ServiceTaxRateId"; settingscb.Width = 200; settingscb.Properties.TextField = "Name"; settingscb.Properties.ValueField = "Id"; settingscb.ShowModelErrors = false; }).BindList(BusinessObjects.MDEntities.cMDEntities_Enums_TaxRate_List.GetcMDEntities_Enums_TaxRate_List()).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Jedinica mjere:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingsq => { settingsq.Name = "ServiceUnitId"; settingsq.Width = 200; settingsq.Properties.TextField = "Name"; settingsq.Properties.ValueField = "Id"; settingsq.ShowModelErrors = false; settingsq.Properties.ValueType = typeof(int); }).BindList(contextEnt.MDEntities_Enums_Unit.Where(p => p.CompanyUsingServiceId == ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId || p.CompanyUsingServiceId == 0)).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Veleproajna cijena:</label></div><div class=\"span-12 form-layout-right\">");
+                @Html.DevExpress().SpinEdit(settingsSp => { settingsSp.Name = "WholesalePriceSrv"; settingsSp.Width = 200; settingsSp.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-12 form-layout-right\"><a class=\"butMedium green\"  onclick=\"AddService()\" href=\"#\"><span>Dodaj uslugu</span></a></div>");
+                //ViewContext.Writer.Write("</div>");
+
+            });
+        }).GetHtml()
+        @Html.DevExpress().PopupControl(
+        settings =>
+        {
+            settings.Name = "pcModalModeCli";
+            settings.Width = 100;
+            settings.AllowDragging = true;
+            settings.CloseAction = CloseAction.CloseButton;
+            settings.EnableAnimation = false;
+            settings.HeaderText = "Dodaj klijenta";
+            settings.Width = 600;
+            settings.Modal = true;
+            settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+            settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+            settings.SetContent(() =>
+            {
+                ViewContext.Writer.Write("<div class=\"span-6 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Naziv klijenta:</label></div><div class=\"span-16 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsCli => { settingsCli.Name = "ClientName"; settingsCli.Height = 24; settingsCli.Width = 200; settingsCli.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-6 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">OIB:</label></div><div class=\"span-16 form-layout-right\">");
+                @Html.DevExpress().TextBox(settingsOib => { settingsOib.Name = "ClientOIB"; settingsOib.Properties.MaxLength = 11; settingsOib.Height = 24; settingsOib.Width = 200; settingsOib.ShowModelErrors = false; }).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-6 required form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">Vrsta klijenta:</label></div><div class=\"span-16 form-layout-right\">");
+                @Html.DevExpress().ComboBox(settingsSt => { settingsSt.Name = "SubjectType"; settingsSt.Properties.ValueField = "Id"; settingsSt.Properties.TextField = "Name"; settingsSt.Properties.ValueType = typeof(byte); settingsSt.Height = 24; settingsSt.Width = 200; settingsSt.ShowModelErrors = false; }).BindList(new AlphaWebCommodityBookkeeping.Areas.Documents.Models.SubjectTypes()).GetHtml();
+                ViewContext.Writer.Write("</div>");
+                ViewContext.Writer.Write("<div class=\"span-10  form-layout-left\"><label for=\"customerid\" class=\"no-pointer\">&nbsp;</label></div><div class=\"span-12 form-layout-right\"><a class=\"butMedium green\"  onclick=\"AddClient()\" href=\"#\"><span>Dodaj klijenta</span></a></div>");
+                //ViewContext.Writer.Write("</div>");
+                //ViewContext.Writer.Write("</div><b class=\"Clear\"></b>");
+            });
+        }).GetHtml()
+

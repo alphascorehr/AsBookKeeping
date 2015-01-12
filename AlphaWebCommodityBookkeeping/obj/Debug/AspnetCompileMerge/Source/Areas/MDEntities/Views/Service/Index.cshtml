@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+//<![CDATA[
+    var callbackInitDate;
+    var command;
+
+    function OnStartCallback(s, e) {
+
+    }
+    function OnEndCallback(s, e) {
+
+    }
+// ]]>
+</script>
+
+<div id="kzlist">
+<div id="kzlisttop"></div>
+<div id="kzlistmiddle">
+<h2 style="font-size:24px;color:#5c5c5c; font-family:Arial; margin-top:20px; margin-left:5px; font-weight:normal;  text-shadow: 1px 1px 0px #fff;">Usluge</h2>
+
+
+  <div style="float:left">
+    @Html.Partial("ServiceGridPartial")
+
+      <div style=" margin-top: 10px; font-size:large ">
+    @Html.ActionLink("Nazad", "Index", "Home", new { area = "" }, null)
+</div>
+    </div>
+
+  
+</div>
+
+<div id="kzlistbottom"></div>
+</div>
+
+

@@ -1,0 +1,13 @@
+﻿@model AlphaWebCommodityBookkeeping.Areas.Documents.Reports.xrInvocesClaimsDetails
+
+@Html.DevExpress().ReportViewer(
+    settings => {
+        settings.Name = "ReportViewer1";
+        settings.Report = Model;
+        settings.LoadingPanelText = "Učitavanje";
+        settings.CallbackRouteValues = new { Controller = "Reports", Action = "Print" };
+        settings.ExportRouteValues = new { Controller = "Reports", Action = "ReportExportTo" };
+        //settings.ClientSideEvents.EndCallback = "hideLoadingpanel()";
+        
+    }
+).GetHtml()

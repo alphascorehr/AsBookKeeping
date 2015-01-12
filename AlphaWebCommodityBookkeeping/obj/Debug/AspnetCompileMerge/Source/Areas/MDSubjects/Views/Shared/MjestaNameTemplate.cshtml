@@ -1,0 +1,8 @@
+﻿@if ((int?)ViewData["Id"] != null && (int?)ViewData["Id"] != 0)
+{
+    @Html.Label((BusinessObjects.MdPlaces.cMDPlaces_Enums_Geo_Place.GetMDPlaces_Enums_Geo_Place((int)ViewData["Id"])).Name)
+}
+else
+{
+@Html.Label("")
+}

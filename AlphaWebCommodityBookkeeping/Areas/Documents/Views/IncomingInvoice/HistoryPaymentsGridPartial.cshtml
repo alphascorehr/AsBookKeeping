@@ -1,0 +1,91 @@
+﻿@using System.Data
+
+@{
+    var context = new DalEf.DocumentsEntities();
+    List<DalEf.vIncomingInvoicePayments> data;
+    int invoiceId = (int)ViewData["invoiceId"];
+
+       data = context.vIncomingInvoicePayments.OrderBy(p=> p.DocumentDateTime).Where(p=> p.InvoiceId == invoiceId).ToList();
+                      
+}
+
+@Html.DevExpress().GridView(
+        settings =>
+            {
+                settings.Name = "gvHystoryPaymentsGrid";
+                settings.CallbackRouteValues = new { Controller = "IncomingInvoice", Action = "HystoryPaymentsGridPartial" };
+
+                settings.SettingsLoadingPanel.Text = "Učitavanje";
+
+                settings.SettingsPager.Summary.Text = "Stranica {0} od {1} ({2} reda)";
+                settings.SettingsText.EmptyDataRow = "Nema podataka";
+                settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                //settings.Settings.ShowFilterRow = true;
+                //settings.Settings.ShowFilterRowMenu = true;
+                //settings.SettingsPager.PageSize = 13;
+                //settings.CommandColumn.Visible = true;
+                //settings.CommandColumn.ClearFilterButton.Visible = true;
+                //settings.CommandColumn.ClearFilterButton.Text = "Očisti";
+
+                //settings.Columns.Add(column =>
+                //{
+                //    //column.Caption = "#";
+                //    column.SetDataItemTemplateContent(c =>
+                //    {
+                //        ViewContext.Writer.Write(
+                            
+                //            Html.ActionLink("Uredi", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") }, new { @class = "gridEditButton" }) + "&nbsp" +
+                //            Html.ActionLink("Obriši", "CreateAndEdit", new { Id = DataBinder.Eval(c.DataItem, "Id") },
+                //                new { onclick = "return confirm('Da li stvarno želite obrisati?')", @class = "gridDelButton" })
+                //        );
+                //    });
+                //    //column.SetHeaderTemplateContent(c =>
+                //    //{
+                //    //    ViewContext.Writer.Write(
+                //    //        Html.ActionLink("Nova faktura", "CreateAndEdit", new { Id = 0 }).ToHtmlString()
+                //    //    );
+                //    //});
+                //    column.Settings.AllowDragDrop = DevExpress.Utils.DefaultBoolean.False;
+                //    column.Settings.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+                //    column.Width = 40;
+                //});
+
+                settings.KeyFieldName = "PaymentClosureId";
+                
+                //settings.Settings.ShowFilterRow = false;
+                //settings.Settings.ShowGroupPanel = false;
+                //settings.Settings.ShowFooter = false;
+              
+
+                settings.Columns.Add("UniqueIdentifier", "Broj izvoda", DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                settings.Columns.Add("DocumentDateTime", "Datum izvoda", DevExpress.Web.Mvc.MVCxGridViewColumnType.DateEdit);
+                settings.Columns.Add("Ammount", "Palćeno", DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit);
+
+                
+                
+                
+                
+                //settings.Columns.Add(column =>
+                //{
+                //    column.FieldName = "Percentage";
+                //    column.Caption = "Postotak";
+
+                //    column.ColumnType = DevExpress.Web.Mvc.MVCxGridViewColumnType.SpinEdit;
+
+                //    var spinProperties = column.PropertiesEdit as DevExpress.Web.ASPxEditors.SpinEditProperties;
+
+                //    spinProperties.Height = 20;
+                //    spinProperties.MinValue = 0;
+                //    spinProperties.DecimalPlaces = 1;
+                //});
+
+                
+                //settings.Columns.Add("Percentage", "Postotak" , DevExpress.Web.Mvc.MVCxGridViewColumnType.TextBox);
+                //settings.Columns.Add("Description", "Opis", DevExpress.Web.Mvc.MVCxGridViewColumnType.Memo);
+
+               
+                //settings.ClientSideEvents.BeginCallback = "function(s, e) { OnStartCallback(s, e); }";
+                //settings.ClientSideEvents.EndCallback = "function(s, e) { OnEndCallback(s, e); }";
+
+            }).Bind(data).GetHtml()
