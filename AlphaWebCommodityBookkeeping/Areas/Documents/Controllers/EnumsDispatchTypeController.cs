@@ -145,26 +145,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
             }
         }
 
-        //
-        // GET: /Documents/EnumsDispatchType/Delete/5
- 
-        //public ActionResult Delete(int id)
-        //{
-        //    using (DocumentsEntities data = new DocumentsEntities())
-        //    {
-        //        var item = data.Documents_Enums_DispatchType.SingleOrDefault(p => p.Id == id);
-        //        if (item != null)
-        //        {
-        //            item.Inactive = true;
-
-        //            data.SaveChanges();
-        //        }
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-
-        //
-        // POST: /Documents/EnumsDispatchType/Delete/5
+        
 
         //[HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

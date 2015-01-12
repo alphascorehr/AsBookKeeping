@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MDEntitiesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="MDEntitiesModelStoreContainer">
+    <EntitySet Name="Documents_Document" EntityType="MDEntitiesModel.Store.Documents_Document" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_PriceList" EntityType="MDEntitiesModel.Store.Documents_PriceList" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_PriceList_ItemsCol" EntityType="MDEntitiesModel.Store.Documents_PriceList_ItemsCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDEntities_Entity" EntityType="MDEntitiesModel.Store.MDEntities_Entity" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDEntities_Enums_EntityGroup" EntityType="MDEntitiesModel.Store.MDEntities_Enums_EntityGroup" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDEntities_Enums_TaxRate" EntityType="MDEntitiesModel.Store.MDEntities_Enums_TaxRate" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDEntities_Enums_Unit" EntityType="MDEntitiesModel.Store.MDEntities_Enums_Unit" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDEntities_Product" EntityType="MDEntitiesModel.Store.MDEntities_Product" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDEntities_Product_PicturesCol" EntityType="MDEntitiesModel.Store.MDEntities_Product_PicturesCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDEntities_Service" EntityType="MDEntitiesModel.Store.MDEntities_Service" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDEntities_SifreNamjena" EntityType="MDEntitiesModel.Store.MDEntities_SifreNamjena" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="vEntities" EntityType="MDEntitiesModel.Store.vEntities" store:Type="Views" store:Schema="dbo" store:Name="vEntities">
+      <DefiningQuery>SELECT 
+      [vEntities].[Id] AS [Id], 
+      [vEntities].[WholesalePrice] AS [WholesalePrice], 
+      [vEntities].[EntityType] AS [EntityType], 
+      [vEntities].[TaxRateId] AS [TaxRateId], 
+      [vEntities].[UnitId] AS [UnitId], 
+      [vEntities].[Label] AS [Label], 
+      [vEntities].[Name] AS [Name], 
+      [vEntities].[Inactive] AS [Inactive], 
+      [vEntities].[CompanyUsingServiceId] AS [CompanyUsingServiceId]
+      FROM [dbo].[vEntities] AS [vEntities]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vEnums_TaxRate" EntityType="MDEntitiesModel.Store.vEnums_TaxRate" store:Type="Views" store:Schema="dbo" store:Name="vEnums_TaxRate">
+      <DefiningQuery>SELECT 
+      [vEnums_TaxRate].[Id] AS [Id], 
+      [vEnums_TaxRate].[Name] AS [Name], 
+      [vEnums_TaxRate].[Percentage] AS [Percentage], 
+      [vEnums_TaxRate].[Description] AS [Description], 
+      [vEnums_TaxRate].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_TaxRate].[ClientName] AS [ClientName], 
+      [vEnums_TaxRate].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_TaxRate] AS [vEnums_TaxRate]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vEnums_Unit" EntityType="MDEntitiesModel.Store.vEnums_Unit" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Unit">
+      <DefiningQuery>SELECT 
+      [vEnums_Unit].[Id] AS [Id], 
+      [vEnums_Unit].[Name] AS [Name], 
+      [vEnums_Unit].[Label] AS [Label], 
+      [vEnums_Unit].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Unit].[ClientName] AS [ClientName], 
+      [vEnums_Unit].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_Unit] AS [vEnums_Unit]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <EntityType Name="Documents_Document">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DocumentType" Type="smallint" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Barcode" Type="nvarchar" MaxLength="50" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="OrdinalNumberInYear" Type="int" Nullable="false" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_Employee_AuthorId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+    <Property Name="Locked" Type="bit" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="CashBoxCode" Type="nchar" MaxLength="20" />
+    <Property Name="LocationCode" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Documents_PriceList">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="IsDefault" Type="bit" Nullable="false" />
+    <Property Name="MDSubjects_SubjectId" Type="int" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="DateStart" Type="datetime" Nullable="false" />
+    <Property Name="DateEnd" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Documents_PriceList_ItemsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="MDEntities_EntityId" Type="int" Nullable="false" />
+    <Property Name="CalcualtedWholesalePrice" Type="decimal" Scale="2" />
+    <Property Name="WholesalePrice" Type="decimal" Scale="2" />
+    <Property Name="WholesalePriceOption1" Type="decimal" Scale="2" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDEntities_Entity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="EntityType" Type="smallint" Nullable="false" />
+    <Property Name="TaxRateId" Type="int" Nullable="false" />
+    <Property Name="UnitId" Type="int" Nullable="false" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="MDEntities_Enums_EntityGroupId" Type="int" />
+    <Property Name="Tag" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="EmployeeWhoLastChanedItUserId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDEntities_Enums_EntityGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="MDEntities_Enums_EntityParentGroupId" Type="int" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="EmployeeWhoLastChanedItUserId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDEntities_Enums_TaxRate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Percentage" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="EmployeeWhoLastChanedItUserId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="IsService" Type="bit" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDEntities_Enums_Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="IsDefaultTimeTracking" Type="bit" />
+    <Property Name="EmployeeWhoLastChanedItUserId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDEntities_Product">
+    <Key>
+      <PropertyRef Name="EntityId" />
+    </Key>
+    <Property Name="EntityId" Type="int" Nullable="false" />
+    <Property Name="Barcode" Type="varchar" MaxLength="100" />
+    <Property Name="WholesalePrice" Type="decimal" Nullable="false" Scale="2" />
+  </EntityType>
+  <EntityType Name="MDEntities_Product_PicturesCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Picture" Type="varbinary(max)" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDEntities_Service">
+    <Key>
+      <PropertyRef Name="EntityId" />
+    </Key>
+    <Property Name="EntityId" Type="int" Nullable="false" />
+    <Property Name="WholesaleTaskRatePerMonth" Type="decimal" Scale="6" />
+    <Property Name="WholesaleTaskRatePerDay" Type="decimal" Scale="6" />
+    <Property Name="WholesaleTaskRatePerHour" Type="decimal" Scale="6" />
+    <Property Name="IsBillable" Type="bit" />
+    <Property Name="AllProjects" Type="bit" />
+    <Property Name="WholesalePrice" Type="decimal" Nullable="false" Scale="2" />
+  </EntityType>
+  <EntityType Name="MDEntities_SifreNamjena">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SifreNamjena" Type="char" MaxLength="4" />
+    <Property Name="Naziv" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEntities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="WholesalePrice" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="EntityType" Type="smallint" Nullable="false" />
+    <Property Name="TaxRateId" Type="int" Nullable="false" />
+    <Property Name="UnitId" Type="int" Nullable="false" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_TaxRate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEnums_TaxRate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Percentage" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Unit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEnums_Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Inactive" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+  </EntityType>
+</Schema>

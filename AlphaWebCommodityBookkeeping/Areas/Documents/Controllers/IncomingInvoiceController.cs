@@ -15,7 +15,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
     {
         //
         // GET: /Documents/IncomingInvoice/
-        //[OutputCache(Duration = 600, VaryByParam = "None")]
         public ActionResult Index()
         {
             if (!CheckAccess())
@@ -36,7 +35,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
 
         //
         // GET: /Documents/IncomingInvoice/Create
-        //[OutputCache(Duration = 600, VaryByParam = "Id")]
         public ActionResult CreateAndEdit(int id)
         {
             if (!CheckAccess())
@@ -49,7 +47,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
             {
                 System.Web.HttpContext.Current.Session["IncomingInvoice"] = obj = cDocuments_IncomingInvoice.GetDocuments_IncomingInvoice(id);
 
-                /* U cache se trpa id dokumenta koji se editira i userId
+                /* U cache se snima id dokumenta koji se editira i userId
                 Ako objekt u cache-u postoji, netko vec esitira doc. 
                 Ako je null, doc nije otvoren, lockaj ga
                 */
@@ -75,11 +73,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
             }
             ViewData.Model = obj;
 
-            //string message = Request.QueryString["message"];
-            //if (!string.IsNullOrEmpty(message))
-            //    ViewData["Action"] = message;
-
-
+           
             List<DalEf.vPaymentsInAdvance> paymentsInAdvanceList;
 
             using (var context = new DalEf.DocumentsEntities())
@@ -116,23 +110,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
             {
                 string docNum = "0";
                 int num = 0;
-                //using (DalEf.DocumentsEntities data = new DalEf.DocumentsEntities())
-                //{
-                //    var lastItem = data.vDocuments.OrderByDescending(p => p.Id).FirstOrDefault(p => p.CompanyUsingServiceId == ((PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.DocumentType == (short)BusinessObjects.Common.DocumentType.IncomingInvoice);
-                //    if (lastItem != null)
-                //    {
-                //        docNum = lastItem.UniqueIdentifier;
-                //        docNum = docNum.Substring(0, docNum.LastIndexOf("/"));
-                //        num = Convert.ToInt32(docNum);
-                //        num += 1;
-                //        docNum = num.ToString() + "/11";
-                //    }
-                //    else
-                //    {
-                //        docNum = "1/11";
-                //    }
-                //}
-
                 obj.OrdinalNumber = num;
                 obj.UniqueIdentifier = docNum;
             }
@@ -163,7 +140,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                     {
 
                         System.Web.HttpContext.Current.Session["IncomingInvoice"] = null;
-                        //return RedirectToAction("Index");
                         if (Action != "")
                         {
                             if (Action.Contains("gen"))
@@ -174,13 +150,11 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                                     if (Action == "genCopy")
                                     {
                                         var res = data.uspIncomingInvoice2IncommingInvoice(id, Employeeid).SingleOrDefault();
-                                        //Action = String.Format("{0}_{1}", Action, Convert.ToInt32(res));
                                         Action = "genCopy_100";
                                     }
                                     else 
                                     {
                                         var res = data.uspCreateVirman309(id, Employeeid).SingleOrDefault();
-                                        //Action = String.Format("{0}_{1}", Action, Convert.ToInt32(res));
                                         Action = "genVirman";
                                         System.Web.HttpContext.Current.Session["virmanId"] = res;
                                     }
@@ -209,7 +183,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                     if (SaveObject<cDocuments_IncomingInvoice>(obj, false))
                     {
                         System.Web.HttpContext.Current.Session["IncomingInvoice"] = null;
-                        //return RedirectToAction("Index");
                         if (Action != "")
                         {
                             if (Action.Contains("gen"))
@@ -220,7 +193,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                                     if (Action == "genCopy")
                                     {
                                         var res = data.uspIncomingInvoice2IncommingInvoice(((cDocuments_Invoice)ViewData.Model).Id, Employeeid).SingleOrDefault();
-                                        //Action = String.Format("{0}_{1}", Action, Convert.ToInt32(res));
                                         Action = "genCopy_100";
                                     }
                                     else
@@ -254,7 +226,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
 
         public Boolean IsDocLocked(int docId, int userId)
         {
-            //var lockCheck = (IDictionary)HttpRuntime.Cache[docId.ToString()];
             if (HttpRuntime.Cache[docId.ToString()] == null)
                 return false;
 
@@ -323,17 +294,15 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
         public ActionResult MjestaComboPartial3(int? Id, FormCollection collection)
         {
 
-            //string bindProperty = collection["DXCallbackName"].Substring(1, collection["DXCallbackName"].Length - 1);
             ViewData.Add("cmbMjestaName", collection["DXCallbackName"]);
             ViewData.Add("controllerName", "IncomingInvoice");
             ViewData.Add("height", 20);
             ViewData.Add("width", 232);
             ViewData.Model = Id;
 
-
             return PartialView();
         }
-        //[OutputCache(Duration = 600, VaryByParam = "None")]
+        
         public ActionResult IncomingInvoiceGridPartial()
         {
             return PartialView("IncomingInvoiceGridPartial");
@@ -874,7 +843,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
         {
             int FromDocumentId = Convert.ToInt32(collection["FromDocumentId"]);
             int Employeeid = ((PTIdentity)Csla.ApplicationContext.User.Identity).EmployeeSubjectId;
-            //string docType = collection["docType"];
 
             int? id = 0;
             using (DalEf.DocumentsEntities data = new DalEf.DocumentsEntities())
@@ -936,19 +904,12 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
         public ActionResult RefreshHystoryPaymentsGridPartial()
         {
             cDocuments_IncomingInvoice Invoice = (cDocuments_IncomingInvoice)System.Web.HttpContext.Current.Session["IncomingInvoice"];
-
-            //if (person == null)
-            //    System.Web.HttpContext.Current.Session["Person"] = person = cMDSubjects_Person_Specific_CRO.GetMDSubjects_Person_Specific_CRO(id);
             ViewData["invoiceId"] = Invoice.Id;
             return PartialView("HystoryPaymentsGridPartial");
         }
 
         public ActionResult RefreshFreeAvansesGridPartial()
         {
-            //cDocuments_Invoice Invoice = (cDocuments_Invoice)System.Web.HttpContext.Current.Session["Invoice"];
-
-            //if (person == null)
-            //    System.Web.HttpContext.Current.Session["Person"] = person = cMDSubjects_Person_Specific_CRO.GetMDSubjects_Person_Specific_CRO(id);
             ViewData.Model = System.Web.HttpContext.Current.Session["paymentsInAdvanceList"];
             return PartialView("FreeAvansesGridPartial");
         }
@@ -985,24 +946,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                         }
                     }
 
-                    //if (paymentsInAdvanceAmmount + historyPaymentAmmount >= invoiceAmmount)
-                    //{
-                    //    ammountForClosing = invoiceAmmount - historyPaymentAmmount;
-
-                    //    foreach (var itemInAdvance in paymentsInAdvanceList)
-                    //    {
-                    //        itemInAdvance.UseForClosing = false;
-                    //        itemInAdvance.AmmountForClosing = 0;
-                    //    }
-
-                    //    if (ammountForClosing > 0)
-                    //    {
-                    //        item.UseForClosing = true;
-                    //        item.AmmountForClosing = ammountForClosing;
-                    //    }
-                    //}
-                    //else
-                    //{
                     paymentsInAdvanceAmmountSum = paymentsInAdvanceList.Where(p => (p.UseForClosing ?? false) == true).Sum(p => (p.AmmountForClosing ?? 0));
                     decimal closeTillNow = paymentsInAdvanceAmmountSum + (historyPaymentAmmount ?? 0);
                     if (closeTillNow < invoiceAmmount)
@@ -1023,7 +966,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                         item.UseForClosing = true;
                         item.AmmountForClosing = ammountForClosing;
                     }
-                    //}
                 }
                 else if (value == "false" && item.UseForClosing == true)
                 {
@@ -1083,7 +1025,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                 }
                 System.Web.HttpContext.Current.Session["paymentsInAdvanceList"] = paymentsInAdvanceList;
             }
-            //TODO:    Dodati novi item zatvaranja vezan za peyment item avansa (kreirati session i za to);  Provjeriti da iznos svih zatvaranja ne prelazi neplaćeni iznos fakture
             JsonResult rez = new JsonResult() { Data = refreshGrid };
             return rez;
         }

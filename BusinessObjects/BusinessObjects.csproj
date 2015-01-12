@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{76D7E3F3-BEDF-4299-AA36-DF6C82549114}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BusinessObjects</RootNamespace>
+    <AssemblyName>BusinessObjects</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla">
+      <HintPath>..\..\..\DLL\Csla4\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\RoleEdit.cs" />
+    <Compile Include="Admin\RoleEditList.cs" />
+    <Compile Include="Admin\RoleEditManager.cs" />
+    <Compile Include="Documents\cDocuments_CashBoxBill.cs" />
+    <Compile Include="Documents\cDocuments_CashBoxBillItemsCol.cs" />
+    <Compile Include="MDGeneral\cMDGeneral_Enums_Location.cs" />
+    <Compile Include="Documents\cDocuments_VirmanTip309.cs" />
+    <Compile Include="Documents\cDocuments_Compensation.cs" />
+    <Compile Include="Documents\cDocuments_CompensationCol.cs" />
+    <Compile Include="Common\clsCommon.cs" />
+    <Compile Include="CoreBusinessClasses\CoreBusinessChildClass.cs" />
+    <Compile Include="CoreBusinessClasses\CoreBusinessClass.cs" />
+    <Compile Include="Documents\cDocuments_Dispatch.cs" />
+    <Compile Include="Documents\cDocuments_Document.cs" />
+    <Compile Include="Documents\cDocuments_Enums_DispatchType.cs" />
+    <Compile Include="Documents\cDocuments_Enums_DispatchType.Hc.cs" />
+    <Compile Include="Documents\cDocuments_IncomingInvoice.cs" />
+    <Compile Include="Documents\cDocuments_IncomingInvoice.Hc.cs" />
+    <Compile Include="Documents\cDocuments_Invoice.cs" />
+    <Compile Include="Documents\cDocuments_Invoice.Hc.cs" />
+    <Compile Include="Documents\cDocuments_ItemsCol.cs" />
+    <Compile Include="Documents\cDocuments_ItemsCol.Hc.cs" />
+    <Compile Include="Documents\cDocuments_Offer.cs" />
+    <Compile Include="Documents\cDocuments_Offer.Hc.cs" />
+    <Compile Include="Documents\cDocuments_Offer_MaturityCol.cs" />
+    <Compile Include="Documents\cDocuments_OrderForm.cs" />
+    <Compile Include="Documents\cDocuments_OrderForm.Hc.cs" />
+    <Compile Include="Documents\cDocuments_Payment.cs" />
+    <Compile Include="Documents\cDocuments_Payment.Hc.cs" />
+    <Compile Include="Documents\cDocuments_PaymentClosureGCol.cs" />
+    <Compile Include="Documents\cDocuments_PaymentClosureGCol.Hc.cs" />
+    <Compile Include="Documents\cDocuments_PaymentItemsCol.cs" />
+    <Compile Include="Documents\cDocuments_PaymentItemsCol.Hc.cs" />
+    <Compile Include="Documents\cDocuments_Payoff.cs" />
+    <Compile Include="Documents\cDocuments_Payoff.Hc.cs" />
+    <Compile Include="Documents\cDocuments_PriceList.cs" />
+    <Compile Include="Documents\cDocuments_PriceList.Hc.cs" />
+    <Compile Include="Documents\cDocuments_PriceList_ItemsCol.cs" />
+    <Compile Include="Documents\cDocuments_Quote.cs" />
+    <Compile Include="Documents\cDocuments_Quote.Hc.cs" />
+    <Compile Include="Documents\cDocuments_TakeoverOfGoods.cs" />
+    <Compile Include="Documents\cDocuments_TakeoverOfGoods.Hc.cs" />
+    <Compile Include="Documents\cDocuments_TravelOrder.cs" />
+    <Compile Include="Documents\cDocuments_TravelOrder.Hc.cs" />
+    <Compile Include="Documents\cDocuments_TravelOrder_OtherExpensesCol.cs" />
+    <Compile Include="Documents\cDocuments_TravelOrder_OtherExpensesCol.Hc.cs" />
+    <Compile Include="Documents\cDocuments_TravelOrder_TravelCostsCol.cs" />
+    <Compile Include="Documents\cDocuments_TravelOrder_TravelCostsCol.Hc.cs" />
+    <Compile Include="Documents\cDocuments_TravelOrder_WageCol.cs" />
+    <Compile Include="Documents\cDocuments_TravelOrder_WageCol.Hc.cs" />
+    <Compile Include="Documents\cDocuments_WorkOrder.cs" />
+    <Compile Include="Documents\cDocuments_WorkOrder.Hc.cs" />
+    <Compile Include="MDEntities\cMDEntities_Entity.cs" />
+    <Compile Include="MDEntities\cMDEntities_Enums_EntityGroup.cs" />
+    <Compile Include="MDEntities\cMDEntities_Enums_EntityGroup.Hc.cs" />
+    <Compile Include="MDEntities\cMDEntities_Enums_TaxRate.cs" />
+    <Compile Include="MDEntities\cMDEntities_Enums_TaxRate.Hc.cs" />
+    <Compile Include="MDEntities\cMDEntities_Enums_Unit.cs" />
+    <Compile Include="MDEntities\cMDEntities_Enums_Unit.Hc.cs" />
+    <Compile Include="MDEntities\cMDEntities_Product.cs" />
+    <Compile Include="MDEntities\cMDEntities_Product.Hc.cs" />
+    <Compile Include="MDEntities\cMDEntities_Product_PicturesCol.cs" />
+    <Compile Include="MDEntities\cMDEntities_Service.cs" />
+    <Compile Include="MDEntities\cMDEntities_Service.Hc.cs" />
+    <Compile Include="MDGeneral\cMDGeneral_Enums_CashBox.cs" />
+    <Compile Include="MDGeneral\cMDGeneral_Enums_Currency.cs" />
+    <Compile Include="MDGeneral\cMDGeneral_Enums_Currency.Hc.cs" />
+    <Compile Include="MDGeneral\cMDGeneral_Enums_KindOfTransportation.cs" />
+    <Compile Include="MDGeneral\cMDGeneral_Enums_KindOfTransportation.Hc.cs" />
+    <Compile Include="MDGeneral\cMDGeneral_Enums_Language.cs" />
+    <Compile Include="MDGeneral\cMDGeneral_Enums_Language.Hc.cs" />
+    <Compile Include="MDPlaces\cMDPlaces_Enums_Geo_Country.cs" />
+    <Compile Include="MDPlaces\cMDPlaces_Enums_Geo_Country.Hc.cs" />
+    <Compile Include="MDPlaces\cMDPlaces_Enums_Geo_Place.cs" />
+    <Compile Include="MDPlaces\cMDPlaces_Enums_Geo_Place.Hc.cs" />
+    <Compile Include="MDPlaces\cMDPlaces_Enums_Geo_Region.cs" />
+    <Compile Include="MDPlaces\cMDPlaces_Enums_Geo_Region.Hc.cs" />
+    <Compile Include="MDPlaces\cMDPlaces_Enums_OgranizationalUnit.cs" />
+    <Compile Include="MDPlaces\cMDPlaces_Enums_OgranizationalUnit.Hc.cs" />
+    <Compile Include="MDSubjects\cAuth_Company.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Company.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Company.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Employee.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Employee.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_Bank.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_Bank.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_CompanyType.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_CompanyType.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_CoreBussiness.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_CoreBussiness.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_EducationDegree.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_EducationDegree.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_Function.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_Function.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_SoleProprietorType.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Enums_SoleProprietorType.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Obrt.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Obrt.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Person.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Person.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_SoleProprietor.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_SoleProprietor.Hc.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Subject.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Subject_AccountsCol.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Subject_ContactsCol.cs" />
+    <Compile Include="MDSubjects\cMDSubjects_Subject_PermissionsForClientsCol.cs" />
+    <Compile Include="Projects\cProjects_Enums_ExpensType.cs" />
+    <Compile Include="Projects\cProjects_Enums_ExpensType.Hc.cs" />
+    <Compile Include="Projects\cProjects_Enums_Task.cs" />
+    <Compile Include="Projects\cProjects_Enums_Task.Hc.cs" />
+    <Compile Include="Projects\cProjects_MaterialTrackingLog.cs" />
+    <Compile Include="Projects\cProjects_MaterialTrackingLog.Hc.cs" />
+    <Compile Include="Projects\cProjects_Project.cs" />
+    <Compile Include="Projects\cProjects_Project.Hc.cs" />
+    <Compile Include="Projects\cProjects_Project_Expenses.cs" />
+    <Compile Include="Projects\cProjects_Project_Expenses.Hc.cs" />
+    <Compile Include="Projects\cProjects_Project_TeamMemebersCol.cs" />
+    <Compile Include="Projects\cProjects_TimeTrackingLog.cs" />
+    <Compile Include="Projects\cProjects_TimeTrackingLog.Hc.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Security\PTIdentity.cs" />
+    <Compile Include="Security\PTPrincipal.cs" />
+    <Compile Include="Security\UserExistsCommand.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dal\DalEf.csproj">
+      <Project>{27F7D95B-5C9D-408E-9B15-0E8A409D950F}</Project>
+      <Name>DalEf</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

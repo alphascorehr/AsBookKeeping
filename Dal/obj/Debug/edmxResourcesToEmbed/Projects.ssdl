@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="ProjectsModelStoreContainer">
+    <EntitySet Name="Projects_Enums_ExpensType" EntityType="ProjectsModel.Store.Projects_Enums_ExpensType" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Projects_Enums_Task" EntityType="ProjectsModel.Store.Projects_Enums_Task" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Projects_MaterialTrackingLog" EntityType="ProjectsModel.Store.Projects_MaterialTrackingLog" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Projects_Project" EntityType="ProjectsModel.Store.Projects_Project" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Projects_Project_Expenses" EntityType="ProjectsModel.Store.Projects_Project_Expenses" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Projects_Project_TeamMemebersCol" EntityType="ProjectsModel.Store.Projects_Project_TeamMemebersCol" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="Projects_TimeTrackingLog" EntityType="ProjectsModel.Store.Projects_TimeTrackingLog" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="vEnums_ExpensType" EntityType="ProjectsModel.Store.vEnums_ExpensType" store:Type="Views" store:Schema="dbo" store:Name="vEnums_ExpensType" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <DefiningQuery>SELECT 
+      [vEnums_ExpensType].[Id] AS [Id], 
+      [vEnums_ExpensType].[Name] AS [Name], 
+      [vEnums_ExpensType].[ClientName] AS [ClientName], 
+      [vEnums_ExpensType].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_ExpensType].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_ExpensType] AS [vEnums_ExpensType]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vEnums_Task" EntityType="ProjectsModel.Store.vEnums_Task" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Task" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <DefiningQuery>SELECT 
+      [vEnums_Task].[Id] AS [Id], 
+      [vEnums_Task].[Name] AS [Name], 
+      [vEnums_Task].[Label] AS [Label], 
+      [vEnums_Task].[ClientName] AS [ClientName], 
+      [vEnums_Task].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Task].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_Task] AS [vEnums_Task]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vProjectExpenses" EntityType="ProjectsModel.Store.vProjectExpenses" store:Type="Views" store:Schema="dbo" store:Name="vProjectExpenses" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <DefiningQuery>SELECT 
+      [vProjectExpenses].[Id] AS [Id], 
+      [vProjectExpenses].[Projects_ProjectId] AS [Projects_ProjectId], 
+      [vProjectExpenses].[SubjectName] AS [SubjectName], 
+      [vProjectExpenses].[Projectname] AS [Projectname], 
+      [vProjectExpenses].[CompanyUsingServiceId] AS [CompanyUsingServiceId]
+      FROM [dbo].[vProjectExpenses] AS [vProjectExpenses]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vProjects" EntityType="ProjectsModel.Store.vProjects" store:Type="Views" store:Schema="dbo" store:Name="vProjects" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <DefiningQuery>SELECT 
+      [vProjects].[Id] AS [Id], 
+      [vProjects].[Name] AS [Name], 
+      [vProjects].[Active] AS [Active], 
+      [vProjects].[SubjectName] AS [SubjectName], 
+      [vProjects].[CompanyUsingServiceId] AS [CompanyUsingServiceId]
+      FROM [dbo].[vProjects] AS [vProjects]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vProjectsMaterialTracking" EntityType="ProjectsModel.Store.vProjectsMaterialTracking" store:Type="Views" store:Schema="dbo" store:Name="vProjectsMaterialTracking" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <DefiningQuery>SELECT 
+      [vProjectsMaterialTracking].[Id] AS [Id], 
+      [vProjectsMaterialTracking].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vProjectsMaterialTracking].[ProductId] AS [ProductId], 
+      [vProjectsMaterialTracking].[Klijent] AS [Klijent], 
+      [vProjectsMaterialTracking].[DocumentDateTime] AS [DocumentDateTime], 
+      [vProjectsMaterialTracking].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vProjectsMaterialTracking].[ProductName] AS [ProductName], 
+      [vProjectsMaterialTracking].[UnitName] AS [UnitName], 
+      [vProjectsMaterialTracking].[ProjectName] AS [ProjectName], 
+      [vProjectsMaterialTracking].[SubjectName] AS [SubjectName], 
+      [vProjectsMaterialTracking].[ProductAmmount] AS [ProductAmmount]
+      FROM [dbo].[vProjectsMaterialTracking] AS [vProjectsMaterialTracking]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vProjectsTimeTracking" EntityType="ProjectsModel.Store.vProjectsTimeTracking" store:Type="Views" store:Schema="dbo" store:Name="vProjectsTimeTracking" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <DefiningQuery>SELECT 
+      [vProjectsTimeTracking].[Id] AS [Id], 
+      [vProjectsTimeTracking].[Name] AS [Name], 
+      [vProjectsTimeTracking].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vProjectsTimeTracking].[Projects_ProjectId] AS [Projects_ProjectId], 
+      [vProjectsTimeTracking].[Work_OrderId] AS [Work_OrderId], 
+      [vProjectsTimeTracking].[ServiceName] AS [ServiceName], 
+      [vProjectsTimeTracking].[Klijent] AS [Klijent], 
+      [vProjectsTimeTracking].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vProjectsTimeTracking].[Hours] AS [Hours], 
+      [vProjectsTimeTracking].[Quantity] AS [Quantity], 
+      [vProjectsTimeTracking].[IsBillable] AS [IsBillable]
+      FROM [dbo].[vProjectsTimeTracking] AS [vProjectsTimeTracking]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <EntityType Name="Projects_Enums_ExpensType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Projects_Enums_Task">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Label" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="TaskRatePerHour" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Projects_MaterialTrackingLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Projects_ProjectId" Type="int" />
+    <Property Name="Documents_WorkOrderId" Type="int" />
+    <Property Name="OrdinalInProject" Type="int" />
+    <Property Name="OrdinalInWorkOrder" Type="int" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="Product_Description" Type="nvarchar(max)" />
+    <Property Name="ProductUnitId" Type="int" />
+    <Property Name="ProductAmmount" Type="decimal" Scale="2" />
+    <Property Name="IsBillable" Type="bit" Nullable="false" />
+    <Property Name="Documents_Invoice_ItemsColId" Type="int" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Projects_Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="PayedInFull" Type="bit" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="MDSubjects_SubjectId" Type="int" />
+    <Property Name="IsInternal" Type="bit" />
+    <Property Name="BillingMethod" Type="tinyint" />
+    <Property Name="TimeBudget_Hours" Type="decimal" Scale="6" />
+    <Property Name="ProjectRatePerHour" Type="decimal" Scale="6" />
+    <Property Name="FlatAmount" Type="decimal" Scale="6" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Projects_Project_Expenses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Projects_ProjectId" Type="int" />
+    <Property Name="MDSubjects_SubjectId" Type="int" />
+    <Property Name="Projects_Enums_ExpensTypeId" Type="int" Nullable="false" />
+    <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Invoiced" Type="bit" />
+    <Property Name="Documents_InvoiceId" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+    <Property Name="Ordinal" Type="int" />
+  </EntityType>
+  <EntityType Name="Projects_Project_TeamMemebersCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Projects_ProjectId" Type="int" Nullable="false" />
+    <Property Name="MDSubjects_SubjectId" Type="int" Nullable="false" />
+    <Property Name="MDEntities_ServiceId" Type="int" />
+    <Property Name="ContractorRebillRatePerHour" Type="decimal" Scale="2" />
+    <Property Name="ContractoRebillFlatAmount" Type="decimal" Scale="2" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Projects_TimeTrackingLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Projects_ProjectId" Type="int" />
+    <Property Name="Work_OrderId" Type="int" />
+    <Property Name="OrdinalInProject" Type="int" />
+    <Property Name="OrdinalInWorkOrder" Type="int" />
+    <Property Name="Documents_TravelOrderId" Type="int" />
+    <Property Name="MDEntities_ServiceId" Type="int" />
+    <Property Name="Service_Description" Type="nvarchar(max)" />
+    <Property Name="MDSubjects_SubjectTeamMemberId" Type="int" Nullable="false" />
+    <Property Name="ActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="BillingMethod" Type="tinyint" Nullable="false" />
+    <Property Name="Hours" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="IsBillable" Type="bit" Nullable="false" />
+    <Property Name="Documents_Invoice_ItemsColId" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_ExpensType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEnums_ExpensType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Task' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEnums_Task">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Label" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vProjectExpenses' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vProjectExpenses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Projects_ProjectId" Type="int" />
+    <Property Name="SubjectName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Projectname" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vProjects' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vProjects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="SubjectName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vProjectsMaterialTracking' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vProjectsMaterialTracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="Klijent" Type="nvarchar" MaxLength="100" />
+    <Property Name="DocumentDateTime" Type="datetime" />
+    <Property Name="UniqueIdentifier" Type="varchar" MaxLength="50" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+    <Property Name="UnitName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProjectName" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubjectName" Type="nvarchar" MaxLength="100" />
+    <Property Name="ProductAmmount" Type="decimal" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vProjectsTimeTracking' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vProjectsTimeTracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="Projects_ProjectId" Type="int" />
+    <Property Name="Work_OrderId" Type="int" />
+    <Property Name="ServiceName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Klijent" Type="nvarchar" MaxLength="100" />
+    <Property Name="UniqueIdentifier" Type="varchar" MaxLength="50" />
+    <Property Name="Hours" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="IsBillable" Type="bit" Nullable="false" />
+  </EntityType>
+</Schema>

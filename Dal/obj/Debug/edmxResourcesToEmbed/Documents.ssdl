@@ -1,0 +1,2442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DocumentsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="DocumentsModelStoreContainer">
+    <EntitySet Name="__tempDS" EntityType="DocumentsModel.Store.__tempDS" store:Type="Tables" store:Schema="dbo" store:Name="__tempDS">
+      <DefiningQuery>SELECT 
+      [__tempDS].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [__tempDS].[DocumentDateTime] AS [DocumentDateTime], 
+      [__tempDS].[MaturityDate] AS [MaturityDate], 
+      [__tempDS].[Name] AS [Name], 
+      [__tempDS].[RetailValue] AS [RetailValue], 
+      [__tempDS].[Unpaid] AS [Unpaid]
+      FROM [dbo].[__tempDS] AS [__tempDS]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Documents_CashBoxBill" EntityType="DocumentsModel.Store.Documents_CashBoxBill" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_CashBoxBillItemsCol" EntityType="DocumentsModel.Store.Documents_CashBoxBillItemsCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Compensation" EntityType="DocumentsModel.Store.Documents_Compensation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_CompensationChildCol" EntityType="DocumentsModel.Store.Documents_CompensationChildCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Dispatch" EntityType="DocumentsModel.Store.Documents_Dispatch" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Document" EntityType="DocumentsModel.Store.Documents_Document" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Enums_DispatchType" EntityType="DocumentsModel.Store.Documents_Enums_DispatchType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_IncomingInvoice" EntityType="DocumentsModel.Store.Documents_IncomingInvoice" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Invoice" EntityType="DocumentsModel.Store.Documents_Invoice" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_ItemsCol" EntityType="DocumentsModel.Store.Documents_ItemsCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Offer" EntityType="DocumentsModel.Store.Documents_Offer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Offer_MaturityCol" EntityType="DocumentsModel.Store.Documents_Offer_MaturityCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_OrderForm" EntityType="DocumentsModel.Store.Documents_OrderForm" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Payment" EntityType="DocumentsModel.Store.Documents_Payment" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_PaymentClosureGCol" EntityType="DocumentsModel.Store.Documents_PaymentClosureGCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_PaymentItemsCol" EntityType="DocumentsModel.Store.Documents_PaymentItemsCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Payoff" EntityType="DocumentsModel.Store.Documents_Payoff" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_PriceList" EntityType="DocumentsModel.Store.Documents_PriceList" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_PriceList_ItemsCol" EntityType="DocumentsModel.Store.Documents_PriceList_ItemsCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_Quote" EntityType="DocumentsModel.Store.Documents_Quote" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_TakeoverOfGoods" EntityType="DocumentsModel.Store.Documents_TakeoverOfGoods" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_TravelOrder" EntityType="DocumentsModel.Store.Documents_TravelOrder" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_TravelOrder_OtherExpensesCol" EntityType="DocumentsModel.Store.Documents_TravelOrder_OtherExpensesCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_TravelOrder_TravelCostsCol" EntityType="DocumentsModel.Store.Documents_TravelOrder_TravelCostsCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_TravelOrder_WageCol" EntityType="DocumentsModel.Store.Documents_TravelOrder_WageCol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_VirmanTip309" EntityType="DocumentsModel.Store.Documents_VirmanTip309" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents_WorkOrder" EntityType="DocumentsModel.Store.Documents_WorkOrder" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDEntities_Enums_TaxRate" EntityType="DocumentsModel.Store.MDEntities_Enums_TaxRate" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MDGeneral_Enums_Currency" EntityType="DocumentsModel.Store.MDGeneral_Enums_Currency" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="vAuth_Company" EntityType="DocumentsModel.Store.vAuth_Company" store:Type="Views" store:Schema="dbo" store:Name="vAuth_Company">
+      <DefiningQuery>SELECT 
+      [vAuth_Company].[Id] AS [Id], 
+      [vAuth_Company].[Name] AS [Name], 
+      [vAuth_Company].[OIB] AS [OIB], 
+      [vAuth_Company].[InvoiceLogo] AS [InvoiceLogo], 
+      [vAuth_Company].[Mobile] AS [Mobile], 
+      [vAuth_Company].[Fax] AS [Fax], 
+      [vAuth_Company].[BusinessPhone] AS [BusinessPhone], 
+      [vAuth_Company].[Email] AS [Email], 
+      [vAuth_Company].[ContactPerson] AS [ContactPerson], 
+      [vAuth_Company].[HomeAddress_PlaceName] AS [HomeAddress_PlaceName], 
+      [vAuth_Company].[HomeAddress_StreetAndNumber] AS [HomeAddress_StreetAndNumber], 
+      [vAuth_Company].[Account] AS [Account], 
+      [vAuth_Company].[Account1] AS [Account1]
+      FROM [dbo].[vAuth_Company] AS [vAuth_Company]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vCashBox" EntityType="DocumentsModel.Store.vCashBox" store:Type="Views" store:Schema="dbo" store:Name="vCashBox">
+      <DefiningQuery>SELECT 
+      [vCashBox].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vCashBox].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vCashBox].[OrdinalNumber] AS [OrdinalNumber], 
+      [vCashBox].[DocumentDateTime] AS [DocumentDateTime], 
+      [vCashBox].[Status] AS [Status], 
+      [vCashBox].[WholesaleValue] AS [WholesaleValue], 
+      [vCashBox].[RetailValue] AS [RetailValue], 
+      [vCashBox].[FiscalizationMessageItentifier] AS [FiscalizationMessageItentifier], 
+      [vCashBox].[Id] AS [Id], 
+      [vCashBox].[FiscalizationJIR] AS [FiscalizationJIR], 
+      [vCashBox].[FiscalizationZKIR] AS [FiscalizationZKIR], 
+      [vCashBox].[Fiskaliziran] AS [Fiskaliziran], 
+      [vCashBox].[CashBoxCode] AS [CashBoxCode], 
+      [vCashBox].[LocationCode] AS [LocationCode]
+      FROM [dbo].[vCashBox] AS [vCashBox]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vCashBoxBill" EntityType="DocumentsModel.Store.vCashBoxBill" store:Type="Views" store:Schema="dbo" store:Name="vCashBoxBill">
+      <DefiningQuery>SELECT 
+      [vCashBoxBill].[Id] AS [Id], 
+      [vCashBoxBill].[FiscalizationZKIR] AS [FiscalizationZKIR], 
+      [vCashBoxBill].[FiscalizationJIR] AS [FiscalizationJIR], 
+      [vCashBoxBill].[FiscalizationTime] AS [FiscalizationTime], 
+      [vCashBoxBill].[BrojRacuna] AS [BrojRacuna], 
+      [vCashBoxBill].[NacinPlacanja] AS [NacinPlacanja], 
+      [vCashBoxBill].[CashierCode] AS [CashierCode]
+      FROM [dbo].[vCashBoxBill] AS [vCashBoxBill]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vCashBoxBillDetails" EntityType="DocumentsModel.Store.vCashBoxBillDetails" store:Type="Views" store:Schema="dbo" store:Name="vCashBoxBillDetails">
+      <DefiningQuery>SELECT 
+      [vCashBoxBillDetails].[Id] AS [Id], 
+      [vCashBoxBillDetails].[Name] AS [Name], 
+      [vCashBoxBillDetails].[RetailValue] AS [RetailValue], 
+      [vCashBoxBillDetails].[Quantity] AS [Quantity], 
+      [vCashBoxBillDetails].[RetailPrice] AS [RetailPrice], 
+      [vCashBoxBillDetails].[DocumentId] AS [DocumentId]
+      FROM [dbo].[vCashBoxBillDetails] AS [vCashBoxBillDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vCashBoxBillTaxByTypes" EntityType="DocumentsModel.Store.vCashBoxBillTaxByTypes" store:Type="Views" store:Schema="dbo" store:Name="vCashBoxBillTaxByTypes">
+      <DefiningQuery>SELECT 
+      [vCashBoxBillTaxByTypes].[DocumentId] AS [DocumentId], 
+      [vCashBoxBillTaxByTypes].[WholesaleValue] AS [WholesaleValue], 
+      [vCashBoxBillTaxByTypes].[RetailValue] AS [RetailValue], 
+      [vCashBoxBillTaxByTypes].[Id] AS [Id], 
+      [vCashBoxBillTaxByTypes].[Name] AS [Name], 
+      [vCashBoxBillTaxByTypes].[Percentage] AS [Percentage], 
+      [vCashBoxBillTaxByTypes].[TaxAmmount] AS [TaxAmmount]
+      FROM [dbo].[vCashBoxBillTaxByTypes] AS [vCashBoxBillTaxByTypes]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vChartDugujePotrazuje" EntityType="DocumentsModel.Store.vChartDugujePotrazuje" store:Type="Views" store:Schema="dbo" store:Name="vChartDugujePotrazuje">
+      <DefiningQuery>SELECT 
+      [vChartDugujePotrazuje].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vChartDugujePotrazuje].[Tip] AS [Tip], 
+      [vChartDugujePotrazuje].[Suma] AS [Suma]
+      FROM [dbo].[vChartDugujePotrazuje] AS [vChartDugujePotrazuje]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDispatch" EntityType="DocumentsModel.Store.vDispatch" store:Type="Views" store:Schema="dbo" store:Name="vDispatch">
+      <DefiningQuery>SELECT 
+      [vDispatch].[Id] AS [Id], 
+      [vDispatch].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vDispatch].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vDispatch].[CreationDateTime] AS [CreationDateTime], 
+      [vDispatch].[Name] AS [Name], 
+      [vDispatch].[SubjectType] AS [SubjectType], 
+      [vDispatch].[SubjectTypeText] AS [SubjectTypeText], 
+      [vDispatch].[Oib] AS [Oib], 
+      [vDispatch].[OrdinalNumber] AS [OrdinalNumber], 
+      [vDispatch].[ShippingDate] AS [ShippingDate], 
+      [vDispatch].[DocumentDateTime] AS [DocumentDateTime], 
+      [vDispatch].[Status] AS [Status], 
+      [vDispatch].[Statustext] AS [Statustext]
+      FROM [dbo].[vDispatch] AS [vDispatch]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDispatchDetails" EntityType="DocumentsModel.Store.vDispatchDetails" store:Type="Views" store:Schema="dbo" store:Name="vDispatchDetails">
+      <DefiningQuery>SELECT 
+      [vDispatchDetails].[Id] AS [Id], 
+      [vDispatchDetails].[DocumentId] AS [DocumentId], 
+      [vDispatchDetails].[Ordinal] AS [Ordinal], 
+      [vDispatchDetails].[Label] AS [Label], 
+      [vDispatchDetails].[Name] AS [Name], 
+      [vDispatchDetails].[Quantity] AS [Quantity]
+      FROM [dbo].[vDispatchDetails] AS [vDispatchDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDispatchForPrint" EntityType="DocumentsModel.Store.vDispatchForPrint" store:Type="Views" store:Schema="dbo" store:Name="vDispatchForPrint">
+      <DefiningQuery>SELECT 
+      [vDispatchForPrint].[Id] AS [Id], 
+      [vDispatchForPrint].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vDispatchForPrint].[DocumentType] AS [DocumentType], 
+      [vDispatchForPrint].[DocumentNameAndNumber] AS [DocumentNameAndNumber], 
+      [vDispatchForPrint].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vDispatchForPrint].[SubjectName] AS [SubjectName], 
+      [vDispatchForPrint].[SubjectId] AS [SubjectId], 
+      [vDispatchForPrint].[SubjectType] AS [SubjectType], 
+      [vDispatchForPrint].[Oib] AS [Oib], 
+      [vDispatchForPrint].[HomeAddress_PlaceName] AS [HomeAddress_PlaceName], 
+      [vDispatchForPrint].[HomeAddress_StreetAndNumber] AS [HomeAddress_StreetAndNumber], 
+      [vDispatchForPrint].[ShipToAddress_PlaceName] AS [ShipToAddress_PlaceName], 
+      [vDispatchForPrint].[ShipToAddress_StreetAndNumber] AS [ShipToAddress_StreetAndNumber], 
+      [vDispatchForPrint].[DocumentDateTime] AS [DocumentDateTime], 
+      [vDispatchForPrint].[Description] AS [Description], 
+      [vDispatchForPrint].[DispatchType] AS [DispatchType], 
+      [vDispatchForPrint].[DispatchCompany] AS [DispatchCompany], 
+      [vDispatchForPrint].[ShippingDate] AS [ShippingDate], 
+      [vDispatchForPrint].[PersonReceived] AS [PersonReceived], 
+      [vDispatchForPrint].[EmployeeDispatcherName] AS [EmployeeDispatcherName], 
+      [vDispatchForPrint].[InvoiceLogo] AS [InvoiceLogo]
+      FROM [dbo].[vDispatchForPrint] AS [vDispatchForPrint]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDocumentDetails" EntityType="DocumentsModel.Store.vDocumentDetails" store:Type="Views" store:Schema="dbo" store:Name="vDocumentDetails">
+      <DefiningQuery>SELECT 
+      [vDocumentDetails].[Id] AS [Id], 
+      [vDocumentDetails].[DocumentId] AS [DocumentId], 
+      [vDocumentDetails].[Ordinal] AS [Ordinal], 
+      [vDocumentDetails].[ProductName] AS [ProductName], 
+      [vDocumentDetails].[Price] AS [Price], 
+      [vDocumentDetails].[UnitName] AS [UnitName], 
+      [vDocumentDetails].[Quantity] AS [Quantity], 
+      [vDocumentDetails].[RabatePercentage] AS [RabatePercentage], 
+      [vDocumentDetails].[TaxName] AS [TaxName], 
+      [vDocumentDetails].[Ammount] AS [Ammount], 
+      [vDocumentDetails].[WholesaleValue] AS [WholesaleValue], 
+      [vDocumentDetails].[TaxPercentage] AS [TaxPercentage]
+      FROM [dbo].[vDocumentDetails] AS [vDocumentDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDocumentDetailsWithProductDescription" EntityType="DocumentsModel.Store.vDocumentDetailsWithProductDescription" store:Type="Views" store:Schema="dbo" store:Name="vDocumentDetailsWithProductDescription">
+      <DefiningQuery>SELECT 
+      [vDocumentDetailsWithProductDescription].[Id] AS [Id], 
+      [vDocumentDetailsWithProductDescription].[DocumentId] AS [DocumentId], 
+      [vDocumentDetailsWithProductDescription].[Ordinal] AS [Ordinal], 
+      [vDocumentDetailsWithProductDescription].[ProductName] AS [ProductName], 
+      [vDocumentDetailsWithProductDescription].[Price] AS [Price], 
+      [vDocumentDetailsWithProductDescription].[Quantity] AS [Quantity], 
+      [vDocumentDetailsWithProductDescription].[RabatePercentage] AS [RabatePercentage], 
+      [vDocumentDetailsWithProductDescription].[TaxName] AS [TaxName], 
+      [vDocumentDetailsWithProductDescription].[Ammount] AS [Ammount], 
+      [vDocumentDetailsWithProductDescription].[WholesaleValue] AS [WholesaleValue], 
+      [vDocumentDetailsWithProductDescription].[TaxPercentage] AS [TaxPercentage], 
+      [vDocumentDetailsWithProductDescription].[Label] AS [Label], 
+      [vDocumentDetailsWithProductDescription].[ProductDescription] AS [ProductDescription]
+      FROM [dbo].[vDocumentDetailsWithProductDescription] AS [vDocumentDetailsWithProductDescription]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDocuments" EntityType="DocumentsModel.Store.vDocuments" store:Type="Views" store:Schema="dbo" store:Name="vDocuments">
+      <DefiningQuery>SELECT 
+      [vDocuments].[Id] AS [Id], 
+      [vDocuments].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vDocuments].[DocumentType] AS [DocumentType], 
+      [vDocuments].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vDocuments].[OrdinalNumber] AS [OrdinalNumber]
+      FROM [dbo].[vDocuments] AS [vDocuments]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDocuments_ForPrint" EntityType="DocumentsModel.Store.vDocuments_ForPrint" store:Type="Views" store:Schema="dbo" store:Name="vDocuments_ForPrint">
+      <DefiningQuery>SELECT 
+      [vDocuments_ForPrint].[Id] AS [Id], 
+      [vDocuments_ForPrint].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vDocuments_ForPrint].[DocumentType] AS [DocumentType], 
+      [vDocuments_ForPrint].[DocumentNameAndNumber] AS [DocumentNameAndNumber], 
+      [vDocuments_ForPrint].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vDocuments_ForPrint].[SubjectName] AS [SubjectName], 
+      [vDocuments_ForPrint].[SubjectId] AS [SubjectId], 
+      [vDocuments_ForPrint].[SubjectType] AS [SubjectType], 
+      [vDocuments_ForPrint].[Oib] AS [Oib], 
+      [vDocuments_ForPrint].[HomeAddress_PlaceName] AS [HomeAddress_PlaceName], 
+      [vDocuments_ForPrint].[HomeAddress_StreetAndNumber] AS [HomeAddress_StreetAndNumber], 
+      [vDocuments_ForPrint].[BillToAddress_PlaceName] AS [BillToAddress_PlaceName], 
+      [vDocuments_ForPrint].[BillToAddress_StreetAndNumber] AS [BillToAddress_StreetAndNumber], 
+      [vDocuments_ForPrint].[RText] AS [RText], 
+      [vDocuments_ForPrint].[DocumentDateTime] AS [DocumentDateTime], 
+      [vDocuments_ForPrint].[MaturityDate] AS [MaturityDate], 
+      [vDocuments_ForPrint].[DispatchDate] AS [DispatchDate], 
+      [vDocuments_ForPrint].[FullWholesaleValue] AS [FullWholesaleValue], 
+      [vDocuments_ForPrint].[RabateValue] AS [RabateValue], 
+      [vDocuments_ForPrint].[WholesaleValue] AS [WholesaleValue], 
+      [vDocuments_ForPrint].[TaxValue] AS [TaxValue], 
+      [vDocuments_ForPrint].[RetailValue] AS [RetailValue], 
+      [vDocuments_ForPrint].[Description] AS [Description], 
+      [vDocuments_ForPrint].[DispatchDescription] AS [DispatchDescription], 
+      [vDocuments_ForPrint].[Conditions] AS [Conditions], 
+      [vDocuments_ForPrint].[DispatchType] AS [DispatchType], 
+      [vDocuments_ForPrint].[DispatchCompany] AS [DispatchCompany], 
+      [vDocuments_ForPrint].[InvoiceLogo] AS [InvoiceLogo]
+      FROM [dbo].[vDocuments_ForPrint] AS [vDocuments_ForPrint]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDocumentsForPayment" EntityType="DocumentsModel.Store.vDocumentsForPayment" store:Type="Views" store:Schema="dbo" store:Name="vDocumentsForPayment">
+      <DefiningQuery>SELECT 
+      [vDocumentsForPayment].[Id] AS [Id], 
+      [vDocumentsForPayment].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vDocumentsForPayment].[DocumentType] AS [DocumentType], 
+      [vDocumentsForPayment].[DocumentTypeName] AS [DocumentTypeName], 
+      [vDocumentsForPayment].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vDocumentsForPayment].[DocumentDateTime] AS [DocumentDateTime], 
+      [vDocumentsForPayment].[SubjectId] AS [SubjectId], 
+      [vDocumentsForPayment].[PayedInAdvance] AS [PayedInAdvance], 
+      [vDocumentsForPayment].[PayedInFull] AS [PayedInFull], 
+      [vDocumentsForPayment].[Invoiced] AS [Invoiced], 
+      [vDocumentsForPayment].[RetailValue] AS [RetailValue], 
+      [vDocumentsForPayment].[PayedTillNow] AS [PayedTillNow], 
+      [vDocumentsForPayment].[Payed] AS [Payed], 
+      [vDocumentsForPayment].[PayUpdate] AS [PayUpdate], 
+      [vDocumentsForPayment].[Name] AS [Name]
+      FROM [dbo].[vDocumentsForPayment] AS [vDocumentsForPayment]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vDocumentTaxesByTypes" EntityType="DocumentsModel.Store.vDocumentTaxesByTypes" store:Type="Views" store:Schema="dbo" store:Name="vDocumentTaxesByTypes">
+      <DefiningQuery>SELECT 
+      [vDocumentTaxesByTypes].[Id] AS [Id], 
+      [vDocumentTaxesByTypes].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vDocumentTaxesByTypes].[Name] AS [Name], 
+      [vDocumentTaxesByTypes].[Percentage] AS [Percentage], 
+      [vDocumentTaxesByTypes].[TaxId] AS [TaxId], 
+      [vDocumentTaxesByTypes].[TaxAmmount] AS [TaxAmmount], 
+      [vDocumentTaxesByTypes].[WholsaleAmmount] AS [WholsaleAmmount], 
+      [vDocumentTaxesByTypes].[RetailAmmount] AS [RetailAmmount]
+      FROM [dbo].[vDocumentTaxesByTypes] AS [vDocumentTaxesByTypes]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vEntities" EntityType="DocumentsModel.Store.vEntities" store:Type="Views" store:Schema="dbo" store:Name="vEntities">
+      <DefiningQuery>SELECT 
+      [vEntities].[Id] AS [Id], 
+      [vEntities].[WholesalePrice] AS [WholesalePrice], 
+      [vEntities].[EntityType] AS [EntityType], 
+      [vEntities].[TaxRateId] AS [TaxRateId], 
+      [vEntities].[UnitId] AS [UnitId], 
+      [vEntities].[Label] AS [Label], 
+      [vEntities].[Name] AS [Name], 
+      [vEntities].[Inactive] AS [Inactive], 
+      [vEntities].[CompanyUsingServiceId] AS [CompanyUsingServiceId]
+      FROM [dbo].[vEntities] AS [vEntities]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vEntityPriceList" EntityType="DocumentsModel.Store.vEntityPriceList" store:Type="Views" store:Schema="dbo" store:Name="vEntityPriceList">
+      <DefiningQuery>SELECT 
+      [vEntityPriceList].[Id] AS [Id], 
+      [vEntityPriceList].[Name] AS [Name], 
+      [vEntityPriceList].[EntityGroupName] AS [EntityGroupName], 
+      [vEntityPriceList].[EntityTypeName] AS [EntityTypeName], 
+      [vEntityPriceList].[WholesalePrice] AS [WholesalePrice], 
+      [vEntityPriceList].[IsDefault] AS [IsDefault], 
+      [vEntityPriceList].[CompanyUsingServiceId] AS [CompanyUsingServiceId]
+      FROM [dbo].[vEntityPriceList] AS [vEntityPriceList]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vEnums_DispatchType" EntityType="DocumentsModel.Store.vEnums_DispatchType" store:Type="Views" store:Schema="dbo" store:Name="vEnums_DispatchType">
+      <DefiningQuery>SELECT 
+      [vEnums_DispatchType].[Id] AS [Id], 
+      [vEnums_DispatchType].[Name] AS [Name], 
+      [vEnums_DispatchType].[Description] AS [Description], 
+      [vEnums_DispatchType].[ClientName] AS [ClientName], 
+      [vEnums_DispatchType].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_DispatchType].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_DispatchType] AS [vEnums_DispatchType]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vIncimingPaymentClosureFirstPage" EntityType="DocumentsModel.Store.vIncimingPaymentClosureFirstPage" store:Type="Views" store:Schema="dbo" store:Name="vIncimingPaymentClosureFirstPage">
+      <DefiningQuery>SELECT 
+      [vIncimingPaymentClosureFirstPage].[Name] AS [Name], 
+      [vIncimingPaymentClosureFirstPage].[Id] AS [Id], 
+      [vIncimingPaymentClosureFirstPage].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vIncimingPaymentClosureFirstPage].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vIncimingPaymentClosureFirstPage].[DocumentDateTime] AS [DocumentDateTime], 
+      [vIncimingPaymentClosureFirstPage].[Sum] AS [Sum], 
+      [vIncimingPaymentClosureFirstPage].[MaturityDate] AS [MaturityDate], 
+      [vIncimingPaymentClosureFirstPage].[RetailValue] AS [RetailValue], 
+      [vIncimingPaymentClosureFirstPage].[Resto] AS [Resto]
+      FROM [dbo].[vIncimingPaymentClosureFirstPage] AS [vIncimingPaymentClosureFirstPage]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vIncomingInvoice" EntityType="DocumentsModel.Store.vIncomingInvoice" store:Type="Views" store:Schema="dbo" store:Name="vIncomingInvoice">
+      <DefiningQuery>SELECT 
+      [vIncomingInvoice].[Id] AS [Id], 
+      [vIncomingInvoice].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vIncomingInvoice].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vIncomingInvoice].[DocumentDateTime] AS [DocumentDateTime], 
+      [vIncomingInvoice].[Name] AS [Name], 
+      [vIncomingInvoice].[SubjectType] AS [SubjectType], 
+      [vIncomingInvoice].[SubjectTypeText] AS [SubjectTypeText], 
+      [vIncomingInvoice].[Oib] AS [Oib], 
+      [vIncomingInvoice].[SubjectId] AS [SubjectId], 
+      [vIncomingInvoice].[OrdinalNumber] AS [OrdinalNumber], 
+      [vIncomingInvoice].[CreationDateTime] AS [CreationDateTime], 
+      [vIncomingInvoice].[MaturityDate] AS [MaturityDate], 
+      [vIncomingInvoice].[RetailValue] AS [RetailValue], 
+      [vIncomingInvoice].[Status] AS [Status], 
+      [vIncomingInvoice].[Statustext] AS [Statustext]
+      FROM [dbo].[vIncomingInvoice] AS [vIncomingInvoice]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vIncomingInvoicePayments" EntityType="DocumentsModel.Store.vIncomingInvoicePayments" store:Type="Views" store:Schema="dbo" store:Name="vIncomingInvoicePayments">
+      <DefiningQuery>SELECT 
+      [vIncomingInvoicePayments].[InvoiceId] AS [InvoiceId], 
+      [vIncomingInvoicePayments].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vIncomingInvoicePayments].[PayedInFull] AS [PayedInFull], 
+      [vIncomingInvoicePayments].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vIncomingInvoicePayments].[DocumentDateTime] AS [DocumentDateTime], 
+      [vIncomingInvoicePayments].[SubjectBuyerId] AS [SubjectBuyerId], 
+      [vIncomingInvoicePayments].[Ammount] AS [Ammount], 
+      [vIncomingInvoicePayments].[InAdvance] AS [InAdvance], 
+      [vIncomingInvoicePayments].[PaymentClosureId] AS [PaymentClosureId], 
+      [vIncomingInvoicePayments].[PaymentId] AS [PaymentId]
+      FROM [dbo].[vIncomingInvoicePayments] AS [vIncomingInvoicePayments]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vInvoice" EntityType="DocumentsModel.Store.vInvoice" store:Type="Views" store:Schema="dbo" store:Name="vInvoice">
+      <DefiningQuery>SELECT 
+      [vInvoice].[Id] AS [Id], 
+      [vInvoice].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vInvoice].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vInvoice].[Name] AS [Name], 
+      [vInvoice].[SubjectType] AS [SubjectType], 
+      [vInvoice].[SubjectTypeText] AS [SubjectTypeText], 
+      [vInvoice].[Oib] AS [Oib], 
+      [vInvoice].[OrdinalNumber] AS [OrdinalNumber], 
+      [vInvoice].[DocumentDateTime] AS [DocumentDateTime], 
+      [vInvoice].[MaturityDate] AS [MaturityDate], 
+      [vInvoice].[RetailValue] AS [RetailValue], 
+      [vInvoice].[Status] AS [Status], 
+      [vInvoice].[Statustext] AS [Statustext], 
+      [vInvoice].[FiscalizationJIR] AS [FiscalizationJIR], 
+      [vInvoice].[LocationCode] AS [LocationCode], 
+      [vInvoice].[CashBoxCode] AS [CashBoxCode]
+      FROM [dbo].[vInvoice] AS [vInvoice]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vInvoicePayments" EntityType="DocumentsModel.Store.vInvoicePayments" store:Type="Views" store:Schema="dbo" store:Name="vInvoicePayments">
+      <DefiningQuery>SELECT 
+      [vInvoicePayments].[InvoiceId] AS [InvoiceId], 
+      [vInvoicePayments].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vInvoicePayments].[PayedInFull] AS [PayedInFull], 
+      [vInvoicePayments].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vInvoicePayments].[DocumentDateTime] AS [DocumentDateTime], 
+      [vInvoicePayments].[SubjectBuyerId] AS [SubjectBuyerId], 
+      [vInvoicePayments].[Ammount] AS [Ammount], 
+      [vInvoicePayments].[InAdvance] AS [InAdvance], 
+      [vInvoicePayments].[PaymentClosureId] AS [PaymentClosureId], 
+      [vInvoicePayments].[PaymentId] AS [PaymentId]
+      FROM [dbo].[vInvoicePayments] AS [vInvoicePayments]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vInvoiceTaxByTypes" EntityType="DocumentsModel.Store.vInvoiceTaxByTypes" store:Type="Views" store:Schema="dbo" store:Name="vInvoiceTaxByTypes">
+      <DefiningQuery>SELECT 
+      [vInvoiceTaxByTypes].[DocumentId] AS [DocumentId], 
+      [vInvoiceTaxByTypes].[WholesaleValue] AS [WholesaleValue], 
+      [vInvoiceTaxByTypes].[RetailValue] AS [RetailValue], 
+      [vInvoiceTaxByTypes].[Id] AS [Id], 
+      [vInvoiceTaxByTypes].[Name] AS [Name], 
+      [vInvoiceTaxByTypes].[Percentage] AS [Percentage], 
+      [vInvoiceTaxByTypes].[TaxAmmount] AS [TaxAmmount]
+      FROM [dbo].[vInvoiceTaxByTypes] AS [vInvoiceTaxByTypes]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vOffer" EntityType="DocumentsModel.Store.vOffer" store:Type="Views" store:Schema="dbo" store:Name="vOffer">
+      <DefiningQuery>SELECT 
+      [vOffer].[Id] AS [Id], 
+      [vOffer].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vOffer].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vOffer].[CreationDateTime] AS [CreationDateTime], 
+      [vOffer].[Name] AS [Name], 
+      [vOffer].[SubjectType] AS [SubjectType], 
+      [vOffer].[SubjectTypeText] AS [SubjectTypeText], 
+      [vOffer].[Oib] AS [Oib], 
+      [vOffer].[OrdinalNumber] AS [OrdinalNumber], 
+      [vOffer].[MaturityDate] AS [MaturityDate], 
+      [vOffer].[RetailValue] AS [RetailValue], 
+      [vOffer].[DocumentDateTime] AS [DocumentDateTime], 
+      [vOffer].[Invoiced] AS [Invoiced], 
+      [vOffer].[CustomerId] AS [CustomerId], 
+      [vOffer].[Status] AS [Status], 
+      [vOffer].[Statustext] AS [Statustext]
+      FROM [dbo].[vOffer] AS [vOffer]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vOrderForm" EntityType="DocumentsModel.Store.vOrderForm" store:Type="Views" store:Schema="dbo" store:Name="vOrderForm">
+      <DefiningQuery>SELECT 
+      [vOrderForm].[Id] AS [Id], 
+      [vOrderForm].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vOrderForm].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vOrderForm].[CreationDateTime] AS [CreationDateTime], 
+      [vOrderForm].[MDSubjects_SubjectId] AS [MDSubjects_SubjectId], 
+      [vOrderForm].[Name] AS [Name], 
+      [vOrderForm].[SubjectType] AS [SubjectType], 
+      [vOrderForm].[SubjectTypeText] AS [SubjectTypeText], 
+      [vOrderForm].[Oib] AS [Oib], 
+      [vOrderForm].[OrdinalNumber] AS [OrdinalNumber], 
+      [vOrderForm].[DocumentDateTime] AS [DocumentDateTime], 
+      [vOrderForm].[OrderedByPerson] AS [OrderedByPerson], 
+      [vOrderForm].[Status] AS [Status], 
+      [vOrderForm].[Statustext] AS [Statustext]
+      FROM [dbo].[vOrderForm] AS [vOrderForm]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vOtherExpenseForPrint" EntityType="DocumentsModel.Store.vOtherExpenseForPrint" store:Type="Views" store:Schema="dbo" store:Name="vOtherExpenseForPrint">
+      <DefiningQuery>SELECT 
+      [vOtherExpenseForPrint].[Id] AS [Id], 
+      [vOtherExpenseForPrint].[Documents_TravelOrderId] AS [Documents_TravelOrderId], 
+      [vOtherExpenseForPrint].[Ordinal] AS [Ordinal], 
+      [vOtherExpenseForPrint].[Description] AS [Description], 
+      [vOtherExpenseForPrint].[Ammount] AS [Ammount], 
+      [vOtherExpenseForPrint].[Admited] AS [Admited]
+      FROM [dbo].[vOtherExpenseForPrint] AS [vOtherExpenseForPrint]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vPaymentClosureFirstPage" EntityType="DocumentsModel.Store.vPaymentClosureFirstPage" store:Type="Views" store:Schema="dbo" store:Name="vPaymentClosureFirstPage">
+      <DefiningQuery>SELECT 
+      [vPaymentClosureFirstPage].[Name] AS [Name], 
+      [vPaymentClosureFirstPage].[Id] AS [Id], 
+      [vPaymentClosureFirstPage].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vPaymentClosureFirstPage].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vPaymentClosureFirstPage].[DocumentDateTime] AS [DocumentDateTime], 
+      [vPaymentClosureFirstPage].[Sum] AS [Sum], 
+      [vPaymentClosureFirstPage].[RetailValue] AS [RetailValue], 
+      [vPaymentClosureFirstPage].[Resto] AS [Resto], 
+      [vPaymentClosureFirstPage].[MaturityDate] AS [MaturityDate]
+      FROM [dbo].[vPaymentClosureFirstPage] AS [vPaymentClosureFirstPage]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vPayments" EntityType="DocumentsModel.Store.vPayments" store:Type="Views" store:Schema="dbo" store:Name="vPayments">
+      <DefiningQuery>SELECT 
+      [vPayments].[Id] AS [Id], 
+      [vPayments].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vPayments].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vPayments].[CreationDateTime] AS [CreationDateTime], 
+      [vPayments].[OrdinalNumber] AS [OrdinalNumber], 
+      [vPayments].[Name] AS [Name], 
+      [vPayments].[DocumentDateTime] AS [DocumentDateTime], 
+      [vPayments].[AccountBalance] AS [AccountBalance]
+      FROM [dbo].[vPayments] AS [vPayments]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vPaymentsInAdvance" EntityType="DocumentsModel.Store.vPaymentsInAdvance" store:Type="Views" store:Schema="dbo" store:Name="vPaymentsInAdvance">
+      <DefiningQuery>SELECT 
+      [vPaymentsInAdvance].[Id] AS [Id], 
+      [vPaymentsInAdvance].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vPaymentsInAdvance].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vPaymentsInAdvance].[SubjectBuyerId] AS [SubjectBuyerId], 
+      [vPaymentsInAdvance].[SubjectSupplierId] AS [SubjectSupplierId], 
+      [vPaymentsInAdvance].[AdvancePaymentAmmount] AS [AdvancePaymentAmmount], 
+      [vPaymentsInAdvance].[Ammount] AS [Ammount], 
+      [vPaymentsInAdvance].[InAdvance] AS [InAdvance], 
+      [vPaymentsInAdvance].[GeneratedInAdvance] AS [GeneratedInAdvance], 
+      [vPaymentsInAdvance].[PaymentItemId] AS [PaymentItemId], 
+      [vPaymentsInAdvance].[DocumentDateTime] AS [DocumentDateTime], 
+      [vPaymentsInAdvance].[UseForClosing] AS [UseForClosing], 
+      [vPaymentsInAdvance].[AmmountForClosing] AS [AmmountForClosing], 
+      [vPaymentsInAdvance].[BuyerName] AS [BuyerName], 
+      [vPaymentsInAdvance].[SuplierName] AS [SuplierName]
+      FROM [dbo].[vPaymentsInAdvance] AS [vPaymentsInAdvance]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vPayoff" EntityType="DocumentsModel.Store.vPayoff" store:Type="Views" store:Schema="dbo" store:Name="vPayoff">
+      <DefiningQuery>SELECT 
+      [vPayoff].[Id] AS [Id], 
+      [vPayoff].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vPayoff].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vPayoff].[DocumentDateTime] AS [DocumentDateTime], 
+      [vPayoff].[CreationDateTime] AS [CreationDateTime], 
+      [vPayoff].[Inactive] AS [Inactive], 
+      [vPayoff].[Approved] AS [Approved], 
+      [vPayoff].[Sent] AS [Sent], 
+      [vPayoff].[WholesaleValue] AS [WholesaleValue], 
+      [vPayoff].[TaxValue] AS [TaxValue], 
+      [vPayoff].[RabateValue] AS [RabateValue], 
+      [vPayoff].[OtherDiscountsValue] AS [OtherDiscountsValue], 
+      [vPayoff].[RetailValue] AS [RetailValue], 
+      [vPayoff].[CourseValue] AS [CourseValue], 
+      [vPayoff].[CurrencyName] AS [CurrencyName]
+      FROM [dbo].[vPayoff] AS [vPayoff]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vPayoff_ForPrint" EntityType="DocumentsModel.Store.vPayoff_ForPrint" store:Type="Views" store:Schema="dbo" store:Name="vPayoff_ForPrint">
+      <DefiningQuery>SELECT 
+      [vPayoff_ForPrint].[Id] AS [Id], 
+      [vPayoff_ForPrint].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vPayoff_ForPrint].[DocumentType] AS [DocumentType], 
+      [vPayoff_ForPrint].[DocumentNameAndNumber] AS [DocumentNameAndNumber], 
+      [vPayoff_ForPrint].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vPayoff_ForPrint].[SubjectName] AS [SubjectName], 
+      [vPayoff_ForPrint].[SubjectId] AS [SubjectId], 
+      [vPayoff_ForPrint].[SubjectType] AS [SubjectType], 
+      [vPayoff_ForPrint].[Oib] AS [Oib], 
+      [vPayoff_ForPrint].[Description] AS [Description], 
+      [vPayoff_ForPrint].[HomeAddress_PlaceName] AS [HomeAddress_PlaceName], 
+      [vPayoff_ForPrint].[HomeAddress_ZIPCode] AS [HomeAddress_ZIPCode], 
+      [vPayoff_ForPrint].[HomeAddress_Street] AS [HomeAddress_Street], 
+      [vPayoff_ForPrint].[WholesaleValue] AS [WholesaleValue], 
+      [vPayoff_ForPrint].[TaxValue] AS [TaxValue], 
+      [vPayoff_ForPrint].[RabateValue] AS [RabateValue], 
+      [vPayoff_ForPrint].[RetailValue] AS [RetailValue], 
+      [vPayoff_ForPrint].[FullWholesaleValue] AS [FullWholesaleValue], 
+      [vPayoff_ForPrint].[DocumentDateTime] AS [DocumentDateTime], 
+      [vPayoff_ForPrint].[InvoiceLogo] AS [InvoiceLogo]
+      FROM [dbo].[vPayoff_ForPrint] AS [vPayoff_ForPrint]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vPriceList" EntityType="DocumentsModel.Store.vPriceList" store:Type="Views" store:Schema="dbo" store:Name="vPriceList">
+      <DefiningQuery>SELECT 
+      [vPriceList].[Id] AS [Id], 
+      [vPriceList].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vPriceList].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vPriceList].[CreationDateTime] AS [CreationDateTime], 
+      [vPriceList].[Name] AS [Name], 
+      [vPriceList].[SubjectType] AS [SubjectType], 
+      [vPriceList].[SubjectTypeText] AS [SubjectTypeText], 
+      [vPriceList].[Oib] AS [Oib], 
+      [vPriceList].[OrdinalNumber] AS [OrdinalNumber], 
+      [vPriceList].[IsDefault] AS [IsDefault], 
+      [vPriceList].[Klijent] AS [Klijent], 
+      [vPriceList].[Naziv] AS [Naziv], 
+      [vPriceList].[DateStart] AS [DateStart], 
+      [vPriceList].[DateEnd] AS [DateEnd]
+      FROM [dbo].[vPriceList] AS [vPriceList]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vQuote" EntityType="DocumentsModel.Store.vQuote" store:Type="Views" store:Schema="dbo" store:Name="vQuote">
+      <DefiningQuery>SELECT 
+      [vQuote].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vQuote].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vQuote].[CreationDateTime] AS [CreationDateTime], 
+      [vQuote].[Id] AS [Id], 
+      [vQuote].[Name] AS [Name], 
+      [vQuote].[SubjectTypeText] AS [SubjectTypeText], 
+      [vQuote].[SubjectType] AS [SubjectType], 
+      [vQuote].[Oib] AS [Oib], 
+      [vQuote].[OrdinalNumber] AS [OrdinalNumber], 
+      [vQuote].[DocumentDateTime] AS [DocumentDateTime], 
+      [vQuote].[RetailValue] AS [RetailValue], 
+      [vQuote].[MaturityDate] AS [MaturityDate], 
+      [vQuote].[CustomerId] AS [CustomerId], 
+      [vQuote].[Invoiced] AS [Invoiced], 
+      [vQuote].[Status] AS [Status], 
+      [vQuote].[Statustext] AS [Statustext]
+      FROM [dbo].[vQuote] AS [vQuote]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vQuotePayments" EntityType="DocumentsModel.Store.vQuotePayments" store:Type="Views" store:Schema="dbo" store:Name="vQuotePayments">
+      <DefiningQuery>SELECT 
+      [vQuotePayments].[QuoteId] AS [QuoteId], 
+      [vQuotePayments].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vQuotePayments].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vQuotePayments].[DocumentDateTime] AS [DocumentDateTime], 
+      [vQuotePayments].[SubjectBuyerId] AS [SubjectBuyerId], 
+      [vQuotePayments].[Ammount] AS [Ammount], 
+      [vQuotePayments].[InAdvance] AS [InAdvance], 
+      [vQuotePayments].[PaymentClosureId] AS [PaymentClosureId], 
+      [vQuotePayments].[PaymentId] AS [PaymentId]
+      FROM [dbo].[vQuotePayments] AS [vQuotePayments]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vReportWorkOrder" EntityType="DocumentsModel.Store.vReportWorkOrder" store:Type="Views" store:Schema="dbo" store:Name="vReportWorkOrder">
+      <DefiningQuery>SELECT 
+      [vReportWorkOrder].[NazivTvrtke] AS [NazivTvrtke], 
+      [vReportWorkOrder].[AdresaTrtke] AS [AdresaTrtke], 
+      [vReportWorkOrder].[TelTvrtke] AS [TelTvrtke], 
+      [vReportWorkOrder].[FaxTvrtke] AS [FaxTvrtke], 
+      [vReportWorkOrder].[OIBTvrtke] AS [OIBTvrtke], 
+      [vReportWorkOrder].[NaruciteljOIB] AS [NaruciteljOIB], 
+      [vReportWorkOrder].[AdresaNarucitelja] AS [AdresaNarucitelja], 
+      [vReportWorkOrder].[CreationDateTime] AS [CreationDateTime], 
+      [vReportWorkOrder].[DocumentDateTime] AS [DocumentDateTime], 
+      [vReportWorkOrder].[VerifierPhone] AS [VerifierPhone], 
+      [vReportWorkOrder].[VerifierName] AS [VerifierName], 
+      [vReportWorkOrder].[AdresaMjestoTvrtke] AS [AdresaMjestoTvrtke], 
+      [vReportWorkOrder].[NazivNarucitelja] AS [NazivNarucitelja], 
+      [vReportWorkOrder].[AdresaMjestoNarucitelja] AS [AdresaMjestoNarucitelja], 
+      [vReportWorkOrder].[MjestoRada] AS [MjestoRada], 
+      [vReportWorkOrder].[Rbr] AS [Rbr], 
+      [vReportWorkOrder].[Id] AS [Id], 
+      [vReportWorkOrder].[Distance] AS [Distance], 
+      [vReportWorkOrder].[InvoiceLogo] AS [InvoiceLogo], 
+      [vReportWorkOrder].[Account] AS [Account], 
+      [vReportWorkOrder].[Account1] AS [Account1]
+      FROM [dbo].[vReportWorkOrder] AS [vReportWorkOrder]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vTakeoverOfGoods" EntityType="DocumentsModel.Store.vTakeoverOfGoods" store:Type="Views" store:Schema="dbo" store:Name="vTakeoverOfGoods">
+      <DefiningQuery>SELECT 
+      [vTakeoverOfGoods].[Id] AS [Id], 
+      [vTakeoverOfGoods].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vTakeoverOfGoods].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vTakeoverOfGoods].[DocumentDateTime] AS [DocumentDateTime], 
+      [vTakeoverOfGoods].[CreationDateTime] AS [CreationDateTime], 
+      [vTakeoverOfGoods].[Inactive] AS [Inactive], 
+      [vTakeoverOfGoods].[PayoffUniqueIdentifier] AS [PayoffUniqueIdentifier]
+      FROM [dbo].[vTakeoverOfGoods] AS [vTakeoverOfGoods]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vTravelCostsForPrint" EntityType="DocumentsModel.Store.vTravelCostsForPrint" store:Type="Views" store:Schema="dbo" store:Name="vTravelCostsForPrint">
+      <DefiningQuery>SELECT 
+      [vTravelCostsForPrint].[Id] AS [Id], 
+      [vTravelCostsForPrint].[Documents_TravelOrderId] AS [Documents_TravelOrderId], 
+      [vTravelCostsForPrint].[Ordinal] AS [Ordinal], 
+      [vTravelCostsForPrint].[Kilometers] AS [Kilometers], 
+      [vTravelCostsForPrint].[ToPlaceName] AS [ToPlaceName], 
+      [vTravelCostsForPrint].[FromPlaceName] AS [FromPlaceName], 
+      [vTravelCostsForPrint].[KindOfTransportationName] AS [KindOfTransportationName]
+      FROM [dbo].[vTravelCostsForPrint] AS [vTravelCostsForPrint]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vTravelOrder" EntityType="DocumentsModel.Store.vTravelOrder" store:Type="Views" store:Schema="dbo" store:Name="vTravelOrder">
+      <DefiningQuery>SELECT 
+      [vTravelOrder].[TravelOrderDate] AS [TravelOrderDate], 
+      [vTravelOrder].[DurationDays] AS [DurationDays], 
+      [vTravelOrder].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vTravelOrder].[Id] AS [Id], 
+      [vTravelOrder].[DocumentType] AS [DocumentType], 
+      [vTravelOrder].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vTravelOrder].[FromPlace] AS [FromPlace], 
+      [vTravelOrder].[ToPlace] AS [ToPlace], 
+      [vTravelOrder].[Name] AS [Name], 
+      [vTravelOrder].[ClosureDate] AS [ClosureDate], 
+      [vTravelOrder].[Status] AS [Status], 
+      [vTravelOrder].[Statustext] AS [Statustext]
+      FROM [dbo].[vTravelOrder] AS [vTravelOrder]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vTravelOrderForPrint" EntityType="DocumentsModel.Store.vTravelOrderForPrint" store:Type="Views" store:Schema="dbo" store:Name="vTravelOrderForPrint">
+      <DefiningQuery>SELECT 
+      [vTravelOrderForPrint].[Id] AS [Id], 
+      [vTravelOrderForPrint].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vTravelOrderForPrint].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vTravelOrderForPrint].[DocumentDateTime] AS [DocumentDateTime], 
+      [vTravelOrderForPrint].[EmployeeName] AS [EmployeeName], 
+      [vTravelOrderForPrint].[EmployeeApprovedByName] AS [EmployeeApprovedByName], 
+      [vTravelOrderForPrint].[FromPlaceName] AS [FromPlaceName], 
+      [vTravelOrderForPrint].[ToPlaceName] AS [ToPlaceName], 
+      [vTravelOrderForPrint].[FunctionName] AS [FunctionName], 
+      [vTravelOrderForPrint].[EducationDegreeName] AS [EducationDegreeName], 
+      [vTravelOrderForPrint].[TravelOrderDate] AS [TravelOrderDate], 
+      [vTravelOrderForPrint].[TravelToResidence] AS [TravelToResidence], 
+      [vTravelOrderForPrint].[TaskDescription] AS [TaskDescription], 
+      [vTravelOrderForPrint].[DurationDays] AS [DurationDays], 
+      [vTravelOrderForPrint].[KindOfTransportationName] AS [KindOfTransportationName], 
+      [vTravelOrderForPrint].[TransportationDescription] AS [TransportationDescription], 
+      [vTravelOrderForPrint].[CostCenter] AS [CostCenter], 
+      [vTravelOrderForPrint].[AdvanceDate] AS [AdvanceDate], 
+      [vTravelOrderForPrint].[AdvanceAmmount] AS [AdvanceAmmount], 
+      [vTravelOrderForPrint].[CompanyName] AS [CompanyName], 
+      [vTravelOrderForPrint].[CarDialStart] AS [CarDialStart], 
+      [vTravelOrderForPrint].[CarDialEnd] AS [CarDialEnd], 
+      [vTravelOrderForPrint].[TotalKilometers] AS [TotalKilometers], 
+      [vTravelOrderForPrint].[PricePerKilometer] AS [PricePerKilometer], 
+      [vTravelOrderForPrint].[AmountForCarExpense] AS [AmountForCarExpense], 
+      [vTravelOrderForPrint].[TotalAmmount] AS [TotalAmmount], 
+      [vTravelOrderForPrint].[TotalAmmountForPayment] AS [TotalAmmountForPayment], 
+      [vTravelOrderForPrint].[TrevelDescription] AS [TrevelDescription]
+      FROM [dbo].[vTravelOrderForPrint] AS [vTravelOrderForPrint]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vVirmani" EntityType="DocumentsModel.Store.vVirmani" store:Type="Views" store:Schema="dbo" store:Name="vVirmani">
+      <DefiningQuery>SELECT 
+      [vVirmani].[Id] AS [Id], 
+      [vVirmani].[OrdinalNumberInYear] AS [OrdinalNumberInYear], 
+      [vVirmani].[CreationDateTime] AS [CreationDateTime], 
+      [vVirmani].[S309IBANRNPRIM] AS [S309IBANRNPRIM], 
+      [vVirmani].[S309NAZIVPRIM] AS [S309NAZIVPRIM], 
+      [vVirmani].[S309IZN] AS [S309IZN], 
+      [vVirmani].[S309PNBPLAT] AS [S309PNBPLAT], 
+      [vVirmani].[S309NAZBANPRIM] AS [S309NAZBANPRIM], 
+      [vVirmani].[AutorizedForPayment] AS [AutorizedForPayment], 
+      [vVirmani].[Sent] AS [Sent], 
+      [vVirmani].[SentDate] AS [SentDate], 
+      [vVirmani].[MaturityDate] AS [MaturityDate], 
+      [vVirmani].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vVirmani].[IncomingInvoice] AS [IncomingInvoice]
+      FROM [dbo].[vVirmani] AS [vVirmani]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vWorkOrder" EntityType="DocumentsModel.Store.vWorkOrder" store:Type="Views" store:Schema="dbo" store:Name="vWorkOrder">
+      <DefiningQuery>SELECT 
+      [vWorkOrder].[Id] AS [Id], 
+      [vWorkOrder].[CusomerId] AS [CusomerId], 
+      [vWorkOrder].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vWorkOrder].[DocumentDateTime] AS [DocumentDateTime], 
+      [vWorkOrder].[Klijent] AS [Klijent], 
+      [vWorkOrder].[NazivProjekta] AS [NazivProjekta], 
+      [vWorkOrder].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vWorkOrder].[VerifierName] AS [VerifierName], 
+      [vWorkOrder].[VerifierPhone] AS [VerifierPhone], 
+      [vWorkOrder].[IsVerified] AS [IsVerified], 
+      [vWorkOrder].[Distance] AS [Distance], 
+      [vWorkOrder].[PlaceId] AS [PlaceId], 
+      [vWorkOrder].[CreationDateTime] AS [CreationDateTime], 
+      [vWorkOrder].[Mjesto] AS [Mjesto], 
+      [vWorkOrder].[IsBillable] AS [IsBillable], 
+      [vWorkOrder].[Invoiced] AS [Invoiced], 
+      [vWorkOrder].[Status] AS [Status], 
+      [vWorkOrder].[Statustext] AS [Statustext]
+      FROM [dbo].[vWorkOrder] AS [vWorkOrder]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vWorkOrderMaterial" EntityType="DocumentsModel.Store.vWorkOrderMaterial" store:Type="Views" store:Schema="dbo" store:Name="vWorkOrderMaterial">
+      <DefiningQuery>SELECT 
+      [vWorkOrderMaterial].[Id] AS [Id], 
+      [vWorkOrderMaterial].[Rbr] AS [Rbr], 
+      [vWorkOrderMaterial].[Materijal] AS [Materijal], 
+      [vWorkOrderMaterial].[JM] AS [JM], 
+      [vWorkOrderMaterial].[Kolicina] AS [Kolicina], 
+      [vWorkOrderMaterial].[Faktuirati] AS [Faktuirati], 
+      [vWorkOrderMaterial].[Documents_WorkOrderId] AS [Documents_WorkOrderId], 
+      [vWorkOrderMaterial].[ProductId] AS [ProductId]
+      FROM [dbo].[vWorkOrderMaterial] AS [vWorkOrderMaterial]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vWorkOrderTime" EntityType="DocumentsModel.Store.vWorkOrderTime" store:Type="Views" store:Schema="dbo" store:Name="vWorkOrderTime">
+      <DefiningQuery>SELECT 
+      [vWorkOrderTime].[Id] AS [Id], 
+      [vWorkOrderTime].[Work_OrderId] AS [Work_OrderId], 
+      [vWorkOrderTime].[OrdinalInWorkOrder] AS [OrdinalInWorkOrder], 
+      [vWorkOrderTime].[Rad] AS [Rad], 
+      [vWorkOrderTime].[Izvrsitelj] AS [Izvrsitelj], 
+      [vWorkOrderTime].[ActivityDate] AS [ActivityDate], 
+      [vWorkOrderTime].[Hours] AS [Hours], 
+      [vWorkOrderTime].[Quantity] AS [Quantity], 
+      [vWorkOrderTime].[Faktuirat] AS [Faktuirat], 
+      [vWorkOrderTime].[MDEntities_ServiceId] AS [MDEntities_ServiceId]
+      FROM [dbo].[vWorkOrderTime] AS [vWorkOrderTime]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.__tempDS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="__tempDS">
+    <Key>
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="MaturityDate" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="RetailValue" />
+    </Key>
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Unpaid" Type="decimal" Precision="19" Scale="2" />
+  </EntityType>
+  <EntityType Name="Documents_CashBoxBill">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="FiscalizationZKIR" Type="nchar" MaxLength="32" />
+    <Property Name="FiscalizationJIR" Type="nchar" MaxLength="36" />
+    <Property Name="FiscalizationConsistenceCode" Type="nchar" MaxLength="1" />
+    <Property Name="FiscalizationMessageItentifier" Type="nchar" MaxLength="36" />
+    <Property Name="FiscalizationTime" Type="datetime" />
+    <Property Name="FiscalizationTypeOfPayment" Type="int" />
+    <Property Name="FiscalizationDelayedDeparture" Type="bit" />
+    <Property Name="FiscalizationCashierId" Type="int" />
+  </EntityType>
+  <EntityType Name="Documents_CashBoxBillItemsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Price" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxRateId" Type="int" Nullable="false" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+  </EntityType>
+  <EntityType Name="Documents_Compensation">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="BuyerId" Type="int" Nullable="false" />
+    <Property Name="SupplierId" Type="int" Nullable="false" />
+    <Property Name="Approved" Type="bit" />
+    <Property Name="ApprovedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Documents_CompensationChildCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompensationId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="InvoiceId" Type="int" />
+    <Property Name="PayedAmmountInvoice" Type="decimal" Scale="2" />
+    <Property Name="IncomingInvoiceId" Type="int" />
+    <Property Name="PayedAmmountIncomingInvoice" Type="decimal" Scale="2" />
+    <Property Name="LastChanged" Type="timestamp" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_Dispatch">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="ShipToAddress_PlaceId" Type="int" />
+    <Property Name="ShipToAddress_Street" Type="nvarchar" MaxLength="100" />
+    <Property Name="ShipToAddress_Description" Type="nvarchar(max)" />
+    <Property Name="MDSubjects_Employee_DispatcherId" Type="int" />
+    <Property Name="ShippingDate" Type="datetime" />
+    <Property Name="PersonReceived" Type="nvarchar" MaxLength="100" />
+    <Property Name="DispatchTypeId" Type="int" />
+    <Property Name="DispatchCompanyId" Type="int" />
+    <Property Name="AllShipped" Type="bit" />
+  </EntityType>
+  <EntityType Name="Documents_Document">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DocumentType" Type="smallint" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Barcode" Type="nvarchar" MaxLength="50" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="OrdinalNumberInYear" Type="int" Nullable="false" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_Employee_AuthorId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+    <Property Name="Locked" Type="bit" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="CashBoxCode" Type="nchar" MaxLength="20" />
+    <Property Name="LocationCode" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Documents_Enums_DispatchType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_IncomingInvoice">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+    <Property Name="Reversed" Type="bit" />
+    <Property Name="PayedInFull" Type="bit" />
+    <Property Name="Accepted" Type="bit" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabateValue" Type="decimal" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="decimal" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="ScontoPercentage" Type="decimal" Scale="6" />
+    <Property Name="ScontoDate" Type="datetime" />
+    <Property Name="ScontoValue" Type="decimal" Scale="2" />
+    <Property Name="RetailValueSconto" Type="decimal" Scale="2" />
+    <Property Name="MDGeneral_Enums_CurrencyId" Type="int" />
+    <Property Name="CourseValue" Type="decimal" Scale="6" />
+    <Property Name="EnteredInTheAccounts" Type="bit" />
+    <Property Name="ReferenceNumber" Type="nvarchar" MaxLength="30" />
+    <Property Name="PaymentModel" Type="nvarchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Documents_Invoice">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="SubjectId" Type="int" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+    <Property Name="Reversed" Type="bit" />
+    <Property Name="PayedInFull" Type="bit" />
+    <Property Name="Returned" Type="bit" />
+    <Property Name="Approved" Type="bit" />
+    <Property Name="Sent" Type="bit" />
+    <Property Name="PayedInAdvance" Type="bit" />
+    <Property Name="RecursionGeneration" Type="bit" />
+    <Property Name="RecursionRate" Type="tinyint" />
+    <Property Name="RecursionStart" Type="datetime" />
+    <Property Name="RecursionNumberOfRates" Type="int" />
+    <Property Name="DispatchDate" Type="datetime" />
+    <Property Name="DispatchTypeId" Type="int" />
+    <Property Name="DispatchCompanyId" Type="int" />
+    <Property Name="DispatchDescription" Type="nvarchar(max)" />
+    <Property Name="Dispatched" Type="bit" />
+    <Property Name="Documents_DispatchedId" Type="int" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabateValue" Type="decimal" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="decimal" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="ScontoPercentage" Type="decimal" Scale="6" />
+    <Property Name="ScontoDate" Type="datetime" />
+    <Property Name="ScontoValue" Type="decimal" Scale="2" />
+    <Property Name="RetailValueSconto" Type="decimal" Scale="2" />
+    <Property Name="Conditions" Type="nvarchar(max)" />
+    <Property Name="MDGeneral_Enums_CurrencyId" Type="int" />
+    <Property Name="CourseValue" Type="decimal" Scale="6" />
+    <Property Name="BillToAddress_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="BillToAddress_PlaceId" Type="int" />
+    <Property Name="BillToAddress_Street" Type="nvarchar" MaxLength="100" />
+    <Property Name="BillToAddress_Number" Type="nvarchar" MaxLength="20" />
+    <Property Name="BillToAddress_Description" Type="nvarchar(max)" />
+    <Property Name="ShipToAddress_PlaceId" Type="int" />
+    <Property Name="ShipToAddress_Street" Type="nvarchar" MaxLength="100" />
+    <Property Name="ShipToAddress_Number" Type="nvarchar" MaxLength="20" />
+    <Property Name="ShipToAddress_Description" Type="nvarchar(max)" />
+    <Property Name="EnteredInTheAccounts" Type="bit" />
+    <Property Name="FiscalizationZKIR" Type="nchar" MaxLength="32" />
+    <Property Name="FiscalizationJIR" Type="nchar" MaxLength="36" />
+    <Property Name="FiscalizationConsistenceCode" Type="nchar" MaxLength="1" />
+    <Property Name="FiscalizationMessageItentifier" Type="nchar" MaxLength="36" />
+    <Property Name="FiscalizationTime" Type="datetime" />
+    <Property Name="FiscalizationTypeOfPayment" Type="int" />
+    <Property Name="FiscalizationDelayedDeparture" Type="bit" />
+    <Property Name="FiscalizationCashierId" Type="int" />
+  </EntityType>
+  <EntityType Name="Documents_ItemsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="ProductDescription" Type="nvarchar(max)" />
+    <Property Name="UnitId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Ammount" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="PriceListId" Type="int" />
+    <Property Name="PriceFromPriceList" Type="decimal" Scale="2" />
+    <Property Name="Price" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabatePercentage" Type="decimal" Scale="2" />
+    <Property Name="RabateAmmount" Type="decimal" Scale="2" />
+    <Property Name="TaxRateId" Type="int" Nullable="false" />
+    <Property Name="TaxAmmount" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_Offer">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="SubjectId" Type="int" />
+    <Property Name="RecursionMaturity" Type="bit" Nullable="false" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+    <Property Name="Accepted" Type="bit" />
+    <Property Name="Invoiced" Type="bit" />
+    <Property Name="Documents_InvoiceId" Type="int" />
+    <Property Name="Quoted" Type="bit" />
+    <Property Name="Documents_QuoteId" Type="int" />
+    <Property Name="DispatchDate" Type="date" />
+    <Property Name="DispatchTypeId" Type="int" />
+    <Property Name="DispatchCompanyId" Type="int" />
+    <Property Name="DispatchDescription" Type="nvarchar(max)" />
+    <Property Name="Dispatched" Type="bit" />
+    <Property Name="Documents_DispatchedId" Type="int" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabateValue" Type="decimal" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="decimal" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="ScontoPercentage" Type="decimal" Scale="6" />
+    <Property Name="ScontoDate" Type="datetime" />
+    <Property Name="ScontoValue" Type="decimal" Scale="2" />
+    <Property Name="RetailValueSconto" Type="decimal" Scale="2" />
+    <Property Name="Conditions" Type="nvarchar(max)" />
+    <Property Name="MDGeneral_Enums_CurrencyId" Type="int" />
+    <Property Name="CourseValue" Type="decimal" Scale="6" />
+    <Property Name="Version" Type="tinyint" Nullable="false" />
+    <Property Name="BillToAddress_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="BillToAddress_PlaceId" Type="int" />
+    <Property Name="BillToAddress_Street" Type="nvarchar" MaxLength="100" />
+    <Property Name="BillToAddress_Number" Type="nvarchar" MaxLength="20" />
+    <Property Name="BillToAddress_Description" Type="nvarchar(max)" />
+    <Property Name="ShipToAddress_PlaceId" Type="int" />
+    <Property Name="ShipToAddress_Street" Type="nvarchar" MaxLength="100" />
+    <Property Name="ShipToAddress_Number" Type="nvarchar" MaxLength="20" />
+    <Property Name="ShipToAddress_Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Documents_Offer_MaturityCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Documents_OfferId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+    <Property Name="PaymentAmount" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Invoiced" Type="bit" />
+    <Property Name="Documents_InvoiceId" Type="int" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_OrderForm">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="MDSubjects_SubjectId" Type="int" Nullable="false" />
+    <Property Name="OrderedByPerson" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Documents_Payment">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="BankId" Type="int" Nullable="false" />
+    <Property Name="EnteredInTheAccounts" Type="bit" />
+    <Property Name="AccountBalance" Type="decimal" Scale="2" />
+  </EntityType>
+  <EntityType Name="Documents_PaymentClosureGCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Documents_PaymentItemsColId" Type="int" Nullable="false" />
+    <Property Name="PayedInvoiceDocumentId" Type="int" />
+    <Property Name="PayedQuoteDocumentId" Type="int" />
+    <Property Name="Ammount" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_PaymentItemsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Documents_PaymentId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="SubjectBuyerId" Type="int" />
+    <Property Name="SubjectSupplierId" Type="int" />
+    <Property Name="AdvancePaymentAmmount" Type="decimal" Scale="2" />
+    <Property Name="Ammount" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Reversed" Type="bit" />
+    <Property Name="InAdvance" Type="bit" Nullable="false" />
+    <Property Name="GeneratedInAdvance" Type="bit" />
+    <Property Name="GeneratedFormDocuments_PaymentId" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FullyDistributed" Type="bit" />
+    <Property Name="IsInvoice" Type="bit" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_Payoff">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Projects_ProjectId" Type="int" />
+    <Property Name="SubjectId" Type="int" />
+    <Property Name="Approved" Type="bit" />
+    <Property Name="Sent" Type="bit" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabateValue" Type="decimal" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="decimal" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="MDGeneral_Enums_CurrencyId" Type="int" />
+    <Property Name="CourseValue" Type="decimal" Scale="6" />
+  </EntityType>
+  <EntityType Name="Documents_PriceList">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="IsDefault" Type="bit" Nullable="false" />
+    <Property Name="MDSubjects_SubjectId" Type="int" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="DateStart" Type="datetime" Nullable="false" />
+    <Property Name="DateEnd" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Documents_PriceList_ItemsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="MDEntities_EntityId" Type="int" Nullable="false" />
+    <Property Name="CalcualtedWholesalePrice" Type="decimal" Scale="2" />
+    <Property Name="WholesalePrice" Type="decimal" Scale="2" />
+    <Property Name="WholesalePriceOption1" Type="decimal" Scale="2" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_Quote">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="SubjectId" Type="int" />
+    <Property Name="Documents_Enums_DocumentStatusId" Type="int" />
+    <Property Name="MaturityDate" Type="date" Nullable="false" />
+    <Property Name="Reversed" Type="bit" />
+    <Property Name="Invoiced" Type="bit" />
+    <Property Name="Documents_InvoiceId" Type="int" />
+    <Property Name="DispatchDate" Type="datetime" />
+    <Property Name="DispatchTypeId" Type="int" />
+    <Property Name="DispatchCompanyId" Type="int" />
+    <Property Name="DispatchDescription" Type="nvarchar(max)" />
+    <Property Name="Dispatched" Type="bit" />
+    <Property Name="Documents_DispatchedId" Type="int" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabateValue" Type="decimal" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="decimal" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Conditions" Type="nvarchar(max)" />
+    <Property Name="MDGeneral_Enums_CurrencyId" Type="int" />
+    <Property Name="CourseValue" Type="decimal" Scale="6" />
+    <Property Name="BillToAddress_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="BillToAddress_PlaceId" Type="int" />
+    <Property Name="BillToAddress_Street" Type="nvarchar" MaxLength="100" />
+    <Property Name="BillToAddress_Number" Type="nvarchar" MaxLength="20" />
+    <Property Name="BillToAddress_Description" Type="nvarchar(max)" />
+    <Property Name="ShipToAddress_PlaceId" Type="int" />
+    <Property Name="ShipToAddress_Street" Type="nvarchar" MaxLength="100" />
+    <Property Name="ShipToAddress_Number" Type="nvarchar" MaxLength="20" />
+    <Property Name="ShipToAddress_Description" Type="nvarchar(max)" />
+    <Property Name="EnteredInTheAccounts" Type="bit" />
+  </EntityType>
+  <EntityType Name="Documents_TakeoverOfGoods">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Documents_PayoffId" Type="int" Nullable="false" />
+    <Property Name="TakeoverDescription" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Documents_TravelOrder">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="MDSubjects_EmployeeId" Type="int" />
+    <Property Name="MDSubjects_Enums_FunctionId" Type="int" />
+    <Property Name="MDSubjects_Enums_EducationDegreeId" Type="int" />
+    <Property Name="MDPlaces_Enums_Geo_FromPlaceId" Type="int" />
+    <Property Name="MDPlaces_Enums_Geo_ToPlaceId" Type="int" />
+    <Property Name="TravelOrderDate" Type="datetime" />
+    <Property Name="TravelToResidence" Type="bit" />
+    <Property Name="TaskDescription" Type="nvarchar(max)" />
+    <Property Name="DurationDays" Type="decimal" Scale="6" />
+    <Property Name="MDGeneral_Enums_KindOfTransportationId" Type="int" />
+    <Property Name="TransportationDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="CostCenter" Type="nvarchar" MaxLength="100" />
+    <Property Name="AdvanceDate" Type="datetime" />
+    <Property Name="AdvanceAmmount" Type="decimal" Scale="2" />
+    <Property Name="MDSubjects_ApprovedByEmployeeId" Type="int" />
+    <Property Name="CarDialStart" Type="int" />
+    <Property Name="CarDialEnd" Type="int" />
+    <Property Name="TotalKilometers" Type="int" />
+    <Property Name="PricePerKilometer" Type="decimal" Scale="2" />
+    <Property Name="AmountForCarExpense" Type="decimal" Scale="2" />
+    <Property Name="TotalAmmount" Type="decimal" Scale="2" />
+    <Property Name="TotalAmmountForPayment" Type="decimal" Scale="2" />
+    <Property Name="TrevelDescription" Type="nvarchar(max)" />
+    <Property Name="ClosureDate" Type="datetime" />
+    <Property Name="EnteredInTheAccounts" Type="bit" />
+  </EntityType>
+  <EntityType Name="Documents_TravelOrder_OtherExpensesCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Documents_TravelOrderId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Ammount" Type="decimal" Scale="2" />
+    <Property Name="Admited" Type="bit" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_TravelOrder_TravelCostsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Documents_TravelOrderId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="MDPlaces_Enums_Geo_FromPlaceId" Type="int" />
+    <Property Name="MDPlaces_Enums_Geo_ToPlaceId" Type="int" />
+    <Property Name="MDGeneral_Enums_KindOfTransportationId" Type="int" />
+    <Property Name="Kilometers" Type="int" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_TravelOrder_WageCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Documents_TravelOrderId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="Departure" Type="datetime" />
+    <Property Name="Arrival" Type="datetime" />
+    <Property Name="Hours" Type="decimal" Scale="7" />
+    <Property Name="NumberOfWage" Type="decimal" Scale="7" />
+    <Property Name="PriceOfWage" Type="decimal" Scale="2" />
+    <Property Name="AmmountOfWage" Type="decimal" Scale="2" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="Documents_VirmanTip309">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="S309IBANRNPRIM" Type="varchar" MaxLength="50" />
+    <Property Name="S309NAZIVPRIM" Type="varchar" MaxLength="80" />
+    <Property Name="S309ADRPRIM" Type="varchar" MaxLength="50" />
+    <Property Name="S309SJEDPRIM" Type="varchar" MaxLength="50" />
+    <Property Name="S309SFZEMPRIM" Type="int" />
+    <Property Name="S309BRMODPLAT" Type="varchar" MaxLength="5" />
+    <Property Name="S309PNBPLAT" Type="varchar" MaxLength="25" />
+    <Property Name="S309SIFNAM" Type="int" />
+    <Property Name="S309OPISPL" Type="varchar" MaxLength="150" />
+    <Property Name="S309IZN" Type="decimal" Scale="2" />
+    <Property Name="S309BRMODPRIM" Type="varchar" MaxLength="5" />
+    <Property Name="S309PNBPRIM" Type="varchar" MaxLength="25" />
+    <Property Name="S309BICBANPRIM" Type="varchar" MaxLength="15" />
+    <Property Name="S309NAZBANPRIM" Type="varchar" MaxLength="80" />
+    <Property Name="S309ADRBNPRIM" Type="varchar" MaxLength="50" />
+    <Property Name="S309SJEDBNPRIM" Type="varchar" MaxLength="35" />
+    <Property Name="S309SFZEMBNPRIM" Type="int" />
+    <Property Name="S309VRSTAPRIM" Type="int" />
+    <Property Name="S309VALPOKR" Type="varchar" MaxLength="3" />
+    <Property Name="S309TROSOP" Type="int" />
+    <Property Name="S309OZNHITN" Type="int" />
+    <Property Name="S309REZERVA" Type="varchar" MaxLength="449" />
+    <Property Name="S309TIPSLOG" Type="int" />
+    <Property Name="CompanyId" Type="int" />
+    <Property Name="CompanyAccount" Type="varchar" MaxLength="50" />
+    <Property Name="PaymentDate" Type="datetime" />
+    <Property Name="Currency" Type="varchar" MaxLength="3" />
+    <Property Name="AutorizedForPayment" Type="bit" />
+    <Property Name="UserWhoAuthorizedItId" Type="int" />
+    <Property Name="DateOfAuthorization" Type="datetime" />
+    <Property Name="Sent" Type="bit" />
+    <Property Name="UserWhoSentItId" Type="int" />
+    <Property Name="SentDate" Type="datetime" />
+    <Property Name="IncomingInvoiceId" Type="int" />
+  </EntityType>
+  <EntityType Name="Documents_WorkOrder">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Projects_ProjectId" Type="int" />
+    <Property Name="MDSubjects_SubjectId" Type="int" />
+    <Property Name="Subject_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="MDSubjects_EmployeeId" Type="int" />
+    <Property Name="Documents_OrderFormId" Type="int" />
+    <Property Name="PlaceId" Type="int" />
+    <Property Name="Documents_TravelOrderId" Type="int" />
+    <Property Name="Distance" Type="decimal" Scale="2" />
+    <Property Name="IsVerified" Type="bit" />
+    <Property Name="VerifierName" Type="nvarchar" MaxLength="100" />
+    <Property Name="VerifierPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsBillable" Type="bit" Nullable="false" />
+    <Property Name="Documents_InvoiceId" Type="int" />
+    <Property Name="Invoiced" Type="bit" />
+  </EntityType>
+  <EntityType Name="MDEntities_Enums_TaxRate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Percentage" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="EmployeeWhoLastChanedItUserId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="IsService" Type="bit" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDGeneral_Enums_Currency">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Label" Type="nchar" Nullable="false" MaxLength="3" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Measure" Type="int" Nullable="false" />
+    <Property Name="DecimalPlaces" Type="int" Nullable="false" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="DefaultCurrency" Type="bit" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vAuth_Company' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vAuth_Company">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="OIB" />
+      <PropertyRef Name="HomeAddress_PlaceName" />
+      <PropertyRef Name="HomeAddress_StreetAndNumber" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="OIB" Type="char" Nullable="false" MaxLength="11" />
+    <Property Name="InvoiceLogo" Type="varbinary(max)" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+    <Property Name="BusinessPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="ContactPerson" Type="nvarchar" MaxLength="100" />
+    <Property Name="HomeAddress_PlaceName" Type="nvarchar" Nullable="false" MaxLength="107" />
+    <Property Name="HomeAddress_StreetAndNumber" Type="nvarchar" Nullable="false" MaxLength="121" />
+    <Property Name="Account" Type="nvarchar" MaxLength="50" />
+    <Property Name="Account1" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vCashBox' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vCashBox">
+    <Key>
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="OrdinalNumber" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Fiskaliziran" />
+    </Key>
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="FiscalizationMessageItentifier" Type="nchar" MaxLength="36" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="FiscalizationJIR" Type="nchar" MaxLength="36" />
+    <Property Name="FiscalizationZKIR" Type="nchar" MaxLength="32" />
+    <Property Name="Fiskaliziran" Type="varchar" Nullable="false" MaxLength="2" />
+    <Property Name="CashBoxCode" Type="nchar" MaxLength="20" />
+    <Property Name="LocationCode" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vCashBoxBill' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vCashBoxBill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="FiscalizationZKIR" Type="nchar" MaxLength="32" />
+    <Property Name="FiscalizationJIR" Type="nchar" MaxLength="36" />
+    <Property Name="FiscalizationTime" Type="datetime" />
+    <Property Name="BrojRacuna" Type="nvarchar" MaxLength="72" />
+    <Property Name="NacinPlacanja" Type="varchar" MaxLength="19" />
+    <Property Name="CashierCode" Type="nvarchar" MaxLength="11" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vCashBoxBillDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vCashBoxBillDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RetailPrice" Type="decimal" Precision="38" Scale="20" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vCashBoxBillTaxByTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vCashBoxBillTaxByTypes">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Percentage" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Percentage" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="TaxAmmount" Type="decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vChartDugujePotrazuje' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vChartDugujePotrazuje">
+    <Key>
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="Tip" />
+    </Key>
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="Tip" Type="varchar" Nullable="false" MaxLength="9" />
+    <Property Name="Suma" Type="decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vDispatch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vDispatch">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="CreationDateTime" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="SubjectType" />
+      <PropertyRef Name="SubjectTypeText" />
+      <PropertyRef Name="OrdinalNumber" />
+      <PropertyRef Name="DocumentDateTime" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="SubjectType" Type="smallint" Nullable="false" />
+    <Property Name="SubjectTypeText" Type="varchar" Nullable="false" MaxLength="18" />
+    <Property Name="Oib" Type="char" MaxLength="11" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="ShippingDate" Type="datetime" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="Statustext" Type="varchar" MaxLength="9" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vDispatchDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vDispatchDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DocumentId" />
+      <PropertyRef Name="Ordinal" />
+      <PropertyRef Name="Label" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Quantity" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vDispatchForPrint' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vDispatchForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="DocumentType" Type="smallint" Nullable="false" />
+    <Property Name="DocumentNameAndNumber" Type="varchar" Nullable="false" MaxLength="67" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="SubjectName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="SubjectType" Type="smallint" Nullable="false" />
+    <Property Name="Oib" Type="char" Nullable="false" MaxLength="11" />
+    <Property Name="HomeAddress_PlaceName" Type="nvarchar" Nullable="false" MaxLength="107" />
+    <Property Name="HomeAddress_StreetAndNumber" Type="nvarchar" Nullable="false" MaxLength="121" />
+    <Property Name="ShipToAddress_PlaceName" Type="nvarchar" Nullable="false" MaxLength="107" />
+    <Property Name="ShipToAddress_StreetAndNumber" Type="nvarchar" Nullable="false" MaxLength="121" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DispatchType" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="DispatchCompany" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="ShippingDate" Type="datetime" />
+    <Property Name="PersonReceived" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EmployeeDispatcherName" Type="nvarchar" MaxLength="50" />
+    <Property Name="InvoiceLogo" Type="varbinary(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vDocumentDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vDocumentDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="TaxPercentage" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Price" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="UnitName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabatePercentage" Type="decimal" Scale="2" />
+    <Property Name="TaxName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Ammount" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxPercentage" Type="decimal" Nullable="false" Scale="6" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vDocumentDetailsWithProductDescription' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vDocumentDetailsWithProductDescription">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DocumentId" />
+      <PropertyRef Name="Ordinal" />
+      <PropertyRef Name="ProductName" />
+      <PropertyRef Name="Price" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="TaxName" />
+      <PropertyRef Name="Ammount" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="TaxPercentage" />
+      <PropertyRef Name="Label" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Price" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabatePercentage" Type="decimal" Scale="2" />
+    <Property Name="TaxName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Ammount" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxPercentage" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="ProductDescription" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vDocuments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vDocuments">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="OrdinalNumber" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="DocumentType" Type="smallint" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vDocuments_ForPrint' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vDocuments_ForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="DocumentType" Type="smallint" Nullable="false" />
+    <Property Name="DocumentNameAndNumber" Type="varchar" Nullable="false" MaxLength="66" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="SubjectName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="SubjectType" Type="smallint" Nullable="false" />
+    <Property Name="Oib" Type="char" MaxLength="11" />
+    <Property Name="HomeAddress_PlaceName" Type="nvarchar" Nullable="false" MaxLength="107" />
+    <Property Name="HomeAddress_StreetAndNumber" Type="nvarchar" Nullable="false" MaxLength="121" />
+    <Property Name="BillToAddress_PlaceName" Type="nvarchar" Nullable="false" MaxLength="107" />
+    <Property Name="BillToAddress_StreetAndNumber" Type="nvarchar" Nullable="false" MaxLength="121" />
+    <Property Name="RText" Type="varchar" Nullable="false" MaxLength="3" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+    <Property Name="DispatchDate" Type="datetime" />
+    <Property Name="FullWholesaleValue" Type="decimal" Precision="19" Scale="2" />
+    <Property Name="RabateValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DispatchDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Conditions" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DispatchType" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="DispatchCompany" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="InvoiceLogo" Type="varbinary(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vDocumentsForPayment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vDocumentsForPayment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="DocumentType" Type="int" />
+    <Property Name="DocumentTypeName" Type="varchar" Nullable="false" MaxLength="15" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" />
+    <Property Name="SubjectId" Type="int" />
+    <Property Name="PayedInAdvance" Type="int" />
+    <Property Name="PayedInFull" Type="bit" />
+    <Property Name="Invoiced" Type="int" Nullable="false" />
+    <Property Name="RetailValue" Type="decimal" Precision="37" Scale="8" />
+    <Property Name="PayedTillNow" Type="decimal" Nullable="false" Precision="38" Scale="2" />
+    <Property Name="Payed" Type="decimal" Scale="2" />
+    <Property Name="PayUpdate" Type="decimal" Scale="2" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vDocumentTaxesByTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vDocumentTaxesByTypes">
+    <Key>
+      <PropertyRef Name="TaxId" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Percentage" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="TaxId" Type="int" Nullable="false" />
+    <Property Name="TaxAmmount" Type="decimal" Precision="38" Scale="2" />
+    <Property Name="WholsaleAmmount" Type="decimal" Precision="38" Scale="2" />
+    <Property Name="RetailAmmount" Type="decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEntities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="WholesalePrice" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="EntityType" Type="smallint" Nullable="false" />
+    <Property Name="TaxRateId" Type="int" Nullable="false" />
+    <Property Name="UnitId" Type="int" Nullable="false" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEntityPriceList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEntityPriceList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EntityGroupName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EntityTypeName" Type="varchar" Nullable="false" MaxLength="6" />
+    <Property Name="WholesalePrice" Type="decimal" Scale="2" />
+    <Property Name="IsDefault" Type="bit" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_DispatchType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEnums_DispatchType">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Inactive" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vIncimingPaymentClosureFirstPage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vIncimingPaymentClosureFirstPage">
+    <Key>
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="MaturityDate" />
+      <PropertyRef Name="RetailValue" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Sum" Type="decimal" Precision="38" Scale="2" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+    <Property Name="RetailValue" Type="decimal" Precision="37" Scale="8" Nullable="false" />
+    <Property Name="Resto" Type="decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vIncomingInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vIncomingInvoice">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CreationDateTime" />
+      <PropertyRef Name="MaturityDate" />
+      <PropertyRef Name="RetailValue" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubjectType" Type="int" />
+    <Property Name="SubjectTypeText" Type="varchar" MaxLength="18" />
+    <Property Name="Oib" Type="char" MaxLength="11" />
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+    <Property Name="RetailValue" Type="decimal" Precision="37" Scale="8" Nullable="false" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="Statustext" Type="varchar" MaxLength="9" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vIncomingInvoicePayments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vIncomingInvoicePayments">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="Ammount" />
+      <PropertyRef Name="InAdvance" />
+      <PropertyRef Name="PaymentClosureId" />
+      <PropertyRef Name="PaymentId" />
+    </Key>
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="PayedInFull" Type="bit" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="SubjectBuyerId" Type="int" />
+    <Property Name="Ammount" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="InAdvance" Type="bit" Nullable="false" />
+    <Property Name="PaymentClosureId" Type="int" Nullable="false" />
+    <Property Name="PaymentId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vInvoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubjectType" Type="int" />
+    <Property Name="SubjectTypeText" Type="varchar" MaxLength="18" />
+    <Property Name="Oib" Type="char" MaxLength="11" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+    <Property Name="RetailValue" Type="decimal" Precision="37" Scale="8" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="Statustext" Type="varchar" MaxLength="9" />
+    <Property Name="FiscalizationJIR" Type="nchar" MaxLength="36" />
+    <Property Name="LocationCode" Type="nchar" MaxLength="20" />
+    <Property Name="CashBoxCode" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vInvoicePayments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vInvoicePayments">
+    <Key>
+      <PropertyRef Name="PaymentClosureId" />
+    </Key>
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="PayedInFull" Type="bit" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="SubjectBuyerId" Type="int" />
+    <Property Name="Ammount" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="InAdvance" Type="bit" Nullable="false" />
+    <Property Name="PaymentClosureId" Type="int" Nullable="false" />
+    <Property Name="PaymentId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vInvoiceTaxByTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vInvoiceTaxByTypes">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Percentage" />
+    </Key>
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Percentage" Type="decimal" Nullable="false" Scale="6" />
+    <Property Name="TaxAmmount" Type="decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vOffer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vOffer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubjectType" Type="int" />
+    <Property Name="SubjectTypeText" Type="varchar" MaxLength="18" />
+    <Property Name="Oib" Type="char" MaxLength="11" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+    <Property Name="RetailValue" Type="decimal" Precision="37" Scale="8" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Invoiced" Type="bit" />
+    <Property Name="CustomerId" Type="int" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="Statustext" Type="varchar" MaxLength="9" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vOrderForm' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vOrderForm">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DocumentDateTime" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="MDSubjects_SubjectId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="SubjectType" Type="smallint" Nullable="false" />
+    <Property Name="SubjectTypeText" Type="varchar" Nullable="false" MaxLength="18" />
+    <Property Name="Oib" Type="char" MaxLength="11" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="OrderedByPerson" Type="nvarchar" MaxLength="100" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="Statustext" Type="varchar" MaxLength="9" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vOtherExpenseForPrint' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vOtherExpenseForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Documents_TravelOrderId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Ammount" Type="decimal" Scale="2" />
+    <Property Name="Admited" Type="varchar" Nullable="false" MaxLength="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vPaymentClosureFirstPage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vPaymentClosureFirstPage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Sum" Type="decimal" Precision="38" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Precision="37" Scale="8" />
+    <Property Name="Resto" Type="decimal" Precision="38" Scale="2" />
+    <Property Name="MaturityDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vPayments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vPayments">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="AccountBalance" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="AccountBalance" Type="decimal" Nullable="false" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vPaymentsInAdvance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vPaymentsInAdvance">
+    <Key>
+      <PropertyRef Name="PaymentItemId" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="SubjectBuyerId" Type="int" />
+    <Property Name="SubjectSupplierId" Type="int" />
+    <Property Name="AdvancePaymentAmmount" Type="decimal" Scale="2" />
+    <Property Name="Ammount" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="InAdvance" Type="bit" Nullable="false" />
+    <Property Name="GeneratedInAdvance" Type="bit" />
+    <Property Name="PaymentItemId" Type="int" Nullable="false" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="UseForClosing" Type="bit" />
+    <Property Name="AmmountForClosing" Type="decimal" />
+    <Property Name="BuyerName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="SuplierName" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vPayoff' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vPayoff">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="Approved" Type="bit" />
+    <Property Name="Sent" Type="bit" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabateValue" Type="decimal" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="decimal" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="CourseValue" Type="decimal" Scale="6" />
+    <Property Name="CurrencyName" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vPayoff_ForPrint' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vPayoff_ForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="DocumentType" />
+      <PropertyRef Name="DocumentNameAndNumber" />
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="SubjectName" />
+      <PropertyRef Name="SubjectId" />
+      <PropertyRef Name="SubjectType" />
+      <PropertyRef Name="Description" />
+      <PropertyRef Name="HomeAddress_PlaceName" />
+      <PropertyRef Name="HomeAddress_ZIPCode" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="TaxValue" />
+      <PropertyRef Name="RabateValue" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="DocumentDateTime" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="DocumentType" Type="smallint" Nullable="false" />
+    <Property Name="DocumentNameAndNumber" Type="varchar" Nullable="false" MaxLength="81" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="SubjectName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="SubjectId" Type="int" Nullable="false" />
+    <Property Name="SubjectType" Type="smallint" Nullable="false" />
+    <Property Name="Oib" Type="char" MaxLength="11" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HomeAddress_PlaceName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="HomeAddress_ZIPCode" Type="nchar" Nullable="false" MaxLength="5" />
+    <Property Name="HomeAddress_Street" Type="nvarchar" MaxLength="100" />
+    <Property Name="WholesaleValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="TaxValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RabateValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="RetailValue" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="FullWholesaleValue" Type="decimal" Precision="19" Scale="2" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="InvoiceLogo" Type="varbinary(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vPriceList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vPriceList">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="IsDefault" />
+      <PropertyRef Name="Naziv" />
+      <PropertyRef Name="DateStart" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubjectType" Type="smallint" />
+    <Property Name="SubjectTypeText" Type="varchar" MaxLength="18" />
+    <Property Name="Oib" Type="varchar" MaxLength="11" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="IsDefault" Type="bit" Nullable="false" />
+    <Property Name="Klijent" Type="nvarchar" MaxLength="100" />
+    <Property Name="Naziv" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="DateStart" Type="datetime" Nullable="false" />
+    <Property Name="DateEnd" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vQuote' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vQuote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="SubjectTypeText" Type="varchar" MaxLength="18" />
+    <Property Name="SubjectType" Type="int" />
+    <Property Name="Oib" Type="char" MaxLength="11" />
+    <Property Name="OrdinalNumber" Type="int" Nullable="false" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="RetailValue" Type="decimal" Precision="37" Scale="8" />
+    <Property Name="MaturityDate" Type="date" Nullable="false" />
+    <Property Name="CustomerId" Type="int" />
+    <Property Name="Invoiced" Type="bit" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="Statustext" Type="varchar" MaxLength="9" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vQuotePayments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vQuotePayments">
+    <Key>
+      <PropertyRef Name="PaymentClosureId" />
+    </Key>
+    <Property Name="QuoteId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="SubjectBuyerId" Type="int" />
+    <Property Name="Ammount" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="InAdvance" Type="bit" Nullable="false" />
+    <Property Name="PaymentClosureId" Type="int" Nullable="false" />
+    <Property Name="PaymentId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vReportWorkOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vReportWorkOrder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="NazivTvrtke" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="AdresaTrtke" Type="nvarchar" MaxLength="120" />
+    <Property Name="TelTvrtke" Type="nvarchar" MaxLength="50" />
+    <Property Name="FaxTvrtke" Type="nvarchar" MaxLength="50" />
+    <Property Name="OIBTvrtke" Type="char" Nullable="false" MaxLength="11" />
+    <Property Name="NaruciteljOIB" Type="char" MaxLength="11" />
+    <Property Name="AdresaNarucitelja" Type="nvarchar" MaxLength="120" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="VerifierPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="VerifierName" Type="nvarchar" MaxLength="100" />
+    <Property Name="AdresaMjestoTvrtke" Type="nvarchar" MaxLength="100" />
+    <Property Name="NazivNarucitelja" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="AdresaMjestoNarucitelja" Type="nvarchar" MaxLength="100" />
+    <Property Name="MjestoRada" Type="nvarchar" MaxLength="100" />
+    <Property Name="Rbr" Type="varchar" Nullable="false" MaxLength="69" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Distance" Type="decimal" Scale="2" />
+    <Property Name="InvoiceLogo" Type="varbinary(max)" />
+    <Property Name="Account" Type="nvarchar" MaxLength="50" />
+    <Property Name="Account1" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vTakeoverOfGoods' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vTakeoverOfGoods">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="PayoffUniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vTravelCostsForPrint' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vTravelCostsForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Documents_TravelOrderId" Type="int" Nullable="false" />
+    <Property Name="Ordinal" Type="int" Nullable="false" />
+    <Property Name="Kilometers" Type="int" />
+    <Property Name="ToPlaceName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="FromPlaceName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="KindOfTransportationName" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vTravelOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vTravelOrder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="TravelOrderDate" Type="datetime" />
+    <Property Name="DurationDays" Type="decimal" Scale="6" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DocumentType" Type="smallint" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="FromPlace" Type="nvarchar" MaxLength="100" />
+    <Property Name="ToPlace" Type="nvarchar" MaxLength="100" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ClosureDate" Type="datetime" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="Statustext" Type="varchar" MaxLength="9" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vTravelOrderForPrint' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vTravelOrderForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="EmployeeName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="EmployeeApprovedByName" Type="nvarchar" Nullable="false" MaxLength="101" />
+    <Property Name="FromPlaceName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="ToPlaceName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="FunctionName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="EducationDegreeName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="TravelOrderDate" Type="datetime" />
+    <Property Name="TravelToResidence" Type="varchar" Nullable="false" MaxLength="2" />
+    <Property Name="TaskDescription" Type="nvarchar(max)" />
+    <Property Name="DurationDays" Type="decimal" Scale="6" />
+    <Property Name="KindOfTransportationName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="TransportationDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="CostCenter" Type="nvarchar" MaxLength="100" />
+    <Property Name="AdvanceDate" Type="datetime" />
+    <Property Name="AdvanceAmmount" Type="decimal" Scale="2" />
+    <Property Name="CompanyName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CarDialStart" Type="int" />
+    <Property Name="CarDialEnd" Type="int" />
+    <Property Name="TotalKilometers" Type="int" />
+    <Property Name="PricePerKilometer" Type="decimal" Scale="2" />
+    <Property Name="AmountForCarExpense" Type="decimal" Scale="2" />
+    <Property Name="TotalAmmount" Type="decimal" Scale="2" />
+    <Property Name="TotalAmmountForPayment" Type="decimal" Scale="2" />
+    <Property Name="TrevelDescription" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vVirmani' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vVirmani">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="OrdinalNumberInYear" />
+      <PropertyRef Name="CreationDateTime" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="OrdinalNumberInYear" Type="int" Nullable="false" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="S309IBANRNPRIM" Type="varchar" MaxLength="50" />
+    <Property Name="S309NAZIVPRIM" Type="varchar" MaxLength="80" />
+    <Property Name="S309IZN" Type="decimal" Scale="2" />
+    <Property Name="S309PNBPLAT" Type="varchar" MaxLength="25" />
+    <Property Name="S309NAZBANPRIM" Type="varchar" MaxLength="80" />
+    <Property Name="AutorizedForPayment" Type="bit" />
+    <Property Name="Sent" Type="bit" />
+    <Property Name="SentDate" Type="datetime" />
+    <Property Name="MaturityDate" Type="datetime" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="IncomingInvoice" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vWorkOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vWorkOrder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CusomerId" Type="int" />
+    <Property Name="UniqueIdentifier" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="DocumentDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Klijent" Type="nvarchar" MaxLength="100" />
+    <Property Name="NazivProjekta" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="VerifierName" Type="nvarchar" MaxLength="100" />
+    <Property Name="VerifierPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsVerified" Type="bit" />
+    <Property Name="Distance" Type="decimal" Scale="2" />
+    <Property Name="PlaceId" Type="int" />
+    <Property Name="CreationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Mjesto" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="IsBillable" Type="bit" Nullable="false" />
+    <Property Name="Invoiced" Type="bit" />
+    <Property Name="Status" Type="smallint" />
+    <Property Name="Statustext" Type="varchar" MaxLength="9" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vWorkOrderMaterial' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vWorkOrderMaterial">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Rbr" Type="int" />
+    <Property Name="Materijal" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="JM" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Kolicina" Type="decimal" Scale="2" />
+    <Property Name="Faktuirati" Type="varchar" Nullable="false" MaxLength="2" />
+    <Property Name="Documents_WorkOrderId" Type="int" />
+    <Property Name="ProductId" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vWorkOrderTime' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vWorkOrderTime">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Work_OrderId" Type="int" />
+    <Property Name="OrdinalInWorkOrder" Type="int" />
+    <Property Name="Rad" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Izvrsitelj" Type="nvarchar" MaxLength="50" />
+    <Property Name="ActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="Hours" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+    <Property Name="Faktuirat" Type="varchar" Nullable="false" MaxLength="2" />
+    <Property Name="MDEntities_ServiceId" Type="int" />
+  </EntityType>
+  <Function Name="fnGetPrice" ReturnType="decimal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyUsingServiceId" Type="int" Mode="In" />
+    <Parameter Name="SubjectId" Type="int" Mode="In" />
+    <Parameter Name="EntityId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnGetPriceList" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyUsingServiceId" Type="int" Mode="In" />
+    <Parameter Name="SubjectId" Type="int" Mode="In" />
+    <Parameter Name="EntityId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspCreateVirman309" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IncomingInvoiceId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspDeletePayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PaymentId" Type="int" Mode="In" />
+    <Parameter Name="TvrtkaId" Type="int" Mode="In" />
+    <Parameter Name="ret" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="uspDocumentsForPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DatumIzvoda" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="uspGetDocIds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TvrtkaId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspGetDocStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspIncomingInvoice2IncomingInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspIncomingInvoice2TransferOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspIncomingInvoicesClaims" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+    <Parameter Name="TvrtkaId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspIncomingInvoicesClaimsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DanaOd" Type="int" Mode="In" />
+    <Parameter Name="DanaDo" Type="int" Mode="In" />
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+    <Parameter Name="Tip" Type="int" Mode="In" />
+    <Parameter Name="TvrtkaId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspIncomingInvoicesClaimsDetailsFilter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+    <Parameter Name="TvrtkaId" Type="int" Mode="In" />
+    <Parameter Name="RacOd" Type="datetime" Mode="In" />
+    <Parameter Name="RacDo" Type="datetime" Mode="In" />
+    <Parameter Name="MatOd" Type="datetime" Mode="In" />
+    <Parameter Name="MatDo" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="uspInvoice2Dispatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspInvoice2Invoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspInvoicesClaims" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+    <Parameter Name="TvrtkaId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspInvoicesClaimsDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DanaOd" Type="int" Mode="In" />
+    <Parameter Name="DanaDo" Type="int" Mode="In" />
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+    <Parameter Name="Tip" Type="int" Mode="In" />
+    <Parameter Name="TvrtkaId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspInvoicesClaimsDetailsFilter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+    <Parameter Name="TvrtkaId" Type="int" Mode="In" />
+    <Parameter Name="RacOd" Type="datetime" Mode="In" />
+    <Parameter Name="RacDo" Type="datetime" Mode="In" />
+    <Parameter Name="MatOd" Type="datetime" Mode="In" />
+    <Parameter Name="MatDo" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="uspMyDocumentsInStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+    <Parameter Name="UserId" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspOffer2Dispatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspOffer2Invoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspOffer2Offer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspOffer2Quote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspPaymentState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspPaymentStateDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+    <Parameter Name="Tip" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspQuote2Dispatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspQuote2Invoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspQuote2Quote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspTotalTurnoverFor6Months" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspTravelOrder2TravelOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspUnbilled" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspUnbilledDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CompanyId" Type="int" Mode="In" />
+    <Parameter Name="VrstaDokumenta" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspUpdateStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspWorkorder2Invoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="uspWorkOrder2WorkOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDocumentId" Type="int" Mode="In" />
+    <Parameter Name="EmployeeId" Type="int" Mode="In" />
+  </Function>
+</Schema>

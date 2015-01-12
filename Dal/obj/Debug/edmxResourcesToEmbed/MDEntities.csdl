@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MDEntitiesModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MDEntitiesEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+    <EntitySet Name="MDEntities_Entity" EntityType="MDEntitiesModel.MDEntities_Entity" />
+    <EntitySet Name="MDEntities_Enums_EntityGroup" EntityType="MDEntitiesModel.MDEntities_Enums_EntityGroup" />
+    <EntitySet Name="MDEntities_Enums_Unit" EntityType="MDEntitiesModel.MDEntities_Enums_Unit" />
+    <EntitySet Name="MDEntities_Product_PicturesCol" EntityType="MDEntitiesModel.MDEntities_Product_PicturesCol" />
+    <AssociationSet Name="MDEntities_ProductMDEntities_Product_PicturesCol" Association="MDEntitiesModel.MDEntities_ProductMDEntities_Product_PicturesCol">
+      <End Role="MDEntities_Product" EntitySet="MDEntities_Entity" />
+      <End Role="MDEntities_Product_PicturesCol" EntitySet="MDEntities_Product_PicturesCol" />
+    </AssociationSet>
+    <EntitySet Name="MDEntities_Enums_TaxRate" EntityType="MDEntitiesModel.MDEntities_Enums_TaxRate" />
+    <EntitySet Name="vEnums_TaxRate" EntityType="MDEntitiesModel.vEnums_TaxRate" />
+    <EntitySet Name="vEnums_Unit" EntityType="MDEntitiesModel.vEnums_Unit" />
+    <EntitySet Name="vEntities" EntityType="MDEntitiesModel.vEntities" />
+    <EntitySet Name="Documents_Document_ForEntities" EntityType="MDEntitiesModel.Documents_Document_ForEntities" />
+    <EntitySet Name="Documents_PriceList_ItemsCol_ForEntities" EntityType="MDEntitiesModel.Documents_PriceList_ItemsCol_ForEntities" />
+    <AssociationSet Name="Documents_PriceList_ForEntitiesDocuments_PriceList_ItemsCol_ForEntities" Association="MDEntitiesModel.Documents_PriceList_ForEntitiesDocuments_PriceList_ItemsCol_ForEntities">
+      <End Role="Documents_PriceList_ForEntities" EntitySet="Documents_Document_ForEntities" />
+      <End Role="Documents_PriceList_ItemsCol_ForEntities" EntitySet="Documents_PriceList_ItemsCol_ForEntities" />
+    </AssociationSet>
+    <EntitySet Name="MDEntities_SifreNamjena" EntityType="MDEntitiesModel.MDEntities_SifreNamjena" />
+  </EntityContainer>
+  <EntityType Name="MDEntities_Entity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="CompanyUsingServiceId" Type="Int32" Nullable="false" />
+    <Property Name="GUID" Type="Guid" Nullable="false" />
+    <Property Name="Label" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Tag" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Inactive" Type="Boolean" Nullable="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDEntities_Enums_EntityGroupId" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="EmployeeWhoLastChanedItUserId" Nullable="false" />
+    <Property Type="Int32" Name="TaxRateId" Nullable="false" />
+    <Property Type="Int16" Name="EntityType" Nullable="false" />
+    <Property Type="Int32" Name="UnitId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MDEntities_Enums_EntityGroup">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="CompanyUsingServiceId" Type="Int32" Nullable="false" />
+    <Property Name="Label" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Inactive" Type="Boolean" Nullable="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDEntities_Enums_EntityParentGroupId" />
+    <Property Type="Int32" Name="EmployeeWhoLastChanedItUserId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MDEntities_Enums_Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Label" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="EmployeeWhoLastChanedItUserId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="Boolean" Name="IsDefaultTimeTracking" />
+  </EntityType>
+  <EntityType Name="MDEntities_Product" BaseType="MDEntitiesModel.MDEntities_Entity">
+    <NavigationProperty Name="MDEntities_Product_PicturesCol" Relationship="MDEntitiesModel.MDEntities_ProductMDEntities_Product_PicturesCol" FromRole="MDEntities_Product" ToRole="MDEntities_Product_PicturesCol" />
+    <Property Type="String" Name="Barcode" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="WholesalePrice" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="MDEntities_Product_PicturesCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Picture" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="MDEntities_Product" Relationship="MDEntitiesModel.MDEntities_ProductMDEntities_Product_PicturesCol" FromRole="MDEntities_Product_PicturesCol" ToRole="MDEntities_Product" />
+  </EntityType>
+  <EntityType Name="MDEntities_Service" BaseType="MDEntitiesModel.MDEntities_Entity">
+    <Property Type="Decimal" Name="WholesaleTaskRatePerMonth" Precision="18" Scale="6" />
+    <Property Type="Decimal" Name="WholesaleTaskRatePerDay" Precision="18" Scale="6" />
+    <Property Type="Decimal" Name="WholesaleTaskRatePerHour" Precision="18" Scale="6" />
+    <Property Type="Boolean" Name="IsBillable" />
+    <Property Type="Boolean" Name="AllProjects" />
+    <Property Type="Decimal" Name="WholesalePrice" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <Association Name="MDEntities_ProductMDEntities_Product_PicturesCol">
+    <End Type="MDEntitiesModel.MDEntities_Product" Role="MDEntities_Product" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MDEntitiesModel.MDEntities_Product_PicturesCol" Role="MDEntities_Product_PicturesCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MDEntities_Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MDEntities_Product_PicturesCol">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="MDEntities_Enums_TaxRate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Percentage" Nullable="false" Precision="18" Scale="6" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="EmployeeWhoLastChanedItUserId" Nullable="false" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="IsService" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_TaxRate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Percentage" Nullable="false" Precision="18" Scale="6" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Inactive" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Decimal" Name="WholesalePrice" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int16" Name="EntityType" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+    <Property Type="Int32" Name="TaxRateId" Nullable="false" />
+    <Property Type="Int32" Name="UnitId" Nullable="false" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents_Document_ForEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Guid" Name="GUID" Nullable="false" />
+    <Property Type="Int16" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Barcode" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="Int32" Name="OrdinalNumberInYear" Nullable="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="MDSubjects_Employee_AuthorId" Nullable="false" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Boolean" Name="Locked" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="String" Name="CashBoxCode" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="LocationCode" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Documents_PriceList_ForEntities" BaseType="MDEntitiesModel.Documents_Document_ForEntities">
+    <Property Type="Boolean" Name="IsDefault" Nullable="false" />
+    <Property Type="Int32" Name="MDSubjects_SubjectId" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="DateStart" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="DateEnd" Precision="3" />
+    <NavigationProperty Name="Documents_PriceList_ItemsCol_ForEntities" Relationship="MDEntitiesModel.Documents_PriceList_ForEntitiesDocuments_PriceList_ItemsCol_ForEntities" FromRole="Documents_PriceList_ForEntities" ToRole="Documents_PriceList_ItemsCol_ForEntities" />
+  </EntityType>
+  <EntityType Name="Documents_PriceList_ItemsCol_ForEntities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="DocumentId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+    <Property Type="Int32" Name="MDEntities_EntityId" Nullable="false" />
+    <Property Type="Decimal" Name="CalcualtedWholesalePrice" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="WholesalePrice" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="WholesalePriceOption1" Precision="18" Scale="2" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_PriceList_ForEntities" Relationship="MDEntitiesModel.Documents_PriceList_ForEntitiesDocuments_PriceList_ItemsCol_ForEntities" FromRole="Documents_PriceList_ItemsCol_ForEntities" ToRole="Documents_PriceList_ForEntities" />
+  </EntityType>
+  <Association Name="Documents_PriceList_ForEntitiesDocuments_PriceList_ItemsCol_ForEntities">
+    <End Type="MDEntitiesModel.Documents_PriceList_ForEntities" Role="Documents_PriceList_ForEntities" Multiplicity="1" />
+    <End Type="MDEntitiesModel.Documents_PriceList_ItemsCol_ForEntities" Role="Documents_PriceList_ItemsCol_ForEntities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_PriceList_ForEntities">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_PriceList_ItemsCol_ForEntities">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="MDEntities_SifreNamjena">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="SifreNamjena" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Naziv" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

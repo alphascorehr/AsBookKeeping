@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MDPlacesModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MDPlacesEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+    <EntitySet Name="MDPlaces_Enums_Geo_Country" EntityType="MDPlacesModel.MDPlaces_Enums_Geo_Country" />
+    <EntitySet Name="MDPlaces_Enums_Geo_Place" EntityType="MDPlacesModel.MDPlaces_Enums_Geo_Place" />
+    <EntitySet Name="MDPlaces_Enums_Geo_Region" EntityType="MDPlacesModel.MDPlaces_Enums_Geo_Region" />
+    <EntitySet Name="MDPlaces_Enums_OgranizationalUnit" EntityType="MDPlacesModel.MDPlaces_Enums_OgranizationalUnit" />
+    <EntitySet Name="vEnums_Geo_Country" EntityType="MDPlacesModel.vEnums_Geo_Country" />
+    <EntitySet Name="vEnums_Geo_Place" EntityType="MDPlacesModel.vEnums_Geo_Place" />
+    <EntitySet Name="vEnums_Geo_Region" EntityType="MDPlacesModel.vEnums_Geo_Region" />
+  </EntityContainer>
+  <EntityType Name="MDPlaces_Enums_Geo_Country">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Label" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+    <Property Name="LanguageId" Type="Int32" />
+    <Property Name="CurrencyId" Type="Int32" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDPlaces_Enums_Geo_Place">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="ZIPCode" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="true" />
+    <Property Name="RegionId" Type="Int32" />
+    <Property Name="Distance" Type="Int32" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDPlaces_Enums_Geo_Region">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CountryId" Type="Int32" Nullable="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDPlaces_Enums_OgranizationalUnit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="CompanyUsingServiceId" Type="Int32" Nullable="false" />
+    <Property Name="Label" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Inactive" Type="Boolean" Nullable="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" />
+    <Property Name="UserWhoLastChanedItUserId" Type="Int32" Nullable="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+  </EntityType>
+  <EntityType Name="vEnums_Geo_Country">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vEnums_Geo_Place">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ZIPCode" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Region" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Country" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vEnums_Geo_Region">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Country" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

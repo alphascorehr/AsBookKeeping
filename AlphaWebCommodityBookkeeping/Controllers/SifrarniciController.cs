@@ -14,15 +14,6 @@ namespace AlphaWebCommodityBookkeeping.Controllers
         public ActionResult Index()
         {
 
-            // lock(boolean)    userId
-            //var lockCheck = new Dictionary<int, int>();
-            //lockCheck.Add(123, ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).EmployeeSubjectId);
-
-            //System.Web.HttpContext.Current.Cache.Add("Pero",
-            //        lockCheck, null, DateTime.MaxValue,
-            //        new TimeSpan(10, 1, 0),
-            //        System.Web.Caching.CacheItemPriority.Default,
-            //        null);
             return View();
         }
 

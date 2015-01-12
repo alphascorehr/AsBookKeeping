@@ -1,0 +1,7 @@
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\Dal\bin\Debug\DalEf.dll.config
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\Dal\bin\Debug\DalEf.dll
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\Dal\bin\Debug\DalEf.pdb
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\Dal\bin\Debug\EntityFramework.dll
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\Dal\bin\Debug\EntityFramework.xml
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\Dal\obj\Debug\DalEf.dll
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\Dal\obj\Debug\DalEf.pdb

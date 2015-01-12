@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MDGeneralModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MDGeneralEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+    <EntitySet Name="MDGeneral_Enums_Language" EntityType="MDGeneralModel.MDGeneral_Enums_Language" />
+    <EntitySet Name="MDGeneral_Enums_Currency" EntityType="MDGeneralModel.MDGeneral_Enums_Currency" />
+    <EntitySet Name="MDGeneral_Enums_TimeZone" EntityType="MDGeneralModel.MDGeneral_Enums_TimeZone" />
+    <EntitySet Name="vEnums_Currency" EntityType="MDGeneralModel.vEnums_Currency" />
+    <EntitySet Name="vEnums_Language" EntityType="MDGeneralModel.vEnums_Language" />
+    <EntitySet Name="vEnums_TimeZone" EntityType="MDGeneralModel.vEnums_TimeZone" />
+    <EntitySet Name="MDGeneral_Enums_KindOfTransportation" EntityType="MDGeneralModel.MDGeneral_Enums_KindOfTransportation" />
+    <EntitySet Name="MDGeneral_Enums_Location" EntityType="MDGeneralModel.MDGeneral_Enums_Location" />
+    <EntitySet Name="vEnumsCashBox" EntityType="MDGeneralModel.vEnumsCashBox" />
+    <EntitySet Name="vvEnumsCashBox" EntityType="MDGeneralModel.vvEnumsCashBox" />
+    <EntitySet Name="MDGeneral_Enums_CashBox" EntityType="MDGeneralModel.MDGeneral_Enums_CashBox" />
+  </EntityContainer>
+  <EntityType Name="MDGeneral_Enums_Language">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="DefaultLanguage" Type="Boolean" Nullable="false" />
+    <Property Name="Inactive" Type="Boolean" Nullable="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDGeneral_Enums_Currency">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Measure" Nullable="false" />
+    <Property Type="Int32" Name="DecimalPlaces" Nullable="false" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="Boolean" Name="DefaultCurrency" Nullable="false" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDGeneral_Enums_TimeZone">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+  </EntityType>
+  <EntityType Name="vEnums_Currency">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_Language">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_TimeZone">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MDGeneral_Enums_KindOfTransportation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MDGeneral_Enums_Location">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="City" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Address" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="WorkingHour" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vEnumsCashBox">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="City" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Address" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vvEnumsCashBox">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="City" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Address" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MDGeneral_Enums_CashBox">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Int32" Name="LocationId" />
+    <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

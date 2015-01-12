@@ -1,0 +1,11 @@
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\obj\Debug\BusinessObjects.csprojResolveAssemblyReference.cache
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\obj\Debug\BusinessObjects.Properties.Resources.resources
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\obj\Debug\BusinessObjects.csproj.GenerateResource.Cache
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\bin\Debug\BusinessObjects.dll.config
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\bin\Debug\BusinessObjects.dll
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\bin\Debug\BusinessObjects.pdb
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\bin\Debug\Csla.dll
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\bin\Debug\DalEf.dll
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\bin\Debug\DalEf.pdb
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\obj\Debug\BusinessObjects.dll
+C:\Razvoj\AlphaWebCommodityBookkeeping\AlphaWebCommodityBookkeeping\BusinessObjects\obj\Debug\BusinessObjects.pdb

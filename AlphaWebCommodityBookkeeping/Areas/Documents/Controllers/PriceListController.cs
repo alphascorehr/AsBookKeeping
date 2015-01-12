@@ -50,7 +50,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
             {
                 System.Web.HttpContext.Current.Session["PriceList"] = obj = cDocuments_PriceList.GetDocuments_PriceList(id);
 
-                /* U cache se trpa id dokumenta koji se editira i userId
+                /* U cache se snima id dokumenta koji se editira i userId
                    Ako objekt u cache-u postoji, netko vec esitira doc. 
                    Ako je null, doc nije otvoren, lockaj ga
                  */
@@ -97,22 +97,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
             {
                 string docNum = "0";
                 int num = 0;
-                //using (DalEf.DocumentsEntities data = new DalEf.DocumentsEntities())
-                //{
-                //    var lastItem = data.vDocuments.OrderByDescending(p => p.Id).FirstOrDefault(p => p.CompanyUsingServiceId == ((PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId && p.DocumentType == (short)BusinessObjects.Common.DocumentType.PriceList);
-                //    if (lastItem != null)
-                //    {
-                //        docNum = lastItem.UniqueIdentifier;
-                //        docNum = docNum.Substring(0, docNum.LastIndexOf("/"));
-                //        num = Convert.ToInt32(docNum);
-                //        num += 1;
-                //        docNum = num.ToString() + "/11";
-                //    }
-                //    else
-                //    {
-                //        docNum = "1/11";
-                //    }
-                //}
+                
                 obj.OrdinalNumber = num;
                 obj.UniqueIdentifier = docNum;
             }
@@ -171,7 +156,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
 
         public Boolean IsDocLocked(int docId, int userId)
         {
-            //var lockCheck = (IDictionary)HttpRuntime.Cache[docId.ToString()];
             if (HttpRuntime.Cache[docId.ToString()] == null)
                 return false;
 

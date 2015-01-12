@@ -1,0 +1,1574 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DocumentsModelStoreContainer" CdmEntityContainer="DocumentsEntities">
+    <EntitySetMapping Name="Documents_Document">
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_Document)">
+        <MappingFragment StoreEntitySet="Documents_Document">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="CashBoxCode" ColumnName="CashBoxCode" />
+          <ScalarProperty Name="Locked" ColumnName="Locked" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MDSubjects_Employee_AuthorId" ColumnName="MDSubjects_Employee_AuthorId" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="OrdinalNumberInYear" ColumnName="OrdinalNumberInYear" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_IncomingInvoice)">
+        <MappingFragment StoreEntitySet="Documents_IncomingInvoice">
+          <ScalarProperty Name="PaymentModel" ColumnName="PaymentModel" />
+          <ScalarProperty Name="ReferenceNumber" ColumnName="ReferenceNumber" />
+          <ScalarProperty Name="EnteredInTheAccounts" ColumnName="EnteredInTheAccounts" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="CourseValue" ColumnName="CourseValue" />
+          <ScalarProperty Name="MDGeneral_Enums_CurrencyId" ColumnName="MDGeneral_Enums_CurrencyId" />
+          <ScalarProperty Name="RetailValueSconto" ColumnName="RetailValueSconto" />
+          <ScalarProperty Name="ScontoValue" ColumnName="ScontoValue" />
+          <ScalarProperty Name="ScontoDate" ColumnName="ScontoDate" />
+          <ScalarProperty Name="ScontoPercentage" ColumnName="ScontoPercentage" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="OtherDiscountsValue" ColumnName="OtherDiscountsValue" />
+          <ScalarProperty Name="RabateValue" ColumnName="RabateValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="Accepted" ColumnName="Accepted" />
+          <ScalarProperty Name="PayedInFull" ColumnName="PayedInFull" />
+          <ScalarProperty Name="Reversed" ColumnName="Reversed" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_Quote)">
+        <MappingFragment StoreEntitySet="Documents_Quote">
+          <ScalarProperty Name="EnteredInTheAccounts" ColumnName="EnteredInTheAccounts" />
+          <ScalarProperty Name="BillToAddress_Name" ColumnName="BillToAddress_Name" />
+          <ScalarProperty Name="Documents_DispatchedId" ColumnName="Documents_DispatchedId" />
+          <ScalarProperty Name="Dispatched" ColumnName="Dispatched" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="ShipToAddress_Description" ColumnName="ShipToAddress_Description" />
+          <ScalarProperty Name="ShipToAddress_Number" ColumnName="ShipToAddress_Number" />
+          <ScalarProperty Name="ShipToAddress_Street" ColumnName="ShipToAddress_Street" />
+          <ScalarProperty Name="ShipToAddress_PlaceId" ColumnName="ShipToAddress_PlaceId" />
+          <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+          <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+          <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+          <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+          <ScalarProperty Name="CourseValue" ColumnName="CourseValue" />
+          <ScalarProperty Name="MDGeneral_Enums_CurrencyId" ColumnName="MDGeneral_Enums_CurrencyId" />
+          <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="OtherDiscountsValue" ColumnName="OtherDiscountsValue" />
+          <ScalarProperty Name="RabateValue" ColumnName="RabateValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="DispatchDescription" ColumnName="DispatchDescription" />
+          <ScalarProperty Name="DispatchCompanyId" ColumnName="DispatchCompanyId" />
+          <ScalarProperty Name="DispatchTypeId" ColumnName="DispatchTypeId" />
+          <ScalarProperty Name="DispatchDate" ColumnName="DispatchDate" />
+          <ScalarProperty Name="Documents_InvoiceId" ColumnName="Documents_InvoiceId" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="Reversed" ColumnName="Reversed" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="Documents_Enums_DocumentStatusId" ColumnName="Documents_Enums_DocumentStatusId" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_PriceList)">
+        <MappingFragment StoreEntitySet="Documents_PriceList">
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_Payment)">
+        <MappingFragment StoreEntitySet="Documents_Payment">
+          <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+          <ScalarProperty Name="EnteredInTheAccounts" ColumnName="EnteredInTheAccounts" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="BankId" ColumnName="BankId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_Offer)">
+        <MappingFragment StoreEntitySet="Documents_Offer">
+          <ScalarProperty Name="BillToAddress_Name" ColumnName="BillToAddress_Name" />
+          <ScalarProperty Name="Documents_DispatchedId" ColumnName="Documents_DispatchedId" />
+          <ScalarProperty Name="Dispatched" ColumnName="Dispatched" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="ShipToAddress_Description" ColumnName="ShipToAddress_Description" />
+          <ScalarProperty Name="ShipToAddress_Number" ColumnName="ShipToAddress_Number" />
+          <ScalarProperty Name="ShipToAddress_Street" ColumnName="ShipToAddress_Street" />
+          <ScalarProperty Name="ShipToAddress_PlaceId" ColumnName="ShipToAddress_PlaceId" />
+          <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+          <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+          <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+          <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="CourseValue" ColumnName="CourseValue" />
+          <ScalarProperty Name="MDGeneral_Enums_CurrencyId" ColumnName="MDGeneral_Enums_CurrencyId" />
+          <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+          <ScalarProperty Name="RetailValueSconto" ColumnName="RetailValueSconto" />
+          <ScalarProperty Name="ScontoValue" ColumnName="ScontoValue" />
+          <ScalarProperty Name="ScontoDate" ColumnName="ScontoDate" />
+          <ScalarProperty Name="ScontoPercentage" ColumnName="ScontoPercentage" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="OtherDiscountsValue" ColumnName="OtherDiscountsValue" />
+          <ScalarProperty Name="RabateValue" ColumnName="RabateValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="DispatchDescription" ColumnName="DispatchDescription" />
+          <ScalarProperty Name="DispatchCompanyId" ColumnName="DispatchCompanyId" />
+          <ScalarProperty Name="DispatchTypeId" ColumnName="DispatchTypeId" />
+          <ScalarProperty Name="DispatchDate" ColumnName="DispatchDate" />
+          <ScalarProperty Name="Documents_QuoteId" ColumnName="Documents_QuoteId" />
+          <ScalarProperty Name="Quoted" ColumnName="Quoted" />
+          <ScalarProperty Name="Documents_InvoiceId" ColumnName="Documents_InvoiceId" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="Accepted" ColumnName="Accepted" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="RecursionMaturity" ColumnName="RecursionMaturity" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_Invoice)">
+        <MappingFragment StoreEntitySet="Documents_Invoice">
+          <ScalarProperty Name="FiscalizationCashierId" ColumnName="FiscalizationCashierId" />
+          <ScalarProperty Name="FiscalizationDelayedDeparture" ColumnName="FiscalizationDelayedDeparture" />
+          <ScalarProperty Name="FiscalizationTypeOfPayment" ColumnName="FiscalizationTypeOfPayment" />
+          <ScalarProperty Name="FiscalizationTime" ColumnName="FiscalizationTime" />
+          <ScalarProperty Name="FiscalizationMessageItentifier" ColumnName="FiscalizationMessageItentifier" />
+          <ScalarProperty Name="FiscalizationConsistenceCode" ColumnName="FiscalizationConsistenceCode" />
+          <ScalarProperty Name="FiscalizationJIR" ColumnName="FiscalizationJIR" />
+          <ScalarProperty Name="FiscalizationZKIR" ColumnName="FiscalizationZKIR" />
+          <ScalarProperty Name="EnteredInTheAccounts" ColumnName="EnteredInTheAccounts" />
+          <ScalarProperty Name="BillToAddress_Name" ColumnName="BillToAddress_Name" />
+          <ScalarProperty Name="Documents_DispatchedId" ColumnName="Documents_DispatchedId" />
+          <ScalarProperty Name="Dispatched" ColumnName="Dispatched" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="ShipToAddress_Description" ColumnName="ShipToAddress_Description" />
+          <ScalarProperty Name="ShipToAddress_Number" ColumnName="ShipToAddress_Number" />
+          <ScalarProperty Name="ShipToAddress_Street" ColumnName="ShipToAddress_Street" />
+          <ScalarProperty Name="ShipToAddress_PlaceId" ColumnName="ShipToAddress_PlaceId" />
+          <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+          <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+          <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+          <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+          <ScalarProperty Name="CourseValue" ColumnName="CourseValue" />
+          <ScalarProperty Name="MDGeneral_Enums_CurrencyId" ColumnName="MDGeneral_Enums_CurrencyId" />
+          <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+          <ScalarProperty Name="RetailValueSconto" ColumnName="RetailValueSconto" />
+          <ScalarProperty Name="ScontoValue" ColumnName="ScontoValue" />
+          <ScalarProperty Name="ScontoDate" ColumnName="ScontoDate" />
+          <ScalarProperty Name="ScontoPercentage" ColumnName="ScontoPercentage" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="OtherDiscountsValue" ColumnName="OtherDiscountsValue" />
+          <ScalarProperty Name="RabateValue" ColumnName="RabateValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="DispatchDescription" ColumnName="DispatchDescription" />
+          <ScalarProperty Name="DispatchCompanyId" ColumnName="DispatchCompanyId" />
+          <ScalarProperty Name="DispatchTypeId" ColumnName="DispatchTypeId" />
+          <ScalarProperty Name="DispatchDate" ColumnName="DispatchDate" />
+          <ScalarProperty Name="RecursionNumberOfRates" ColumnName="RecursionNumberOfRates" />
+          <ScalarProperty Name="RecursionStart" ColumnName="RecursionStart" />
+          <ScalarProperty Name="RecursionRate" ColumnName="RecursionRate" />
+          <ScalarProperty Name="RecursionGeneration" ColumnName="RecursionGeneration" />
+          <ScalarProperty Name="PayedInAdvance" ColumnName="PayedInAdvance" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
+          <ScalarProperty Name="Returned" ColumnName="Returned" />
+          <ScalarProperty Name="PayedInFull" ColumnName="PayedInFull" />
+          <ScalarProperty Name="Reversed" ColumnName="Reversed" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_OrderForm)">
+        <MappingFragment StoreEntitySet="Documents_OrderForm">
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="OrderedByPerson" ColumnName="OrderedByPerson" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_WorkOrder)">
+        <MappingFragment StoreEntitySet="Documents_WorkOrder">
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="Documents_InvoiceId" ColumnName="Documents_InvoiceId" />
+          <ScalarProperty Name="IsBillable" ColumnName="IsBillable" />
+          <ScalarProperty Name="MDSubjects_EmployeeId" ColumnName="MDSubjects_EmployeeId" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="Documents_OrderFormId" ColumnName="Documents_OrderFormId" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="Documents_TravelOrderId" ColumnName="Documents_TravelOrderId" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+          <ScalarProperty Name="VerifierName" ColumnName="VerifierName" />
+          <ScalarProperty Name="VerifierPhone" ColumnName="VerifierPhone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_Dispatch)">
+        <MappingFragment StoreEntitySet="Documents_Dispatch">
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="ShipToAddress_PlaceId" ColumnName="ShipToAddress_PlaceId" />
+          <ScalarProperty Name="ShipToAddress_Street" ColumnName="ShipToAddress_Street" />
+          <ScalarProperty Name="ShipToAddress_Description" ColumnName="ShipToAddress_Description" />
+          <ScalarProperty Name="MDSubjects_Employee_DispatcherId" ColumnName="MDSubjects_Employee_DispatcherId" />
+          <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+          <ScalarProperty Name="PersonReceived" ColumnName="PersonReceived" />
+          <ScalarProperty Name="DispatchTypeId" ColumnName="DispatchTypeId" />
+          <ScalarProperty Name="DispatchCompanyId" ColumnName="DispatchCompanyId" />
+          <ScalarProperty Name="AllShipped" ColumnName="AllShipped" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_TravelOrder)">
+        <MappingFragment StoreEntitySet="Documents_TravelOrder">
+          <ScalarProperty Name="EnteredInTheAccounts" ColumnName="EnteredInTheAccounts" />
+          <ScalarProperty Name="ClosureDate" ColumnName="ClosureDate" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="MDSubjects_EmployeeId" ColumnName="MDSubjects_EmployeeId" />
+          <ScalarProperty Name="MDSubjects_Enums_FunctionId" ColumnName="MDSubjects_Enums_FunctionId" />
+          <ScalarProperty Name="MDSubjects_Enums_EducationDegreeId" ColumnName="MDSubjects_Enums_EducationDegreeId" />
+          <ScalarProperty Name="MDPlaces_Enums_Geo_FromPlaceId" ColumnName="MDPlaces_Enums_Geo_FromPlaceId" />
+          <ScalarProperty Name="MDPlaces_Enums_Geo_ToPlaceId" ColumnName="MDPlaces_Enums_Geo_ToPlaceId" />
+          <ScalarProperty Name="TravelOrderDate" ColumnName="TravelOrderDate" />
+          <ScalarProperty Name="TravelToResidence" ColumnName="TravelToResidence" />
+          <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+          <ScalarProperty Name="DurationDays" ColumnName="DurationDays" />
+          <ScalarProperty Name="MDGeneral_Enums_KindOfTransportationId" ColumnName="MDGeneral_Enums_KindOfTransportationId" />
+          <ScalarProperty Name="TransportationDescription" ColumnName="TransportationDescription" />
+          <ScalarProperty Name="CostCenter" ColumnName="CostCenter" />
+          <ScalarProperty Name="AdvanceDate" ColumnName="AdvanceDate" />
+          <ScalarProperty Name="AdvanceAmmount" ColumnName="AdvanceAmmount" />
+          <ScalarProperty Name="MDSubjects_ApprovedByEmployeeId" ColumnName="MDSubjects_ApprovedByEmployeeId" />
+          <ScalarProperty Name="CarDialStart" ColumnName="CarDialStart" />
+          <ScalarProperty Name="CarDialEnd" ColumnName="CarDialEnd" />
+          <ScalarProperty Name="TotalKilometers" ColumnName="TotalKilometers" />
+          <ScalarProperty Name="PricePerKilometer" ColumnName="PricePerKilometer" />
+          <ScalarProperty Name="AmountForCarExpense" ColumnName="AmountForCarExpense" />
+          <ScalarProperty Name="TotalAmmount" ColumnName="TotalAmmount" />
+          <ScalarProperty Name="TotalAmmountForPayment" ColumnName="TotalAmmountForPayment" />
+          <ScalarProperty Name="TrevelDescription" ColumnName="TrevelDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_Payoff)">
+        <MappingFragment StoreEntitySet="Documents_Payoff">
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="RabateValue" ColumnName="RabateValue" />
+          <ScalarProperty Name="OtherDiscountsValue" ColumnName="OtherDiscountsValue" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="MDGeneral_Enums_CurrencyId" ColumnName="MDGeneral_Enums_CurrencyId" />
+          <ScalarProperty Name="CourseValue" ColumnName="CourseValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_TakeoverOfGoods)">
+        <MappingFragment StoreEntitySet="Documents_TakeoverOfGoods">
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="TakeoverDescription" ColumnName="TakeoverDescription" />
+          <ScalarProperty Name="Documents_PayoffId" ColumnName="Documents_PayoffId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_Compensation)">
+        <MappingFragment StoreEntitySet="Documents_Compensation">
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_VirmanTip309)">
+        <MappingFragment StoreEntitySet="Documents_VirmanTip309">
+          <ScalarProperty Name="CompanyAccount" ColumnName="CompanyAccount" />
+          <ScalarProperty Name="Currency" ColumnName="Currency" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="IncomingInvoiceId" ColumnName="IncomingInvoiceId" />
+          <ScalarProperty Name="UserWhoSentItId" ColumnName="UserWhoSentItId" />
+          <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
+          <ScalarProperty Name="DateOfAuthorization" ColumnName="DateOfAuthorization" />
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="S309IBANRNPRIM" ColumnName="S309IBANRNPRIM" />
+          <ScalarProperty Name="S309NAZIVPRIM" ColumnName="S309NAZIVPRIM" />
+          <ScalarProperty Name="S309ADRPRIM" ColumnName="S309ADRPRIM" />
+          <ScalarProperty Name="S309SJEDPRIM" ColumnName="S309SJEDPRIM" />
+          <ScalarProperty Name="S309SFZEMPRIM" ColumnName="S309SFZEMPRIM" />
+          <ScalarProperty Name="S309BRMODPLAT" ColumnName="S309BRMODPLAT" />
+          <ScalarProperty Name="S309PNBPLAT" ColumnName="S309PNBPLAT" />
+          <ScalarProperty Name="S309SIFNAM" ColumnName="S309SIFNAM" />
+          <ScalarProperty Name="S309OPISPL" ColumnName="S309OPISPL" />
+          <ScalarProperty Name="S309IZN" ColumnName="S309IZN" />
+          <ScalarProperty Name="S309BRMODPRIM" ColumnName="S309BRMODPRIM" />
+          <ScalarProperty Name="S309PNBPRIM" ColumnName="S309PNBPRIM" />
+          <ScalarProperty Name="S309BICBANPRIM" ColumnName="S309BICBANPRIM" />
+          <ScalarProperty Name="S309NAZBANPRIM" ColumnName="S309NAZBANPRIM" />
+          <ScalarProperty Name="S309ADRBNPRIM" ColumnName="S309ADRBNPRIM" />
+          <ScalarProperty Name="S309SJEDBNPRIM" ColumnName="S309SJEDBNPRIM" />
+          <ScalarProperty Name="S309SFZEMBNPRIM" ColumnName="S309SFZEMBNPRIM" />
+          <ScalarProperty Name="S309VRSTAPRIM" ColumnName="S309VRSTAPRIM" />
+          <ScalarProperty Name="S309VALPOKR" ColumnName="S309VALPOKR" />
+          <ScalarProperty Name="S309TROSOP" ColumnName="S309TROSOP" />
+          <ScalarProperty Name="S309OZNHITN" ColumnName="S309OZNHITN" />
+          <ScalarProperty Name="S309REZERVA" ColumnName="S309REZERVA" />
+          <ScalarProperty Name="S309TIPSLOG" ColumnName="S309TIPSLOG" />
+          <ScalarProperty Name="AutorizedForPayment" ColumnName="AutorizedForPayment" />
+          <ScalarProperty Name="UserWhoAuthorizedItId" ColumnName="UserWhoAuthorizedItId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DocumentsModel.Documents_CashBoxBill)">
+        <MappingFragment StoreEntitySet="Documents_CashBoxBill">
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="FiscalizationZKIR" ColumnName="FiscalizationZKIR" />
+          <ScalarProperty Name="FiscalizationJIR" ColumnName="FiscalizationJIR" />
+          <ScalarProperty Name="FiscalizationConsistenceCode" ColumnName="FiscalizationConsistenceCode" />
+          <ScalarProperty Name="FiscalizationMessageItentifier" ColumnName="FiscalizationMessageItentifier" />
+          <ScalarProperty Name="FiscalizationTime" ColumnName="FiscalizationTime" />
+          <ScalarProperty Name="FiscalizationTypeOfPayment" ColumnName="FiscalizationTypeOfPayment" />
+          <ScalarProperty Name="FiscalizationDelayedDeparture" ColumnName="FiscalizationDelayedDeparture" />
+          <ScalarProperty Name="FiscalizationCashierId" ColumnName="FiscalizationCashierId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_Enums_DispatchType">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_Enums_DispatchType">
+        <MappingFragment StoreEntitySet="Documents_Enums_DispatchType">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_ItemsCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_ItemsCol">
+        <MappingFragment StoreEntitySet="Documents_ItemsCol">
+          <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="PriceListId" ColumnName="PriceListId" />
+          <ScalarProperty Name="PriceFromPriceList" ColumnName="PriceFromPriceList" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="RabatePercentage" ColumnName="RabatePercentage" />
+          <ScalarProperty Name="RabateAmmount" ColumnName="RabateAmmount" />
+          <ScalarProperty Name="TaxRateId" ColumnName="TaxRateId" />
+          <ScalarProperty Name="TaxAmmount" ColumnName="TaxAmmount" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_Offer_MaturityCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_Offer_MaturityCol">
+        <MappingFragment StoreEntitySet="Documents_Offer_MaturityCol">
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Documents_OfferId" ColumnName="Documents_OfferId" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="Documents_InvoiceId" ColumnName="Documents_InvoiceId" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_PaymentClosureGCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_PaymentClosureGCol">
+        <MappingFragment StoreEntitySet="Documents_PaymentClosureGCol">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Documents_PaymentItemsColId" ColumnName="Documents_PaymentItemsColId" />
+          <ScalarProperty Name="PayedInvoiceDocumentId" ColumnName="PayedInvoiceDocumentId" />
+          <ScalarProperty Name="PayedQuoteDocumentId" ColumnName="PayedQuoteDocumentId" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_PaymentItemsCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_PaymentItemsCol">
+        <MappingFragment StoreEntitySet="Documents_PaymentItemsCol">
+          <ScalarProperty Name="IsInvoice" ColumnName="IsInvoice" />
+          <ScalarProperty Name="FullyDistributed" ColumnName="FullyDistributed" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="GeneratedFormDocuments_PaymentId" ColumnName="GeneratedFormDocuments_PaymentId" />
+          <ScalarProperty Name="GeneratedInAdvance" ColumnName="GeneratedInAdvance" />
+          <ScalarProperty Name="AdvancePaymentAmmount" ColumnName="AdvancePaymentAmmount" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Documents_PaymentId" ColumnName="Documents_PaymentId" />
+          <ScalarProperty Name="SubjectBuyerId" ColumnName="SubjectBuyerId" />
+          <ScalarProperty Name="SubjectSupplierId" ColumnName="SubjectSupplierId" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="Reversed" ColumnName="Reversed" />
+          <ScalarProperty Name="InAdvance" ColumnName="InAdvance" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_PriceList_ItemsCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_PriceList_ItemsCol">
+        <MappingFragment StoreEntitySet="Documents_PriceList_ItemsCol">
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="MDEntities_EntityId" ColumnName="MDEntities_EntityId" />
+          <ScalarProperty Name="CalcualtedWholesalePrice" ColumnName="CalcualtedWholesalePrice" />
+          <ScalarProperty Name="WholesalePrice" ColumnName="WholesalePrice" />
+          <ScalarProperty Name="WholesalePriceOption1" ColumnName="WholesalePriceOption1" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetDocumentsForPayment" FunctionName="DocumentsModel.Store.uspDocumentsForPayment">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.GetDocumentsForPayment_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="DocumentTypeName" ColumnName="DocumentTypeName" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="PayedInAdvance" ColumnName="PayedInAdvance" />
+          <ScalarProperty Name="PayedInFull" ColumnName="PayedInFull" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="PayedTillDocument" ColumnName="PayedTillDocument" />
+          <ScalarProperty Name="PayedTillNow" ColumnName="PayedTillNow" />
+          <ScalarProperty Name="Payed" ColumnName="Payed" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="vEnums_DispatchType">
+      <EntityTypeMapping TypeName="DocumentsModel.vEnums_DispatchType">
+        <MappingFragment StoreEntitySet="vEnums_DispatchType">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vInvoice">
+      <EntityTypeMapping TypeName="DocumentsModel.vInvoice">
+        <MappingFragment StoreEntitySet="vInvoice">
+          <ScalarProperty Name="CashBoxCode" ColumnName="CashBoxCode" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="FiscalizationJIR" ColumnName="FiscalizationJIR" />
+          <ScalarProperty Name="Statustext" ColumnName="Statustext" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vIncomingInvoice">
+      <EntityTypeMapping TypeName="DocumentsModel.vIncomingInvoice">
+        <MappingFragment StoreEntitySet="vIncomingInvoice">
+          <ScalarProperty Name="Statustext" ColumnName="Statustext" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vOrderForm">
+      <EntityTypeMapping TypeName="DocumentsModel.vOrderForm">
+        <MappingFragment StoreEntitySet="vOrderForm">
+          <ScalarProperty Name="Statustext" ColumnName="Statustext" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="OrderedByPerson" ColumnName="OrderedByPerson" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vOffer">
+      <EntityTypeMapping TypeName="DocumentsModel.vOffer">
+        <MappingFragment StoreEntitySet="vOffer">
+          <ScalarProperty Name="Statustext" ColumnName="Statustext" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vQuote">
+      <EntityTypeMapping TypeName="DocumentsModel.vQuote">
+        <MappingFragment StoreEntitySet="vQuote">
+          <ScalarProperty Name="Statustext" ColumnName="Statustext" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vPriceList">
+      <EntityTypeMapping TypeName="DocumentsModel.vPriceList">
+        <MappingFragment StoreEntitySet="vPriceList">
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Klijent" ColumnName="Klijent" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vPayments">
+      <EntityTypeMapping TypeName="DocumentsModel.vPayments">
+        <MappingFragment StoreEntitySet="vPayments">
+          <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEntityPriceList">
+      <EntityTypeMapping TypeName="DocumentsModel.vEntityPriceList">
+        <MappingFragment StoreEntitySet="vEntityPriceList">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="WholesalePrice" ColumnName="WholesalePrice" />
+          <ScalarProperty Name="EntityTypeName" ColumnName="EntityTypeName" />
+          <ScalarProperty Name="EntityGroupName" ColumnName="EntityGroupName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vDocuments">
+      <EntityTypeMapping TypeName="DocumentsModel.vDocuments">
+        <MappingFragment StoreEntitySet="vDocuments">
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vDocumentDetails">
+      <EntityTypeMapping TypeName="DocumentsModel.vDocumentDetails">
+        <MappingFragment StoreEntitySet="vDocumentDetails">
+          <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="TaxName" ColumnName="TaxName" />
+          <ScalarProperty Name="RabatePercentage" ColumnName="RabatePercentage" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vInvoicePayments">
+      <EntityTypeMapping TypeName="DocumentsModel.vInvoicePayments">
+        <MappingFragment StoreEntitySet="vInvoicePayments">
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="PaymentClosureId" ColumnName="PaymentClosureId" />
+          <ScalarProperty Name="InAdvance" ColumnName="InAdvance" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="SubjectBuyerId" ColumnName="SubjectBuyerId" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="PayedInFull" ColumnName="PayedInFull" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vPaymentsInAdvance">
+      <EntityTypeMapping TypeName="DocumentsModel.vPaymentsInAdvance">
+        <MappingFragment StoreEntitySet="vPaymentsInAdvance">
+          <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+          <ScalarProperty Name="SuplierName" ColumnName="SuplierName" />
+          <ScalarProperty Name="AmmountForClosing" ColumnName="AmmountForClosing" />
+          <ScalarProperty Name="UseForClosing" ColumnName="UseForClosing" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="PaymentItemId" ColumnName="PaymentItemId" />
+          <ScalarProperty Name="GeneratedInAdvance" ColumnName="GeneratedInAdvance" />
+          <ScalarProperty Name="InAdvance" ColumnName="InAdvance" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="AdvancePaymentAmmount" ColumnName="AdvancePaymentAmmount" />
+          <ScalarProperty Name="SubjectSupplierId" ColumnName="SubjectSupplierId" />
+          <ScalarProperty Name="SubjectBuyerId" ColumnName="SubjectBuyerId" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vDocuments_ForPrint">
+      <EntityTypeMapping TypeName="DocumentsModel.vDocuments_ForPrint">
+        <MappingFragment StoreEntitySet="vDocuments_ForPrint">
+          <ScalarProperty Name="InvoiceLogo" ColumnName="InvoiceLogo" />
+          <ScalarProperty Name="DispatchCompany" ColumnName="DispatchCompany" />
+          <ScalarProperty Name="DispatchType" ColumnName="DispatchType" />
+          <ScalarProperty Name="Conditions" ColumnName="Conditions" />
+          <ScalarProperty Name="DispatchDescription" ColumnName="DispatchDescription" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="RabateValue" ColumnName="RabateValue" />
+          <ScalarProperty Name="FullWholesaleValue" ColumnName="FullWholesaleValue" />
+          <ScalarProperty Name="DispatchDate" ColumnName="DispatchDate" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="RText" ColumnName="RText" />
+          <ScalarProperty Name="BillToAddress_StreetAndNumber" ColumnName="BillToAddress_StreetAndNumber" />
+          <ScalarProperty Name="BillToAddress_PlaceName" ColumnName="BillToAddress_PlaceName" />
+          <ScalarProperty Name="HomeAddress_StreetAndNumber" ColumnName="HomeAddress_StreetAndNumber" />
+          <ScalarProperty Name="HomeAddress_PlaceName" ColumnName="HomeAddress_PlaceName" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentNameAndNumber" ColumnName="DocumentNameAndNumber" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vReportWorkOrder">
+      <EntityTypeMapping TypeName="DocumentsModel.vReportWorkOrder">
+        <MappingFragment StoreEntitySet="vReportWorkOrder">
+          <ScalarProperty Name="Account1" ColumnName="Account1" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="InvoiceLogo" ColumnName="InvoiceLogo" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Rbr" ColumnName="Rbr" />
+          <ScalarProperty Name="MjestoRada" ColumnName="MjestoRada" />
+          <ScalarProperty Name="AdresaMjestoNarucitelja" ColumnName="AdresaMjestoNarucitelja" />
+          <ScalarProperty Name="NazivNarucitelja" ColumnName="NazivNarucitelja" />
+          <ScalarProperty Name="AdresaMjestoTvrtke" ColumnName="AdresaMjestoTvrtke" />
+          <ScalarProperty Name="VerifierName" ColumnName="VerifierName" />
+          <ScalarProperty Name="VerifierPhone" ColumnName="VerifierPhone" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="AdresaNarucitelja" ColumnName="AdresaNarucitelja" />
+          <ScalarProperty Name="NaruciteljOIB" ColumnName="NaruciteljOIB" />
+          <ScalarProperty Name="OIBTvrtke" ColumnName="OIBTvrtke" />
+          <ScalarProperty Name="FaxTvrtke" ColumnName="FaxTvrtke" />
+          <ScalarProperty Name="TelTvrtke" ColumnName="TelTvrtke" />
+          <ScalarProperty Name="AdresaTrtke" ColumnName="AdresaTrtke" />
+          <ScalarProperty Name="NazivTvrtke" ColumnName="NazivTvrtke" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vWorkOrderMaterial">
+      <EntityTypeMapping TypeName="DocumentsModel.vWorkOrderMaterial">
+        <MappingFragment StoreEntitySet="vWorkOrderMaterial">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Documents_WorkOrderId" ColumnName="Documents_WorkOrderId" />
+          <ScalarProperty Name="Faktuirati" ColumnName="Faktuirati" />
+          <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+          <ScalarProperty Name="JM" ColumnName="JM" />
+          <ScalarProperty Name="Materijal" ColumnName="Materijal" />
+          <ScalarProperty Name="Rbr" ColumnName="Rbr" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vAuth_Company">
+      <EntityTypeMapping TypeName="DocumentsModel.vAuth_Company">
+        <MappingFragment StoreEntitySet="vAuth_Company">
+          <ScalarProperty Name="Account1" ColumnName="Account1" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="HomeAddress_StreetAndNumber" ColumnName="HomeAddress_StreetAndNumber" />
+          <ScalarProperty Name="HomeAddress_PlaceName" ColumnName="HomeAddress_PlaceName" />
+          <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="InvoiceLogo" ColumnName="InvoiceLogo" />
+          <ScalarProperty Name="OIB" ColumnName="OIB" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vWorkOrderTime">
+      <EntityTypeMapping TypeName="DocumentsModel.vWorkOrderTime">
+        <MappingFragment StoreEntitySet="vWorkOrderTime">
+          <ScalarProperty Name="MDEntities_ServiceId" ColumnName="MDEntities_ServiceId" />
+          <ScalarProperty Name="Faktuirat" ColumnName="Faktuirat" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="Izvrsitelj" ColumnName="Izvrsitelj" />
+          <ScalarProperty Name="Rad" ColumnName="Rad" />
+          <ScalarProperty Name="OrdinalInWorkOrder" ColumnName="OrdinalInWorkOrder" />
+          <ScalarProperty Name="Work_OrderId" ColumnName="Work_OrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vDocumentTaxesByTypes">
+      <EntityTypeMapping TypeName="DocumentsModel.vDocumentTaxesByTypes">
+        <MappingFragment StoreEntitySet="vDocumentTaxesByTypes">
+          <ScalarProperty Name="RetailAmmount" ColumnName="RetailAmmount" />
+          <ScalarProperty Name="WholsaleAmmount" ColumnName="WholsaleAmmount" />
+          <ScalarProperty Name="TaxAmmount" ColumnName="TaxAmmount" />
+          <ScalarProperty Name="TaxId" ColumnName="TaxId" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vQuotePayments">
+      <EntityTypeMapping TypeName="DocumentsModel.vQuotePayments">
+        <MappingFragment StoreEntitySet="vQuotePayments">
+          <ScalarProperty Name="QuoteId" ColumnName="QuoteId" />
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="PaymentClosureId" ColumnName="PaymentClosureId" />
+          <ScalarProperty Name="InAdvance" ColumnName="InAdvance" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="SubjectBuyerId" ColumnName="SubjectBuyerId" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspWorkOrder2Invoice" FunctionName="DocumentsModel.Store.uspWorkorder2Invoice" />
+    <FunctionImportMapping FunctionImportName="uspOffer2Invoice" FunctionName="DocumentsModel.Store.uspOffer2Invoice" />
+    <FunctionImportMapping FunctionImportName="uspOffer2Quote" FunctionName="DocumentsModel.Store.uspOffer2Quote" />
+    <FunctionImportMapping FunctionImportName="uspOffer2Dispatch" FunctionName="DocumentsModel.Store.uspOffer2Dispatch" />
+    <FunctionImportMapping FunctionImportName="uspQuote2Invoice" FunctionName="DocumentsModel.Store.uspQuote2Invoice" />
+    <FunctionImportMapping FunctionImportName="uspQuote2Dispatch" FunctionName="DocumentsModel.Store.uspQuote2Dispatch" />
+    <EntitySetMapping Name="vDispatchForPrint">
+      <EntityTypeMapping TypeName="DocumentsModel.vDispatchForPrint">
+        <MappingFragment StoreEntitySet="vDispatchForPrint">
+          <ScalarProperty Name="InvoiceLogo" ColumnName="InvoiceLogo" />
+          <ScalarProperty Name="EmployeeDispatcherName" ColumnName="EmployeeDispatcherName" />
+          <ScalarProperty Name="PersonReceived" ColumnName="PersonReceived" />
+          <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+          <ScalarProperty Name="DispatchCompany" ColumnName="DispatchCompany" />
+          <ScalarProperty Name="DispatchType" ColumnName="DispatchType" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="ShipToAddress_StreetAndNumber" ColumnName="ShipToAddress_StreetAndNumber" />
+          <ScalarProperty Name="ShipToAddress_PlaceName" ColumnName="ShipToAddress_PlaceName" />
+          <ScalarProperty Name="HomeAddress_StreetAndNumber" ColumnName="HomeAddress_StreetAndNumber" />
+          <ScalarProperty Name="HomeAddress_PlaceName" ColumnName="HomeAddress_PlaceName" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentNameAndNumber" ColumnName="DocumentNameAndNumber" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vDispatchDetails">
+      <EntityTypeMapping TypeName="DocumentsModel.vDispatchDetails">
+        <MappingFragment StoreEntitySet="vDispatchDetails">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEntitiesForDocuments">
+      <EntityTypeMapping TypeName="DocumentsModel.vEntitiesForDocuments">
+        <MappingFragment StoreEntitySet="vEntities">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="TaxRateId" ColumnName="TaxRateId" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="WholesalePrice" ColumnName="WholesalePrice" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspInvoice2Dispatch" FunctionName="DocumentsModel.Store.uspInvoice2Dispatch" />
+    <EntitySetMapping Name="Documents_TravelOrder_OtherExpensesCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_TravelOrder_OtherExpensesCol">
+        <MappingFragment StoreEntitySet="Documents_TravelOrder_OtherExpensesCol">
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="Admited" ColumnName="Admited" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Documents_TravelOrderId" ColumnName="Documents_TravelOrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_TravelOrder_TravelCostsCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_TravelOrder_TravelCostsCol">
+        <MappingFragment StoreEntitySet="Documents_TravelOrder_TravelCostsCol">
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="Kilometers" ColumnName="Kilometers" />
+          <ScalarProperty Name="MDGeneral_Enums_KindOfTransportationId" ColumnName="MDGeneral_Enums_KindOfTransportationId" />
+          <ScalarProperty Name="MDPlaces_Enums_Geo_ToPlaceId" ColumnName="MDPlaces_Enums_Geo_ToPlaceId" />
+          <ScalarProperty Name="MDPlaces_Enums_Geo_FromPlaceId" ColumnName="MDPlaces_Enums_Geo_FromPlaceId" />
+          <ScalarProperty Name="Documents_TravelOrderId" ColumnName="Documents_TravelOrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_TravelOrder_WageCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_TravelOrder_WageCol">
+        <MappingFragment StoreEntitySet="Documents_TravelOrder_WageCol">
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="AmmountOfWage" ColumnName="AmmountOfWage" />
+          <ScalarProperty Name="PriceOfWage" ColumnName="PriceOfWage" />
+          <ScalarProperty Name="NumberOfWage" ColumnName="NumberOfWage" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="Arrival" ColumnName="Arrival" />
+          <ScalarProperty Name="Departure" ColumnName="Departure" />
+          <ScalarProperty Name="Documents_TravelOrderId" ColumnName="Documents_TravelOrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vTravelOrder">
+      <EntityTypeMapping TypeName="DocumentsModel.vTravelOrder">
+        <MappingFragment StoreEntitySet="vTravelOrder">
+          <ScalarProperty Name="Statustext" ColumnName="Statustext" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ClosureDate" ColumnName="ClosureDate" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="DurationDays" ColumnName="DurationDays" />
+          <ScalarProperty Name="TravelOrderDate" ColumnName="TravelOrderDate" />
+          <ScalarProperty Name="ToPlace" ColumnName="ToPlace" />
+          <ScalarProperty Name="FromPlace" ColumnName="FromPlace" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vTravelOrderForPrint">
+      <EntityTypeMapping TypeName="DocumentsModel.vTravelOrderForPrint">
+        <MappingFragment StoreEntitySet="vTravelOrderForPrint">
+          <ScalarProperty Name="TrevelDescription" ColumnName="TrevelDescription" />
+          <ScalarProperty Name="TotalAmmountForPayment" ColumnName="TotalAmmountForPayment" />
+          <ScalarProperty Name="TotalAmmount" ColumnName="TotalAmmount" />
+          <ScalarProperty Name="AmountForCarExpense" ColumnName="AmountForCarExpense" />
+          <ScalarProperty Name="PricePerKilometer" ColumnName="PricePerKilometer" />
+          <ScalarProperty Name="TotalKilometers" ColumnName="TotalKilometers" />
+          <ScalarProperty Name="CarDialEnd" ColumnName="CarDialEnd" />
+          <ScalarProperty Name="CarDialStart" ColumnName="CarDialStart" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="AdvanceAmmount" ColumnName="AdvanceAmmount" />
+          <ScalarProperty Name="AdvanceDate" ColumnName="AdvanceDate" />
+          <ScalarProperty Name="CostCenter" ColumnName="CostCenter" />
+          <ScalarProperty Name="TransportationDescription" ColumnName="TransportationDescription" />
+          <ScalarProperty Name="KindOfTransportationName" ColumnName="KindOfTransportationName" />
+          <ScalarProperty Name="DurationDays" ColumnName="DurationDays" />
+          <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+          <ScalarProperty Name="TravelToResidence" ColumnName="TravelToResidence" />
+          <ScalarProperty Name="TravelOrderDate" ColumnName="TravelOrderDate" />
+          <ScalarProperty Name="EducationDegreeName" ColumnName="EducationDegreeName" />
+          <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+          <ScalarProperty Name="ToPlaceName" ColumnName="ToPlaceName" />
+          <ScalarProperty Name="FromPlaceName" ColumnName="FromPlaceName" />
+          <ScalarProperty Name="EmployeeApprovedByName" ColumnName="EmployeeApprovedByName" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vOtherExpenseForPrint">
+      <EntityTypeMapping TypeName="DocumentsModel.vOtherExpenseForPrint">
+        <MappingFragment StoreEntitySet="vOtherExpenseForPrint">
+          <ScalarProperty Name="Admited" ColumnName="Admited" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="Documents_TravelOrderId" ColumnName="Documents_TravelOrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vTravelCostsForPrint">
+      <EntityTypeMapping TypeName="DocumentsModel.vTravelCostsForPrint">
+        <MappingFragment StoreEntitySet="vTravelCostsForPrint">
+          <ScalarProperty Name="KindOfTransportationName" ColumnName="KindOfTransportationName" />
+          <ScalarProperty Name="FromPlaceName" ColumnName="FromPlaceName" />
+          <ScalarProperty Name="ToPlaceName" ColumnName="ToPlaceName" />
+          <ScalarProperty Name="Kilometers" ColumnName="Kilometers" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="Documents_TravelOrderId" ColumnName="Documents_TravelOrderId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vPayoff">
+      <EntityTypeMapping TypeName="DocumentsModel.vPayoff">
+        <MappingFragment StoreEntitySet="vPayoff">
+          <ScalarProperty Name="CurrencyName" ColumnName="CurrencyName" />
+          <ScalarProperty Name="CourseValue" ColumnName="CourseValue" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="OtherDiscountsValue" ColumnName="OtherDiscountsValue" />
+          <ScalarProperty Name="RabateValue" ColumnName="RabateValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vTakeoverOfGoods">
+      <EntityTypeMapping TypeName="DocumentsModel.vTakeoverOfGoods">
+        <MappingFragment StoreEntitySet="vTakeoverOfGoods">
+          <ScalarProperty Name="PayoffUniqueIdentifier" ColumnName="PayoffUniqueIdentifier" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vWorkOrder">
+      <EntityTypeMapping TypeName="DocumentsModel.vWorkOrder">
+        <MappingFragment StoreEntitySet="vWorkOrder">
+          <ScalarProperty Name="Statustext" ColumnName="Statustext" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="IsBillable" ColumnName="IsBillable" />
+          <ScalarProperty Name="Mjesto" ColumnName="Mjesto" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+          <ScalarProperty Name="VerifierPhone" ColumnName="VerifierPhone" />
+          <ScalarProperty Name="VerifierName" ColumnName="VerifierName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="NazivProjekta" ColumnName="NazivProjekta" />
+          <ScalarProperty Name="Klijent" ColumnName="Klijent" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CusomerId" ColumnName="CusomerId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspOffer2Offer" FunctionName="DocumentsModel.Store.uspOffer2Offer" />
+    <EntitySetMapping Name="vDocumentDetailsWithProductDescription">
+      <EntityTypeMapping TypeName="DocumentsModel.vDocumentDetailsWithProductDescription">
+        <MappingFragment StoreEntitySet="vDocumentDetailsWithProductDescription">
+          <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="TaxName" ColumnName="TaxName" />
+          <ScalarProperty Name="RabatePercentage" ColumnName="RabatePercentage" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vPayoff_ForPrint">
+      <EntityTypeMapping TypeName="DocumentsModel.vPayoff_ForPrint">
+        <MappingFragment StoreEntitySet="vPayoff_ForPrint">
+          <ScalarProperty Name="InvoiceLogo" ColumnName="InvoiceLogo" />
+          <ScalarProperty Name="FullWholesaleValue" ColumnName="FullWholesaleValue" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="RabateValue" ColumnName="RabateValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="HomeAddress_Street" ColumnName="HomeAddress_Street" />
+          <ScalarProperty Name="HomeAddress_ZIPCode" ColumnName="HomeAddress_ZIPCode" />
+          <ScalarProperty Name="HomeAddress_PlaceName" ColumnName="HomeAddress_PlaceName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentNameAndNumber" ColumnName="DocumentNameAndNumber" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vPaymentClosureFirstPage">
+      <EntityTypeMapping TypeName="DocumentsModel.vPaymentClosureFirstPage">
+        <MappingFragment StoreEntitySet="vPaymentClosureFirstPage">
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="Resto" ColumnName="Resto" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="Sum" ColumnName="Sum" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vIncimingPaymentClosureFirstPage">
+      <EntityTypeMapping TypeName="DocumentsModel.vIncimingPaymentClosureFirstPage">
+        <MappingFragment StoreEntitySet="vIncimingPaymentClosureFirstPage">
+          <ScalarProperty Name="Resto" ColumnName="Resto" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="Sum" ColumnName="Sum" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vChartDugujePotrazuje">
+      <EntityTypeMapping TypeName="DocumentsModel.vChartDugujePotrazuje">
+        <MappingFragment StoreEntitySet="vChartDugujePotrazuje">
+          <ScalarProperty Name="Suma" ColumnName="Suma" />
+          <ScalarProperty Name="Tip" ColumnName="Tip" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDEntities_Enums_TaxRate_documents">
+      <EntityTypeMapping TypeName="DocumentsModel.MDEntities_Enums_TaxRate_documents">
+        <MappingFragment StoreEntitySet="MDEntities_Enums_TaxRate">
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="IsService" ColumnName="IsService" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="EmployeeWhoLastChanedItUserId" ColumnName="EmployeeWhoLastChanedItUserId" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDGeneral_Enums_Currency_documents">
+      <EntityTypeMapping TypeName="DocumentsModel.MDGeneral_Enums_Currency_documents">
+        <MappingFragment StoreEntitySet="MDGeneral_Enums_Currency">
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="DefaultCurrency" ColumnName="DefaultCurrency" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="DecimalPlaces" ColumnName="DecimalPlaces" />
+          <ScalarProperty Name="Measure" ColumnName="Measure" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspInvoice2Invoice" FunctionName="DocumentsModel.Store.uspInvoice2Invoice" />
+    <FunctionImportMapping FunctionImportName="uspIncomingInvoice2IncommingInvoice" FunctionName="DocumentsModel.Store.uspIncomingInvoice2IncomingInvoice" />
+    <FunctionImportMapping FunctionImportName="uspQuote2Quote" FunctionName="DocumentsModel.Store.uspQuote2Quote" />
+    <FunctionImportMapping FunctionImportName="uspTravelOrder2TravelOrder" FunctionName="DocumentsModel.Store.uspTravelOrder2TravelOrder" />
+    <FunctionImportMapping FunctionImportName="uspWorkOrder2WorkOrder" FunctionName="DocumentsModel.Store.uspWorkOrder2WorkOrder" />
+    <EntitySetMapping Name="vDispatch">
+      <EntityTypeMapping TypeName="DocumentsModel.vDispatch">
+        <MappingFragment StoreEntitySet="vDispatch">
+          <ScalarProperty Name="Statustext" ColumnName="Statustext" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspTotalTurnoverFor6Months" FunctionName="DocumentsModel.Store.uspTotalTurnoverFor6Months">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspTotalTurnoverFor6Months_Result">
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspTotalTurnoverFor" FunctionName="DocumentsModel.Store.uspTotalTurnoverFor6Months">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspTotalTurnoverFor6Months_Result">
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Tip" ColumnName="Tip" />
+          <ScalarProperty Name="M" ColumnName="M" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspMyDocumentsInStatus" FunctionName="DocumentsModel.Store.uspMyDocumentsInStatus">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspMyDocumentsInStatus_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspPaymentState" FunctionName="DocumentsModel.Store.uspPaymentState">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspPaymentState_Result">
+          <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+          <ScalarProperty Name="OnDay" ColumnName="OnDay" />
+          <ScalarProperty Name="InvoiceToday" ColumnName="InvoiceToday" />
+          <ScalarProperty Name="Invoice5Days" ColumnName="Invoice5Days" />
+          <ScalarProperty Name="Invoice10Days" ColumnName="Invoice10Days" />
+          <ScalarProperty Name="Invoice15Days" ColumnName="Invoice15Days" />
+          <ScalarProperty Name="IncomingInvoiceToday" ColumnName="IncomingInvoiceToday" />
+          <ScalarProperty Name="IncomingInvoice5Days" ColumnName="IncomingInvoice5Days" />
+          <ScalarProperty Name="IncomingInvoice10Days" ColumnName="IncomingInvoice10Days" />
+          <ScalarProperty Name="IncomingInvoice15Days" ColumnName="IncomingInvoice15Days" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspMaymentState" FunctionName="DocumentsModel.Store.uspPaymentState">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspPaymentState_Result">
+          <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+          <ScalarProperty Name="OnDay" ColumnName="OnDay" />
+          <ScalarProperty Name="InvoiceToday" ColumnName="InvoiceToday" />
+          <ScalarProperty Name="Invoice5Days" ColumnName="Invoice5Days" />
+          <ScalarProperty Name="Invoice10Days" ColumnName="Invoice10Days" />
+          <ScalarProperty Name="Invoice15Days" ColumnName="Invoice15Days" />
+          <ScalarProperty Name="IncomingInvoiceToday" ColumnName="IncomingInvoiceToday" />
+          <ScalarProperty Name="IncomingInvoice5Days" ColumnName="IncomingInvoice5Days" />
+          <ScalarProperty Name="IncomingInvoice10Days" ColumnName="IncomingInvoice10Days" />
+          <ScalarProperty Name="IncomingInvoice15Days" ColumnName="IncomingInvoice15Days" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="C__tempDS">
+      <EntityTypeMapping TypeName="DocumentsModel.C__tempDS">
+        <MappingFragment StoreEntitySet="__tempDS">
+          <ScalarProperty Name="Unpaid" ColumnName="Unpaid" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspIncomingInvoicesClaimsDetails" FunctionName="DocumentsModel.Store.uspIncomingInvoicesClaimsDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspIncomingInvoicesClaimsDetails_Result">
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="Unpaid" ColumnName="Unpaid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspInvoicesClaimsDetails" FunctionName="DocumentsModel.Store.uspInvoicesClaimsDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspInvoicesClaimsDetails_Result">
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="Unpaid" ColumnName="Unpaid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspUnbilledDetails" FunctionName="DocumentsModel.Store.uspUnbilledDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspUnbilledDetails_Result">
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="Unpaid" ColumnName="Unpaid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspPaymentStateDetails" FunctionName="DocumentsModel.Store.uspPaymentStateDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspPaymentStateDetails_Result">
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="Unpaid" ColumnName="Unpaid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspIncomingInvoicesClaims" FunctionName="DocumentsModel.Store.uspIncomingInvoicesClaims">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspIncomingInvoicesClaims_Result">
+          <ScalarProperty Name="MaturedClaims" ColumnName="MaturedClaims" />
+          <ScalarProperty Name="TotalClaims" ColumnName="TotalClaims" />
+          <ScalarProperty Name="NotMaturedClaims" ColumnName="NotMaturedClaims" />
+          <ScalarProperty Name="MaturedClaims30" ColumnName="MaturedClaims30" />
+          <ScalarProperty Name="MaturedClaims60" ColumnName="MaturedClaims60" />
+          <ScalarProperty Name="MaturedClaims90" ColumnName="MaturedClaims90" />
+          <ScalarProperty Name="MaturedClaims90Plus" ColumnName="MaturedClaims90Plus" />
+          <ScalarProperty Name="NumOfUndistributed" ColumnName="NumOfUndistributed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspInvoicesClaims" FunctionName="DocumentsModel.Store.uspInvoicesClaims">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspInvoicesClaims_Result">
+          <ScalarProperty Name="MaturedClaims" ColumnName="MaturedClaims" />
+          <ScalarProperty Name="TotalClaims" ColumnName="TotalClaims" />
+          <ScalarProperty Name="NotMaturedClaims" ColumnName="NotMaturedClaims" />
+          <ScalarProperty Name="MaturedClaims30" ColumnName="MaturedClaims30" />
+          <ScalarProperty Name="MaturedClaims60" ColumnName="MaturedClaims60" />
+          <ScalarProperty Name="MaturedClaims90" ColumnName="MaturedClaims90" />
+          <ScalarProperty Name="MaturedClaims90Plus" ColumnName="MaturedClaims90Plus" />
+          <ScalarProperty Name="NumOfUndistributed" ColumnName="NumOfUndistributed" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="vIncomingInvoicePayments">
+      <EntityTypeMapping TypeName="DocumentsModel.vIncomingInvoicePayments">
+        <MappingFragment StoreEntitySet="vIncomingInvoicePayments">
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="PaymentClosureId" ColumnName="PaymentClosureId" />
+          <ScalarProperty Name="InAdvance" ColumnName="InAdvance" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+          <ScalarProperty Name="SubjectBuyerId" ColumnName="SubjectBuyerId" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="PayedInFull" ColumnName="PayedInFull" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspUnbilled" FunctionName="DocumentsModel.Store.uspUnbilled">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspUnbilled_Result">
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="OfferAmmount" ColumnName="OfferAmmount" />
+          <ScalarProperty Name="QuoteAmmount" ColumnName="QuoteAmmount" />
+          <ScalarProperty Name="WorkOrderAmmount" ColumnName="WorkOrderAmmount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspIncomingInvoicesClaimsDetailsFilter" FunctionName="DocumentsModel.Store.uspIncomingInvoicesClaimsDetailsFilter">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspIncomingInvoicesClaimsDetailsFilter_Result">
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="Unpaid" ColumnName="Unpaid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspInvoicesClaimsDetailsFilter" FunctionName="DocumentsModel.Store.uspInvoicesClaimsDetailsFilter">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DocumentsModel.uspInvoicesClaimsDetailsFilter_Result">
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="Unpaid" ColumnName="Unpaid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="vDocumentsForPayment">
+      <EntityTypeMapping TypeName="DocumentsModel.vDocumentsForPayment">
+        <MappingFragment StoreEntitySet="vDocumentsForPayment">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PayUpdate" ColumnName="PayUpdate" />
+          <ScalarProperty Name="Payed" ColumnName="Payed" />
+          <ScalarProperty Name="PayedTillNow" ColumnName="PayedTillNow" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="PayedInFull" ColumnName="PayedInFull" />
+          <ScalarProperty Name="PayedInAdvance" ColumnName="PayedInAdvance" />
+          <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentTypeName" ColumnName="DocumentTypeName" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspDeletePayment" FunctionName="DocumentsModel.Store.uspDeletePayment" />
+    <EntitySetMapping Name="Documents_CompensationChildCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_CompensationChildCol">
+        <MappingFragment StoreEntitySet="Documents_CompensationChildCol">
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="PayedAmmountIncomingInvoice" ColumnName="PayedAmmountIncomingInvoice" />
+          <ScalarProperty Name="IncomingInvoiceId" ColumnName="IncomingInvoiceId" />
+          <ScalarProperty Name="PayedAmmountInvoice" ColumnName="PayedAmmountInvoice" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="CompensationId" ColumnName="CompensationId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="uspUpdateStatus" FunctionName="DocumentsModel.Store.uspUpdateStatus" />
+    <FunctionImportMapping FunctionImportName="uspGetDocIds" FunctionName="DocumentsModel.Store.uspGetDocIds" />
+    <FunctionImportMapping FunctionImportName="uspGetDocStatus" FunctionName="DocumentsModel.Store.uspGetDocStatus" />
+    <FunctionImportMapping FunctionImportName="uspIncomingInvoice2TransferOrder" FunctionName="DocumentsModel.Store.uspIncomingInvoice2TransferOrder" />
+    <FunctionImportMapping FunctionImportName="uspCreateVirman309" FunctionName="DocumentsModel.Store.uspCreateVirman309" />
+    <EntitySetMapping Name="vVirmani">
+      <EntityTypeMapping TypeName="DocumentsModel.vVirmani">
+        <MappingFragment StoreEntitySet="vVirmani">
+          <ScalarProperty Name="IncomingInvoice" ColumnName="IncomingInvoice" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+          <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
+          <ScalarProperty Name="AutorizedForPayment" ColumnName="AutorizedForPayment" />
+          <ScalarProperty Name="S309NAZBANPRIM" ColumnName="S309NAZBANPRIM" />
+          <ScalarProperty Name="S309PNBPLAT" ColumnName="S309PNBPLAT" />
+          <ScalarProperty Name="S309IZN" ColumnName="S309IZN" />
+          <ScalarProperty Name="S309NAZIVPRIM" ColumnName="S309NAZIVPRIM" />
+          <ScalarProperty Name="S309IBANRNPRIM" ColumnName="S309IBANRNPRIM" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="OrdinalNumberInYear" ColumnName="OrdinalNumberInYear" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_CashBoxBillItemsCol">
+      <EntityTypeMapping TypeName="DocumentsModel.Documents_CashBoxBillItemsCol">
+        <MappingFragment StoreEntitySet="Documents_CashBoxBillItemsCol">
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+          <ScalarProperty Name="TaxRateId" ColumnName="TaxRateId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vCashBox">
+      <EntityTypeMapping TypeName="DocumentsModel.vCashBox">
+        <MappingFragment StoreEntitySet="vCashBox">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="CashBoxCode" ColumnName="CashBoxCode" />
+          <ScalarProperty Name="Fiskaliziran" ColumnName="Fiskaliziran" />
+          <ScalarProperty Name="FiscalizationZKIR" ColumnName="FiscalizationZKIR" />
+          <ScalarProperty Name="FiscalizationJIR" ColumnName="FiscalizationJIR" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FiscalizationMessageItentifier" ColumnName="FiscalizationMessageItentifier" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vCashBoxBillDetails">
+      <EntityTypeMapping TypeName="DocumentsModel.vCashBoxBillDetails">
+        <MappingFragment StoreEntitySet="vCashBoxBillDetails">
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vCashBoxBillTaxByTypes">
+      <EntityTypeMapping TypeName="DocumentsModel.vCashBoxBillTaxByTypes">
+        <MappingFragment StoreEntitySet="vCashBoxBillTaxByTypes">
+          <ScalarProperty Name="TaxAmmount" ColumnName="TaxAmmount" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vCashBoxBill">
+      <EntityTypeMapping TypeName="DocumentsModel.vCashBoxBill">
+        <MappingFragment StoreEntitySet="vCashBoxBill">
+          <ScalarProperty Name="CashierCode" ColumnName="CashierCode" />
+          <ScalarProperty Name="NacinPlacanja" ColumnName="NacinPlacanja" />
+          <ScalarProperty Name="BrojRacuna" ColumnName="BrojRacuna" />
+          <ScalarProperty Name="FiscalizationTime" ColumnName="FiscalizationTime" />
+          <ScalarProperty Name="FiscalizationJIR" ColumnName="FiscalizationJIR" />
+          <ScalarProperty Name="FiscalizationZKIR" ColumnName="FiscalizationZKIR" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vInvoiceTaxByTypes">
+      <EntityTypeMapping TypeName="DocumentsModel.vInvoiceTaxByTypes">
+        <MappingFragment StoreEntitySet="vInvoiceTaxByTypes">
+          <ScalarProperty Name="TaxAmmount" ColumnName="TaxAmmount" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RetailValue" ColumnName="RetailValue" />
+          <ScalarProperty Name="WholesaleValue" ColumnName="WholesaleValue" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

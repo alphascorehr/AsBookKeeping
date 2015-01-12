@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MDPlacesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="MDPlacesModelStoreContainer">
+    <EntitySet Name="MDPlaces_Enums_Geo_Country" EntityType="MDPlacesModel.Store.MDPlaces_Enums_Geo_Country" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="MDPlaces_Enums_Geo_Place" EntityType="MDPlacesModel.Store.MDPlaces_Enums_Geo_Place" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="MDPlaces_Enums_Geo_Region" EntityType="MDPlacesModel.Store.MDPlaces_Enums_Geo_Region" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="MDPlaces_Enums_OgranizationalUnit" EntityType="MDPlacesModel.Store.MDPlaces_Enums_OgranizationalUnit" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+    <EntitySet Name="vEnums_Geo_Country" EntityType="MDPlacesModel.Store.vEnums_Geo_Country" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Geo_Country" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <DefiningQuery>SELECT 
+      [vEnums_Geo_Country].[Id] AS [Id], 
+      [vEnums_Geo_Country].[Name] AS [Name], 
+      [vEnums_Geo_Country].[Label] AS [Label], 
+      [vEnums_Geo_Country].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Geo_Country].[ClientName] AS [ClientName]
+      FROM [dbo].[vEnums_Geo_Country] AS [vEnums_Geo_Country]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vEnums_Geo_Place" EntityType="MDPlacesModel.Store.vEnums_Geo_Place" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Geo_Place" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <DefiningQuery>SELECT 
+      [vEnums_Geo_Place].[Id] AS [Id], 
+      [vEnums_Geo_Place].[Name] AS [Name], 
+      [vEnums_Geo_Place].[ZIPCode] AS [ZIPCode], 
+      [vEnums_Geo_Place].[Region] AS [Region], 
+      [vEnums_Geo_Place].[Country] AS [Country], 
+      [vEnums_Geo_Place].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Geo_Place].[ClientName] AS [ClientName]
+      FROM [dbo].[vEnums_Geo_Place] AS [vEnums_Geo_Place]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vEnums_Geo_Region" EntityType="MDPlacesModel.Store.vEnums_Geo_Region" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Geo_Region" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <DefiningQuery>SELECT 
+      [vEnums_Geo_Region].[Id] AS [Id], 
+      [vEnums_Geo_Region].[Name] AS [Name], 
+      [vEnums_Geo_Region].[Country] AS [Country], 
+      [vEnums_Geo_Region].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Geo_Region].[ClientName] AS [ClientName]
+      FROM [dbo].[vEnums_Geo_Region] AS [vEnums_Geo_Region]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <EntityType Name="MDPlaces_Enums_Geo_Country">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="LanguageId" Type="int" />
+    <Property Name="CurrencyId" Type="int" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDPlaces_Enums_Geo_Place">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="ZIPCode" Type="nchar" Nullable="false" MaxLength="5" />
+    <Property Name="RegionId" Type="int" />
+    <Property Name="Distance" Type="int" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDPlaces_Enums_Geo_Region">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CountryId" Type="int" Nullable="false" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="MDPlaces_Enums_OgranizationalUnit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+    <Property Name="Label" Type="nvarchar" MaxLength="10" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Inactive" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="UserWhoLastChanedItUserId" Type="int" Nullable="false" />
+    <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Geo_Country' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEnums_Geo_Country">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Geo_Place' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEnums_Geo_Place">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="ZIPCode" Type="nchar" Nullable="false" MaxLength="5" />
+    <Property Name="Region" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="100" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Geo_Region' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="vEnums_Geo_Region">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="100" />
+    <Property Name="CompanyUsingServiceId" Type="int" />
+    <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+</Schema>

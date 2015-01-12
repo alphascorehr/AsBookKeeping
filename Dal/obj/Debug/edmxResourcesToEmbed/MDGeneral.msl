@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MDGeneralModelStoreContainer" CdmEntityContainer="MDGeneralEntities">
+    <EntitySetMapping Name="MDGeneral_Enums_Language">
+      <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_Language">
+        <MappingFragment StoreEntitySet="MDGeneral_Enums_Language">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DefaultLanguage" ColumnName="DefaultLanguage" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDGeneral_Enums_Currency">
+      <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_Currency">
+        <MappingFragment StoreEntitySet="MDGeneral_Enums_Currency">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="DefaultCurrency" ColumnName="DefaultCurrency" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="DecimalPlaces" ColumnName="DecimalPlaces" />
+          <ScalarProperty Name="Measure" ColumnName="Measure" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDGeneral_Enums_TimeZone">
+      <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_TimeZone">
+        <MappingFragment StoreEntitySet="MDGeneral_Enums_TimeZone">
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_Currency">
+      <EntityTypeMapping TypeName="MDGeneralModel.vEnums_Currency">
+        <MappingFragment StoreEntitySet="vEnums_Currency">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_Language">
+      <EntityTypeMapping TypeName="MDGeneralModel.vEnums_Language">
+        <MappingFragment StoreEntitySet="vEnums_Language">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_TimeZone">
+      <EntityTypeMapping TypeName="MDGeneralModel.vEnums_TimeZone">
+        <MappingFragment StoreEntitySet="vEnums_TimeZone">
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDGeneral_Enums_KindOfTransportation">
+      <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_KindOfTransportation">
+        <MappingFragment StoreEntitySet="MDGeneral_Enums_KindOfTransportation">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDGeneral_Enums_Location">
+      <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_Location">
+        <MappingFragment StoreEntitySet="MDGeneral_Enums_Location">
+          <ScalarProperty Name="WorkingHour" ColumnName="WorkingHour" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnumsCashBox">
+      <EntityTypeMapping TypeName="MDGeneralModel.vEnumsCashBox">
+        <MappingFragment StoreEntitySet="vEnumsCashBox">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vvEnumsCashBox">
+      <EntityTypeMapping TypeName="MDGeneralModel.vvEnumsCashBox">
+        <MappingFragment StoreEntitySet="vvEnumsCashBox">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDGeneral_Enums_CashBox">
+      <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_CashBox">
+        <MappingFragment StoreEntitySet="MDGeneral_Enums_CashBox">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

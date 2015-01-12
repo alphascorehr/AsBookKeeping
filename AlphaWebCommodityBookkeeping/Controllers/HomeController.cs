@@ -12,10 +12,7 @@ namespace AlphaWebCommodityBookkeeping.Controllers
     {
         public ActionResult Index()
         {
-            //var profiler = MiniProfiler.Current; // it's ok if this is null
                 int message = -1;
-                //using (profiler.Step("Test"))
-                //{
 
                     if (!Csla.ApplicationContext.User.IsInRole("SuperAdmin"))
                     {
@@ -38,12 +35,7 @@ namespace AlphaWebCommodityBookkeeping.Controllers
                             }
                         }
                     }
-                //}
                 ViewData["Message"] = message;
-
-                
-                
-            
                 return View();
         }
 
@@ -91,7 +83,5 @@ namespace AlphaWebCommodityBookkeeping.Controllers
             string test = collection["ko_unique_1"];
             return View("Knockout");
         }
-
-       
     }
 }

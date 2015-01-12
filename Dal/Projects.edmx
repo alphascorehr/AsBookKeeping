@@ -1,0 +1,773 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProjectsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ProjectsModelStoreContainer">
+          <EntitySet Name="Projects_Enums_ExpensType" EntityType="ProjectsModel.Store.Projects_Enums_ExpensType" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Projects_Enums_Task" EntityType="ProjectsModel.Store.Projects_Enums_Task" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Projects_MaterialTrackingLog" EntityType="ProjectsModel.Store.Projects_MaterialTrackingLog" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Projects_Project" EntityType="ProjectsModel.Store.Projects_Project" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Projects_Project_Expenses" EntityType="ProjectsModel.Store.Projects_Project_Expenses" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Projects_Project_TeamMemebersCol" EntityType="ProjectsModel.Store.Projects_Project_TeamMemebersCol" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Projects_TimeTrackingLog" EntityType="ProjectsModel.Store.Projects_TimeTrackingLog" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="vEnums_ExpensType" EntityType="ProjectsModel.Store.vEnums_ExpensType" store:Type="Views" store:Schema="dbo" store:Name="vEnums_ExpensType" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [vEnums_ExpensType].[Id] AS [Id], 
+      [vEnums_ExpensType].[Name] AS [Name], 
+      [vEnums_ExpensType].[ClientName] AS [ClientName], 
+      [vEnums_ExpensType].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_ExpensType].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_ExpensType] AS [vEnums_ExpensType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_Task" EntityType="ProjectsModel.Store.vEnums_Task" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Task" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [vEnums_Task].[Id] AS [Id], 
+      [vEnums_Task].[Name] AS [Name], 
+      [vEnums_Task].[Label] AS [Label], 
+      [vEnums_Task].[ClientName] AS [ClientName], 
+      [vEnums_Task].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Task].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_Task] AS [vEnums_Task]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vProjectExpenses" EntityType="ProjectsModel.Store.vProjectExpenses" store:Type="Views" store:Schema="dbo" store:Name="vProjectExpenses" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [vProjectExpenses].[Id] AS [Id], 
+      [vProjectExpenses].[Projects_ProjectId] AS [Projects_ProjectId], 
+      [vProjectExpenses].[SubjectName] AS [SubjectName], 
+      [vProjectExpenses].[Projectname] AS [Projectname], 
+      [vProjectExpenses].[CompanyUsingServiceId] AS [CompanyUsingServiceId]
+      FROM [dbo].[vProjectExpenses] AS [vProjectExpenses]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vProjects" EntityType="ProjectsModel.Store.vProjects" store:Type="Views" store:Schema="dbo" store:Name="vProjects" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [vProjects].[Id] AS [Id], 
+      [vProjects].[Name] AS [Name], 
+      [vProjects].[Active] AS [Active], 
+      [vProjects].[SubjectName] AS [SubjectName], 
+      [vProjects].[CompanyUsingServiceId] AS [CompanyUsingServiceId]
+      FROM [dbo].[vProjects] AS [vProjects]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vProjectsMaterialTracking" EntityType="ProjectsModel.Store.vProjectsMaterialTracking" store:Type="Views" store:Schema="dbo" store:Name="vProjectsMaterialTracking" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [vProjectsMaterialTracking].[Id] AS [Id], 
+      [vProjectsMaterialTracking].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vProjectsMaterialTracking].[ProductId] AS [ProductId], 
+      [vProjectsMaterialTracking].[Klijent] AS [Klijent], 
+      [vProjectsMaterialTracking].[DocumentDateTime] AS [DocumentDateTime], 
+      [vProjectsMaterialTracking].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vProjectsMaterialTracking].[ProductName] AS [ProductName], 
+      [vProjectsMaterialTracking].[UnitName] AS [UnitName], 
+      [vProjectsMaterialTracking].[ProjectName] AS [ProjectName], 
+      [vProjectsMaterialTracking].[SubjectName] AS [SubjectName], 
+      [vProjectsMaterialTracking].[ProductAmmount] AS [ProductAmmount]
+      FROM [dbo].[vProjectsMaterialTracking] AS [vProjectsMaterialTracking]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vProjectsTimeTracking" EntityType="ProjectsModel.Store.vProjectsTimeTracking" store:Type="Views" store:Schema="dbo" store:Name="vProjectsTimeTracking" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [vProjectsTimeTracking].[Id] AS [Id], 
+      [vProjectsTimeTracking].[Name] AS [Name], 
+      [vProjectsTimeTracking].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vProjectsTimeTracking].[Projects_ProjectId] AS [Projects_ProjectId], 
+      [vProjectsTimeTracking].[Work_OrderId] AS [Work_OrderId], 
+      [vProjectsTimeTracking].[ServiceName] AS [ServiceName], 
+      [vProjectsTimeTracking].[Klijent] AS [Klijent], 
+      [vProjectsTimeTracking].[UniqueIdentifier] AS [UniqueIdentifier], 
+      [vProjectsTimeTracking].[Hours] AS [Hours], 
+      [vProjectsTimeTracking].[Quantity] AS [Quantity], 
+      [vProjectsTimeTracking].[IsBillable] AS [IsBillable]
+      FROM [dbo].[vProjectsTimeTracking] AS [vProjectsTimeTracking]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <EntityType Name="Projects_Enums_ExpensType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Projects_Enums_Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="TaskRatePerHour" Type="decimal" Nullable="false" Scale="6" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Projects_MaterialTrackingLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Projects_ProjectId" Type="int" />
+          <Property Name="Documents_WorkOrderId" Type="int" />
+          <Property Name="OrdinalInProject" Type="int" />
+          <Property Name="OrdinalInWorkOrder" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="Product_Description" Type="nvarchar(max)" />
+          <Property Name="ProductUnitId" Type="int" />
+          <Property Name="ProductAmmount" Type="decimal" Scale="2" />
+          <Property Name="IsBillable" Type="bit" Nullable="false" />
+          <Property Name="Documents_Invoice_ItemsColId" Type="int" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Projects_Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="PayedInFull" Type="bit" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="MDSubjects_SubjectId" Type="int" />
+          <Property Name="IsInternal" Type="bit" />
+          <Property Name="BillingMethod" Type="tinyint" />
+          <Property Name="TimeBudget_Hours" Type="decimal" Scale="6" />
+          <Property Name="ProjectRatePerHour" Type="decimal" Scale="6" />
+          <Property Name="FlatAmount" Type="decimal" Scale="6" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Projects_Project_Expenses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Projects_ProjectId" Type="int" />
+          <Property Name="MDSubjects_SubjectId" Type="int" />
+          <Property Name="Projects_Enums_ExpensTypeId" Type="int" Nullable="false" />
+          <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Invoiced" Type="bit" />
+          <Property Name="Documents_InvoiceId" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Ordinal" Type="int" />
+        </EntityType>
+        <EntityType Name="Projects_Project_TeamMemebersCol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Projects_ProjectId" Type="int" Nullable="false" />
+          <Property Name="MDSubjects_SubjectId" Type="int" Nullable="false" />
+          <Property Name="MDEntities_ServiceId" Type="int" />
+          <Property Name="ContractorRebillRatePerHour" Type="decimal" Scale="2" />
+          <Property Name="ContractoRebillFlatAmount" Type="decimal" Scale="2" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Projects_TimeTrackingLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Projects_ProjectId" Type="int" />
+          <Property Name="Work_OrderId" Type="int" />
+          <Property Name="OrdinalInProject" Type="int" />
+          <Property Name="OrdinalInWorkOrder" Type="int" />
+          <Property Name="Documents_TravelOrderId" Type="int" />
+          <Property Name="MDEntities_ServiceId" Type="int" />
+          <Property Name="Service_Description" Type="nvarchar(max)" />
+          <Property Name="MDSubjects_SubjectTeamMemberId" Type="int" Nullable="false" />
+          <Property Name="ActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="BillingMethod" Type="tinyint" Nullable="false" />
+          <Property Name="Hours" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="IsBillable" Type="bit" Nullable="false" />
+          <Property Name="Documents_Invoice_ItemsColId" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="MDSubjects_EmployeeWhoChengedId" Type="int" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_ExpensType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_ExpensType">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Task' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_Task">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vProjectExpenses' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vProjectExpenses">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Projects_ProjectId" Type="int" />
+          <Property Name="SubjectName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Projectname" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vProjects' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vProjects">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="SubjectName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vProjectsMaterialTracking' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vProjectsMaterialTracking">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="Klijent" Type="nvarchar" MaxLength="100" />
+          <Property Name="DocumentDateTime" Type="datetime" />
+          <Property Name="UniqueIdentifier" Type="varchar" MaxLength="50" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="UnitName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="100" />
+          <Property Name="SubjectName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProductAmmount" Type="decimal" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vProjectsTimeTracking' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vProjectsTimeTracking">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+          <Property Name="Projects_ProjectId" Type="int" />
+          <Property Name="Work_OrderId" Type="int" />
+          <Property Name="ServiceName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Klijent" Type="nvarchar" MaxLength="100" />
+          <Property Name="UniqueIdentifier" Type="varchar" MaxLength="50" />
+          <Property Name="Hours" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Quantity" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="IsBillable" Type="bit" Nullable="false" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjectsModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ProjectsEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="Projects_Enums_ExpensType" EntityType="ProjectsModel.Projects_Enums_ExpensType" />
+          <EntitySet Name="Projects_Enums_Task" EntityType="ProjectsModel.Projects_Enums_Task" />
+          <EntitySet Name="Projects_MaterialTrackingLog" EntityType="ProjectsModel.Projects_MaterialTrackingLog" />
+          <EntitySet Name="Projects_Project" EntityType="ProjectsModel.Projects_Project" />
+          <EntitySet Name="Projects_Project_Expenses" EntityType="ProjectsModel.Projects_Project_Expenses" />
+          <EntitySet Name="Projects_Project_TeamMemebersCol" EntityType="ProjectsModel.Projects_Project_TeamMemebersCol" />
+          <EntitySet Name="Projects_TimeTrackingLog" EntityType="ProjectsModel.Projects_TimeTrackingLog" />
+          <AssociationSet Name="Projects_ProjectProjects_Project_TeamMemebersCol" Association="ProjectsModel.Projects_ProjectProjects_Project_TeamMemebersCol">
+            <End Role="Projects_Project" EntitySet="Projects_Project" />
+            <End Role="Projects_Project_TeamMemebersCol" EntitySet="Projects_Project_TeamMemebersCol" />
+          </AssociationSet>
+          <EntitySet Name="vEnums_ExpensType" EntityType="ProjectsModel.vEnums_ExpensType" />
+          <EntitySet Name="vEnums_Task" EntityType="ProjectsModel.vEnums_Task" />
+          <EntitySet Name="vProjects" EntityType="ProjectsModel.vProjects" />
+          <EntitySet Name="vProjectExpenses" EntityType="ProjectsModel.vProjectExpenses" />
+          <EntitySet Name="vProjectsMaterialTracking" EntityType="ProjectsModel.vProjectsMaterialTracking" />
+          <EntitySet Name="vProjectsTimeTracking" EntityType="ProjectsModel.vProjectsTimeTracking" />
+        </EntityContainer>
+        <EntityType Name="Projects_Enums_ExpensType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects_Enums_Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Label" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="TaskRatePerHour" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects_MaterialTrackingLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Projects_ProjectId" Type="Int32" />
+          <Property Name="Documents_WorkOrderId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ProductUnitId" Type="Int32" />
+          <Property Name="ProductAmmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsBillable" Type="Boolean" Nullable="false" />
+          <Property Name="Documents_Invoice_ItemsColId" Type="Int32" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+          <Property Type="Int32" Name="OrdinalInProject" />
+          <Property Type="Int32" Name="OrdinalInWorkOrder" />
+          <Property Type="String" Name="Product_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Projects_Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="PayedInFull" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MDSubjects_SubjectId" Type="Int32" />
+          <Property Name="IsInternal" Type="Boolean" />
+          <Property Name="BillingMethod" Type="Byte" />
+          <Property Name="TimeBudget_Hours" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ProjectRatePerHour" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="FlatAmount" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <NavigationProperty Name="Projects_Project_TeamMemebersCol" Relationship="ProjectsModel.Projects_ProjectProjects_Project_TeamMemebersCol" FromRole="Projects_Project" ToRole="Projects_Project_TeamMemebersCol" />
+          <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects_Project_Expenses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Projects_ProjectId" Type="Int32" />
+          <Property Name="MDSubjects_SubjectId" Type="Int32" />
+          <Property Name="Projects_Enums_ExpensTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Invoiced" Type="Boolean" />
+          <Property Name="Documents_InvoiceId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+          <Property Type="Int32" Name="Ordinal" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Projects_Project_TeamMemebersCol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Projects_ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="MDSubjects_SubjectId" Type="Int32" Nullable="false" />
+          <Property Name="MDEntities_ServiceId" Type="Int32" />
+          <Property Name="ContractorRebillRatePerHour" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ContractoRebillFlatAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <NavigationProperty Name="Projects_Project" Relationship="ProjectsModel.Projects_ProjectProjects_Project_TeamMemebersCol" FromRole="Projects_Project_TeamMemebersCol" ToRole="Projects_Project" />
+        </EntityType>
+        <EntityType Name="Projects_TimeTrackingLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Projects_ProjectId" Type="Int32" />
+          <Property Name="Work_OrderId" Type="Int32" />
+          <Property Name="Documents_TravelOrderId" Type="Int32" />
+          <Property Name="MDEntities_ServiceId" Type="Int32" />
+          <Property Name="MDSubjects_SubjectTeamMemberId" Type="Int32" Nullable="false" />
+          <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BillingMethod" Type="Byte" Nullable="false" />
+          <Property Name="Hours" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsBillable" Type="Boolean" Nullable="false" />
+          <Property Name="Documents_Invoice_ItemsColId" Type="Int32" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+          <Property Type="Int32" Name="OrdinalInProject" />
+          <Property Type="Int32" Name="OrdinalInWorkOrder" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Service_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="Projects_ProjectProjects_Project_TeamMemebersCol">
+          <End Type="ProjectsModel.Projects_Project" Role="Projects_Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ProjectsModel.Projects_Project_TeamMemebersCol" Role="Projects_Project_TeamMemebersCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects_Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects_Project_TeamMemebersCol">
+              <PropertyRef Name="Projects_ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vEnums_ExpensType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnums_Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Label" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vProjects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Active" />
+          <Property Type="String" Name="SubjectName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vProjectExpenses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Projects_ProjectId" />
+          <Property Type="String" Name="SubjectName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Projectname" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vProjectsMaterialTracking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+          <Property Type="Int32" Name="ProductId" />
+          <Property Type="String" Name="Klijent" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="DocumentDateTime" Precision="3" />
+          <Property Type="String" Name="UniqueIdentifier" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ProductName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UnitName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProjectName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SubjectName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="ProductAmmount" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="vProjectsTimeTracking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+          <Property Type="Int32" Name="Projects_ProjectId" />
+          <Property Type="Int32" Name="Work_OrderId" />
+          <Property Type="String" Name="Klijent" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UniqueIdentifier" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ServiceName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="Hours" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="IsBillable" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectsModelStoreContainer" CdmEntityContainer="ProjectsEntities">
+          <EntitySetMapping Name="Projects_Enums_ExpensType"><EntityTypeMapping TypeName="ProjectsModel.Projects_Enums_ExpensType"><MappingFragment StoreEntitySet="Projects_Enums_ExpensType">
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects_Enums_Task"><EntityTypeMapping TypeName="ProjectsModel.Projects_Enums_Task"><MappingFragment StoreEntitySet="Projects_Enums_Task">
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Label" ColumnName="Label" />
+            <ScalarProperty Name="TaskRatePerHour" ColumnName="TaskRatePerHour" />
+            <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects_MaterialTrackingLog"><EntityTypeMapping TypeName="ProjectsModel.Projects_MaterialTrackingLog"><MappingFragment StoreEntitySet="Projects_MaterialTrackingLog">
+            <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
+                <ScalarProperty Name="OrdinalInWorkOrder" ColumnName="OrdinalInWorkOrder" />
+                <ScalarProperty Name="OrdinalInProject" ColumnName="OrdinalInProject" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+            <ScalarProperty Name="Documents_WorkOrderId" ColumnName="Documents_WorkOrderId" />
+            <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+            <ScalarProperty Name="ProductUnitId" ColumnName="ProductUnitId" />
+            <ScalarProperty Name="ProductAmmount" ColumnName="ProductAmmount" />
+            <ScalarProperty Name="IsBillable" ColumnName="IsBillable" />
+            <ScalarProperty Name="Documents_Invoice_ItemsColId" ColumnName="Documents_Invoice_ItemsColId" />
+            <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects_Project"><EntityTypeMapping TypeName="ProjectsModel.Projects_Project"><MappingFragment StoreEntitySet="Projects_Project">
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+            <ScalarProperty Name="PayedInFull" ColumnName="PayedInFull" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+            <ScalarProperty Name="IsInternal" ColumnName="IsInternal" />
+            <ScalarProperty Name="BillingMethod" ColumnName="BillingMethod" />
+            <ScalarProperty Name="TimeBudget_Hours" ColumnName="TimeBudget_Hours" />
+            <ScalarProperty Name="ProjectRatePerHour" ColumnName="ProjectRatePerHour" />
+            <ScalarProperty Name="FlatAmount" ColumnName="FlatAmount" />
+            <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects_Project_Expenses"><EntityTypeMapping TypeName="ProjectsModel.Projects_Project_Expenses"><MappingFragment StoreEntitySet="Projects_Project_Expenses">
+            <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+            <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+            <ScalarProperty Name="Projects_Enums_ExpensTypeId" ColumnName="Projects_Enums_ExpensTypeId" />
+            <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+            <ScalarProperty Name="Amount" ColumnName="Amount" />
+            <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+            <ScalarProperty Name="Documents_InvoiceId" ColumnName="Documents_InvoiceId" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects_Project_TeamMemebersCol"><EntityTypeMapping TypeName="ProjectsModel.Projects_Project_TeamMemebersCol"><MappingFragment StoreEntitySet="Projects_Project_TeamMemebersCol">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+            <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+            <ScalarProperty Name="MDEntities_ServiceId" ColumnName="MDEntities_ServiceId" />
+            <ScalarProperty Name="ContractorRebillRatePerHour" ColumnName="ContractorRebillRatePerHour" />
+            <ScalarProperty Name="ContractoRebillFlatAmount" ColumnName="ContractoRebillFlatAmount" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects_TimeTrackingLog"><EntityTypeMapping TypeName="ProjectsModel.Projects_TimeTrackingLog"><MappingFragment StoreEntitySet="Projects_TimeTrackingLog">
+            <ScalarProperty Name="Service_Description" ColumnName="Service_Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="OrdinalInWorkOrder" ColumnName="OrdinalInWorkOrder" />
+                <ScalarProperty Name="OrdinalInProject" ColumnName="OrdinalInProject" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+            <ScalarProperty Name="Work_OrderId" ColumnName="Work_OrderId" />
+            <ScalarProperty Name="Documents_TravelOrderId" ColumnName="Documents_TravelOrderId" />
+            <ScalarProperty Name="MDEntities_ServiceId" ColumnName="MDEntities_ServiceId" />
+            <ScalarProperty Name="MDSubjects_SubjectTeamMemberId" ColumnName="MDSubjects_SubjectTeamMemberId" />
+            <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+            <ScalarProperty Name="BillingMethod" ColumnName="BillingMethod" />
+            <ScalarProperty Name="Hours" ColumnName="Hours" />
+            <ScalarProperty Name="IsBillable" ColumnName="IsBillable" />
+            <ScalarProperty Name="Documents_Invoice_ItemsColId" ColumnName="Documents_Invoice_ItemsColId" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="vEnums_ExpensType">
+            <EntityTypeMapping TypeName="ProjectsModel.vEnums_ExpensType">
+              <MappingFragment StoreEntitySet="vEnums_ExpensType">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_Task">
+            <EntityTypeMapping TypeName="ProjectsModel.vEnums_Task">
+              <MappingFragment StoreEntitySet="vEnums_Task">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vProjects">
+            <EntityTypeMapping TypeName="ProjectsModel.vProjects">
+              <MappingFragment StoreEntitySet="vProjects">
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vProjectExpenses">
+            <EntityTypeMapping TypeName="ProjectsModel.vProjectExpenses">
+              <MappingFragment StoreEntitySet="vProjectExpenses">
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Projectname" ColumnName="Projectname" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vProjectsMaterialTracking">
+            <EntityTypeMapping TypeName="ProjectsModel.vProjectsMaterialTracking">
+              <MappingFragment StoreEntitySet="vProjectsMaterialTracking">
+                <ScalarProperty Name="ProductAmmount" ColumnName="ProductAmmount" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+                <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+                <ScalarProperty Name="Klijent" ColumnName="Klijent" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vProjectsTimeTracking">
+            <EntityTypeMapping TypeName="ProjectsModel.vProjectsTimeTracking">
+              <MappingFragment StoreEntitySet="vProjectsTimeTracking">
+                <ScalarProperty Name="IsBillable" ColumnName="IsBillable" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+                <ScalarProperty Name="Klijent" ColumnName="Klijent" />
+                <ScalarProperty Name="Work_OrderId" ColumnName="Work_OrderId" />
+                <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Projects">
+        <EntityTypeShape EntityType="ProjectsModel.Projects_Enums_ExpensType" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333331" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectsModel.Projects_Enums_Task" Width="1.5" PointX="2.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectsModel.Projects_MaterialTrackingLog" Width="1.5" PointX="4.75" PointY="0.75" Height="3.7109993489583326" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectsModel.Projects_Project" Width="1.5" PointX="0.625" PointY="5.25" Height="3.9033007812499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectsModel.Projects_Project_Expenses" Width="1.5" PointX="5.125" PointY="5.25" Height="3.3263964843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectsModel.Projects_Project_TeamMemebersCol" Width="1.5" PointX="2.875" PointY="5.25" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectsModel.Projects_TimeTrackingLog" Width="1.5" PointX="6.75" PointY="0.75" Height="3.9033007812499996" IsExpanded="true" />
+        <AssociationConnector Association="ProjectsModel.Projects_ProjectProjects_Project_TeamMemebersCol">
+          <ConnectorPoint PointX="2.125" PointY="6.5285953776041659" />
+          <ConnectorPoint PointX="2.875" PointY="6.5285953776041659" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ProjectsModel.vEnums_ExpensType" Width="1.5" PointX="7.375" PointY="5.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ProjectsModel.vEnums_Task" Width="1.5" PointX="7.375" PointY="8.75" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="ProjectsModel.vProjects" Width="1.5" PointX="9.375" PointY="0.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ProjectsModel.vProjectExpenses" Width="1.5" PointX="9.375" PointY="3.75" Height="1.9802864583333353" />
+        <EntityTypeShape EntityType="ProjectsModel.vProjectsMaterialTracking" Width="1.5" PointX="3.375" PointY="9.75" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="ProjectsModel.vProjectsTimeTracking" Width="1.5" PointX="9.375" PointY="6.75" Height="2.5571907552083335" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

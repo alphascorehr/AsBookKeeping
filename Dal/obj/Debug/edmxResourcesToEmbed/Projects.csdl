@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectsModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="ProjectsEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+    <EntitySet Name="Projects_Enums_ExpensType" EntityType="ProjectsModel.Projects_Enums_ExpensType" />
+    <EntitySet Name="Projects_Enums_Task" EntityType="ProjectsModel.Projects_Enums_Task" />
+    <EntitySet Name="Projects_MaterialTrackingLog" EntityType="ProjectsModel.Projects_MaterialTrackingLog" />
+    <EntitySet Name="Projects_Project" EntityType="ProjectsModel.Projects_Project" />
+    <EntitySet Name="Projects_Project_Expenses" EntityType="ProjectsModel.Projects_Project_Expenses" />
+    <EntitySet Name="Projects_Project_TeamMemebersCol" EntityType="ProjectsModel.Projects_Project_TeamMemebersCol" />
+    <EntitySet Name="Projects_TimeTrackingLog" EntityType="ProjectsModel.Projects_TimeTrackingLog" />
+    <AssociationSet Name="Projects_ProjectProjects_Project_TeamMemebersCol" Association="ProjectsModel.Projects_ProjectProjects_Project_TeamMemebersCol">
+      <End Role="Projects_Project" EntitySet="Projects_Project" />
+      <End Role="Projects_Project_TeamMemebersCol" EntitySet="Projects_Project_TeamMemebersCol" />
+    </AssociationSet>
+    <EntitySet Name="vEnums_ExpensType" EntityType="ProjectsModel.vEnums_ExpensType" />
+    <EntitySet Name="vEnums_Task" EntityType="ProjectsModel.vEnums_Task" />
+    <EntitySet Name="vProjects" EntityType="ProjectsModel.vProjects" />
+    <EntitySet Name="vProjectExpenses" EntityType="ProjectsModel.vProjectExpenses" />
+    <EntitySet Name="vProjectsMaterialTracking" EntityType="ProjectsModel.vProjectsMaterialTracking" />
+    <EntitySet Name="vProjectsTimeTracking" EntityType="ProjectsModel.vProjectsTimeTracking" />
+  </EntityContainer>
+  <EntityType Name="Projects_Enums_ExpensType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects_Enums_Task">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Label" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="TaskRatePerHour" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects_MaterialTrackingLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Projects_ProjectId" Type="Int32" />
+    <Property Name="Documents_WorkOrderId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="ProductUnitId" Type="Int32" />
+    <Property Name="ProductAmmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IsBillable" Type="Boolean" Nullable="false" />
+    <Property Name="Documents_Invoice_ItemsColId" Type="Int32" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int32" Name="OrdinalInProject" />
+    <Property Type="Int32" Name="OrdinalInWorkOrder" />
+    <Property Type="String" Name="Product_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Projects_Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="PayedInFull" Type="Boolean" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MDSubjects_SubjectId" Type="Int32" />
+    <Property Name="IsInternal" Type="Boolean" />
+    <Property Name="BillingMethod" Type="Byte" />
+    <Property Name="TimeBudget_Hours" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="ProjectRatePerHour" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="FlatAmount" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Projects_Project_TeamMemebersCol" Relationship="ProjectsModel.Projects_ProjectProjects_Project_TeamMemebersCol" FromRole="Projects_Project" ToRole="Projects_Project_TeamMemebersCol" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects_Project_Expenses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Projects_ProjectId" Type="Int32" />
+    <Property Name="MDSubjects_SubjectId" Type="Int32" />
+    <Property Name="Projects_Enums_ExpensTypeId" Type="Int32" Nullable="false" />
+    <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Invoiced" Type="Boolean" />
+    <Property Name="Documents_InvoiceId" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Projects_Project_TeamMemebersCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Projects_ProjectId" Type="Int32" Nullable="false" />
+    <Property Name="MDSubjects_SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="MDEntities_ServiceId" Type="Int32" />
+    <Property Name="ContractorRebillRatePerHour" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ContractoRebillFlatAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Projects_Project" Relationship="ProjectsModel.Projects_ProjectProjects_Project_TeamMemebersCol" FromRole="Projects_Project_TeamMemebersCol" ToRole="Projects_Project" />
+  </EntityType>
+  <EntityType Name="Projects_TimeTrackingLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Projects_ProjectId" Type="Int32" />
+    <Property Name="Work_OrderId" Type="Int32" />
+    <Property Name="Documents_TravelOrderId" Type="Int32" />
+    <Property Name="MDEntities_ServiceId" Type="Int32" />
+    <Property Name="MDSubjects_SubjectTeamMemberId" Type="Int32" Nullable="false" />
+    <Property Name="ActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BillingMethod" Type="Byte" Nullable="false" />
+    <Property Name="Hours" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="IsBillable" Type="Boolean" Nullable="false" />
+    <Property Name="Documents_Invoice_ItemsColId" Type="Int32" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int32" Name="OrdinalInProject" />
+    <Property Type="Int32" Name="OrdinalInWorkOrder" />
+    <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="Service_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="Projects_ProjectProjects_Project_TeamMemebersCol">
+    <End Type="ProjectsModel.Projects_Project" Role="Projects_Project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ProjectsModel.Projects_Project_TeamMemebersCol" Role="Projects_Project_TeamMemebersCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects_Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projects_Project_TeamMemebersCol">
+        <PropertyRef Name="Projects_ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="vEnums_ExpensType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_Task">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vProjects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Active" />
+    <Property Type="String" Name="SubjectName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vProjectExpenses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="Projects_ProjectId" />
+    <Property Type="String" Name="SubjectName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Projectname" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vProjectsMaterialTracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int32" Name="ProductId" />
+    <Property Type="String" Name="Klijent" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="DocumentDateTime" Precision="3" />
+    <Property Type="String" Name="UniqueIdentifier" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ProductName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="UnitName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ProjectName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SubjectName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="ProductAmmount" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="vProjectsTimeTracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int32" Name="Projects_ProjectId" />
+    <Property Type="Int32" Name="Work_OrderId" />
+    <Property Type="String" Name="Klijent" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="UniqueIdentifier" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ServiceName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Hours" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="IsBillable" Nullable="false" />
+  </EntityType>
+</Schema>

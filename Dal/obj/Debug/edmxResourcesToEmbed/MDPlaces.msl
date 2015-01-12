@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MDPlacesModelStoreContainer" CdmEntityContainer="MDPlacesEntities">
+    <EntitySetMapping Name="MDPlaces_Enums_Geo_Country">
+      <EntityTypeMapping TypeName="MDPlacesModel.MDPlaces_Enums_Geo_Country">
+        <MappingFragment StoreEntitySet="MDPlaces_Enums_Geo_Country">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+          <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDPlaces_Enums_Geo_Place">
+      <EntityTypeMapping TypeName="MDPlacesModel.MDPlaces_Enums_Geo_Place">
+        <MappingFragment StoreEntitySet="MDPlaces_Enums_Geo_Place">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ZIPCode" ColumnName="ZIPCode" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDPlaces_Enums_Geo_Region">
+      <EntityTypeMapping TypeName="MDPlacesModel.MDPlaces_Enums_Geo_Region">
+        <MappingFragment StoreEntitySet="MDPlaces_Enums_Geo_Region">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDPlaces_Enums_OgranizationalUnit">
+      <EntityTypeMapping TypeName="MDPlacesModel.MDPlaces_Enums_OgranizationalUnit">
+        <MappingFragment StoreEntitySet="MDPlaces_Enums_OgranizationalUnit">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="UserWhoLastChanedItUserId" ColumnName="UserWhoLastChanedItUserId" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_Geo_Country">
+      <EntityTypeMapping TypeName="MDPlacesModel.vEnums_Geo_Country">
+        <MappingFragment StoreEntitySet="vEnums_Geo_Country">
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_Geo_Place">
+      <EntityTypeMapping TypeName="MDPlacesModel.vEnums_Geo_Place">
+        <MappingFragment StoreEntitySet="vEnums_Geo_Place">
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="ZIPCode" ColumnName="ZIPCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_Geo_Region">
+      <EntityTypeMapping TypeName="MDPlacesModel.vEnums_Geo_Region">
+        <MappingFragment StoreEntitySet="vEnums_Geo_Region">
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

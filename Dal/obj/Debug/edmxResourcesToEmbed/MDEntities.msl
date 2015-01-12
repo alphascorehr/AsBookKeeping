@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MDEntitiesModelStoreContainer" CdmEntityContainer="MDEntitiesEntities">
+    <EntitySetMapping Name="MDEntities_Entity">
+      <EntityTypeMapping TypeName="IsTypeOf(MDEntitiesModel.MDEntities_Entity)">
+        <MappingFragment StoreEntitySet="MDEntities_Entity">
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="TaxRateId" ColumnName="TaxRateId" />
+          <ScalarProperty Name="EmployeeWhoLastChanedItUserId" ColumnName="EmployeeWhoLastChanedItUserId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MDEntities_Enums_EntityGroupId" ColumnName="MDEntities_Enums_EntityGroupId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MDEntitiesModel.MDEntities_Service)">
+        <MappingFragment StoreEntitySet="MDEntities_Service">
+          <ScalarProperty Name="WholesalePrice" ColumnName="WholesalePrice" />
+          <ScalarProperty Name="AllProjects" ColumnName="AllProjects" />
+          <ScalarProperty Name="IsBillable" ColumnName="IsBillable" />
+          <ScalarProperty Name="WholesaleTaskRatePerHour" ColumnName="WholesaleTaskRatePerHour" />
+          <ScalarProperty Name="WholesaleTaskRatePerDay" ColumnName="WholesaleTaskRatePerDay" />
+          <ScalarProperty Name="WholesaleTaskRatePerMonth" ColumnName="WholesaleTaskRatePerMonth" />
+          <ScalarProperty Name="Id" ColumnName="EntityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MDEntitiesModel.MDEntities_Product)">
+        <MappingFragment StoreEntitySet="MDEntities_Product">
+          <ScalarProperty Name="WholesalePrice" ColumnName="WholesalePrice" />
+          <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+          <ScalarProperty Name="Id" ColumnName="EntityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDEntities_Enums_EntityGroup">
+      <EntityTypeMapping TypeName="MDEntitiesModel.MDEntities_Enums_EntityGroup">
+        <MappingFragment StoreEntitySet="MDEntities_Enums_EntityGroup">
+          <ScalarProperty Name="EmployeeWhoLastChanedItUserId" ColumnName="EmployeeWhoLastChanedItUserId" />
+          <ScalarProperty Name="MDEntities_Enums_EntityParentGroupId" ColumnName="MDEntities_Enums_EntityParentGroupId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDEntities_Enums_Unit">
+      <EntityTypeMapping TypeName="MDEntitiesModel.MDEntities_Enums_Unit">
+        <MappingFragment StoreEntitySet="MDEntities_Enums_Unit">
+          <ScalarProperty Name="IsDefaultTimeTracking" ColumnName="IsDefaultTimeTracking" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="EmployeeWhoLastChanedItUserId" ColumnName="EmployeeWhoLastChanedItUserId" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDEntities_Product_PicturesCol">
+      <EntityTypeMapping TypeName="MDEntitiesModel.MDEntities_Product_PicturesCol">
+        <MappingFragment StoreEntitySet="MDEntities_Product_PicturesCol">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDEntities_Enums_TaxRate">
+      <EntityTypeMapping TypeName="MDEntitiesModel.MDEntities_Enums_TaxRate">
+        <MappingFragment StoreEntitySet="MDEntities_Enums_TaxRate">
+          <ScalarProperty Name="IsService" ColumnName="IsService" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="EmployeeWhoLastChanedItUserId" ColumnName="EmployeeWhoLastChanedItUserId" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_TaxRate">
+      <EntityTypeMapping TypeName="MDEntitiesModel.vEnums_TaxRate">
+        <MappingFragment StoreEntitySet="vEnums_TaxRate">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_Unit">
+      <EntityTypeMapping TypeName="MDEntitiesModel.vEnums_Unit">
+        <MappingFragment StoreEntitySet="vEnums_Unit">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEntities">
+      <EntityTypeMapping TypeName="MDEntitiesModel.vEntities">
+        <MappingFragment StoreEntitySet="vEntities">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="TaxRateId" ColumnName="TaxRateId" />
+          <ScalarProperty Name="EntityType" ColumnName="EntityType" />
+          <ScalarProperty Name="WholesalePrice" ColumnName="WholesalePrice" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_Document_ForEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(MDEntitiesModel.Documents_Document_ForEntities)">
+        <MappingFragment StoreEntitySet="Documents_Document">
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="CashBoxCode" ColumnName="CashBoxCode" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Locked" ColumnName="Locked" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MDSubjects_Employee_AuthorId" ColumnName="MDSubjects_Employee_AuthorId" />
+          <ScalarProperty Name="CreationDateTime" ColumnName="CreationDateTime" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="OrdinalNumberInYear" ColumnName="OrdinalNumberInYear" />
+          <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+          <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentType" ColumnName="DocumentType" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MDEntitiesModel.Documents_PriceList_ForEntities)">
+        <MappingFragment StoreEntitySet="Documents_PriceList">
+          <ScalarProperty Name="Id" ColumnName="DocumentId" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents_PriceList_ItemsCol_ForEntities">
+      <EntityTypeMapping TypeName="MDEntitiesModel.Documents_PriceList_ItemsCol_ForEntities">
+        <MappingFragment StoreEntitySet="Documents_PriceList_ItemsCol">
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="WholesalePriceOption1" ColumnName="WholesalePriceOption1" />
+          <ScalarProperty Name="WholesalePrice" ColumnName="WholesalePrice" />
+          <ScalarProperty Name="CalcualtedWholesalePrice" ColumnName="CalcualtedWholesalePrice" />
+          <ScalarProperty Name="MDEntities_EntityId" ColumnName="MDEntities_EntityId" />
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDEntities_SifreNamjena">
+      <EntityTypeMapping TypeName="MDEntitiesModel.MDEntities_SifreNamjena">
+        <MappingFragment StoreEntitySet="MDEntities_SifreNamjena">
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="SifreNamjena" ColumnName="SifreNamjena" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

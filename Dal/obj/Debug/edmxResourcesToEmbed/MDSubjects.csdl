@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MDSubjectsModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MDSubjectsEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+    <EntitySet Name="MDSubjects_Enums_Bank" EntityType="MDSubjectsModel.MDSubjects_Enums_Bank" />
+    <EntitySet Name="MDSubjects_Enums_CompanyType" EntityType="MDSubjectsModel.MDSubjects_Enums_CompanyType" />
+    <EntitySet Name="MDSubjects_Enums_CoreBussiness" EntityType="MDSubjectsModel.MDSubjects_Enums_CoreBussiness" />
+    <EntitySet Name="MDSubjects_Enums_EducationDegree" EntityType="MDSubjectsModel.MDSubjects_Enums_EducationDegree" />
+    <EntitySet Name="MDSubjects_Enums_Function" EntityType="MDSubjectsModel.MDSubjects_Enums_Function" />
+    <EntitySet Name="MDSubjects_Enums_SoleProprietorType" EntityType="MDSubjectsModel.MDSubjects_Enums_SoleProprietorType" />
+    <EntitySet Name="MDSubjects_Subject" EntityType="MDSubjectsModel.MDSubjects_Subject" />
+    <EntitySet Name="MDSubjects_Subject_AccountsCol" EntityType="MDSubjectsModel.MDSubjects_Subject_AccountsCol" />
+    <EntitySet Name="MDSubjects_Subject_ContactsCol" EntityType="MDSubjectsModel.MDSubjects_Subject_ContactsCol" />
+    <EntitySet Name="MDSubjects_Subject_PermissionsForClientsCol" EntityType="MDSubjectsModel.MDSubjects_Subject_PermissionsForClientsCol" />
+    <AssociationSet Name="MDSubjects_SubjectMDSubjects_Subject_AccountsCol" Association="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_AccountsCol">
+      <End Role="MDSubjects_Subject" EntitySet="MDSubjects_Subject" />
+      <End Role="MDSubjects_Subject_AccountsCol" EntitySet="MDSubjects_Subject_AccountsCol" />
+    </AssociationSet>
+    <AssociationSet Name="MDSubjects_SubjectMDSubjects_Subject_ContactsCol" Association="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_ContactsCol">
+      <End Role="MDSubjects_Subject" EntitySet="MDSubjects_Subject" />
+      <End Role="MDSubjects_Subject_ContactsCol" EntitySet="MDSubjects_Subject_ContactsCol" />
+    </AssociationSet>
+    <AssociationSet Name="MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol" Association="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol">
+      <End Role="MDSubjects_Subject" EntitySet="MDSubjects_Subject" />
+      <End Role="MDSubjects_Subject_PermissionsForClientsCol" EntitySet="MDSubjects_Subject_PermissionsForClientsCol" />
+    </AssociationSet>
+    <EntitySet Name="Auth_Company" EntityType="MDSubjectsModel.Auth_Company" />
+    <EntitySet Name="vCustomers" EntityType="MDSubjectsModel.vCustomers" />
+    <EntitySet Name="vContractors" EntityType="MDSubjectsModel.vContractors" />
+    <EntitySet Name="vEnums_Bank" EntityType="MDSubjectsModel.vEnums_Bank" />
+    <EntitySet Name="vEnums_CompanyType" EntityType="MDSubjectsModel.vEnums_CompanyType" />
+    <EntitySet Name="vEnums_CoreBussiness" EntityType="MDSubjectsModel.vEnums_CoreBussiness" />
+    <EntitySet Name="vEnums_EducationDegree" EntityType="MDSubjectsModel.vEnums_EducationDegree" />
+    <EntitySet Name="vEnums_Function" EntityType="MDSubjectsModel.vEnums_Function" />
+    <EntitySet Name="vEnums_SoleProprietorType" EntityType="MDSubjectsModel.vEnums_SoleProprietorType" />
+    <EntitySet Name="MDPlaces_Enums_Geo_PlaceForSubjects" EntityType="MDSubjectsModel.MDPlaces_Enums_Geo_PlaceForSubjects" />
+    <EntitySet Name="MDGeneral_Enums_Currency_subjects" EntityType="MDSubjectsModel.MDGeneral_Enums_Currency_subjects" />
+  </EntityContainer>
+  <EntityType Name="MDSubjects_Company" BaseType="MDSubjectsModel.MDSubjects_Subject">
+    <Property Name="EstablishedDate" Type="DateTime" Precision="3" />
+    <Property Name="NumberOfEmployees" Type="Int32" />
+    <Property Name="CoreBusinessDescription" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="CRO_MBR" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+    <Property Type="Int32" Name="MDSubjects_Enums_CompanyTypeId" />
+    <Property Type="Int32" Name="MDSubjects_Enums_CoreBussinessId" />
+    <Property Type="Int32" Name="BillToAddress_PlaceId" />
+    <Property Type="String" Name="BillToAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="PDVType" />
+    <Property Type="DateTime" Name="IS_Date" Precision="3" />
+    <Property Type="Int32" Name="IS_MDGeneral_Enums_CurrencyId" />
+    <Property Type="Decimal" Name="IS_Course" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="IS_DemandFromPartner" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="IS_DebitToPartner" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Employee" BaseType="MDSubjectsModel.MDSubjects_Subject">
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Mobile" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Type="Boolean" Name="IsAdmin" />
+    <Property Type="String" Name="HomePhone" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="MDPlaces_Enums_OgranizationalUnitId" />
+    <Property Type="Int32" Name="MDSubjects_Enums_FunctionId" />
+    <Property Type="Int32" Name="MDSubjects_Enums_EducationDegreeId" />
+    <Property Type="Decimal" Name="BillingRatePerHour" Precision="18" Scale="2" />
+    <Property Type="String" Name="UserName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Password" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="IncomingInvoice" />
+    <Property Type="Boolean" Name="Invoice" />
+    <Property Type="Boolean" Name="Offer" />
+    <Property Type="Boolean" Name="Quote" />
+    <Property Type="Boolean" Name="TravelOrder" />
+    <Property Type="Boolean" Name="WorkOrder" />
+    <Property Type="Boolean" Name="PriceList" />
+    <Property Type="Boolean" Name="Payment" />
+    <Property Type="Boolean" Name="FirstPage" />
+    <Property Type="Boolean" Name="Compensation" />
+    <Property Type="Boolean" Name="TransferOrder" />
+    <Property Type="String" Name="CashierCode" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="FiscalMode" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Enums_Bank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="Int32" Name="HomeAddress_PlaceId" />
+    <Property Type="String" Name="HomeAddress" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="HomeAddress_CountryNumber" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Enums_CompanyType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Immutable" Type="Boolean" />
+    <Property Name="EnumNumber" Type="Int32" />
+    <Property Name="Inactive" Type="Boolean" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Enums_CoreBussiness">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Label" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Immutable" Type="Boolean" />
+    <Property Name="Inactive" Type="Boolean" />
+    <Property Name="EnumNumber" Type="Int32" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Enums_EducationDegree">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Label" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Immutable" Type="Boolean" />
+    <Property Name="Inactive" Type="Boolean" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="EnumNumber" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Enums_Function">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Label" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="IsManagment" Type="Boolean" Nullable="false" />
+    <Property Name="Immutable" Type="Boolean" />
+    <Property Name="Inactive" Type="Boolean" />
+    <Property Name="EnumNumber" Type="Int32" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Enums_SoleProprietorType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="EnumNumber" Type="Int32" />
+    <Property Name="Inactive" Type="Boolean" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Boolean" Name="Immutable" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Obrt" BaseType="MDSubjectsModel.MDSubjects_Subject">
+    <Property Name="JMBG" Type="String" MaxLength="13" Unicode="true" FixedLength="true" />
+    <Property Name="ImeVlasnika" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="PrezimeVlasnika" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="SezonskiObrt" Type="Boolean" />
+    <Property Name="DjelatnostOpis" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="Int32" Name="MDSubjects_Enums_CoreBussinessId" />
+    <Property Type="Int32" Name="BillToAddress_PlaceId" />
+    <Property Type="String" Name="BillToAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Person" BaseType="MDSubjectsModel.MDSubjects_Subject">
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="SurName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Gender" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+    <Property Name="EmployerName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Type="Int32" Name="MDSubjects_Subject_EmployerId" />
+    <Property Type="String" Name="CRO_JMBG" MaxLength="13" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="HomePhone" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BusinessPhone" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Mobile" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MDSubjects_SoleProprietor" BaseType="MDSubjectsModel.MDSubjects_Subject">
+    <Property Name="EstablishedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Equity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="CoreBusinessDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="Int32" Name="MDSubjects_Enums_SoleProprietorTypeId" Nullable="false" />
+    <Property Type="Int32" Name="MDSubjects_Enums_CoreBussinessId" />
+    <Property Type="Int32" Name="BillToAddress_PlaceId" Nullable="false" />
+    <Property Type="String" Name="BillToAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Subject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="CompanyUsingServiceId" Type="Int32" Nullable="false" />
+    <Property Name="GUID" Type="Guid" Nullable="false" />
+    <Property Name="SubjectType" Type="Int16" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="LongName" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="Resident" Type="Boolean" Nullable="false" />
+    <Property Name="IsCustomer" Type="Boolean" />
+    <Property Name="Inactive" Type="Boolean" Nullable="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Boolean" Name="IsContractor" />
+    <Property Type="Int32" Name="HomeAddress_PlaceId" />
+    <Property Type="String" Name="HomeAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MDSubjects_Subject_AccountsCol" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_AccountsCol" FromRole="MDSubjects_Subject" ToRole="MDSubjects_Subject_AccountsCol" />
+    <NavigationProperty Name="MDSubjects_Subject_ContactsCol" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_ContactsCol" FromRole="MDSubjects_Subject" ToRole="MDSubjects_Subject_ContactsCol" />
+    <NavigationProperty Name="MDSubjects_Subject_PermissionsForClientsCol" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol" FromRole="MDSubjects_Subject" ToRole="MDSubjects_Subject_PermissionsForClientsCol" />
+    <Property Type="Int32" Name="EmployeeWhoLastChanedItId" Nullable="false" />
+    <Property Type="String" Name="OIB" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Boolean" Name="IndividualCustomer" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Subject_AccountsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Inactive" Type="Boolean" Nullable="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDSubjects_SubjectId" Nullable="false" />
+    <Property Type="Int32" Name="MDSubjects_Enums_BankId" Nullable="false" />
+    <Property Type="Int32" Name="MDGeneral_Enums_CurrencyId" Nullable="false" />
+    <Property Type="DateTime" Name="LastActivityDate" Precision="3" />
+    <NavigationProperty Name="MDSubjects_Subject" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_AccountsCol" FromRole="MDSubjects_Subject_AccountsCol" ToRole="MDSubjects_Subject" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Subject_ContactsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="ContactSubjectId" Type="Int32" />
+    <Property Name="ContactSubjecName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="ContactSubjectFunctionId" Type="Int32" />
+    <Property Name="Mobile" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Fax" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Inactive" Type="Boolean" Nullable="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDSubjects_SubjectId" Nullable="false" />
+    <Property Type="String" Name="BusinessPhone" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MDSubjects_Subject" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_ContactsCol" FromRole="MDSubjects_Subject_ContactsCol" ToRole="MDSubjects_Subject" />
+  </EntityType>
+  <EntityType Name="MDSubjects_Subject_PermissionsForClientsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="MDSubjects_SubjectId" Nullable="false" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeId" Nullable="false" />
+    <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="MDSubjects_Subject" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol" FromRole="MDSubjects_Subject_PermissionsForClientsCol" ToRole="MDSubjects_Subject" />
+  </EntityType>
+  <Association Name="MDSubjects_SubjectMDSubjects_Subject_AccountsCol">
+    <End Type="MDSubjectsModel.MDSubjects_Subject" Role="MDSubjects_Subject" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MDSubjectsModel.MDSubjects_Subject_AccountsCol" Role="MDSubjects_Subject_AccountsCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MDSubjects_Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MDSubjects_Subject_AccountsCol">
+        <PropertyRef Name="MDSubjects_SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MDSubjects_SubjectMDSubjects_Subject_ContactsCol">
+    <End Type="MDSubjectsModel.MDSubjects_Subject" Role="MDSubjects_Subject" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MDSubjectsModel.MDSubjects_Subject_ContactsCol" Role="MDSubjects_Subject_ContactsCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MDSubjects_Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MDSubjects_Subject_ContactsCol">
+        <PropertyRef Name="MDSubjects_SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol">
+    <End Type="MDSubjectsModel.MDSubjects_Subject" Role="MDSubjects_Subject" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MDSubjectsModel.MDSubjects_Subject_PermissionsForClientsCol" Role="MDSubjects_Subject_PermissionsForClientsCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MDSubjects_Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MDSubjects_Subject_PermissionsForClientsCol">
+        <PropertyRef Name="MDSubjects_SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Auth_Company">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="OIB" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Binary" Name="SystemLogo" MaxLength="Max" FixedLength="false" />
+    <Property Type="Binary" Name="InvoiceLogo" MaxLength="Max" FixedLength="false" />
+    <Property Type="Binary" Name="HighQualityLogo" MaxLength="Max" FixedLength="false" />
+    <Property Type="Int32" Name="TimeZoneId" />
+    <Property Type="String" Name="ContactPerson" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BusinessPhone" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Mobile" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="StaffCanSendInvoiceAndQuotes" />
+    <Property Type="Boolean" Name="StaffCanSeeReports" />
+    <Property Type="Boolean" Name="StaffProjectAccess" />
+    <Property Type="String" Name="AccountURL" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="MDPlaces_Enums_Geo_CountryId" />
+    <Property Type="Int32" Name="MDGeneral_Enums_CurrencyId" />
+    <Property Type="Int32" Name="HomeAddress_PlaceId" />
+    <Property Type="String" Name="HomeAddress_State" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="NumberOfUsers" Nullable="false" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="DateTime" Name="ActivationDate" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="NumbnerOfDays" Nullable="false" />
+    <Property Type="Int32" Name="NumberOfUsersOrdered" />
+    <Property Type="Int32" Name="PDVType" />
+    <Property Type="Int32" Name="FirstNumberDispatch" />
+    <Property Type="Int32" Name="FirstNumberIncomingInvoice" />
+    <Property Type="Int32" Name="FirstNumberInvoice" />
+    <Property Type="Int32" Name="FirstNumberOffer" />
+    <Property Type="Int32" Name="FirstNumberOrderForm" />
+    <Property Type="Int32" Name="FirstNumberPayment" />
+    <Property Type="Int32" Name="FirstNumberPayoff" />
+    <Property Type="Int32" Name="FirstNumberPriceList" />
+    <Property Type="Int32" Name="FirstNumberQuote" />
+    <Property Type="Int32" Name="FirstNumberTakeoverOfGoods" />
+    <Property Type="Int32" Name="FirstNumberTravelOrder" />
+    <Property Type="Int32" Name="FirstNumberWorkOrder" />
+    <Property Type="String" Name="Account" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Account1" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Account2" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Account3" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="FiscalizationConsistenceCode" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Type="Boolean" Name="TaxPayer" />
+    <Property Type="Decimal" Name="ConsumptionTax" Precision="18" Scale="6" />
+    <Property Type="Binary" Name="Certificate" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="Password" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vCustomers">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="HomeAddress_PlaceName" />
+      <PropertyRef Name="HomeAddress_ZIPCode" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="SubjectType" Nullable="false" />
+    <Property Type="String" Name="SubjectTypeText" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int32" Name="HomeAddress_PlaceId" />
+    <Property Type="String" Name="HomeAddress_PlaceName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_ZIPCode" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="BillToAddress_PlaceId" />
+    <Property Type="String" Name="BillToAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vContractors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="SubjectType" Nullable="false" />
+    <Property Type="String" Name="SubjectTypeText" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_Bank">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Inactive" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Number" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_CompanyType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_CoreBussiness">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Label" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_EducationDegree">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Label" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_Function">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Label" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="IsManagment" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vEnums_SoleProprietorType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MDPlaces_Enums_Geo_PlaceForSubjects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ZIPCode" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
+    <Property Type="Int32" Name="RegionId" />
+    <Property Type="Int32" Name="Distance" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+  </EntityType>
+  <EntityType Name="MDGeneral_Enums_Currency_subjects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Measure" Nullable="false" />
+    <Property Type="Int32" Name="DecimalPlaces" Nullable="false" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="Boolean" Name="DefaultCurrency" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+  </EntityType>
+</Schema>

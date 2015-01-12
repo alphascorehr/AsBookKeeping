@@ -1,0 +1,1878 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DocumentsModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="DocumentsEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+    <EntitySet Name="Documents_Document" EntityType="DocumentsModel.Documents_Document" />
+    <EntitySet Name="Documents_Enums_DispatchType" EntityType="DocumentsModel.Documents_Enums_DispatchType" />
+    <EntitySet Name="Documents_ItemsCol" EntityType="DocumentsModel.Documents_ItemsCol" />
+    <EntitySet Name="Documents_Offer_MaturityCol" EntityType="DocumentsModel.Documents_Offer_MaturityCol" />
+    <EntitySet Name="Documents_PaymentClosureGCol" EntityType="DocumentsModel.Documents_PaymentClosureGCol" />
+    <EntitySet Name="Documents_PaymentItemsCol" EntityType="DocumentsModel.Documents_PaymentItemsCol" />
+    <EntitySet Name="Documents_PriceList_ItemsCol" EntityType="DocumentsModel.Documents_PriceList_ItemsCol" />
+    <AssociationSet Name="Documents_DocumentDocuments_ItemsCol" Association="DocumentsModel.Documents_DocumentDocuments_ItemsCol">
+      <End Role="Documents_Document" EntitySet="Documents_Document" />
+      <End Role="Documents_ItemsCol" EntitySet="Documents_ItemsCol" />
+    </AssociationSet>
+    <AssociationSet Name="Documents_OfferDocuments_Offer_MaturityCol" Association="DocumentsModel.Documents_OfferDocuments_Offer_MaturityCol">
+      <End Role="Documents_Offer" EntitySet="Documents_Document" />
+      <End Role="Documents_Offer_MaturityCol" EntitySet="Documents_Offer_MaturityCol" />
+    </AssociationSet>
+    <AssociationSet Name="Documents_PaymentItemsColDocuments_PaymentClosureGCol" Association="DocumentsModel.Documents_PaymentItemsColDocuments_PaymentClosureGCol">
+      <End Role="Documents_PaymentItemsCol" EntitySet="Documents_PaymentItemsCol" />
+      <End Role="Documents_PaymentClosureGCol" EntitySet="Documents_PaymentClosureGCol" />
+    </AssociationSet>
+    <AssociationSet Name="Documents_PriceListDocuments_PriceList_ItemsCol" Association="DocumentsModel.Documents_PriceListDocuments_PriceList_ItemsCol">
+      <End Role="Documents_PriceList" EntitySet="Documents_Document" />
+      <End Role="Documents_PriceList_ItemsCol" EntitySet="Documents_PriceList_ItemsCol" />
+    </AssociationSet>
+    <AssociationSet Name="Documents_PaymentDocuments_PaymentItemsCol" Association="DocumentsModel.Documents_PaymentDocuments_PaymentItemsCol">
+      <End Role="Documents_Payment" EntitySet="Documents_Document" />
+      <End Role="Documents_PaymentItemsCol" EntitySet="Documents_PaymentItemsCol" />
+    </AssociationSet>
+    <FunctionImport Name="GetDocumentsForPayment" ReturnType="Collection(DocumentsModel.GetDocumentsForPayment_Result)">
+      <Parameter Name="DatumIzvoda" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <EntitySet Name="vEnums_DispatchType" EntityType="DocumentsModel.vEnums_DispatchType" />
+    <EntitySet Name="vInvoice" EntityType="DocumentsModel.vInvoice" />
+    <EntitySet Name="vIncomingInvoice" EntityType="DocumentsModel.vIncomingInvoice" />
+    <EntitySet Name="vOrderForm" EntityType="DocumentsModel.vOrderForm" />
+    <EntitySet Name="vOffer" EntityType="DocumentsModel.vOffer" />
+    <EntitySet Name="vQuote" EntityType="DocumentsModel.vQuote" />
+    <EntitySet Name="vPriceList" EntityType="DocumentsModel.vPriceList" />
+    <EntitySet Name="vPayments" EntityType="DocumentsModel.vPayments" />
+    <EntitySet Name="vEntityPriceList" EntityType="DocumentsModel.vEntityPriceList" />
+    <EntitySet Name="vDocuments" EntityType="DocumentsModel.vDocuments" />
+    <EntitySet Name="vDocumentDetails" EntityType="DocumentsModel.vDocumentDetails" />
+    <EntitySet Name="vInvoicePayments" EntityType="DocumentsModel.vInvoicePayments" />
+    <EntitySet Name="vPaymentsInAdvance" EntityType="DocumentsModel.vPaymentsInAdvance" />
+    <EntitySet Name="vDocuments_ForPrint" EntityType="DocumentsModel.vDocuments_ForPrint" />
+    <EntitySet Name="vReportWorkOrder" EntityType="DocumentsModel.vReportWorkOrder" />
+    <EntitySet Name="vWorkOrderMaterial" EntityType="DocumentsModel.vWorkOrderMaterial" />
+    <EntitySet Name="vAuth_Company" EntityType="DocumentsModel.vAuth_Company" />
+    <EntitySet Name="vWorkOrderTime" EntityType="DocumentsModel.vWorkOrderTime" />
+    <EntitySet Name="vDocumentTaxesByTypes" EntityType="DocumentsModel.vDocumentTaxesByTypes" />
+    <EntitySet Name="vQuotePayments" EntityType="DocumentsModel.vQuotePayments" />
+    <FunctionImport Name="uspWorkOrder2Invoice" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspOffer2Invoice" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspOffer2Quote" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspOffer2Dispatch" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspQuote2Invoice" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspQuote2Dispatch" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="vDispatchForPrint" EntityType="DocumentsModel.vDispatchForPrint" />
+    <EntitySet Name="vDispatchDetails" EntityType="DocumentsModel.vDispatchDetails" />
+    <EntitySet Name="vEntitiesForDocuments" EntityType="DocumentsModel.vEntitiesForDocuments" />
+    <FunctionImport Name="uspInvoice2Dispatch" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Documents_TravelOrder_OtherExpensesCol" EntityType="DocumentsModel.Documents_TravelOrder_OtherExpensesCol" />
+    <EntitySet Name="Documents_TravelOrder_TravelCostsCol" EntityType="DocumentsModel.Documents_TravelOrder_TravelCostsCol" />
+    <EntitySet Name="Documents_TravelOrder_WageCol" EntityType="DocumentsModel.Documents_TravelOrder_WageCol" />
+    <AssociationSet Name="Documents_TravelOrderDocuments_TravelOrder_OtherExpensesCol" Association="DocumentsModel.Documents_TravelOrderDocuments_TravelOrder_OtherExpensesCol">
+      <End Role="Documents_TravelOrder" EntitySet="Documents_Document" />
+      <End Role="Documents_TravelOrder_OtherExpensesCol" EntitySet="Documents_TravelOrder_OtherExpensesCol" />
+    </AssociationSet>
+    <AssociationSet Name="Documents_TravelOrderDocuments_TravelOrder_TravelCostsCol" Association="DocumentsModel.Documents_TravelOrderDocuments_TravelOrder_TravelCostsCol">
+      <End Role="Documents_TravelOrder" EntitySet="Documents_Document" />
+      <End Role="Documents_TravelOrder_TravelCostsCol" EntitySet="Documents_TravelOrder_TravelCostsCol" />
+    </AssociationSet>
+    <AssociationSet Name="Documents_TravelOrderDocuments_TravelOrder_WageCol" Association="DocumentsModel.Documents_TravelOrderDocuments_TravelOrder_WageCol">
+      <End Role="Documents_TravelOrder" EntitySet="Documents_Document" />
+      <End Role="Documents_TravelOrder_WageCol" EntitySet="Documents_TravelOrder_WageCol" />
+    </AssociationSet>
+    <EntitySet Name="vTravelOrder" EntityType="DocumentsModel.vTravelOrder" />
+    <EntitySet Name="vTravelOrderForPrint" EntityType="DocumentsModel.vTravelOrderForPrint" />
+    <EntitySet Name="vOtherExpenseForPrint" EntityType="DocumentsModel.vOtherExpenseForPrint" />
+    <EntitySet Name="vTravelCostsForPrint" EntityType="DocumentsModel.vTravelCostsForPrint" />
+    <EntitySet Name="vPayoff" EntityType="DocumentsModel.vPayoff" />
+    <EntitySet Name="vTakeoverOfGoods" EntityType="DocumentsModel.vTakeoverOfGoods" />
+    <EntitySet Name="vWorkOrder" EntityType="DocumentsModel.vWorkOrder" />
+    <FunctionImport Name="uspOffer2Offer" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="vDocumentDetailsWithProductDescription" EntityType="DocumentsModel.vDocumentDetailsWithProductDescription" />
+    <EntitySet Name="vPayoff_ForPrint" EntityType="DocumentsModel.vPayoff_ForPrint" />
+    <EntitySet Name="vPaymentClosureFirstPage" EntityType="DocumentsModel.vPaymentClosureFirstPage" />
+    <EntitySet Name="vIncimingPaymentClosureFirstPage" EntityType="DocumentsModel.vIncimingPaymentClosureFirstPage" />
+    <EntitySet Name="vChartDugujePotrazuje" EntityType="DocumentsModel.vChartDugujePotrazuje" />
+    <EntitySet Name="MDEntities_Enums_TaxRate_documents" EntityType="DocumentsModel.MDEntities_Enums_TaxRate_documents" />
+    <EntitySet Name="MDGeneral_Enums_Currency_documents" EntityType="DocumentsModel.MDGeneral_Enums_Currency_documents" />
+    <FunctionImport Name="uspInvoice2Invoice" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspIncomingInvoice2IncommingInvoice" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspQuote2Quote" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspTravelOrder2TravelOrder" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspWorkOrder2WorkOrder" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="vDispatch" EntityType="DocumentsModel.vDispatch" />
+    <FunctionImport Name="uspTotalTurnoverFor6Months" ReturnType="Collection(DocumentsModel.uspTotalTurnoverFor6Months_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspTotalTurnoverFor" ReturnType="Collection(DocumentsModel.uspTotalTurnoverFor6Months_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspMyDocumentsInStatus" ReturnType="Collection(DocumentsModel.uspMyDocumentsInStatus_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+      <Parameter Name="UserId" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspPaymentState" ReturnType="Collection(DocumentsModel.uspPaymentState_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspMaymentState" ReturnType="Collection(DocumentsModel.uspPaymentState_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspUnbilles">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="C__tempDS" EntityType="DocumentsModel.C__tempDS" />
+    <FunctionImport Name="uspIncomingInvoicesClaimsDetails" ReturnType="Collection(DocumentsModel.uspIncomingInvoicesClaimsDetails_Result)">
+      <Parameter Name="DanaOd" Mode="In" Type="Int32" />
+      <Parameter Name="DanaDo" Mode="In" Type="Int32" />
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+      <Parameter Name="Tip" Mode="In" Type="Int32" />
+      <Parameter Name="TvrtkaId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspInvoicesClaimsDetails" ReturnType="Collection(DocumentsModel.uspInvoicesClaimsDetails_Result)">
+      <Parameter Name="DanaOd" Mode="In" Type="Int32" />
+      <Parameter Name="DanaDo" Mode="In" Type="Int32" />
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+      <Parameter Name="Tip" Mode="In" Type="Int32" />
+      <Parameter Name="TvrtkaId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspUnbilledDetails" ReturnType="Collection(DocumentsModel.uspUnbilledDetails_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+      <Parameter Name="VrstaDokumenta" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspPaymentStateDetails" ReturnType="Collection(DocumentsModel.uspPaymentStateDetails_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+      <Parameter Name="Tip" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspIncomingInvoicesClaims" ReturnType="Collection(DocumentsModel.uspIncomingInvoicesClaims_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+      <Parameter Name="TvrtkaId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspInvoicesClaims" ReturnType="Collection(DocumentsModel.uspInvoicesClaims_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+      <Parameter Name="TvrtkaId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="vIncomingInvoicePayments" EntityType="DocumentsModel.vIncomingInvoicePayments" />
+    <FunctionImport Name="uspUnbilled" ReturnType="Collection(DocumentsModel.uspUnbilled_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspIncomingInvoicesClaimsDetailsFilter" ReturnType="Collection(DocumentsModel.uspIncomingInvoicesClaimsDetailsFilter_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+      <Parameter Name="TvrtkaId" Mode="In" Type="Int32" />
+      <Parameter Name="RacOd" Mode="In" Type="DateTime" />
+      <Parameter Name="RacDo" Mode="In" Type="DateTime" />
+      <Parameter Name="MatOd" Mode="In" Type="DateTime" />
+      <Parameter Name="MatDo" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="uspInvoicesClaimsDetailsFilter" ReturnType="Collection(DocumentsModel.uspInvoicesClaimsDetailsFilter_Result)">
+      <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+      <Parameter Name="TvrtkaId" Mode="In" Type="Int32" />
+      <Parameter Name="RacOd" Mode="In" Type="DateTime" />
+      <Parameter Name="RacDo" Mode="In" Type="DateTime" />
+      <Parameter Name="MatOd" Mode="In" Type="DateTime" />
+      <Parameter Name="MatDo" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <EntitySet Name="vDocumentsForPayment" EntityType="DocumentsModel.vDocumentsForPayment" />
+    <FunctionImport Name="uspDeletePayment">
+      <Parameter Name="PaymentId" Mode="In" Type="Int32" />
+      <Parameter Name="TvrtkaId" Mode="In" Type="Int32" />
+      <Parameter Name="ret" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Documents_CompensationChildCol" EntityType="DocumentsModel.Documents_CompensationChildCol" />
+    <AssociationSet Name="Documents_CompensationDocuments_CompensationChildCol" Association="DocumentsModel.Documents_CompensationDocuments_CompensationChildCol">
+      <End Role="Documents_Compensation" EntitySet="Documents_Document" />
+      <End Role="Documents_CompensationChildCol" EntitySet="Documents_CompensationChildCol" />
+    </AssociationSet>
+    <FunctionImport Name="uspUpdateStatus">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspGetDocIds" ReturnType="Collection(Int32)">
+      <Parameter Name="TvrtkaId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspGetDocStatus" ReturnType="Collection(Int16)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspIncomingInvoice2TransferOrder" ReturnType="Collection(Int32)">
+      <Parameter Name="FromDocumentId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="uspCreateVirman309" ReturnType="Collection(Int32)">
+      <Parameter Name="IncomingInvoiceId" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="vVirmani" EntityType="DocumentsModel.vVirmani" />
+    <EntitySet Name="Documents_CashBoxBillItemsCol" EntityType="DocumentsModel.Documents_CashBoxBillItemsCol" />
+    <AssociationSet Name="Documents_CashBoxBillDocuments_CashBoxBillItemsCol" Association="DocumentsModel.Documents_CashBoxBillDocuments_CashBoxBillItemsCol">
+      <End Role="Documents_CashBoxBill" EntitySet="Documents_Document" />
+      <End Role="Documents_CashBoxBillItemsCol" EntitySet="Documents_CashBoxBillItemsCol" />
+    </AssociationSet>
+    <EntitySet Name="vCashBox" EntityType="DocumentsModel.vCashBox" />
+    <EntitySet Name="vCashBoxBillDetails" EntityType="DocumentsModel.vCashBoxBillDetails" />
+    <EntitySet Name="vCashBoxBillTaxByTypes" EntityType="DocumentsModel.vCashBoxBillTaxByTypes" />
+    <EntitySet Name="vCashBoxBill" EntityType="DocumentsModel.vCashBoxBill" />
+    <EntitySet Name="vInvoiceTaxByTypes" EntityType="DocumentsModel.vInvoiceTaxByTypes" />
+  </EntityContainer>
+  <EntityType Name="Documents_Document">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="CompanyUsingServiceId" Type="Int32" Nullable="false" />
+    <Property Name="GUID" Type="Guid" Nullable="false" />
+    <Property Name="UniqueIdentifier" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Barcode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="OrdinalNumber" Type="Int32" Nullable="false" />
+    <Property Name="OrdinalNumberInYear" Type="Int32" Nullable="false" />
+    <Property Name="CreationDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MDSubjects_Employee_AuthorId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Inactive" Type="Boolean" Nullable="false" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_ItemsCol" Relationship="DocumentsModel.Documents_DocumentDocuments_ItemsCol" FromRole="Documents_Document" ToRole="Documents_ItemsCol" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+    <Property Type="Int16" Name="DocumentType" Nullable="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="Boolean" Name="Locked" />
+    <Property Type="String" Name="CashBoxCode" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="LocationCode" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Documents_Enums_DispatchType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents_IncomingInvoice" BaseType="DocumentsModel.Documents_Document">
+    <Property Name="SubjectId" Type="Int32" Nullable="false" />
+    <Property Name="MaturityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Reversed" Type="Boolean" />
+    <Property Name="PayedInFull" Type="Boolean" />
+    <Property Name="Accepted" Type="Boolean" />
+    <Property Name="WholesaleValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="TaxValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RabateValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RetailValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="ScontoPercentage" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="ScontoDate" Type="DateTime" Precision="3" />
+    <Property Name="ScontoValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RetailValueSconto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MDGeneral_Enums_CurrencyId" Type="Int32" />
+    <Property Name="CourseValue" Type="Decimal" Precision="18" Scale="6" />
+    <Property Type="Boolean" Name="EnteredInTheAccounts" />
+    <Property Type="String" Name="ReferenceNumber" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="PaymentModel" MaxLength="5" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Documents_Invoice" BaseType="DocumentsModel.Documents_Document">
+    <Property Name="SubjectId" Type="Int32" />
+    <Property Name="MaturityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Reversed" Type="Boolean" />
+    <Property Name="PayedInFull" Type="Boolean" />
+    <Property Name="Returned" Type="Boolean" />
+    <Property Name="Approved" Type="Boolean" />
+    <Property Name="Sent" Type="Boolean" />
+    <Property Name="PayedInAdvance" Type="Boolean" />
+    <Property Name="RecursionGeneration" Type="Boolean" />
+    <Property Name="RecursionRate" Type="Byte" />
+    <Property Name="RecursionStart" Type="DateTime" Precision="3" />
+    <Property Name="RecursionNumberOfRates" Type="Int32" />
+    <Property Name="DispatchDate" Type="DateTime" Precision="3" />
+    <Property Name="DispatchTypeId" Type="Int32" />
+    <Property Name="DispatchCompanyId" Type="Int32" />
+    <Property Name="DispatchDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="WholesaleValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="TaxValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RabateValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RetailValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="ScontoPercentage" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="ScontoDate" Type="DateTime" Precision="3" />
+    <Property Name="ScontoValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RetailValueSconto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Conditions" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MDGeneral_Enums_CurrencyId" Type="Int32" />
+    <Property Name="CourseValue" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="BillToAddress_PlaceId" Type="Int32" />
+    <Property Name="BillToAddress_Street" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="BillToAddress_Number" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="BillToAddress_Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ShipToAddress_PlaceId" Type="Int32" />
+    <Property Name="ShipToAddress_Street" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="ShipToAddress_Number" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="ShipToAddress_Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="Boolean" Name="Dispatched" />
+    <Property Type="Int32" Name="Documents_DispatchedId" />
+    <Property Type="String" Name="BillToAddress_Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="EnteredInTheAccounts" />
+    <Property Type="String" Name="FiscalizationZKIR" MaxLength="32" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="FiscalizationJIR" MaxLength="36" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="FiscalizationConsistenceCode" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="FiscalizationMessageItentifier" MaxLength="36" FixedLength="true" Unicode="true" />
+    <Property Type="DateTime" Name="FiscalizationTime" Precision="3" />
+    <Property Type="Int32" Name="FiscalizationTypeOfPayment" />
+    <Property Type="Boolean" Name="FiscalizationDelayedDeparture" />
+    <Property Type="Int32" Name="FiscalizationCashierId" />
+  </EntityType>
+  <EntityType Name="Documents_ItemsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="DocumentId" Type="Int32" Nullable="false" />
+    <Property Name="Ordinal" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="UnitId" Type="Int32" Nullable="false" />
+    <Property Name="Ammount" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+    <Property Name="PriceListId" Type="Int32" />
+    <Property Name="PriceFromPriceList" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RabatePercentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RabateAmmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TaxRateId" Type="Int32" Nullable="false" />
+    <Property Name="TaxAmmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="WholesaleValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_Document" Relationship="DocumentsModel.Documents_DocumentDocuments_ItemsCol" FromRole="Documents_ItemsCol" ToRole="Documents_Document" />
+    <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="ProductDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Documents_Offer" BaseType="DocumentsModel.Documents_Document">
+    <Property Name="SubjectId" Type="Int32" />
+    <Property Name="RecursionMaturity" Type="Boolean" Nullable="false" />
+    <Property Name="MaturityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Accepted" Type="Boolean" />
+    <Property Name="Invoiced" Type="Boolean" />
+    <Property Name="Documents_InvoiceId" Type="Int32" />
+    <Property Name="Quoted" Type="Boolean" />
+    <Property Name="Documents_QuoteId" Type="Int32" />
+    <Property Name="DispatchDate" Type="DateTime" Precision="0" />
+    <Property Name="DispatchTypeId" Type="Int32" />
+    <Property Name="DispatchCompanyId" Type="Int32" />
+    <Property Name="DispatchDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="WholesaleValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="TaxValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RabateValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RetailValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="ScontoPercentage" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="ScontoDate" Type="DateTime" Precision="3" />
+    <Property Name="ScontoValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RetailValueSconto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Conditions" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MDGeneral_Enums_CurrencyId" Type="Int32" />
+    <Property Name="CourseValue" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="Version" Type="Byte" Nullable="false" />
+    <Property Name="BillToAddress_PlaceId" Type="Int32" />
+    <Property Name="BillToAddress_Street" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="BillToAddress_Number" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="BillToAddress_Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ShipToAddress_PlaceId" Type="Int32" />
+    <Property Name="ShipToAddress_Street" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="ShipToAddress_Number" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="ShipToAddress_Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Documents_Offer_MaturityCol" Relationship="DocumentsModel.Documents_OfferDocuments_Offer_MaturityCol" FromRole="Documents_Offer" ToRole="Documents_Offer_MaturityCol" />
+    <Property Type="Boolean" Name="Dispatched" />
+    <Property Type="Int32" Name="Documents_DispatchedId" />
+    <Property Type="String" Name="BillToAddress_Name" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Documents_Offer_MaturityCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Documents_OfferId" Type="Int32" Nullable="false" />
+    <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PaymentAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Invoiced" Type="Boolean" />
+    <Property Name="Documents_InvoiceId" Type="Int32" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_Offer" Relationship="DocumentsModel.Documents_OfferDocuments_Offer_MaturityCol" FromRole="Documents_Offer_MaturityCol" ToRole="Documents_Offer" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeWhoChengedId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents_Payment" BaseType="DocumentsModel.Documents_Document">
+    <Property Name="BankId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Documents_PaymentItemsCol" Relationship="DocumentsModel.Documents_PaymentDocuments_PaymentItemsCol" FromRole="Documents_Payment" ToRole="Documents_PaymentItemsCol" />
+    <Property Type="Boolean" Name="EnteredInTheAccounts" />
+    <Property Type="Decimal" Name="AccountBalance" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Documents_PaymentClosureGCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Documents_PaymentItemsColId" Type="Int32" Nullable="false" />
+    <Property Name="PayedInvoiceDocumentId" Type="Int32" />
+    <Property Name="PayedQuoteDocumentId" Type="Int32" />
+    <Property Name="Ammount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_PaymentItemsCol" Relationship="DocumentsModel.Documents_PaymentItemsColDocuments_PaymentClosureGCol" FromRole="Documents_PaymentClosureGCol" ToRole="Documents_PaymentItemsCol" />
+  </EntityType>
+  <EntityType Name="Documents_PaymentItemsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="Documents_PaymentId" Type="Int32" Nullable="false" />
+    <Property Name="SubjectBuyerId" Type="Int32" />
+    <Property Name="SubjectSupplierId" Type="Int32" />
+    <Property Name="Ammount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Reversed" Type="Boolean" />
+    <Property Name="InAdvance" Type="Boolean" Nullable="false" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_PaymentClosureGCol" Relationship="DocumentsModel.Documents_PaymentItemsColDocuments_PaymentClosureGCol" FromRole="Documents_PaymentItemsCol" ToRole="Documents_PaymentClosureGCol" />
+    <NavigationProperty Name="Documents_Payment" Relationship="DocumentsModel.Documents_PaymentDocuments_PaymentItemsCol" FromRole="Documents_PaymentItemsCol" ToRole="Documents_Payment" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+    <Property Type="Decimal" Name="AdvancePaymentAmmount" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="GeneratedInAdvance" />
+    <Property Type="Int32" Name="GeneratedFormDocuments_PaymentId" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Type="Boolean" Name="FullyDistributed" />
+    <Property Type="Boolean" Name="IsInvoice" />
+  </EntityType>
+  <EntityType Name="Documents_PriceList" BaseType="DocumentsModel.Documents_Document">
+    <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+    <Property Name="MDSubjects_SubjectId" Type="Int32" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="DateStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateEnd" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Documents_PriceList_ItemsCol" Relationship="DocumentsModel.Documents_PriceListDocuments_PriceList_ItemsCol" FromRole="Documents_PriceList" ToRole="Documents_PriceList_ItemsCol" />
+  </EntityType>
+  <EntityType Name="Documents_PriceList_ItemsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="DocumentId" Type="Int32" Nullable="false" />
+    <Property Name="MDEntities_EntityId" Type="Int32" Nullable="false" />
+    <Property Name="CalcualtedWholesalePrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="WholesalePrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="WholesalePriceOption1" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_PriceList" Relationship="DocumentsModel.Documents_PriceListDocuments_PriceList_ItemsCol" FromRole="Documents_PriceList_ItemsCol" ToRole="Documents_PriceList" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents_Quote" BaseType="DocumentsModel.Documents_Document">
+    <Property Name="SubjectId" Type="Int32" />
+    <Property Name="Documents_Enums_DocumentStatusId" Type="Int32" />
+    <Property Name="MaturityDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Reversed" Type="Boolean" />
+    <Property Name="Invoiced" Type="Boolean" />
+    <Property Name="Documents_InvoiceId" Type="Int32" />
+    <Property Name="DispatchDate" Type="DateTime" Precision="3" />
+    <Property Name="DispatchTypeId" Type="Int32" />
+    <Property Name="DispatchCompanyId" Type="Int32" />
+    <Property Name="DispatchDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="WholesaleValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="TaxValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RabateValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="OtherDiscountsValue" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RetailValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Conditions" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MDGeneral_Enums_CurrencyId" Type="Int32" />
+    <Property Name="CourseValue" Type="Decimal" Precision="18" Scale="6" />
+    <Property Name="BillToAddress_PlaceId" Type="Int32" />
+    <Property Name="BillToAddress_Street" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="BillToAddress_Number" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="BillToAddress_Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ShipToAddress_PlaceId" Type="Int32" />
+    <Property Name="ShipToAddress_Street" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="ShipToAddress_Number" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="ShipToAddress_Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="Boolean" Name="Dispatched" />
+    <Property Type="Int32" Name="Documents_DispatchedId" />
+    <Property Type="String" Name="BillToAddress_Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="EnteredInTheAccounts" />
+  </EntityType>
+  <Association Name="Documents_DocumentDocuments_ItemsCol">
+    <End Type="DocumentsModel.Documents_Document" Role="Documents_Document" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_ItemsCol" Role="Documents_ItemsCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_ItemsCol">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Documents_OfferDocuments_Offer_MaturityCol">
+    <End Type="DocumentsModel.Documents_Offer" Role="Documents_Offer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_Offer_MaturityCol" Role="Documents_Offer_MaturityCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_Offer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_Offer_MaturityCol">
+        <PropertyRef Name="Documents_OfferId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Documents_PaymentItemsColDocuments_PaymentClosureGCol">
+    <End Type="DocumentsModel.Documents_PaymentItemsCol" Role="Documents_PaymentItemsCol" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_PaymentClosureGCol" Role="Documents_PaymentClosureGCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_PaymentItemsCol">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_PaymentClosureGCol">
+        <PropertyRef Name="Documents_PaymentItemsColId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Documents_PriceListDocuments_PriceList_ItemsCol">
+    <End Type="DocumentsModel.Documents_PriceList" Role="Documents_PriceList" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_PriceList_ItemsCol" Role="Documents_PriceList_ItemsCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_PriceList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_PriceList_ItemsCol">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Documents_PaymentDocuments_PaymentItemsCol">
+    <End Type="DocumentsModel.Documents_Payment" Role="Documents_Payment" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_PaymentItemsCol" Role="Documents_PaymentItemsCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_Payment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_PaymentItemsCol">
+        <PropertyRef Name="Documents_PaymentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="GetDocumentsForPayment_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int16" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="DocumentTypeName" Nullable="false" MaxLength="14" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="SubjectId" Nullable="false" />
+    <Property Type="Boolean" Name="PayedInAdvance" Nullable="true" />
+    <Property Type="Boolean" Name="PayedInFull" Nullable="true" />
+    <Property Type="Int32" Name="Invoiced" Nullable="true" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="PayedTillDocument" Nullable="false" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="PayedTillNow" Nullable="false" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="Payed" Nullable="false" Precision="2" Scale="2" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="Documents_OrderForm" BaseType="DocumentsModel.Documents_Document">
+    <Property Type="Int32" Name="MDSubjects_SubjectId" Nullable="false" />
+    <Property Type="String" Name="OrderedByPerson" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Documents_WorkOrder" BaseType="DocumentsModel.Documents_Document">
+    <Property Type="Int32" Name="Projects_ProjectId" />
+    <Property Type="Int32" Name="MDSubjects_SubjectId" />
+    <Property Type="Int32" Name="Documents_OrderFormId" />
+    <Property Type="Int32" Name="PlaceId" />
+    <Property Type="Int32" Name="Documents_TravelOrderId" />
+    <Property Type="Decimal" Name="Distance" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="IsVerified" />
+    <Property Type="String" Name="VerifierName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="VerifierPhone" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="MDSubjects_EmployeeId" />
+    <Property Type="Boolean" Name="IsBillable" Nullable="false" />
+    <Property Type="Int32" Name="Documents_InvoiceId" />
+    <Property Type="Boolean" Name="Invoiced" />
+    <Property Type="String" Name="Subject_Name" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vEnums_DispatchType">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Inactive" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vInvoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="SubjectType" />
+    <Property Type="String" Name="SubjectTypeText" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="RetailValue" Precision="37" Scale="8" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="String" Name="Statustext" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="FiscalizationJIR" MaxLength="36" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="LocationCode" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="CashBoxCode" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vIncomingInvoice">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CreationDateTime" />
+      <PropertyRef Name="MaturityDate" />
+      <PropertyRef Name="RetailValue" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="SubjectType" />
+    <Property Type="String" Name="SubjectTypeText" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="SubjectId" Nullable="false" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="37" Scale="8" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="String" Name="Statustext" MaxLength="9" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vOrderForm">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DocumentDateTime" />
+    </Key>
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="MDSubjects_SubjectId" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="SubjectType" Nullable="false" />
+    <Property Type="String" Name="SubjectTypeText" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="OrderedByPerson" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="String" Name="Statustext" MaxLength="9" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vOffer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="SubjectType" />
+    <Property Type="String" Name="SubjectTypeText" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="RetailValue" Precision="37" Scale="8" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Boolean" Name="Invoiced" />
+    <Property Type="Int32" Name="CustomerId" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="String" Name="Statustext" MaxLength="9" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vQuote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SubjectTypeText" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="Int16" Name="SubjectType" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="RetailValue" Precision="37" Scale="8" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="0" />
+    <Property Type="Int32" Name="CustomerId" />
+    <Property Type="Boolean" Name="Invoiced" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="String" Name="Statustext" MaxLength="9" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vPriceList">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="IsDefault" />
+      <PropertyRef Name="Naziv" />
+      <PropertyRef Name="DateStart" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="SubjectType" />
+    <Property Type="String" Name="SubjectTypeText" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="Boolean" Name="IsDefault" Nullable="false" />
+    <Property Type="String" Name="Klijent" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Naziv" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="DateStart" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="DateEnd" Precision="3" />
+  </EntityType>
+  <EntityType Name="vPayments">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="AccountBalance" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="AccountBalance" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="vEntityPriceList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EntityGroupName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EntityTypeName" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="WholesalePrice" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="IsDefault" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vDocuments">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="OrdinalNumber" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int16" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vDocumentDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="TaxPercentage" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="DocumentId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+    <Property Type="String" Name="ProductName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="UnitName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RabatePercentage" Precision="18" Scale="2" />
+    <Property Type="String" Name="TaxName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Ammount" Nullable="false" Precision="18" Scale="6" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TaxPercentage" Nullable="false" Precision="18" Scale="6" />
+  </EntityType>
+  <EntityType Name="vInvoicePayments">
+    <Key>
+      <PropertyRef Name="PaymentClosureId" />
+    </Key>
+    <Property Type="Int32" Name="InvoiceId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Boolean" Name="PayedInFull" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="SubjectBuyerId" />
+    <Property Type="Decimal" Name="Ammount" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="InAdvance" Nullable="false" />
+    <Property Type="Int32" Name="PaymentClosureId" Nullable="false" />
+    <Property Type="Int32" Name="PaymentId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vPaymentsInAdvance">
+    <Key>
+      <PropertyRef Name="PaymentItemId" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="SubjectBuyerId" />
+    <Property Type="Int32" Name="SubjectSupplierId" />
+    <Property Type="Decimal" Name="AdvancePaymentAmmount" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Ammount" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="InAdvance" Nullable="false" />
+    <Property Type="Boolean" Name="GeneratedInAdvance" />
+    <Property Type="Int32" Name="PaymentItemId" Nullable="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Boolean" Name="UseForClosing" />
+    <Property Type="Decimal" Name="AmmountForClosing" Precision="18" Scale="0" />
+    <Property Type="String" Name="SuplierName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BuyerName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vDocuments_ForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int16" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="DocumentNameAndNumber" Nullable="false" MaxLength="66" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="SubjectId" Nullable="false" />
+    <Property Type="Int16" Name="SubjectType" Nullable="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="HomeAddress_PlaceName" Nullable="false" MaxLength="107" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_StreetAndNumber" Nullable="false" MaxLength="121" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_PlaceName" Nullable="false" MaxLength="107" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BillToAddress_StreetAndNumber" Nullable="false" MaxLength="121" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="RText" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="DispatchDate" Precision="3" />
+    <Property Type="Decimal" Name="FullWholesaleValue" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="RabateValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TaxValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="DispatchDescription" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Conditions" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="DispatchType" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="DispatchCompany" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Binary" Name="InvoiceLogo" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="vReportWorkOrder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="String" Name="NazivTvrtke" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="AdresaTrtke" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="TelTvrtke" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="FaxTvrtke" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="OIBTvrtke" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="NaruciteljOIB" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="AdresaNarucitelja" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="VerifierPhone" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="VerifierName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="AdresaMjestoTvrtke" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="NazivNarucitelja" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="AdresaMjestoNarucitelja" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="MjestoRada" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Rbr" Nullable="false" MaxLength="69" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Decimal" Name="Distance" Precision="18" Scale="2" />
+    <Property Type="Binary" Name="InvoiceLogo" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="Account" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Account1" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vWorkOrderMaterial">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="Rbr" />
+    <Property Type="String" Name="Materijal" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="JM" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Kolicina" Precision="18" Scale="2" />
+    <Property Type="String" Name="Faktuirati" Nullable="false" MaxLength="2" Unicode="false" FixedLength="false" />
+    <Property Type="Int32" Name="Documents_WorkOrderId" />
+    <Property Type="Int32" Name="ProductId" />
+  </EntityType>
+  <EntityType Name="vAuth_Company">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="OIB" />
+      <PropertyRef Name="HomeAddress_PlaceName" />
+      <PropertyRef Name="HomeAddress_StreetAndNumber" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="OIB" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Binary" Name="InvoiceLogo" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="Mobile" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BusinessPhone" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ContactPerson" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_PlaceName" Nullable="false" MaxLength="107" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_StreetAndNumber" Nullable="false" MaxLength="121" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Account" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Account1" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vWorkOrderTime">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="Work_OrderId" />
+    <Property Type="Int32" Name="OrdinalInWorkOrder" />
+    <Property Type="String" Name="Rad" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Izvrsitelj" MaxLength="50" FixedLength="false" Unicode="true" Nullable="true" />
+    <Property Type="DateTime" Name="ActivityDate" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="Hours" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="Faktuirat" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="MDEntities_ServiceId" />
+  </EntityType>
+  <EntityType Name="vDocumentTaxesByTypes">
+    <Key>
+      <PropertyRef Name="TaxId" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Percentage" Nullable="false" Precision="18" Scale="6" />
+    <Property Type="Int32" Name="TaxId" Nullable="false" />
+    <Property Type="Decimal" Name="TaxAmmount" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="WholsaleAmmount" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="RetailAmmount" Precision="38" Scale="2" />
+  </EntityType>
+  <EntityType Name="vQuotePayments">
+    <Key>
+      <PropertyRef Name="PaymentClosureId" />
+    </Key>
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="SubjectBuyerId" />
+    <Property Type="Decimal" Name="Ammount" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="InAdvance" Nullable="false" />
+    <Property Type="Int32" Name="PaymentClosureId" Nullable="false" />
+    <Property Type="Int32" Name="PaymentId" Nullable="false" />
+    <Property Type="Int32" Name="QuoteId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents_Dispatch" BaseType="DocumentsModel.Documents_Document">
+    <Property Type="Int32" Name="SubjectId" Nullable="false" />
+    <Property Type="Int32" Name="ShipToAddress_PlaceId" />
+    <Property Type="String" Name="ShipToAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ShipToAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="MDSubjects_Employee_DispatcherId" />
+    <Property Type="DateTime" Name="ShippingDate" Precision="3" />
+    <Property Type="String" Name="PersonReceived" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="DispatchTypeId" />
+    <Property Type="Int32" Name="DispatchCompanyId" />
+    <Property Type="Boolean" Name="AllShipped" />
+  </EntityType>
+  <EntityType Name="vDispatchForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int16" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="DocumentNameAndNumber" Nullable="false" MaxLength="67" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="SubjectId" Nullable="false" />
+    <Property Type="Int16" Name="SubjectType" Nullable="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Type="String" Name="HomeAddress_PlaceName" Nullable="false" MaxLength="107" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_StreetAndNumber" Nullable="false" MaxLength="121" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ShipToAddress_PlaceName" Nullable="false" MaxLength="107" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ShipToAddress_StreetAndNumber" Nullable="false" MaxLength="121" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="DispatchType" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="DispatchCompany" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="ShippingDate" Precision="3" />
+    <Property Type="String" Name="PersonReceived" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Type="String" Name="EmployeeDispatcherName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Binary" Name="InvoiceLogo" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="vDispatchDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DocumentId" />
+      <PropertyRef Name="Ordinal" />
+      <PropertyRef Name="Label" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Quantity" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="DocumentId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="vEntitiesForDocuments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Decimal" Name="WholesalePrice" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int16" Name="EntityType" Nullable="false" />
+    <Property Type="Int32" Name="TaxRateId" Nullable="false" />
+    <Property Type="Int32" Name="UnitId" Nullable="false" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents_TravelOrder" BaseType="DocumentsModel.Documents_Document">
+    <Property Type="Int32" Name="MDSubjects_EmployeeId" />
+    <Property Type="Int32" Name="MDSubjects_Enums_FunctionId" />
+    <Property Type="Int32" Name="MDSubjects_Enums_EducationDegreeId" />
+    <Property Type="Int32" Name="MDPlaces_Enums_Geo_FromPlaceId" />
+    <Property Type="Int32" Name="MDPlaces_Enums_Geo_ToPlaceId" />
+    <Property Type="DateTime" Name="TravelOrderDate" Precision="3" />
+    <Property Type="Boolean" Name="TravelToResidence" />
+    <Property Type="String" Name="TaskDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="DurationDays" Precision="18" Scale="6" />
+    <Property Type="Int32" Name="MDGeneral_Enums_KindOfTransportationId" />
+    <Property Type="String" Name="TransportationDescription" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="CostCenter" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="AdvanceDate" Precision="3" />
+    <Property Type="Decimal" Name="AdvanceAmmount" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="MDSubjects_ApprovedByEmployeeId" />
+    <Property Type="Int32" Name="CarDialStart" />
+    <Property Type="Int32" Name="CarDialEnd" />
+    <Property Type="Int32" Name="TotalKilometers" />
+    <Property Type="Decimal" Name="PricePerKilometer" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="AmountForCarExpense" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalAmmount" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalAmmountForPayment" Precision="18" Scale="2" />
+    <Property Type="String" Name="TrevelDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Documents_TravelOrder_OtherExpensesCol" Relationship="DocumentsModel.Documents_TravelOrderDocuments_TravelOrder_OtherExpensesCol" FromRole="Documents_TravelOrder" ToRole="Documents_TravelOrder_OtherExpensesCol" />
+    <NavigationProperty Name="Documents_TravelOrder_TravelCostsCol" Relationship="DocumentsModel.Documents_TravelOrderDocuments_TravelOrder_TravelCostsCol" FromRole="Documents_TravelOrder" ToRole="Documents_TravelOrder_TravelCostsCol" />
+    <NavigationProperty Name="Documents_TravelOrder_WageCol" Relationship="DocumentsModel.Documents_TravelOrderDocuments_TravelOrder_WageCol" FromRole="Documents_TravelOrder" ToRole="Documents_TravelOrder_WageCol" />
+    <Property Type="DateTime" Name="ClosureDate" Precision="3" />
+    <Property Type="Boolean" Name="EnteredInTheAccounts" />
+  </EntityType>
+  <EntityType Name="Documents_TravelOrder_OtherExpensesCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="Documents_TravelOrderId" Nullable="false" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Ammount" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="Admited" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_TravelOrder" Relationship="DocumentsModel.Documents_TravelOrderDocuments_TravelOrder_OtherExpensesCol" FromRole="Documents_TravelOrder_OtherExpensesCol" ToRole="Documents_TravelOrder" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents_TravelOrder_TravelCostsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="Documents_TravelOrderId" Nullable="false" />
+    <Property Type="Int32" Name="MDPlaces_Enums_Geo_FromPlaceId" />
+    <Property Type="Int32" Name="MDPlaces_Enums_Geo_ToPlaceId" />
+    <Property Type="Int32" Name="MDGeneral_Enums_KindOfTransportationId" />
+    <Property Type="Int32" Name="Kilometers" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_TravelOrder" Relationship="DocumentsModel.Documents_TravelOrderDocuments_TravelOrder_TravelCostsCol" FromRole="Documents_TravelOrder_TravelCostsCol" ToRole="Documents_TravelOrder" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents_TravelOrder_WageCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="Documents_TravelOrderId" Nullable="false" />
+    <Property Type="DateTime" Name="Departure" Precision="3" />
+    <Property Type="DateTime" Name="Arrival" Precision="3" />
+    <Property Type="Decimal" Name="Hours" Precision="18" Scale="7" />
+    <Property Type="Decimal" Name="NumberOfWage" Precision="18" Scale="7" />
+    <Property Type="Decimal" Name="PriceOfWage" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="AmmountOfWage" Precision="18" Scale="2" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_TravelOrder" Relationship="DocumentsModel.Documents_TravelOrderDocuments_TravelOrder_WageCol" FromRole="Documents_TravelOrder_WageCol" ToRole="Documents_TravelOrder" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+  </EntityType>
+  <Association Name="Documents_TravelOrderDocuments_TravelOrder_OtherExpensesCol">
+    <End Type="DocumentsModel.Documents_TravelOrder" Role="Documents_TravelOrder" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_TravelOrder_OtherExpensesCol" Role="Documents_TravelOrder_OtherExpensesCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_TravelOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_TravelOrder_OtherExpensesCol">
+        <PropertyRef Name="Documents_TravelOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Documents_TravelOrderDocuments_TravelOrder_TravelCostsCol">
+    <End Type="DocumentsModel.Documents_TravelOrder" Role="Documents_TravelOrder" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_TravelOrder_TravelCostsCol" Role="Documents_TravelOrder_TravelCostsCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_TravelOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_TravelOrder_TravelCostsCol">
+        <PropertyRef Name="Documents_TravelOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Documents_TravelOrderDocuments_TravelOrder_WageCol">
+    <End Type="DocumentsModel.Documents_TravelOrder" Role="Documents_TravelOrder" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_TravelOrder_WageCol" Role="Documents_TravelOrder_WageCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_TravelOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_TravelOrder_WageCol">
+        <PropertyRef Name="Documents_TravelOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="vTravelOrder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="FromPlace" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ToPlace" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="TravelOrderDate" Precision="3" />
+    <Property Type="Decimal" Name="DurationDays" Precision="18" Scale="6" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int16" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="ClosureDate" Precision="3" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="String" Name="Statustext" MaxLength="9" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vTravelOrderForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EmployeeApprovedByName" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="FromPlaceName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ToPlaceName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="FunctionName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EducationDegreeName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="TravelOrderDate" Precision="3" />
+    <Property Type="String" Name="TravelToResidence" Nullable="false" MaxLength="2" Unicode="false" FixedLength="false" />
+    <Property Type="String" Name="TaskDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="DurationDays" Precision="18" Scale="6" />
+    <Property Type="String" Name="KindOfTransportationName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="TransportationDescription" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="CostCenter" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="AdvanceDate" Precision="3" />
+    <Property Type="Decimal" Name="AdvanceAmmount" Precision="18" Scale="2" />
+    <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CarDialStart" />
+    <Property Type="Int32" Name="CarDialEnd" />
+    <Property Type="Int32" Name="TotalKilometers" />
+    <Property Type="Decimal" Name="PricePerKilometer" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="AmountForCarExpense" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalAmmount" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalAmmountForPayment" Precision="18" Scale="2" />
+    <Property Type="String" Name="TrevelDescription" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vOtherExpenseForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="Documents_TravelOrderId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Ammount" Precision="18" Scale="2" />
+    <Property Type="String" Name="Admited" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vTravelCostsForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="Documents_TravelOrderId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+    <Property Type="Int32" Name="Kilometers" />
+    <Property Type="String" Name="ToPlaceName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="FromPlaceName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="KindOfTransportationName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Documents_Payoff" BaseType="DocumentsModel.Documents_Document">
+    <Property Type="Int32" Name="Projects_ProjectId" />
+    <Property Type="Boolean" Name="Approved" />
+    <Property Type="Boolean" Name="Sent" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TaxValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RabateValue" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="OtherDiscountsValue" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="MDGeneral_Enums_CurrencyId" />
+    <Property Type="Decimal" Name="CourseValue" Precision="18" Scale="6" />
+    <Property Type="Int32" Name="SubjectId" />
+  </EntityType>
+  <EntityType Name="Documents_TakeoverOfGoods" BaseType="DocumentsModel.Documents_Document">
+    <Property Type="Int32" Name="Documents_PayoffId" Nullable="false" />
+    <Property Type="String" Name="TakeoverDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vPayoff">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="Boolean" Name="Approved" />
+    <Property Type="Boolean" Name="Sent" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TaxValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RabateValue" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="OtherDiscountsValue" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="CourseValue" Precision="18" Scale="6" />
+    <Property Type="String" Name="CurrencyName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vTakeoverOfGoods">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="String" Name="PayoffUniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vWorkOrder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CusomerId" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Klijent" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="NazivProjekta" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="VerifierName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="VerifierPhone" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="IsVerified" />
+    <Property Type="Decimal" Name="Distance" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="PlaceId" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Mjesto" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="IsBillable" Nullable="false" />
+    <Property Type="Boolean" Name="Invoiced" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="String" Name="Statustext" MaxLength="9" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vDocumentDetailsWithProductDescription">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DocumentId" />
+      <PropertyRef Name="Ordinal" />
+      <PropertyRef Name="ProductName" />
+      <PropertyRef Name="Price" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="TaxName" />
+      <PropertyRef Name="Ammount" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="TaxPercentage" />
+      <PropertyRef Name="Label" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="DocumentId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+    <Property Type="String" Name="ProductName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RabatePercentage" Precision="18" Scale="2" />
+    <Property Type="String" Name="TaxName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Ammount" Nullable="false" Precision="18" Scale="6" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TaxPercentage" Nullable="false" Precision="18" Scale="6" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ProductDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vPayoff_ForPrint">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="DocumentType" />
+      <PropertyRef Name="DocumentNameAndNumber" />
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="SubjectName" />
+      <PropertyRef Name="SubjectId" />
+      <PropertyRef Name="SubjectType" />
+      <PropertyRef Name="Description" />
+      <PropertyRef Name="HomeAddress_PlaceName" />
+      <PropertyRef Name="HomeAddress_ZIPCode" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="TaxValue" />
+      <PropertyRef Name="RabateValue" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="DocumentDateTime" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int16" Name="DocumentType" Nullable="false" />
+    <Property Type="String" Name="DocumentNameAndNumber" Nullable="false" MaxLength="81" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SubjectName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="SubjectId" Nullable="false" />
+    <Property Type="Int16" Name="SubjectType" Nullable="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_PlaceName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_ZIPCode" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="HomeAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TaxValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RabateValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="FullWholesaleValue" Precision="19" Scale="2" />
+    <Property Type="Binary" Name="InvoiceLogo" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="vPaymentClosureFirstPage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="Sum" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Precision="37" Scale="8" />
+    <Property Type="Decimal" Name="Resto" Precision="38" Scale="2" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="vIncimingPaymentClosureFirstPage">
+    <Key>
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="MaturityDate" />
+      <PropertyRef Name="RetailValue" />
+    </Key>
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="Sum" Precision="38" Scale="2" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="3" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="37" Scale="8" />
+    <Property Type="Decimal" Name="Resto" Precision="38" Scale="2" />
+  </EntityType>
+  <EntityType Name="vChartDugujePotrazuje">
+    <Key>
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="Tip" />
+    </Key>
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="Tip" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="Suma" Precision="38" Scale="2" />
+  </EntityType>
+  <EntityType Name="MDEntities_Enums_TaxRate_documents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Percentage" Nullable="false" Precision="18" Scale="6" />
+    <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="EmployeeWhoLastChanedItUserId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Boolean" Name="IsService" Nullable="false" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+  </EntityType>
+  <EntityType Name="MDGeneral_Enums_Currency_documents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Label" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Measure" Nullable="false" />
+    <Property Type="Int32" Name="DecimalPlaces" Nullable="false" />
+    <Property Type="Boolean" Name="Inactive" Nullable="false" />
+    <Property Type="Boolean" Name="DefaultCurrency" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" />
+    <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+  </EntityType>
+  <EntityType Name="vDispatch">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="CreationDateTime" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="SubjectType" />
+      <PropertyRef Name="SubjectTypeText" />
+      <PropertyRef Name="OrdinalNumber" />
+      <PropertyRef Name="DocumentDateTime" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="SubjectType" Nullable="false" />
+    <Property Type="String" Name="SubjectTypeText" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="DateTime" Name="ShippingDate" Precision="3" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="String" Name="Statustext" MaxLength="9" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="uspTotalTurnoverFor6Months_Result">
+    <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="String" Name="Month" Nullable="true" MaxLength="9" />
+    <Property Type="String" Name="Tip" Nullable="false" MaxLength="9" />
+    <Property Type="Int32" Name="M" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="uspMyDocumentsInStatus_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="uspPaymentState_Result">
+    <Property Type="Decimal" Name="AccountBalance" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="DateTime" Name="OnDay" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="InvoiceToday" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Invoice5Days" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Invoice10Days" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Invoice15Days" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="IncomingInvoiceToday" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="IncomingInvoice5Days" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="IncomingInvoice10Days" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="IncomingInvoice15Days" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <EntityType Name="C__tempDS">
+    <Key>
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="MaturityDate" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="RetailValue" />
+    </Key>
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Unpaid" Precision="19" Scale="2" />
+  </EntityType>
+  <ComplexType Name="uspIncomingInvoicesClaimsDetails_Result">
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Unpaid" Nullable="true" Precision="19" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="uspInvoicesClaimsDetails_Result">
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Unpaid" Nullable="true" Precision="19" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="uspUnbilledDetails_Result">
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="23" />
+    <Property Type="Decimal" Name="Unpaid" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="uspPaymentStateDetails_Result">
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Unpaid" Nullable="true" Precision="19" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="uspIncomingInvoicesClaims_Result">
+    <Property Type="Decimal" Name="MaturedClaims" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalClaims" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="NotMaturedClaims" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="MaturedClaims30" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="MaturedClaims60" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="MaturedClaims90" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="MaturedClaims90Plus" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="NumOfUndistributed" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="uspInvoicesClaims_Result">
+    <Property Type="Decimal" Name="MaturedClaims" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalClaims" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="NotMaturedClaims" Nullable="true" Precision="19" Scale="2" />
+    <Property Type="Decimal" Name="MaturedClaims30" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="MaturedClaims60" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="MaturedClaims90" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="MaturedClaims90Plus" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="NumOfUndistributed" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="vIncomingInvoicePayments">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="Ammount" />
+      <PropertyRef Name="InAdvance" />
+      <PropertyRef Name="PaymentClosureId" />
+      <PropertyRef Name="PaymentId" />
+    </Key>
+    <Property Type="Int32" Name="InvoiceId" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Boolean" Name="PayedInFull" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="SubjectBuyerId" />
+    <Property Type="Decimal" Name="Ammount" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Boolean" Name="InAdvance" Nullable="false" />
+    <Property Type="Int32" Name="PaymentClosureId" Nullable="false" />
+    <Property Type="Int32" Name="PaymentId" Nullable="false" />
+  </EntityType>
+  <ComplexType Name="uspUnbilled_Result">
+    <Property Type="Decimal" Name="Total" Nullable="true" Precision="20" Scale="2" />
+    <Property Type="Decimal" Name="OfferAmmount" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="QuoteAmmount" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="WorkOrderAmmount" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="uspInvoicesClaimsDetailsFilter_Result">
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Unpaid" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="uspIncomingInvoicesClaimsDetailsFilter_Result">
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="MaturityDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Unpaid" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+  <EntityType Name="vDocumentsForPayment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int32" Name="DocumentType" />
+    <Property Type="String" Name="DocumentTypeName" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Precision="3" />
+    <Property Type="Int32" Name="SubjectId" />
+    <Property Type="Int32" Name="PayedInAdvance" />
+    <Property Type="Boolean" Name="PayedInFull" />
+    <Property Type="Int32" Name="Invoiced" Nullable="false" />
+    <Property Type="Decimal" Name="RetailValue" Precision="37" Scale="8" />
+    <Property Type="Decimal" Name="PayedTillNow" Nullable="false" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="Payed" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="PayUpdate" Precision="18" Scale="2" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Documents_Compensation" BaseType="DocumentsModel.Documents_Document">
+    <Property Type="Int32" Name="BuyerId" Nullable="false" />
+    <Property Type="Int32" Name="SupplierId" Nullable="false" />
+    <Property Type="Boolean" Name="Approved" />
+    <Property Type="DateTime" Name="ApprovedDate" Precision="3" />
+    <NavigationProperty Name="Documents_CompensationChildCol" Relationship="DocumentsModel.Documents_CompensationDocuments_CompensationChildCol" FromRole="Documents_Compensation" ToRole="Documents_CompensationChildCol" />
+  </EntityType>
+  <EntityType Name="Documents_CompensationChildCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="CompensationId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+    <Property Type="Int32" Name="InvoiceId" />
+    <Property Type="Decimal" Name="PayedAmmountInvoice" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="IncomingInvoiceId" />
+    <Property Type="Decimal" Name="PayedAmmountIncomingInvoice" Precision="18" Scale="2" />
+    <Property Type="Binary" Name="LastChanged" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="Documents_Compensation" Relationship="DocumentsModel.Documents_CompensationDocuments_CompensationChildCol" FromRole="Documents_CompensationChildCol" ToRole="Documents_Compensation" />
+  </EntityType>
+  <Association Name="Documents_CompensationDocuments_CompensationChildCol">
+    <End Type="DocumentsModel.Documents_Compensation" Role="Documents_Compensation" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_CompensationChildCol" Role="Documents_CompensationChildCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_Compensation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_CompensationChildCol">
+        <PropertyRef Name="CompensationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Documents_VirmanTip309" BaseType="DocumentsModel.Documents_Document">
+    <Property Type="String" Name="S309IBANRNPRIM" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309NAZIVPRIM" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309ADRPRIM" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309SJEDPRIM" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="S309SFZEMPRIM" />
+    <Property Type="String" Name="S309BRMODPLAT" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309PNBPLAT" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="S309SIFNAM" />
+    <Property Type="String" Name="S309OPISPL" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="S309IZN" Precision="18" Scale="2" />
+    <Property Type="String" Name="S309BRMODPRIM" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309PNBPRIM" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309BICBANPRIM" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309NAZBANPRIM" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309ADRBNPRIM" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309SJEDBNPRIM" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="S309SFZEMBNPRIM" />
+    <Property Type="Int32" Name="S309VRSTAPRIM" />
+    <Property Type="String" Name="S309VALPOKR" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="S309TROSOP" />
+    <Property Type="Int32" Name="S309OZNHITN" />
+    <Property Type="String" Name="S309REZERVA" MaxLength="449" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="S309TIPSLOG" />
+    <Property Type="Boolean" Name="AutorizedForPayment" />
+    <Property Type="Int32" Name="UserWhoAuthorizedItId" />
+    <Property Type="DateTime" Name="DateOfAuthorization" Precision="3" />
+    <Property Type="Boolean" Name="Sent" />
+    <Property Type="DateTime" Name="SentDate" Precision="3" />
+    <Property Type="Int32" Name="UserWhoSentItId" />
+    <Property Type="Int32" Name="IncomingInvoiceId" />
+    <Property Type="Int32" Name="CompanyId" />
+    <Property Type="DateTime" Name="PaymentDate" Precision="3" />
+    <Property Type="String" Name="Currency" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CompanyAccount" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="vVirmani">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="OrdinalNumberInYear" />
+      <PropertyRef Name="CreationDateTime" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="OrdinalNumberInYear" Nullable="false" />
+    <Property Type="DateTime" Name="CreationDateTime" Nullable="false" Precision="3" />
+    <Property Type="String" Name="S309IBANRNPRIM" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309NAZIVPRIM" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="S309IZN" Precision="18" Scale="2" />
+    <Property Type="String" Name="S309PNBPLAT" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="S309NAZBANPRIM" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="AutorizedForPayment" />
+    <Property Type="Boolean" Name="Sent" />
+    <Property Type="DateTime" Name="SentDate" Precision="3" />
+    <Property Type="DateTime" Name="MaturityDate" Precision="3" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="String" Name="IncomingInvoice" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Documents_CashBoxBill" BaseType="DocumentsModel.Documents_Document">
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TaxValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="FiscalizationZKIR" MaxLength="32" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="FiscalizationJIR" MaxLength="36" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="FiscalizationConsistenceCode" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="FiscalizationMessageItentifier" MaxLength="36" FixedLength="true" Unicode="true" />
+    <Property Type="DateTime" Name="FiscalizationTime" Precision="3" />
+    <Property Type="Int32" Name="FiscalizationTypeOfPayment" />
+    <Property Type="Boolean" Name="FiscalizationDelayedDeparture" />
+    <Property Type="Int32" Name="FiscalizationCashierId" />
+    <NavigationProperty Name="Documents_CashBoxBillItemsCol" Relationship="DocumentsModel.Documents_CashBoxBillDocuments_CashBoxBillItemsCol" FromRole="Documents_CashBoxBill" ToRole="Documents_CashBoxBillItemsCol" />
+  </EntityType>
+  <EntityType Name="Documents_CashBoxBillItemsCol">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="Int32" Name="DocumentId" Nullable="false" />
+    <Property Type="Int32" Name="Ordinal" Nullable="false" />
+    <Property Type="Int32" Name="ProductId" Nullable="false" />
+    <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="TaxRateId" Nullable="false" />
+    <Property Type="Decimal" Name="TaxValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Documents_CashBoxBill" Relationship="DocumentsModel.Documents_CashBoxBillDocuments_CashBoxBillItemsCol" FromRole="Documents_CashBoxBillItemsCol" ToRole="Documents_CashBoxBill" />
+  </EntityType>
+  <Association Name="Documents_CashBoxBillDocuments_CashBoxBillItemsCol">
+    <End Type="DocumentsModel.Documents_CashBoxBill" Role="Documents_CashBoxBill" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DocumentsModel.Documents_CashBoxBillItemsCol" Role="Documents_CashBoxBillItemsCol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents_CashBoxBill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents_CashBoxBillItemsCol">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="vCashBox">
+    <Key>
+      <PropertyRef Name="UniqueIdentifier" />
+      <PropertyRef Name="CompanyUsingServiceId" />
+      <PropertyRef Name="OrdinalNumber" />
+      <PropertyRef Name="DocumentDateTime" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Fiskaliziran" />
+    </Key>
+    <Property Type="String" Name="UniqueIdentifier" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+    <Property Type="Int32" Name="OrdinalNumber" Nullable="false" />
+    <Property Type="DateTime" Name="DocumentDateTime" Nullable="false" Precision="3" />
+    <Property Type="Int16" Name="Status" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="FiscalizationMessageItentifier" MaxLength="36" FixedLength="true" Unicode="true" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="FiscalizationJIR" MaxLength="36" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="FiscalizationZKIR" MaxLength="32" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="Fiskaliziran" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CashBoxCode" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="LocationCode" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vCashBoxBillDetails">
+    <Key>
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="DocumentId" />
+    </Key>
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Quantity" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailPrice" Precision="38" Scale="20" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="DocumentId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vCashBoxBillTaxByTypes">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Percentage" />
+    </Key>
+    <Property Type="Int32" Name="DocumentId" Nullable="false" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Percentage" Nullable="false" Precision="18" Scale="6" />
+    <Property Type="Decimal" Name="TaxAmmount" Precision="38" Scale="2" />
+  </EntityType>
+  <EntityType Name="vCashBoxBill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="FiscalizationZKIR" MaxLength="32" FixedLength="true" Unicode="true" />
+    <Property Type="String" Name="FiscalizationJIR" MaxLength="36" FixedLength="true" Unicode="true" />
+    <Property Type="DateTime" Name="FiscalizationTime" Precision="3" />
+    <Property Type="String" Name="BrojRacuna" MaxLength="72" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="NacinPlacanja" MaxLength="19" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CashierCode" MaxLength="11" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="vInvoiceTaxByTypes">
+    <Key>
+      <PropertyRef Name="DocumentId" />
+      <PropertyRef Name="WholesaleValue" />
+      <PropertyRef Name="RetailValue" />
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Percentage" />
+    </Key>
+    <Property Type="Int32" Name="DocumentId" Nullable="false" />
+    <Property Type="Decimal" Name="WholesaleValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="RetailValue" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="Percentage" Nullable="false" Precision="18" Scale="6" />
+    <Property Type="Decimal" Name="TaxAmmount" Precision="38" Scale="2" />
+  </EntityType>
+</Schema>

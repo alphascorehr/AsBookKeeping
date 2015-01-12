@@ -1,0 +1,1581 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MDSubjectsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MDSubjectsModelStoreContainer">
+          <EntitySet Name="Auth_Company" EntityType="MDSubjectsModel.Store.Auth_Company" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDGeneral_Enums_Currency" EntityType="MDSubjectsModel.Store.MDGeneral_Enums_Currency" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDPlaces_Enums_Geo_Place" EntityType="MDSubjectsModel.Store.MDPlaces_Enums_Geo_Place" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Company" EntityType="MDSubjectsModel.Store.MDSubjects_Company" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Employee" EntityType="MDSubjectsModel.Store.MDSubjects_Employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Enums_Bank" EntityType="MDSubjectsModel.Store.MDSubjects_Enums_Bank" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Enums_CompanyType" EntityType="MDSubjectsModel.Store.MDSubjects_Enums_CompanyType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Enums_CoreBussiness" EntityType="MDSubjectsModel.Store.MDSubjects_Enums_CoreBussiness" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Enums_EducationDegree" EntityType="MDSubjectsModel.Store.MDSubjects_Enums_EducationDegree" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Enums_Function" EntityType="MDSubjectsModel.Store.MDSubjects_Enums_Function" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Enums_SoleProprietorType" EntityType="MDSubjectsModel.Store.MDSubjects_Enums_SoleProprietorType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Obrt" EntityType="MDSubjectsModel.Store.MDSubjects_Obrt" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Person" EntityType="MDSubjectsModel.Store.MDSubjects_Person" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_SoleProprietor" EntityType="MDSubjectsModel.Store.MDSubjects_SoleProprietor" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Subject" EntityType="MDSubjectsModel.Store.MDSubjects_Subject" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Subject_AccountsCol" EntityType="MDSubjectsModel.Store.MDSubjects_Subject_AccountsCol" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Subject_ContactsCol" EntityType="MDSubjectsModel.Store.MDSubjects_Subject_ContactsCol" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDSubjects_Subject_PermissionsForClientsCol" EntityType="MDSubjectsModel.Store.MDSubjects_Subject_PermissionsForClientsCol" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="vContractors" EntityType="MDSubjectsModel.Store.vContractors" store:Type="Views" store:Schema="dbo" store:Name="vContractors">
+            <DefiningQuery>SELECT 
+      [vContractors].[Id] AS [Id], 
+      [vContractors].[Name] AS [Name], 
+      [vContractors].[SubjectType] AS [SubjectType], 
+      [vContractors].[SubjectTypeText] AS [SubjectTypeText], 
+      [vContractors].[Inactive] AS [Inactive], 
+      [vContractors].[CompanyUsingServiceId] AS [CompanyUsingServiceId]
+      FROM [dbo].[vContractors] AS [vContractors]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vCustomers" EntityType="MDSubjectsModel.Store.vCustomers" store:Type="Views" store:Schema="dbo" store:Name="vCustomers">
+            <DefiningQuery>SELECT 
+      [vCustomers].[Id] AS [Id], 
+      [vCustomers].[Name] AS [Name], 
+      [vCustomers].[SubjectType] AS [SubjectType], 
+      [vCustomers].[SubjectTypeText] AS [SubjectTypeText], 
+      [vCustomers].[Inactive] AS [Inactive], 
+      [vCustomers].[Oib] AS [Oib], 
+      [vCustomers].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vCustomers].[HomeAddress_PlaceId] AS [HomeAddress_PlaceId], 
+      [vCustomers].[HomeAddress_PlaceName] AS [HomeAddress_PlaceName], 
+      [vCustomers].[HomeAddress_ZIPCode] AS [HomeAddress_ZIPCode], 
+      [vCustomers].[HomeAddress_Street] AS [HomeAddress_Street], 
+      [vCustomers].[HomeAddress_Number] AS [HomeAddress_Number], 
+      [vCustomers].[BillToAddress_PlaceId] AS [BillToAddress_PlaceId], 
+      [vCustomers].[BillToAddress_Street] AS [BillToAddress_Street], 
+      [vCustomers].[BillToAddress_Number] AS [BillToAddress_Number], 
+      [vCustomers].[BillToAddress_Description] AS [BillToAddress_Description]
+      FROM [dbo].[vCustomers] AS [vCustomers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_Bank" EntityType="MDSubjectsModel.Store.vEnums_Bank" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Bank">
+            <DefiningQuery>SELECT 
+      [vEnums_Bank].[Id] AS [Id], 
+      [vEnums_Bank].[Name] AS [Name], 
+      [vEnums_Bank].[Number] AS [Number], 
+      [vEnums_Bank].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Bank].[ClientName] AS [ClientName], 
+      [vEnums_Bank].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_Bank] AS [vEnums_Bank]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_CompanyType" EntityType="MDSubjectsModel.Store.vEnums_CompanyType" store:Type="Views" store:Schema="dbo" store:Name="vEnums_CompanyType">
+            <DefiningQuery>SELECT 
+      [vEnums_CompanyType].[Id] AS [Id], 
+      [vEnums_CompanyType].[Name] AS [Name], 
+      [vEnums_CompanyType].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_CompanyType].[ClientName] AS [ClientName], 
+      [vEnums_CompanyType].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_CompanyType] AS [vEnums_CompanyType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_CoreBussiness" EntityType="MDSubjectsModel.Store.vEnums_CoreBussiness" store:Type="Views" store:Schema="dbo" store:Name="vEnums_CoreBussiness">
+            <DefiningQuery>SELECT 
+      [vEnums_CoreBussiness].[Id] AS [Id], 
+      [vEnums_CoreBussiness].[Name] AS [Name], 
+      [vEnums_CoreBussiness].[Label] AS [Label], 
+      [vEnums_CoreBussiness].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_CoreBussiness].[ClientName] AS [ClientName], 
+      [vEnums_CoreBussiness].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_CoreBussiness] AS [vEnums_CoreBussiness]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_EducationDegree" EntityType="MDSubjectsModel.Store.vEnums_EducationDegree" store:Type="Views" store:Schema="dbo" store:Name="vEnums_EducationDegree">
+            <DefiningQuery>SELECT 
+      [vEnums_EducationDegree].[Id] AS [Id], 
+      [vEnums_EducationDegree].[Name] AS [Name], 
+      [vEnums_EducationDegree].[Label] AS [Label], 
+      [vEnums_EducationDegree].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_EducationDegree].[ClientName] AS [ClientName], 
+      [vEnums_EducationDegree].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_EducationDegree] AS [vEnums_EducationDegree]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_Function" EntityType="MDSubjectsModel.Store.vEnums_Function" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Function">
+            <DefiningQuery>SELECT 
+      [vEnums_Function].[Id] AS [Id], 
+      [vEnums_Function].[Name] AS [Name], 
+      [vEnums_Function].[Label] AS [Label], 
+      [vEnums_Function].[IsManagment] AS [IsManagment], 
+      [vEnums_Function].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Function].[ClientName] AS [ClientName], 
+      [vEnums_Function].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_Function] AS [vEnums_Function]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_SoleProprietorType" EntityType="MDSubjectsModel.Store.vEnums_SoleProprietorType" store:Type="Views" store:Schema="dbo" store:Name="vEnums_SoleProprietorType">
+            <DefiningQuery>SELECT 
+      [vEnums_SoleProprietorType].[Id] AS [Id], 
+      [vEnums_SoleProprietorType].[Name] AS [Name], 
+      [vEnums_SoleProprietorType].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_SoleProprietorType].[ClientName] AS [ClientName], 
+      [vEnums_SoleProprietorType].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_SoleProprietorType] AS [vEnums_SoleProprietorType]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <EntityType Name="Auth_Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Account" Type="nvarchar" MaxLength="50" />
+          <Property Name="Account1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Account2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Account3" Type="nvarchar" MaxLength="50" />
+          <Property Name="OIB" Type="char" Nullable="false" MaxLength="11" />
+          <Property Name="SystemLogo" Type="varbinary(max)" />
+          <Property Name="InvoiceLogo" Type="varbinary(max)" />
+          <Property Name="HighQualityLogo" Type="varbinary(max)" />
+          <Property Name="TimeZoneId" Type="int" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="100" />
+          <Property Name="BusinessPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="StaffCanSendInvoiceAndQuotes" Type="bit" />
+          <Property Name="StaffCanSeeReports" Type="bit" />
+          <Property Name="StaffProjectAccess" Type="bit" />
+          <Property Name="AccountURL" Type="nvarchar" MaxLength="100" />
+          <Property Name="MDPlaces_Enums_Geo_CountryId" Type="int" />
+          <Property Name="MDGeneral_Enums_CurrencyId" Type="int" />
+          <Property Name="HomeAddress_PlaceId" Type="int" />
+          <Property Name="HomeAddress_State" Type="nvarchar" MaxLength="50" />
+          <Property Name="HomeAddress_Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="HomeAddress_Number" Type="nvarchar" MaxLength="20" />
+          <Property Name="NumberOfUsers" Type="int" Nullable="false" />
+          <Property Name="ActivationDate" Type="datetime" Nullable="false" />
+          <Property Name="NumbnerOfDays" Type="int" Nullable="false" />
+          <Property Name="NumberOfUsersOrdered" Type="int" />
+          <Property Name="PDVType" Type="int" />
+          <Property Name="FirstNumberDispatch" Type="int" />
+          <Property Name="FirstNumberIncomingInvoice" Type="int" />
+          <Property Name="FirstNumberInvoice" Type="int" />
+          <Property Name="FirstNumberOffer" Type="int" />
+          <Property Name="FirstNumberOrderForm" Type="int" />
+          <Property Name="FirstNumberPayment" Type="int" />
+          <Property Name="FirstNumberPayoff" Type="int" />
+          <Property Name="FirstNumberPriceList" Type="int" />
+          <Property Name="FirstNumberQuote" Type="int" />
+          <Property Name="FirstNumberTakeoverOfGoods" Type="int" />
+          <Property Name="FirstNumberTravelOrder" Type="int" />
+          <Property Name="FirstNumberWorkOrder" Type="int" />
+          <Property Name="FiscalizationConsistenceCode" Type="nchar" MaxLength="1" />
+          <Property Name="TaxPayer" Type="bit" />
+          <Property Name="ConsumptionTax" Type="decimal" Scale="6" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Certificate" Type="varbinary(max)" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Label" Type="nchar" Nullable="false" MaxLength="3" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Measure" Type="int" Nullable="false" />
+          <Property Name="DecimalPlaces" Type="int" Nullable="false" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="DefaultCurrency" Type="bit" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDPlaces_Enums_Geo_Place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="ZIPCode" Type="nchar" Nullable="false" MaxLength="5" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="Distance" Type="int" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Company">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+          <Property Name="EstablishedDate" Type="datetime" />
+          <Property Name="MDSubjects_Enums_CompanyTypeId" Type="int" />
+          <Property Name="NumberOfEmployees" Type="int" />
+          <Property Name="MDSubjects_Enums_CoreBussinessId" Type="int" />
+          <Property Name="CoreBusinessDescription" Type="varchar(max)" />
+          <Property Name="CRO_MBR" Type="char" MaxLength="10" />
+          <Property Name="BillToAddress_PlaceId" Type="int" />
+          <Property Name="BillToAddress_Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillToAddress_Number" Type="nvarchar" MaxLength="20" />
+          <Property Name="BillToAddress_Description" Type="nvarchar(max)" />
+          <Property Name="PDVType" Type="int" />
+          <Property Name="IS_Date" Type="datetime" />
+          <Property Name="IS_MDGeneral_Enums_CurrencyId" Type="int" />
+          <Property Name="IS_Course" Type="decimal" Scale="2" />
+          <Property Name="IS_DemandFromPartner" Type="decimal" Scale="2" />
+          <Property Name="IS_DebitToPartner" Type="decimal" Scale="2" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Employee">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="100" />
+          <Property Name="MDPlaces_Enums_OgranizationalUnitId" Type="int" />
+          <Property Name="MDSubjects_Enums_FunctionId" Type="int" />
+          <Property Name="MDSubjects_Enums_EducationDegreeId" Type="int" />
+          <Property Name="BillingRatePerHour" Type="decimal" Scale="2" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IncomingInvoice" Type="bit" />
+          <Property Name="Invoice" Type="bit" />
+          <Property Name="Offer" Type="bit" />
+          <Property Name="Quote" Type="bit" />
+          <Property Name="TravelOrder" Type="bit" />
+          <Property Name="WorkOrder" Type="bit" />
+          <Property Name="PriceList" Type="bit" />
+          <Property Name="Payment" Type="bit" />
+          <Property Name="Compensation" Type="bit" />
+          <Property Name="TransferOrder" Type="bit" />
+          <Property Name="FirstPage" Type="bit" />
+          <Property Name="CashierCode" Type="nvarchar" MaxLength="11" />
+          <Property Name="FiscalMode" Type="bit" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="HomeAddress_PlaceId" Type="int" />
+          <Property Name="HomeAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="HomeAddress_CountryNumber" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_CompanyType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Immutable" Type="bit" />
+          <Property Name="EnumNumber" Type="int" />
+          <Property Name="Inactive" Type="bit" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_CoreBussiness">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Label" Type="nvarchar" MaxLength="20" />
+          <Property Name="Immutable" Type="bit" />
+          <Property Name="Inactive" Type="bit" />
+          <Property Name="EnumNumber" Type="int" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_EducationDegree">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="varchar" MaxLength="10" />
+          <Property Name="Immutable" Type="bit" />
+          <Property Name="Inactive" Type="bit" />
+          <Property Name="EnumNumber" Type="int" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_Function">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsManagment" Type="bit" Nullable="false" />
+          <Property Name="Immutable" Type="bit" />
+          <Property Name="Inactive" Type="bit" />
+          <Property Name="EnumNumber" Type="int" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_SoleProprietorType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Immutable" Type="bit" />
+          <Property Name="EnumNumber" Type="int" />
+          <Property Name="Inactive" Type="bit" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Obrt">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+          <Property Name="JMBG" Type="nchar" MaxLength="13" />
+          <Property Name="ImeVlasnika" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="PrezimeVlasnika" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="SezonskiObrt" Type="bit" />
+          <Property Name="MDSubjects_Enums_CoreBussinessId" Type="int" />
+          <Property Name="DjelatnostOpis" Type="nvarchar(max)" />
+          <Property Name="BillToAddress_PlaceId" Type="int" />
+          <Property Name="BillToAddress_Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillToAddress_Number" Type="nvarchar" MaxLength="20" />
+          <Property Name="BillToAddress_Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Person">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="10" />
+          <Property Name="SurName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Gender" Type="nchar" MaxLength="1" />
+          <Property Name="MDSubjects_Subject_EmployerId" Type="int" />
+          <Property Name="EmployerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CRO_JMBG" Type="char" MaxLength="13" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="BusinessPhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="100" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MDSubjects_SoleProprietor">
+          <Key>
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="SubjectId" Type="int" Nullable="false" />
+          <Property Name="MDSubjects_Enums_SoleProprietorTypeId" Type="int" Nullable="false" />
+          <Property Name="EstablishedDate" Type="datetime" Nullable="false" />
+          <Property Name="Equity" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="MDSubjects_Enums_CoreBussinessId" Type="int" />
+          <Property Name="CoreBusinessDescription" Type="nvarchar(max)" />
+          <Property Name="BillToAddress_PlaceId" Type="int" Nullable="false" />
+          <Property Name="BillToAddress_Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillToAddress_Number" Type="nvarchar" MaxLength="20" />
+          <Property Name="BillToAddress_Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SubjectType" Type="smallint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="LongName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Resident" Type="bit" Nullable="false" />
+          <Property Name="IsCustomer" Type="bit" />
+          <Property Name="IsContractor" Type="bit" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="EmployeeWhoLastChanedItId" Type="int" Nullable="false" />
+          <Property Name="HomeAddress_PlaceId" Type="int" />
+          <Property Name="HomeAddress_Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="HomeAddress_Number" Type="nvarchar" MaxLength="20" />
+          <Property Name="HomeAddress_Description" Type="nvarchar(max)" />
+          <Property Name="OIB" Type="char" MaxLength="11" />
+          <Property Name="IndividualCustomer" Type="bit" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Subject_AccountsCol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MDSubjects_SubjectId" Type="int" Nullable="false" />
+          <Property Name="MDSubjects_Enums_BankId" Type="int" Nullable="false" />
+          <Property Name="AccountNumber" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="MDGeneral_Enums_CurrencyId" Type="int" Nullable="false" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Subject_ContactsCol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MDSubjects_SubjectId" Type="int" Nullable="false" />
+          <Property Name="ContactSubjectId" Type="int" />
+          <Property Name="ContactSubjecName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContactSubjectFunctionId" Type="int" />
+          <Property Name="BusinessPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Subject_PermissionsForClientsCol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MDSubjects_SubjectId" Type="int" Nullable="false" />
+          <Property Name="MDSubjects_EmployeeId" Type="int" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vContractors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vContractors">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="SubjectType" Type="smallint" Nullable="false" />
+          <Property Name="SubjectTypeText" Type="varchar" Nullable="false" MaxLength="18" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vCustomers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vCustomers">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+            
+            
+            <PropertyRef Name="HomeAddress_PlaceName" />
+            <PropertyRef Name="HomeAddress_ZIPCode" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="SubjectType" Type="smallint" Nullable="false" />
+          <Property Name="SubjectTypeText" Type="varchar" Nullable="false" MaxLength="18" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="Oib" Type="char" MaxLength="11" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+          <Property Name="HomeAddress_PlaceId" Type="int" />
+          <Property Name="HomeAddress_PlaceName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="HomeAddress_ZIPCode" Type="nchar" Nullable="false" MaxLength="5" />
+          <Property Name="HomeAddress_Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="HomeAddress_Number" Type="nvarchar" MaxLength="20" />
+          <Property Name="BillToAddress_PlaceId" Type="int" />
+          <Property Name="BillToAddress_Street" Type="nvarchar" MaxLength="100" />
+          <Property Name="BillToAddress_Number" Type="nvarchar" MaxLength="20" />
+          <Property Name="BillToAddress_Description" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Bank' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            <PropertyRef Name="Inactive" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_CompanyType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_CompanyType">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_CoreBussiness' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_CoreBussiness">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Label" Type="nvarchar" MaxLength="20" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_EducationDegree' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_EducationDegree">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="varchar" MaxLength="10" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Function' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_Function">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsManagment" Type="bit" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_SoleProprietorType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_SoleProprietorType">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MDSubjectsModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MDSubjectsEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="MDSubjects_Enums_Bank" EntityType="MDSubjectsModel.MDSubjects_Enums_Bank" />
+          <EntitySet Name="MDSubjects_Enums_CompanyType" EntityType="MDSubjectsModel.MDSubjects_Enums_CompanyType" />
+          <EntitySet Name="MDSubjects_Enums_CoreBussiness" EntityType="MDSubjectsModel.MDSubjects_Enums_CoreBussiness" />
+          <EntitySet Name="MDSubjects_Enums_EducationDegree" EntityType="MDSubjectsModel.MDSubjects_Enums_EducationDegree" />
+          <EntitySet Name="MDSubjects_Enums_Function" EntityType="MDSubjectsModel.MDSubjects_Enums_Function" />
+          <EntitySet Name="MDSubjects_Enums_SoleProprietorType" EntityType="MDSubjectsModel.MDSubjects_Enums_SoleProprietorType" />
+          <EntitySet Name="MDSubjects_Subject" EntityType="MDSubjectsModel.MDSubjects_Subject" />
+          <EntitySet Name="MDSubjects_Subject_AccountsCol" EntityType="MDSubjectsModel.MDSubjects_Subject_AccountsCol" />
+          <EntitySet Name="MDSubjects_Subject_ContactsCol" EntityType="MDSubjectsModel.MDSubjects_Subject_ContactsCol" />
+          <EntitySet Name="MDSubjects_Subject_PermissionsForClientsCol" EntityType="MDSubjectsModel.MDSubjects_Subject_PermissionsForClientsCol" />
+          <AssociationSet Name="MDSubjects_SubjectMDSubjects_Subject_AccountsCol" Association="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_AccountsCol">
+            <End Role="MDSubjects_Subject" EntitySet="MDSubjects_Subject" />
+            <End Role="MDSubjects_Subject_AccountsCol" EntitySet="MDSubjects_Subject_AccountsCol" />
+          </AssociationSet>
+          <AssociationSet Name="MDSubjects_SubjectMDSubjects_Subject_ContactsCol" Association="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_ContactsCol">
+            <End Role="MDSubjects_Subject" EntitySet="MDSubjects_Subject" />
+            <End Role="MDSubjects_Subject_ContactsCol" EntitySet="MDSubjects_Subject_ContactsCol" />
+          </AssociationSet>
+          <AssociationSet Name="MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol" Association="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol">
+            <End Role="MDSubjects_Subject" EntitySet="MDSubjects_Subject" />
+            <End Role="MDSubjects_Subject_PermissionsForClientsCol" EntitySet="MDSubjects_Subject_PermissionsForClientsCol" />
+          </AssociationSet>
+          <EntitySet Name="Auth_Company" EntityType="MDSubjectsModel.Auth_Company" />
+          <EntitySet Name="vCustomers" EntityType="MDSubjectsModel.vCustomers" />
+          <EntitySet Name="vContractors" EntityType="MDSubjectsModel.vContractors" />
+          <EntitySet Name="vEnums_Bank" EntityType="MDSubjectsModel.vEnums_Bank" />
+          <EntitySet Name="vEnums_CompanyType" EntityType="MDSubjectsModel.vEnums_CompanyType" />
+          <EntitySet Name="vEnums_CoreBussiness" EntityType="MDSubjectsModel.vEnums_CoreBussiness" />
+          <EntitySet Name="vEnums_EducationDegree" EntityType="MDSubjectsModel.vEnums_EducationDegree" />
+          <EntitySet Name="vEnums_Function" EntityType="MDSubjectsModel.vEnums_Function" />
+          <EntitySet Name="vEnums_SoleProprietorType" EntityType="MDSubjectsModel.vEnums_SoleProprietorType" />
+          <EntitySet Name="MDPlaces_Enums_Geo_PlaceForSubjects" EntityType="MDSubjectsModel.MDPlaces_Enums_Geo_PlaceForSubjects" />
+          <EntitySet Name="MDGeneral_Enums_Currency_subjects" EntityType="MDSubjectsModel.MDGeneral_Enums_Currency_subjects" />
+        </EntityContainer>
+        <EntityType Name="MDSubjects_Company" BaseType="MDSubjectsModel.MDSubjects_Subject">
+          <Property Name="EstablishedDate" Type="DateTime" Precision="3" />
+          <Property Name="NumberOfEmployees" Type="Int32" />
+          <Property Name="CoreBusinessDescription" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="CRO_MBR" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Type="Int32" Name="MDSubjects_Enums_CompanyTypeId" />
+          <Property Type="Int32" Name="MDSubjects_Enums_CoreBussinessId" />
+          <Property Type="Int32" Name="BillToAddress_PlaceId" />
+          <Property Type="String" Name="BillToAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BillToAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BillToAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PDVType" />
+          <Property Type="DateTime" Name="IS_Date" Precision="3" />
+          <Property Type="Int32" Name="IS_MDGeneral_Enums_CurrencyId" />
+          <Property Type="Decimal" Name="IS_Course" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="IS_DemandFromPartner" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="IS_DebitToPartner" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Employee" BaseType="MDSubjectsModel.MDSubjects_Subject">
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Mobile" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Type="Boolean" Name="IsAdmin" />
+          <Property Type="String" Name="HomePhone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="MDPlaces_Enums_OgranizationalUnitId" />
+          <Property Type="Int32" Name="MDSubjects_Enums_FunctionId" />
+          <Property Type="Int32" Name="MDSubjects_Enums_EducationDegreeId" />
+          <Property Type="Decimal" Name="BillingRatePerHour" Precision="18" Scale="2" />
+          <Property Type="String" Name="UserName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IncomingInvoice" />
+          <Property Type="Boolean" Name="Invoice" />
+          <Property Type="Boolean" Name="Offer" />
+          <Property Type="Boolean" Name="Quote" />
+          <Property Type="Boolean" Name="TravelOrder" />
+          <Property Type="Boolean" Name="WorkOrder" />
+          <Property Type="Boolean" Name="PriceList" />
+          <Property Type="Boolean" Name="Payment" />
+          <Property Type="Boolean" Name="FirstPage" />
+          <Property Type="Boolean" Name="Compensation" />
+          <Property Type="Boolean" Name="TransferOrder" />
+          <Property Type="String" Name="CashierCode" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="FiscalMode" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+          <Property Type="Int32" Name="HomeAddress_PlaceId" />
+          <Property Type="String" Name="HomeAddress" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="HomeAddress_CountryNumber" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_CompanyType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Immutable" Type="Boolean" />
+          <Property Name="EnumNumber" Type="Int32" />
+          <Property Name="Inactive" Type="Boolean" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_CoreBussiness">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Label" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Immutable" Type="Boolean" />
+          <Property Name="Inactive" Type="Boolean" />
+          <Property Name="EnumNumber" Type="Int32" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_EducationDegree">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Label" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Immutable" Type="Boolean" />
+          <Property Name="Inactive" Type="Boolean" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="EnumNumber" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_Function">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Label" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="IsManagment" Type="Boolean" Nullable="false" />
+          <Property Name="Immutable" Type="Boolean" />
+          <Property Name="Inactive" Type="Boolean" />
+          <Property Name="EnumNumber" Type="Int32" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Enums_SoleProprietorType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="EnumNumber" Type="Int32" />
+          <Property Name="Inactive" Type="Boolean" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Boolean" Name="Immutable" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Obrt" BaseType="MDSubjectsModel.MDSubjects_Subject">
+          <Property Name="JMBG" Type="String" MaxLength="13" Unicode="true" FixedLength="true" />
+          <Property Name="ImeVlasnika" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PrezimeVlasnika" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="SezonskiObrt" Type="Boolean" />
+          <Property Name="DjelatnostOpis" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="Int32" Name="MDSubjects_Enums_CoreBussinessId" />
+          <Property Type="Int32" Name="BillToAddress_PlaceId" />
+          <Property Type="String" Name="BillToAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BillToAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BillToAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Person" BaseType="MDSubjectsModel.MDSubjects_Subject">
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="SurName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" Unicode="true" FixedLength="true" />
+          <Property Name="EmployerName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Type="Int32" Name="MDSubjects_Subject_EmployerId" />
+          <Property Type="String" Name="CRO_JMBG" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="HomePhone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BusinessPhone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mobile" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MDSubjects_SoleProprietor" BaseType="MDSubjectsModel.MDSubjects_Subject">
+          <Property Name="EstablishedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Equity" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CoreBusinessDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="Int32" Name="MDSubjects_Enums_SoleProprietorTypeId" Nullable="false" />
+          <Property Type="Int32" Name="MDSubjects_Enums_CoreBussinessId" />
+          <Property Type="Int32" Name="BillToAddress_PlaceId" Nullable="false" />
+          <Property Type="String" Name="BillToAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BillToAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BillToAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="CompanyUsingServiceId" Type="Int32" Nullable="false" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="SubjectType" Type="Int16" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LongName" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="Resident" Type="Boolean" Nullable="false" />
+          <Property Name="IsCustomer" Type="Boolean" />
+          <Property Name="Inactive" Type="Boolean" Nullable="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Boolean" Name="IsContractor" />
+          <Property Type="Int32" Name="HomeAddress_PlaceId" />
+          <Property Type="String" Name="HomeAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HomeAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HomeAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MDSubjects_Subject_AccountsCol" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_AccountsCol" FromRole="MDSubjects_Subject" ToRole="MDSubjects_Subject_AccountsCol" />
+          <NavigationProperty Name="MDSubjects_Subject_ContactsCol" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_ContactsCol" FromRole="MDSubjects_Subject" ToRole="MDSubjects_Subject_ContactsCol" />
+          <NavigationProperty Name="MDSubjects_Subject_PermissionsForClientsCol" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol" FromRole="MDSubjects_Subject" ToRole="MDSubjects_Subject_PermissionsForClientsCol" />
+          <Property Type="Int32" Name="EmployeeWhoLastChanedItId" Nullable="false" />
+          <Property Type="String" Name="OIB" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Type="Boolean" Name="IndividualCustomer" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Subject_AccountsCol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Inactive" Type="Boolean" Nullable="false" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="MDSubjects_SubjectId" Nullable="false" />
+          <Property Type="Int32" Name="MDSubjects_Enums_BankId" Nullable="false" />
+          <Property Type="Int32" Name="MDGeneral_Enums_CurrencyId" Nullable="false" />
+          <Property Type="DateTime" Name="LastActivityDate" Precision="3" />
+          <NavigationProperty Name="MDSubjects_Subject" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_AccountsCol" FromRole="MDSubjects_Subject_AccountsCol" ToRole="MDSubjects_Subject" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Subject_ContactsCol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="ContactSubjectId" Type="Int32" />
+          <Property Name="ContactSubjecName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ContactSubjectFunctionId" Type="Int32" />
+          <Property Name="Mobile" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Inactive" Type="Boolean" Nullable="false" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="MDSubjects_SubjectId" Nullable="false" />
+          <Property Type="String" Name="BusinessPhone" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MDSubjects_Subject" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_ContactsCol" FromRole="MDSubjects_Subject_ContactsCol" ToRole="MDSubjects_Subject" />
+        </EntityType>
+        <EntityType Name="MDSubjects_Subject_PermissionsForClientsCol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="MDSubjects_SubjectId" Nullable="false" />
+          <Property Type="Int32" Name="MDSubjects_EmployeeId" Nullable="false" />
+          <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+          <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <NavigationProperty Name="MDSubjects_Subject" Relationship="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol" FromRole="MDSubjects_Subject_PermissionsForClientsCol" ToRole="MDSubjects_Subject" />
+        </EntityType>
+        <Association Name="MDSubjects_SubjectMDSubjects_Subject_AccountsCol">
+          <End Type="MDSubjectsModel.MDSubjects_Subject" Role="MDSubjects_Subject" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MDSubjectsModel.MDSubjects_Subject_AccountsCol" Role="MDSubjects_Subject_AccountsCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MDSubjects_Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MDSubjects_Subject_AccountsCol">
+              <PropertyRef Name="MDSubjects_SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MDSubjects_SubjectMDSubjects_Subject_ContactsCol">
+          <End Type="MDSubjectsModel.MDSubjects_Subject" Role="MDSubjects_Subject" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MDSubjectsModel.MDSubjects_Subject_ContactsCol" Role="MDSubjects_Subject_ContactsCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MDSubjects_Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MDSubjects_Subject_ContactsCol">
+              <PropertyRef Name="MDSubjects_SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol">
+          <End Type="MDSubjectsModel.MDSubjects_Subject" Role="MDSubjects_Subject" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MDSubjectsModel.MDSubjects_Subject_PermissionsForClientsCol" Role="MDSubjects_Subject_PermissionsForClientsCol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MDSubjects_Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MDSubjects_Subject_PermissionsForClientsCol">
+              <PropertyRef Name="MDSubjects_SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Auth_Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OIB" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Type="Binary" Name="SystemLogo" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="InvoiceLogo" MaxLength="Max" FixedLength="false" />
+          <Property Type="Binary" Name="HighQualityLogo" MaxLength="Max" FixedLength="false" />
+          <Property Type="Int32" Name="TimeZoneId" />
+          <Property Type="String" Name="ContactPerson" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BusinessPhone" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mobile" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="StaffCanSendInvoiceAndQuotes" />
+          <Property Type="Boolean" Name="StaffCanSeeReports" />
+          <Property Type="Boolean" Name="StaffProjectAccess" />
+          <Property Type="String" Name="AccountURL" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="MDPlaces_Enums_Geo_CountryId" />
+          <Property Type="Int32" Name="MDGeneral_Enums_CurrencyId" />
+          <Property Type="Int32" Name="HomeAddress_PlaceId" />
+          <Property Type="String" Name="HomeAddress_State" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HomeAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HomeAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="NumberOfUsers" Nullable="false" />
+          <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="DateTime" Name="ActivationDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="NumbnerOfDays" Nullable="false" />
+          <Property Type="Int32" Name="NumberOfUsersOrdered" />
+          <Property Type="Int32" Name="PDVType" />
+          <Property Type="Int32" Name="FirstNumberDispatch" />
+          <Property Type="Int32" Name="FirstNumberIncomingInvoice" />
+          <Property Type="Int32" Name="FirstNumberInvoice" />
+          <Property Type="Int32" Name="FirstNumberOffer" />
+          <Property Type="Int32" Name="FirstNumberOrderForm" />
+          <Property Type="Int32" Name="FirstNumberPayment" />
+          <Property Type="Int32" Name="FirstNumberPayoff" />
+          <Property Type="Int32" Name="FirstNumberPriceList" />
+          <Property Type="Int32" Name="FirstNumberQuote" />
+          <Property Type="Int32" Name="FirstNumberTakeoverOfGoods" />
+          <Property Type="Int32" Name="FirstNumberTravelOrder" />
+          <Property Type="Int32" Name="FirstNumberWorkOrder" />
+          <Property Type="String" Name="Account" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Account1" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Account2" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Account3" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FiscalizationConsistenceCode" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="Boolean" Name="TaxPayer" />
+          <Property Type="Decimal" Name="ConsumptionTax" Precision="18" Scale="6" />
+          <Property Type="Binary" Name="Certificate" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="Password" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vCustomers">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="HomeAddress_PlaceName" />
+            <PropertyRef Name="HomeAddress_ZIPCode" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="SubjectType" Nullable="false" />
+          <Property Type="String" Name="SubjectTypeText" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+          <Property Type="String" Name="Oib" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+          <Property Type="Int32" Name="HomeAddress_PlaceId" />
+          <Property Type="String" Name="HomeAddress_PlaceName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HomeAddress_ZIPCode" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="HomeAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HomeAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="BillToAddress_PlaceId" />
+          <Property Type="String" Name="BillToAddress_Street" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BillToAddress_Number" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BillToAddress_Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vContractors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="SubjectType" Nullable="false" />
+          <Property Type="String" Name="SubjectTypeText" Nullable="false" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnums_Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Inactive" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Number" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnums_CompanyType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnums_CoreBussiness">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Label" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnums_EducationDegree">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Label" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnums_Function">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Label" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsManagment" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnums_SoleProprietorType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MDPlaces_Enums_Geo_PlaceForSubjects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ZIPCode" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Type="Int32" Name="RegionId" />
+          <Property Type="Int32" Name="Distance" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_Currency_subjects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Label" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Measure" Nullable="false" />
+          <Property Type="Int32" Name="DecimalPlaces" Nullable="false" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+          <Property Type="Boolean" Name="DefaultCurrency" Nullable="false" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MDSubjectsModelStoreContainer" CdmEntityContainer="MDSubjectsEntities">
+          <EntitySetMapping Name="MDSubjects_Enums_Bank"><EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_Bank"><MappingFragment StoreEntitySet="MDSubjects_Enums_Bank">
+            <ScalarProperty Name="HomeAddress_CountryNumber" ColumnName="HomeAddress_CountryNumber" />
+                <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+                <ScalarProperty Name="HomeAddress_PlaceId" ColumnName="HomeAddress_PlaceId" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Number" ColumnName="Number" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDSubjects_Enums_CompanyType"><EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_CompanyType"><MappingFragment StoreEntitySet="MDSubjects_Enums_CompanyType">
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+            <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDSubjects_Enums_CoreBussiness"><EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_CoreBussiness"><MappingFragment StoreEntitySet="MDSubjects_Enums_CoreBussiness">
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Label" ColumnName="Label" />
+            <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+            <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDSubjects_Enums_EducationDegree"><EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_EducationDegree"><MappingFragment StoreEntitySet="MDSubjects_Enums_EducationDegree">
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Label" ColumnName="Label" />
+            <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDSubjects_Enums_Function"><EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_Function"><MappingFragment StoreEntitySet="MDSubjects_Enums_Function">
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Label" ColumnName="Label" />
+            <ScalarProperty Name="IsManagment" ColumnName="IsManagment" />
+            <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDSubjects_Enums_SoleProprietorType"><EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_SoleProprietorType"><MappingFragment StoreEntitySet="MDSubjects_Enums_SoleProprietorType">
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDSubjects_Subject">
+            <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Subject)">
+              <MappingFragment StoreEntitySet="MDSubjects_Subject">
+                <ScalarProperty Name="IndividualCustomer" ColumnName="IndividualCustomer" />
+                <ScalarProperty Name="OIB" ColumnName="OIB" />
+                <ScalarProperty Name="EmployeeWhoLastChanedItId" ColumnName="EmployeeWhoLastChanedItId" />
+                <ScalarProperty Name="HomeAddress_Description" ColumnName="HomeAddress_Description" />
+                <ScalarProperty Name="HomeAddress_Number" ColumnName="HomeAddress_Number" />
+                <ScalarProperty Name="HomeAddress_Street" ColumnName="HomeAddress_Street" />
+                <ScalarProperty Name="HomeAddress_PlaceId" ColumnName="HomeAddress_PlaceId" />
+                <ScalarProperty Name="IsContractor" ColumnName="IsContractor" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="IsCustomer" ColumnName="IsCustomer" />
+                <ScalarProperty Name="Resident" ColumnName="Resident" />
+                <ScalarProperty Name="LongName" ColumnName="LongName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Company)">
+              <MappingFragment StoreEntitySet="MDSubjects_Company">
+                <ScalarProperty Name="IS_DebitToPartner" ColumnName="IS_DebitToPartner" />
+                <ScalarProperty Name="IS_DemandFromPartner" ColumnName="IS_DemandFromPartner" />
+                <ScalarProperty Name="IS_Course" ColumnName="IS_Course" />
+                <ScalarProperty Name="IS_MDGeneral_Enums_CurrencyId" ColumnName="IS_MDGeneral_Enums_CurrencyId" />
+                <ScalarProperty Name="IS_Date" ColumnName="IS_Date" />
+                <ScalarProperty Name="PDVType" ColumnName="PDVType" />
+                <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+                <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+                <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+                <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+                <ScalarProperty Name="MDSubjects_Enums_CoreBussinessId" ColumnName="MDSubjects_Enums_CoreBussinessId" />
+                <ScalarProperty Name="MDSubjects_Enums_CompanyTypeId" ColumnName="MDSubjects_Enums_CompanyTypeId" />
+                <ScalarProperty Name="Id" ColumnName="SubjectId" />
+                <ScalarProperty Name="CRO_MBR" ColumnName="CRO_MBR" />
+                <ScalarProperty Name="CoreBusinessDescription" ColumnName="CoreBusinessDescription" />
+                <ScalarProperty Name="NumberOfEmployees" ColumnName="NumberOfEmployees" />
+                <ScalarProperty Name="EstablishedDate" ColumnName="EstablishedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_SoleProprietor)">
+              <MappingFragment StoreEntitySet="MDSubjects_SoleProprietor">
+                <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+                <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+                <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+                <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+                <ScalarProperty Name="MDSubjects_Enums_CoreBussinessId" ColumnName="MDSubjects_Enums_CoreBussinessId" />
+                <ScalarProperty Name="MDSubjects_Enums_SoleProprietorTypeId" ColumnName="MDSubjects_Enums_SoleProprietorTypeId" />
+                <ScalarProperty Name="Id" ColumnName="SubjectId" />
+                <ScalarProperty Name="CoreBusinessDescription" ColumnName="CoreBusinessDescription" />
+                <ScalarProperty Name="Equity" ColumnName="Equity" />
+                <ScalarProperty Name="EstablishedDate" ColumnName="EstablishedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Person)">
+              <MappingFragment StoreEntitySet="MDSubjects_Person">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="CRO_JMBG" ColumnName="CRO_JMBG" />
+                <ScalarProperty Name="MDSubjects_Subject_EmployerId" ColumnName="MDSubjects_Subject_EmployerId" />
+                <ScalarProperty Name="Id" ColumnName="SubjectId" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Obrt)">
+              <MappingFragment StoreEntitySet="MDSubjects_Obrt">
+                <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+                <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+                <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+                <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+                <ScalarProperty Name="MDSubjects_Enums_CoreBussinessId" ColumnName="MDSubjects_Enums_CoreBussinessId" />
+                <ScalarProperty Name="Id" ColumnName="SubjectId" />
+                <ScalarProperty Name="DjelatnostOpis" ColumnName="DjelatnostOpis" />
+                <ScalarProperty Name="SezonskiObrt" ColumnName="SezonskiObrt" />
+                <ScalarProperty Name="PrezimeVlasnika" ColumnName="PrezimeVlasnika" />
+                <ScalarProperty Name="ImeVlasnika" ColumnName="ImeVlasnika" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Employee)">
+              <MappingFragment StoreEntitySet="MDSubjects_Employee">
+                <ScalarProperty Name="FiscalMode" ColumnName="FiscalMode" />
+                <ScalarProperty Name="CashierCode" ColumnName="CashierCode" />
+                <ScalarProperty Name="TransferOrder" ColumnName="TransferOrder" />
+                <ScalarProperty Name="Compensation" ColumnName="Compensation" />
+                <ScalarProperty Name="FirstPage" ColumnName="FirstPage" />
+                <ScalarProperty Name="Payment" ColumnName="Payment" />
+                <ScalarProperty Name="PriceList" ColumnName="PriceList" />
+                <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+                <ScalarProperty Name="TravelOrder" ColumnName="TravelOrder" />
+                <ScalarProperty Name="Quote" ColumnName="Quote" />
+                <ScalarProperty Name="Offer" ColumnName="Offer" />
+                <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+                <ScalarProperty Name="IncomingInvoice" ColumnName="IncomingInvoice" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="BillingRatePerHour" ColumnName="BillingRatePerHour" />
+                <ScalarProperty Name="MDSubjects_Enums_EducationDegreeId" ColumnName="MDSubjects_Enums_EducationDegreeId" />
+                <ScalarProperty Name="MDSubjects_Enums_FunctionId" ColumnName="MDSubjects_Enums_FunctionId" />
+                <ScalarProperty Name="MDPlaces_Enums_OgranizationalUnitId" ColumnName="MDPlaces_Enums_OgranizationalUnitId" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Id" ColumnName="SubjectId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDSubjects_Subject_AccountsCol"><EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Subject_AccountsCol"><MappingFragment StoreEntitySet="MDSubjects_Subject_AccountsCol">
+            <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="MDGeneral_Enums_CurrencyId" ColumnName="MDGeneral_Enums_CurrencyId" />
+                <ScalarProperty Name="MDSubjects_Enums_BankId" ColumnName="MDSubjects_Enums_BankId" />
+                <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDSubjects_Subject_ContactsCol"><EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Subject_ContactsCol"><MappingFragment StoreEntitySet="MDSubjects_Subject_ContactsCol">
+            <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+                <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="ContactSubjectId" ColumnName="ContactSubjectId" />
+            <ScalarProperty Name="ContactSubjecName" ColumnName="ContactSubjecName" />
+            <ScalarProperty Name="ContactSubjectFunctionId" ColumnName="ContactSubjectFunctionId" />
+            <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+            <ScalarProperty Name="Fax" ColumnName="Fax" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDSubjects_Subject_PermissionsForClientsCol">
+            <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Subject_PermissionsForClientsCol">
+              <MappingFragment StoreEntitySet="MDSubjects_Subject_PermissionsForClientsCol">
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="MDSubjects_EmployeeId" ColumnName="MDSubjects_EmployeeId" />
+                <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Auth_Company">
+            <EntityTypeMapping TypeName="MDSubjectsModel.Auth_Company">
+              <MappingFragment StoreEntitySet="Auth_Company">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Certificate" ColumnName="Certificate" />
+                <ScalarProperty Name="ConsumptionTax" ColumnName="ConsumptionTax" />
+                <ScalarProperty Name="TaxPayer" ColumnName="TaxPayer" />
+                <ScalarProperty Name="FiscalizationConsistenceCode" ColumnName="FiscalizationConsistenceCode" />
+                <ScalarProperty Name="Account3" ColumnName="Account3" />
+                <ScalarProperty Name="Account2" ColumnName="Account2" />
+                <ScalarProperty Name="Account1" ColumnName="Account1" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="FirstNumberWorkOrder" ColumnName="FirstNumberWorkOrder" />
+                <ScalarProperty Name="FirstNumberTravelOrder" ColumnName="FirstNumberTravelOrder" />
+                <ScalarProperty Name="FirstNumberTakeoverOfGoods" ColumnName="FirstNumberTakeoverOfGoods" />
+                <ScalarProperty Name="FirstNumberQuote" ColumnName="FirstNumberQuote" />
+                <ScalarProperty Name="FirstNumberPriceList" ColumnName="FirstNumberPriceList" />
+                <ScalarProperty Name="FirstNumberPayoff" ColumnName="FirstNumberPayoff" />
+                <ScalarProperty Name="FirstNumberPayment" ColumnName="FirstNumberPayment" />
+                <ScalarProperty Name="FirstNumberOrderForm" ColumnName="FirstNumberOrderForm" />
+                <ScalarProperty Name="FirstNumberOffer" ColumnName="FirstNumberOffer" />
+                <ScalarProperty Name="FirstNumberInvoice" ColumnName="FirstNumberInvoice" />
+                <ScalarProperty Name="FirstNumberIncomingInvoice" ColumnName="FirstNumberIncomingInvoice" />
+                <ScalarProperty Name="FirstNumberDispatch" ColumnName="FirstNumberDispatch" />
+                <ScalarProperty Name="PDVType" ColumnName="PDVType" />
+                <ScalarProperty Name="NumberOfUsersOrdered" ColumnName="NumberOfUsersOrdered" />
+                <ScalarProperty Name="NumbnerOfDays" ColumnName="NumbnerOfDays" />
+                <ScalarProperty Name="ActivationDate" ColumnName="ActivationDate" />
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="NumberOfUsers" ColumnName="NumberOfUsers" />
+                <ScalarProperty Name="HomeAddress_Number" ColumnName="HomeAddress_Number" />
+                <ScalarProperty Name="HomeAddress_Street" ColumnName="HomeAddress_Street" />
+                <ScalarProperty Name="HomeAddress_State" ColumnName="HomeAddress_State" />
+                <ScalarProperty Name="HomeAddress_PlaceId" ColumnName="HomeAddress_PlaceId" />
+                <ScalarProperty Name="MDGeneral_Enums_CurrencyId" ColumnName="MDGeneral_Enums_CurrencyId" />
+                <ScalarProperty Name="MDPlaces_Enums_Geo_CountryId" ColumnName="MDPlaces_Enums_Geo_CountryId" />
+                <ScalarProperty Name="AccountURL" ColumnName="AccountURL" />
+                <ScalarProperty Name="StaffProjectAccess" ColumnName="StaffProjectAccess" />
+                <ScalarProperty Name="StaffCanSeeReports" ColumnName="StaffCanSeeReports" />
+                <ScalarProperty Name="StaffCanSendInvoiceAndQuotes" ColumnName="StaffCanSendInvoiceAndQuotes" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="TimeZoneId" ColumnName="TimeZoneId" />
+                <ScalarProperty Name="HighQualityLogo" ColumnName="HighQualityLogo" />
+                <ScalarProperty Name="InvoiceLogo" ColumnName="InvoiceLogo" />
+                <ScalarProperty Name="SystemLogo" ColumnName="SystemLogo" />
+                <ScalarProperty Name="OIB" ColumnName="OIB" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vCustomers">
+            <EntityTypeMapping TypeName="MDSubjectsModel.vCustomers">
+              <MappingFragment StoreEntitySet="vCustomers">
+                <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+                <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+                <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+                <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+                <ScalarProperty Name="HomeAddress_Number" ColumnName="HomeAddress_Number" />
+                <ScalarProperty Name="HomeAddress_Street" ColumnName="HomeAddress_Street" />
+                <ScalarProperty Name="HomeAddress_ZIPCode" ColumnName="HomeAddress_ZIPCode" />
+                <ScalarProperty Name="HomeAddress_PlaceName" ColumnName="HomeAddress_PlaceName" />
+                <ScalarProperty Name="HomeAddress_PlaceId" ColumnName="HomeAddress_PlaceId" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Oib" ColumnName="Oib" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+                <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vContractors">
+            <EntityTypeMapping TypeName="MDSubjectsModel.vContractors">
+              <MappingFragment StoreEntitySet="vContractors">
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+                <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_Bank">
+            <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_Bank">
+              <MappingFragment StoreEntitySet="vEnums_Bank">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_CompanyType">
+            <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_CompanyType">
+              <MappingFragment StoreEntitySet="vEnums_CompanyType">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_CoreBussiness">
+            <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_CoreBussiness">
+              <MappingFragment StoreEntitySet="vEnums_CoreBussiness">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_EducationDegree">
+            <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_EducationDegree">
+              <MappingFragment StoreEntitySet="vEnums_EducationDegree">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_Function">
+            <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_Function">
+              <MappingFragment StoreEntitySet="vEnums_Function">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="IsManagment" ColumnName="IsManagment" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_SoleProprietorType">
+            <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_SoleProprietorType">
+              <MappingFragment StoreEntitySet="vEnums_SoleProprietorType">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MDPlaces_Enums_Geo_PlaceForSubjects">
+            <EntityTypeMapping TypeName="MDSubjectsModel.MDPlaces_Enums_Geo_PlaceForSubjects">
+              <MappingFragment StoreEntitySet="MDPlaces_Enums_Geo_Place">
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="ZIPCode" ColumnName="ZIPCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MDGeneral_Enums_Currency_subjects">
+            <EntityTypeMapping TypeName="MDSubjectsModel.MDGeneral_Enums_Currency_subjects">
+              <MappingFragment StoreEntitySet="MDGeneral_Enums_Currency">
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="DefaultCurrency" ColumnName="DefaultCurrency" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="DecimalPlaces" ColumnName="DecimalPlaces" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MDSubjects" ZoomLevel="76">
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Company" Width="1.5" PointX="0.5" PointY="6.25" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Employee" Width="1.5" PointX="8.75" PointY="6.25" Height="4.6725065104166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Enums_Bank" Width="1.5" PointX="10.875" PointY="6" Height="1.7879850260416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Enums_CompanyType" Width="1.5" PointX="10.875" PointY="3.5" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Enums_CoreBussiness" Width="1.5" PointX="12.75" PointY="3.375" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Enums_EducationDegree" Width="1.5" PointX="12.75" PointY="0.875" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Enums_Function" Width="1.875" PointX="12.75" PointY="6" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Enums_SoleProprietorType" Width="1.5" PointX="10.875" PointY="0.875" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Obrt" Width="1.5" PointX="6.75" PointY="6.25" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Person" Width="1.5" PointX="4.75" PointY="6.25" Height="3.5186979166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_SoleProprietor" Width="1.5" PointX="2.75" PointY="6.25" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Subject" Width="1.5" PointX="4.75" PointY="0.5" Height="4.8648079427083326" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Subject_AccountsCol" Width="1.5" PointX="2.625" PointY="0.5" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Subject_ContactsCol" Width="1.5" PointX="6.875" PointY="0.5" Height="3.5186979166666665" IsExpanded="true" />
+        <InheritanceConnector EntityType="MDSubjectsModel.MDSubjects_Company" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.5" PointY="5.557109375" />
+          <ConnectorPoint PointX="5.5" PointY="5.875" />
+          <ConnectorPoint PointX="1.25" PointY="5.875" />
+          <ConnectorPoint PointX="1.25" PointY="6.25" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="MDSubjectsModel.MDSubjects_SoleProprietor" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.5" PointY="5.557109375" />
+          <ConnectorPoint PointX="5.5" PointY="5.875" />
+          <ConnectorPoint PointX="3.5" PointY="5.875" />
+          <ConnectorPoint PointX="3.5" PointY="6.25" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="MDSubjectsModel.MDSubjects_Person" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.5" PointY="5.557109375" />
+          <ConnectorPoint PointX="5.5" PointY="6.25" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="MDSubjectsModel.MDSubjects_Obrt" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.5" PointY="5.557109375" />
+          <ConnectorPoint PointX="5.5" PointY="5.875" />
+          <ConnectorPoint PointX="7.5" PointY="5.875" />
+          <ConnectorPoint PointX="7.5" PointY="6.25" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="MDSubjectsModel.MDSubjects_Employee" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.5" PointY="5.557109375" />
+          <ConnectorPoint PointX="5.5" PointY="5.875" />
+          <ConnectorPoint PointX="9.5" PointY="5.875" />
+          <ConnectorPoint PointX="9.5" PointY="6.25" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="MDSubjectsModel.MDSubjects_Subject_PermissionsForClientsCol" Width="1.5" PointX="0.625" PointY="0.5" Height="1.9802864583333388" />
+        <AssociationConnector Association="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_AccountsCol">
+          <ConnectorPoint PointX="4.75" PointY="1.8747460937499998" />
+          <ConnectorPoint PointX="4.125" PointY="1.8747460937499998" />
+        </AssociationConnector>
+        <AssociationConnector Association="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_ContactsCol">
+          <ConnectorPoint PointX="6.25" PointY="2.2593489583333333" />
+          <ConnectorPoint PointX="6.875" PointY="2.2593489583333333" />
+        </AssociationConnector>
+        <AssociationConnector Association="MDSubjectsModel.MDSubjects_SubjectMDSubjects_Subject_PermissionsForClientsCol">
+          <ConnectorPoint PointX="4.75" PointY="4.3384000651041656" />
+          <ConnectorPoint PointX="1.375" PointY="4.3384000651041656" />
+          <ConnectorPoint PointX="1.375" PointY="2.672587890625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="MDSubjectsModel.Auth_Company" Width="1.875" PointX="14.75" PointY="0.875" Height="6.2109179687500031" />
+        <EntityTypeShape EntityType="MDSubjectsModel.vCustomers" Width="1.5" PointX="16.75" PointY="8.875" Height="4.0956022135416656" />
+        <EntityTypeShape EntityType="MDSubjectsModel.vContractors" Width="1.5" PointX="12.75" PointY="9.25" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="MDSubjectsModel.vEnums_Bank" Width="1.5" PointX="16.75" PointY="0.875" Height="1.9802864583333331" />
+        <EntityTypeShape EntityType="MDSubjectsModel.vEnums_CompanyType" Width="1.5" PointX="16.75" PointY="3.375" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="MDSubjectsModel.vEnums_CoreBussiness" Width="1.5" PointX="18.875" PointY="0.875" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="MDSubjectsModel.vEnums_EducationDegree" Width="1.5" PointX="18.875" PointY="3.375" Height="2.1725878906250067" />
+        <EntityTypeShape EntityType="MDSubjectsModel.vEnums_Function" Width="1.5" PointX="16.75" PointY="6.125" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="MDSubjectsModel.vEnums_SoleProprietorType" Width="1.5" PointX="18.875" PointY="6.125" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDPlaces_Enums_Geo_PlaceForSubjects" Width="1.5" PointX="3.375" PointY="10.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="MDSubjectsModel.MDGeneral_Enums_Currency_subjects" Width="1.5" PointX="5.375" PointY="10.75" Height="2.7494921874999818" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

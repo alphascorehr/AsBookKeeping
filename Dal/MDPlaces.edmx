@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MDPlacesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MDPlacesModelStoreContainer">
+          <EntitySet Name="MDPlaces_Enums_Geo_Country" EntityType="MDPlacesModel.Store.MDPlaces_Enums_Geo_Country" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="MDPlaces_Enums_Geo_Place" EntityType="MDPlacesModel.Store.MDPlaces_Enums_Geo_Place" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="MDPlaces_Enums_Geo_Region" EntityType="MDPlacesModel.Store.MDPlaces_Enums_Geo_Region" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="MDPlaces_Enums_OgranizationalUnit" EntityType="MDPlacesModel.Store.MDPlaces_Enums_OgranizationalUnit" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="vEnums_Geo_Country" EntityType="MDPlacesModel.Store.vEnums_Geo_Country" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Geo_Country" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [vEnums_Geo_Country].[Id] AS [Id], 
+      [vEnums_Geo_Country].[Name] AS [Name], 
+      [vEnums_Geo_Country].[Label] AS [Label], 
+      [vEnums_Geo_Country].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Geo_Country].[ClientName] AS [ClientName]
+      FROM [dbo].[vEnums_Geo_Country] AS [vEnums_Geo_Country]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_Geo_Place" EntityType="MDPlacesModel.Store.vEnums_Geo_Place" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Geo_Place" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [vEnums_Geo_Place].[Id] AS [Id], 
+      [vEnums_Geo_Place].[Name] AS [Name], 
+      [vEnums_Geo_Place].[ZIPCode] AS [ZIPCode], 
+      [vEnums_Geo_Place].[Region] AS [Region], 
+      [vEnums_Geo_Place].[Country] AS [Country], 
+      [vEnums_Geo_Place].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Geo_Place].[ClientName] AS [ClientName]
+      FROM [dbo].[vEnums_Geo_Place] AS [vEnums_Geo_Place]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_Geo_Region" EntityType="MDPlacesModel.Store.vEnums_Geo_Region" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Geo_Region" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [vEnums_Geo_Region].[Id] AS [Id], 
+      [vEnums_Geo_Region].[Name] AS [Name], 
+      [vEnums_Geo_Region].[Country] AS [Country], 
+      [vEnums_Geo_Region].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Geo_Region].[ClientName] AS [ClientName]
+      FROM [dbo].[vEnums_Geo_Region] AS [vEnums_Geo_Region]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <EntityType Name="MDPlaces_Enums_Geo_Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="LanguageId" Type="int" />
+          <Property Name="CurrencyId" Type="int" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDPlaces_Enums_Geo_Place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="ZIPCode" Type="nchar" Nullable="false" MaxLength="5" />
+          <Property Name="RegionId" Type="int" />
+          <Property Name="Distance" Type="int" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDPlaces_Enums_Geo_Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDPlaces_Enums_OgranizationalUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyUsingServiceId" Type="int" Nullable="false" />
+          <Property Name="Label" Type="nvarchar" MaxLength="10" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="UserWhoLastChanedItUserId" Type="int" Nullable="false" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Geo_Country' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_Geo_Country">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Geo_Place' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_Geo_Place">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="ZIPCode" Type="nchar" Nullable="false" MaxLength="5" />
+          <Property Name="Region" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Geo_Region' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_Geo_Region">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MDPlacesModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MDPlacesEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="MDPlaces_Enums_Geo_Country" EntityType="MDPlacesModel.MDPlaces_Enums_Geo_Country" />
+          <EntitySet Name="MDPlaces_Enums_Geo_Place" EntityType="MDPlacesModel.MDPlaces_Enums_Geo_Place" />
+          <EntitySet Name="MDPlaces_Enums_Geo_Region" EntityType="MDPlacesModel.MDPlaces_Enums_Geo_Region" />
+          <EntitySet Name="MDPlaces_Enums_OgranizationalUnit" EntityType="MDPlacesModel.MDPlaces_Enums_OgranizationalUnit" />
+          <EntitySet Name="vEnums_Geo_Country" EntityType="MDPlacesModel.vEnums_Geo_Country" />
+          <EntitySet Name="vEnums_Geo_Place" EntityType="MDPlacesModel.vEnums_Geo_Place" />
+          <EntitySet Name="vEnums_Geo_Region" EntityType="MDPlacesModel.vEnums_Geo_Region" />
+        </EntityContainer>
+        <EntityType Name="MDPlaces_Enums_Geo_Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Label" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
+          <Property Name="LanguageId" Type="Int32" />
+          <Property Name="CurrencyId" Type="Int32" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDPlaces_Enums_Geo_Place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ZIPCode" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="true" />
+          <Property Name="RegionId" Type="Int32" />
+          <Property Name="Distance" Type="Int32" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDPlaces_Enums_Geo_Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDPlaces_Enums_OgranizationalUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="CompanyUsingServiceId" Type="Int32" Nullable="false" />
+          <Property Name="Label" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Inactive" Type="Boolean" Nullable="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" />
+          <Property Name="UserWhoLastChanedItUserId" Type="Int32" Nullable="false" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
+        <EntityType Name="vEnums_Geo_Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Label" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vEnums_Geo_Place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ZIPCode" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Region" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Country" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vEnums_Geo_Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Country" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MDPlacesModelStoreContainer" CdmEntityContainer="MDPlacesEntities">
+          <EntitySetMapping Name="MDPlaces_Enums_Geo_Country"><EntityTypeMapping TypeName="MDPlacesModel.MDPlaces_Enums_Geo_Country"><MappingFragment StoreEntitySet="MDPlaces_Enums_Geo_Country">
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Label" ColumnName="Label" />
+            <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+            <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDPlaces_Enums_Geo_Place"><EntityTypeMapping TypeName="MDPlacesModel.MDPlaces_Enums_Geo_Place"><MappingFragment StoreEntitySet="MDPlaces_Enums_Geo_Place">
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="ZIPCode" ColumnName="ZIPCode" />
+            <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+            <ScalarProperty Name="Distance" ColumnName="Distance" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDPlaces_Enums_Geo_Region"><EntityTypeMapping TypeName="MDPlacesModel.MDPlaces_Enums_Geo_Region"><MappingFragment StoreEntitySet="MDPlaces_Enums_Geo_Region">
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDPlaces_Enums_OgranizationalUnit"><EntityTypeMapping TypeName="MDPlacesModel.MDPlaces_Enums_OgranizationalUnit"><MappingFragment StoreEntitySet="MDPlaces_Enums_OgranizationalUnit">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+            <ScalarProperty Name="Label" ColumnName="Label" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+            <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+            <ScalarProperty Name="UserWhoLastChanedItUserId" ColumnName="UserWhoLastChanedItUserId" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="vEnums_Geo_Country">
+            <EntityTypeMapping TypeName="MDPlacesModel.vEnums_Geo_Country">
+              <MappingFragment StoreEntitySet="vEnums_Geo_Country">
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_Geo_Place">
+            <EntityTypeMapping TypeName="MDPlacesModel.vEnums_Geo_Place">
+              <MappingFragment StoreEntitySet="vEnums_Geo_Place">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="ZIPCode" ColumnName="ZIPCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_Geo_Region">
+            <EntityTypeMapping TypeName="MDPlacesModel.vEnums_Geo_Region">
+              <MappingFragment StoreEntitySet="vEnums_Geo_Region">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MDPlaces">
+        <EntityTypeShape EntityType="MDPlacesModel.MDPlaces_Enums_Geo_Country" Width="1.5" PointX="0.75" PointY="0.75" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDPlacesModel.MDPlaces_Enums_Geo_Place" Width="1.5" PointX="2.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDPlacesModel.MDPlaces_Enums_Geo_Region" Width="1.5" PointX="0.75" PointY="3.75" Height="1.787985026041667" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDPlacesModel.MDPlaces_Enums_OgranizationalUnit" Width="1.5" PointX="2.75" PointY="3.75" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDPlacesModel.vEnums_Geo_Country" Width="1.5" PointX="5.375" PointY="0.75" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="MDPlacesModel.vEnums_Geo_Place" Width="1.5" PointX="5.375" PointY="3.75" Height="2.3648893229166656" />
+        <EntityTypeShape EntityType="MDPlacesModel.vEnums_Geo_Region" Width="1.5" PointX="9.5" PointY="0.875" Height="1.9802864583333331" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

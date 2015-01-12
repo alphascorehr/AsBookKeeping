@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MDGeneralModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MDGeneralModelStoreContainer">
+          <EntitySet Name="MDGeneral_Enums_CashBox" EntityType="MDGeneralModel.Store.MDGeneral_Enums_CashBox" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDGeneral_Enums_Currency" EntityType="MDGeneralModel.Store.MDGeneral_Enums_Currency" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDGeneral_Enums_KindOfTransportation" EntityType="MDGeneralModel.Store.MDGeneral_Enums_KindOfTransportation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDGeneral_Enums_Language" EntityType="MDGeneralModel.Store.MDGeneral_Enums_Language" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDGeneral_Enums_Location" EntityType="MDGeneralModel.Store.MDGeneral_Enums_Location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MDGeneral_Enums_TimeZone" EntityType="MDGeneralModel.Store.MDGeneral_Enums_TimeZone" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="vEnums_Currency" EntityType="MDGeneralModel.Store.vEnums_Currency" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Currency">
+            <DefiningQuery>SELECT 
+      [vEnums_Currency].[Id] AS [Id], 
+      [vEnums_Currency].[Name] AS [Name], 
+      [vEnums_Currency].[Label] AS [Label], 
+      [vEnums_Currency].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Currency].[ClientName] AS [ClientName], 
+      [vEnums_Currency].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_Currency] AS [vEnums_Currency]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_Language" EntityType="MDGeneralModel.Store.vEnums_Language" store:Type="Views" store:Schema="dbo" store:Name="vEnums_Language">
+            <DefiningQuery>SELECT 
+      [vEnums_Language].[Id] AS [Id], 
+      [vEnums_Language].[Name] AS [Name], 
+      [vEnums_Language].[Label] AS [Label], 
+      [vEnums_Language].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_Language].[ClientName] AS [ClientName], 
+      [vEnums_Language].[Inactive] AS [Inactive]
+      FROM [dbo].[vEnums_Language] AS [vEnums_Language]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnums_TimeZone" EntityType="MDGeneralModel.Store.vEnums_TimeZone" store:Type="Views" store:Schema="dbo" store:Name="vEnums_TimeZone">
+            <DefiningQuery>SELECT 
+      [vEnums_TimeZone].[Id] AS [Id], 
+      [vEnums_TimeZone].[Name] AS [Name], 
+      [vEnums_TimeZone].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnums_TimeZone].[ClientName] AS [ClientName]
+      FROM [dbo].[vEnums_TimeZone] AS [vEnums_TimeZone]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vEnumsCashBox" EntityType="MDGeneralModel.Store.vEnumsCashBox" store:Type="Views" store:Schema="dbo" store:Name="vEnumsCashBox">
+            <DefiningQuery>SELECT 
+      [vEnumsCashBox].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vEnumsCashBox].[Code] AS [Code], 
+      [vEnumsCashBox].[Name] AS [Name], 
+      [vEnumsCashBox].[City] AS [City], 
+      [vEnumsCashBox].[Address] AS [Address], 
+      [vEnumsCashBox].[Id] AS [Id]
+      FROM [dbo].[vEnumsCashBox] AS [vEnumsCashBox]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vvEnumsCashBox" EntityType="MDGeneralModel.Store.vvEnumsCashBox" store:Type="Views" store:Schema="dbo" store:Name="vvEnumsCashBox">
+            <DefiningQuery>SELECT 
+      [vvEnumsCashBox].[CompanyUsingServiceId] AS [CompanyUsingServiceId], 
+      [vvEnumsCashBox].[Code] AS [Code], 
+      [vvEnumsCashBox].[Name] AS [Name], 
+      [vvEnumsCashBox].[City] AS [City], 
+      [vvEnumsCashBox].[Address] AS [Address], 
+      [vvEnumsCashBox].[Id] AS [Id]
+      FROM [dbo].[vvEnumsCashBox] AS [vvEnumsCashBox]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <EntityType Name="MDGeneral_Enums_CashBox">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LocationId" Type="int" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Label" Type="nchar" Nullable="false" MaxLength="3" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Measure" Type="int" Nullable="false" />
+          <Property Name="DecimalPlaces" Type="int" Nullable="false" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="DefaultCurrency" Type="bit" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_KindOfTransportation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="DefaultLanguage" Type="bit" Nullable="false" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="WorkingHour" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_TimeZone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="LastChanged" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Currency' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="nchar" Nullable="false" MaxLength="3" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_Language' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_Language">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Label" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnums_TimeZone' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnums_TimeZone">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vEnumsCashBox' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vEnumsCashBox">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'AlphaWebCommodityBookkeeping.dbo.vvEnumsCashBox' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vvEnumsCashBox">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CompanyUsingServiceId" Type="int" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MDGeneralModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MDGeneralEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="MDGeneral_Enums_Language" EntityType="MDGeneralModel.MDGeneral_Enums_Language" />
+          <EntitySet Name="MDGeneral_Enums_Currency" EntityType="MDGeneralModel.MDGeneral_Enums_Currency" />
+          <EntitySet Name="MDGeneral_Enums_TimeZone" EntityType="MDGeneralModel.MDGeneral_Enums_TimeZone" />
+          <EntitySet Name="vEnums_Currency" EntityType="MDGeneralModel.vEnums_Currency" />
+          <EntitySet Name="vEnums_Language" EntityType="MDGeneralModel.vEnums_Language" />
+          <EntitySet Name="vEnums_TimeZone" EntityType="MDGeneralModel.vEnums_TimeZone" />
+          <EntitySet Name="MDGeneral_Enums_KindOfTransportation" EntityType="MDGeneralModel.MDGeneral_Enums_KindOfTransportation" />
+          <EntitySet Name="MDGeneral_Enums_Location" EntityType="MDGeneralModel.MDGeneral_Enums_Location" />
+          <EntitySet Name="vEnumsCashBox" EntityType="MDGeneralModel.vEnumsCashBox" />
+          <EntitySet Name="vvEnumsCashBox" EntityType="MDGeneralModel.vvEnumsCashBox" />
+          <EntitySet Name="MDGeneral_Enums_CashBox" EntityType="MDGeneralModel.MDGeneral_Enums_CashBox" />
+        </EntityContainer>
+        <EntityType Name="MDGeneral_Enums_Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DefaultLanguage" Type="Boolean" Nullable="false" />
+          <Property Name="Inactive" Type="Boolean" Nullable="false" />
+          <Property Name="LastChanged" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Label" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Label" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Measure" Nullable="false" />
+          <Property Type="Int32" Name="DecimalPlaces" Nullable="false" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+          <Property Type="Boolean" Name="DefaultCurrency" Nullable="false" />
+          <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_TimeZone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
+        <EntityType Name="vEnums_Currency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Label" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnums_Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Label" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vEnums_TimeZone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="ClientName" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_KindOfTransportation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="LastChanged" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Boolean" Name="Inactive" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="City" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="WorkingHour" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vEnumsCashBox">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="City" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vvEnumsCashBox">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="City" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MDGeneral_Enums_CashBox">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="CompanyUsingServiceId" />
+          <Property Type="Int32" Name="LocationId" />
+          <Property Type="String" Name="Code" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MDGeneralModelStoreContainer" CdmEntityContainer="MDGeneralEntities">
+          <EntitySetMapping Name="MDGeneral_Enums_Language"><EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_Language"><MappingFragment StoreEntitySet="MDGeneral_Enums_Language">
+            <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="DefaultLanguage" ColumnName="DefaultLanguage" />
+            <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+            <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MDGeneral_Enums_Currency">
+            <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_Currency">
+              <MappingFragment StoreEntitySet="MDGeneral_Enums_Currency">
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="DefaultCurrency" ColumnName="DefaultCurrency" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="DecimalPlaces" ColumnName="DecimalPlaces" />
+                <ScalarProperty Name="Measure" ColumnName="Measure" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MDGeneral_Enums_TimeZone">
+            <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_TimeZone">
+              <MappingFragment StoreEntitySet="MDGeneral_Enums_TimeZone">
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_Currency">
+            <EntityTypeMapping TypeName="MDGeneralModel.vEnums_Currency">
+              <MappingFragment StoreEntitySet="vEnums_Currency">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_Language">
+            <EntityTypeMapping TypeName="MDGeneralModel.vEnums_Language">
+              <MappingFragment StoreEntitySet="vEnums_Language">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnums_TimeZone">
+            <EntityTypeMapping TypeName="MDGeneralModel.vEnums_TimeZone">
+              <MappingFragment StoreEntitySet="vEnums_TimeZone">
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MDGeneral_Enums_KindOfTransportation">
+            <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_KindOfTransportation">
+              <MappingFragment StoreEntitySet="MDGeneral_Enums_KindOfTransportation">
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MDGeneral_Enums_Location">
+            <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_Location">
+              <MappingFragment StoreEntitySet="MDGeneral_Enums_Location">
+                <ScalarProperty Name="WorkingHour" ColumnName="WorkingHour" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vEnumsCashBox">
+            <EntityTypeMapping TypeName="MDGeneralModel.vEnumsCashBox">
+              <MappingFragment StoreEntitySet="vEnumsCashBox">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vvEnumsCashBox">
+            <EntityTypeMapping TypeName="MDGeneralModel.vvEnumsCashBox">
+              <MappingFragment StoreEntitySet="vvEnumsCashBox">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MDGeneral_Enums_CashBox">
+            <EntityTypeMapping TypeName="MDGeneralModel.MDGeneral_Enums_CashBox">
+              <MappingFragment StoreEntitySet="MDGeneral_Enums_CashBox">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MDGeneral" ZoomLevel="73">
+        <EntityTypeShape EntityType="MDGeneralModel.MDGeneral_Enums_Language" Width="1.25" PointX="4.75" PointY="0.75" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDGeneralModel.MDGeneral_Enums_Currency" Width="1.125" PointX="2.75" PointY="0.75" Height="2.5571907552083331" IsExpanded="true" />
+        <EntityTypeShape EntityType="MDGeneralModel.MDGeneral_Enums_TimeZone" Width="1.875" PointX="0.625" PointY="0.875" Height="1.7879850260416657" />
+        <EntityTypeShape EntityType="MDGeneralModel.vEnums_Currency" Width="1.625" PointX="0.5" PointY="3.875" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="MDGeneralModel.vEnums_Language" Width="1.5" PointX="2.5" PointY="3.875" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="MDGeneralModel.vEnums_TimeZone" Width="1.5" PointX="4.5" PointY="3.875" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="MDGeneralModel.MDGeneral_Enums_KindOfTransportation" Width="3.125" PointX="7.375" PointY="0.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="MDGeneralModel.MDGeneral_Enums_Location" Width="1.5" PointX="6.75" PointY="3.875" />
+        <EntityTypeShape EntityType="MDGeneralModel.vEnumsCashBox" Width="1.5" PointX="11.375" PointY="0.875" />
+        <EntityTypeShape EntityType="MDGeneralModel.vvEnumsCashBox" Width="1.5" PointX="11.375" PointY="3.875" />
+        <EntityTypeShape EntityType="MDGeneralModel.MDGeneral_Enums_CashBox" Width="1.5" PointX="8.875" PointY="3.75" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

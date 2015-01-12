@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjectsModelStoreContainer" CdmEntityContainer="ProjectsEntities">
+    <EntitySetMapping Name="Projects_Enums_ExpensType">
+      <EntityTypeMapping TypeName="ProjectsModel.Projects_Enums_ExpensType">
+        <MappingFragment StoreEntitySet="Projects_Enums_ExpensType">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects_Enums_Task">
+      <EntityTypeMapping TypeName="ProjectsModel.Projects_Enums_Task">
+        <MappingFragment StoreEntitySet="Projects_Enums_Task">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="TaskRatePerHour" ColumnName="TaskRatePerHour" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects_MaterialTrackingLog">
+      <EntityTypeMapping TypeName="ProjectsModel.Projects_MaterialTrackingLog">
+        <MappingFragment StoreEntitySet="Projects_MaterialTrackingLog">
+          <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
+          <ScalarProperty Name="OrdinalInWorkOrder" ColumnName="OrdinalInWorkOrder" />
+          <ScalarProperty Name="OrdinalInProject" ColumnName="OrdinalInProject" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+          <ScalarProperty Name="Documents_WorkOrderId" ColumnName="Documents_WorkOrderId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductUnitId" ColumnName="ProductUnitId" />
+          <ScalarProperty Name="ProductAmmount" ColumnName="ProductAmmount" />
+          <ScalarProperty Name="IsBillable" ColumnName="IsBillable" />
+          <ScalarProperty Name="Documents_Invoice_ItemsColId" ColumnName="Documents_Invoice_ItemsColId" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects_Project">
+      <EntityTypeMapping TypeName="ProjectsModel.Projects_Project">
+        <MappingFragment StoreEntitySet="Projects_Project">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="PayedInFull" ColumnName="PayedInFull" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="IsInternal" ColumnName="IsInternal" />
+          <ScalarProperty Name="BillingMethod" ColumnName="BillingMethod" />
+          <ScalarProperty Name="TimeBudget_Hours" ColumnName="TimeBudget_Hours" />
+          <ScalarProperty Name="ProjectRatePerHour" ColumnName="ProjectRatePerHour" />
+          <ScalarProperty Name="FlatAmount" ColumnName="FlatAmount" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects_Project_Expenses">
+      <EntityTypeMapping TypeName="ProjectsModel.Projects_Project_Expenses">
+        <MappingFragment StoreEntitySet="Projects_Project_Expenses">
+          <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="Projects_Enums_ExpensTypeId" ColumnName="Projects_Enums_ExpensTypeId" />
+          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="Documents_InvoiceId" ColumnName="Documents_InvoiceId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects_Project_TeamMemebersCol">
+      <EntityTypeMapping TypeName="ProjectsModel.Projects_Project_TeamMemebersCol">
+        <MappingFragment StoreEntitySet="Projects_Project_TeamMemebersCol">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="MDEntities_ServiceId" ColumnName="MDEntities_ServiceId" />
+          <ScalarProperty Name="ContractorRebillRatePerHour" ColumnName="ContractorRebillRatePerHour" />
+          <ScalarProperty Name="ContractoRebillFlatAmount" ColumnName="ContractoRebillFlatAmount" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects_TimeTrackingLog">
+      <EntityTypeMapping TypeName="ProjectsModel.Projects_TimeTrackingLog">
+        <MappingFragment StoreEntitySet="Projects_TimeTrackingLog">
+          <ScalarProperty Name="Service_Description" ColumnName="Service_Description" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="OrdinalInWorkOrder" ColumnName="OrdinalInWorkOrder" />
+          <ScalarProperty Name="OrdinalInProject" ColumnName="OrdinalInProject" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="MDSubjects_EmployeeWhoChengedId" ColumnName="MDSubjects_EmployeeWhoChengedId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+          <ScalarProperty Name="Work_OrderId" ColumnName="Work_OrderId" />
+          <ScalarProperty Name="Documents_TravelOrderId" ColumnName="Documents_TravelOrderId" />
+          <ScalarProperty Name="MDEntities_ServiceId" ColumnName="MDEntities_ServiceId" />
+          <ScalarProperty Name="MDSubjects_SubjectTeamMemberId" ColumnName="MDSubjects_SubjectTeamMemberId" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="BillingMethod" ColumnName="BillingMethod" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="IsBillable" ColumnName="IsBillable" />
+          <ScalarProperty Name="Documents_Invoice_ItemsColId" ColumnName="Documents_Invoice_ItemsColId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_ExpensType">
+      <EntityTypeMapping TypeName="ProjectsModel.vEnums_ExpensType">
+        <MappingFragment StoreEntitySet="vEnums_ExpensType">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_Task">
+      <EntityTypeMapping TypeName="ProjectsModel.vEnums_Task">
+        <MappingFragment StoreEntitySet="vEnums_Task">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vProjects">
+      <EntityTypeMapping TypeName="ProjectsModel.vProjects">
+        <MappingFragment StoreEntitySet="vProjects">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vProjectExpenses">
+      <EntityTypeMapping TypeName="ProjectsModel.vProjectExpenses">
+        <MappingFragment StoreEntitySet="vProjectExpenses">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Projectname" ColumnName="Projectname" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vProjectsMaterialTracking">
+      <EntityTypeMapping TypeName="ProjectsModel.vProjectsMaterialTracking">
+        <MappingFragment StoreEntitySet="vProjectsMaterialTracking">
+          <ScalarProperty Name="ProductAmmount" ColumnName="ProductAmmount" />
+          <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+          <ScalarProperty Name="Klijent" ColumnName="Klijent" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vProjectsTimeTracking">
+      <EntityTypeMapping TypeName="ProjectsModel.vProjectsTimeTracking">
+        <MappingFragment StoreEntitySet="vProjectsTimeTracking">
+          <ScalarProperty Name="IsBillable" ColumnName="IsBillable" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+          <ScalarProperty Name="Klijent" ColumnName="Klijent" />
+          <ScalarProperty Name="Work_OrderId" ColumnName="Work_OrderId" />
+          <ScalarProperty Name="Projects_ProjectId" ColumnName="Projects_ProjectId" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

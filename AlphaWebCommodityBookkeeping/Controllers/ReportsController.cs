@@ -20,51 +20,13 @@ namespace AlphaWebCommodityBookkeeping.Controllers
             ViewData["reportType"] = System.Web.HttpContext.Current.Session["reportType"];
             ViewData["source"] = System.Web.HttpContext.Current.Session["source"];
 
-
-           
-
-            
-           
-
             ViewData["Cache"] = HttpRuntime.Cache["Pero"];
             return View();
         }
 
         public ActionResult Print(FormCollection collection)
         {
-            //if(string.IsNullOrEmpty(collection["check"]))
-            //    return PartialView("ReportForMainPage");
-
-            // prvi parametar je tip koji se prosljeduje u storu, a drugi je 0 za izlazne fakture, 1 za ulazne fakture, 2 za nefakturiano, 3 za dospjeca
-            
-            // @Source = 0 za izlazne fakture
-            // @Source = 1 za ulazne fakture
-            // @Source = 2 za nefakturiano
-            // @Source = 3 za dospjeca
-
-            // @Tip = 0 - Ukupna potrazivanja
-            // @Tip = 1 - Dospjela potrazivanja
-            // @Tip = 2 - Nedospjela potrazivanja
-            // @Tip = 30 - Od = 0  do = 30 potrazivanja
-            // @Tip = 31 - Od = 30 do = 60 potrazivanja
-            // @Tip = 32 - Od = 60 do = 90 potrazivanja
-            // @Tip = 4 - preko 90 potrazivanja
-
-            //All- @VrstaDokumenta = 0 
-            //Offer - @VrstaDokumenta = 2 
-            //Quote - @VrstaDokumenta = 5
-            //WorkOrder - @VrstaDokumenta = 7
-
-            // @Source = 3 za dospjeca
-            //@Tip = 20 - IRA Danas
-            //@Tip = 21 - IRA 5 dana
-            //@Tip = 22 - IRA 10 dana
-            //@Tip = 23 - IRA 15 dana
-            //@Tip = 24 - URA Danas
-            //@Tip = 25 - URA 5 dana
-            //@Tip = 26 - URA 10 dana
-            //@Tip = 27 - URA 15 dana
-
+           
             int _vrstadokumenta = Convert.ToInt32(System.Web.HttpContext.Current.Session["vrstadokumenta"]);
             
             int tip = Convert.ToInt32(System.Web.HttpContext.Current.Session["tip"]);
@@ -121,9 +83,7 @@ namespace AlphaWebCommodityBookkeeping.Controllers
             DateTime? valutaDo = Convert.ToDateTime(System.Web.HttpContext.Current.Session["valutaDo"]);
 
             bool? filtered = Convert.ToBoolean(System.Web.HttpContext.Current.Session["filtered"]);
-            //int? clientSP = null;
-            //if (client != 0)
-            //    clientSP = client;
+          
             
             System.Web.HttpContext.Current.Session["client"] = null;
             System.Web.HttpContext.Current.Session["filtered"] = false;
@@ -152,7 +112,6 @@ namespace AlphaWebCommodityBookkeeping.Controllers
                             _podnaslov = "Otvorena potraživanja";
                             report.LabelPodnaslov.Text = "";
                         }
-                        //int count = item.Count();
                     }
                     break;
                 case 1: // URA
@@ -175,35 +134,7 @@ namespace AlphaWebCommodityBookkeeping.Controllers
                         }
                     }
                     break;
-                //case 2: // nefakturirano
-                //    using (DalEf.DocumentsEntities data = new DalEf.DocumentsEntities())
-                //    {
-                //        var item = data.uspUnbilledDetails(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, _vrstadokumenta);
-                //        xrUnbilledDetails report_unbilled = new xrUnbilledDetails();
-                //        report_unbilled.bindingSourceMainPage.DataSource = item;
-                //        _podnaslov = "Nefakturirano";
-                //        report_unbilled.LabelDatumIspisa.Text = DateTime.Now.ToShortDateString();
-                //        report_unbilled.LabelPodnaslov.Text = _podnaslov;
-                //        report_unbilled.LabelPeriod.Text = _period;
-                //        report_unbilled.CreateDocument();
-
-                //        return PartialView("ReportForMainPageUnbilled", report_unbilled);
-                //    }
-                //case 3: // dospjeca
-                //    using (DalEf.DocumentsEntities data = new DalEf.DocumentsEntities())
-                //    {
-                //        var item = data.uspPaymentStateDetails(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, _tip);
-                //        xrFutureClaimsDetails report_future = new xrFutureClaimsDetails();
-                //        report_future.bindingSourceMainPage.DataSource = item;
-                //        _podnaslov = "Buduće obaveze";
-
-                //        report_future.LabelDatumIspisa.Text = DateTime.Now.ToShortDateString();
-                //        report_future.LabelPodnaslov.Text = _podnaslov;
-                //        report_future.LabelPeriod.Text = _period;
-                //        report_future.CreateDocument();
-
-                //        return PartialView("ReportForMainPageFuture", report_future);
-                //    }
+               
                 default:
                     break;
             }
@@ -466,18 +397,7 @@ namespace AlphaWebCommodityBookkeeping.Controllers
 
         public ActionResult ReportExportToUnbilled()
         {
-            //int tip = Convert.ToInt32(System.Web.HttpContext.Current.Session["tip"]);
-            //int source = Convert.ToInt32(System.Web.HttpContext.Current.Session["source"]);
-            //int _vrstadokumenta = Convert.ToInt32(System.Web.HttpContext.Current.Session["vrstadokumenta"]);
-            //xrUnbilledDetails report = new xrUnbilledDetails();
-            //using (DalEf.DocumentsEntities data = new DalEf.DocumentsEntities())
-            //{
-            //    var item = data.uspUnbilledDetails(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, _vrstadokumenta);
-            //    report.bindingSourceMainPage.DataSource = item;
-
-            //}
-            //report.CreateDocument();
-
+           
             int _vrstadokumenta = Convert.ToInt32(System.Web.HttpContext.Current.Session["vrstadokumenta"]);
 
             int tip = Convert.ToInt32(System.Web.HttpContext.Current.Session["tip"]);
@@ -549,18 +469,7 @@ namespace AlphaWebCommodityBookkeeping.Controllers
 
         public ActionResult ReportExportTo()
         {
-            //int tip = Convert.ToInt32(System.Web.HttpContext.Current.Session["tip"]);
-            //int source = Convert.ToInt32(System.Web.HttpContext.Current.Session["source"]);
-            //xrInvocesClaimsDetails report = new xrInvocesClaimsDetails();
-            //using (DalEf.DocumentsEntities data = new DalEf.DocumentsEntities())
-            //{
-            //    var item = data.uspInvoicesClaimsDetails(0, 30, ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, tip, null);
-            //    report.bindingSourceMainPage.DataSource = item;
-            //    //int count = item.Count();
-            //}
-            //if(string.IsNullOrEmpty(collection["check"]))
-            //    return PartialView("ReportForMainPage");
-
+           
             int _vrstadokumenta = Convert.ToInt32(System.Web.HttpContext.Current.Session["vrstadokumenta"]);
 
             int tip = Convert.ToInt32(System.Web.HttpContext.Current.Session["tip"]);
@@ -662,15 +571,7 @@ namespace AlphaWebCommodityBookkeeping.Controllers
 
         public ActionResult ReportExportToFuture()
         {
-            //int _tip = Convert.ToInt32(System.Web.HttpContext.Current.Session["tip"]);
-            //int source = Convert.ToInt32(System.Web.HttpContext.Current.Session["source"]);
-            //xrFutureClaimsDetails report = new xrFutureClaimsDetails();
-            //using (DalEf.DocumentsEntities data = new DalEf.DocumentsEntities())
-            //{
-            //    var item = data.uspPaymentStateDetails(((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).CompanyId, _tip);
-            //    report.bindingSourceMainPage.DataSource = item;
-            //}
-            //report.CreateDocument();
+          
             int _vrstadokumenta = Convert.ToInt32(System.Web.HttpContext.Current.Session["vrstadokumenta"]);
 
             int tip = Convert.ToInt32(System.Web.HttpContext.Current.Session["tip"]);

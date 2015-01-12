@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MDSubjectsModelStoreContainer" CdmEntityContainer="MDSubjectsEntities">
+    <EntitySetMapping Name="MDSubjects_Enums_Bank">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_Bank">
+        <MappingFragment StoreEntitySet="MDSubjects_Enums_Bank">
+          <ScalarProperty Name="HomeAddress_CountryNumber" ColumnName="HomeAddress_CountryNumber" />
+          <ScalarProperty Name="HomeAddress" ColumnName="HomeAddress" />
+          <ScalarProperty Name="HomeAddress_PlaceId" ColumnName="HomeAddress_PlaceId" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDSubjects_Enums_CompanyType">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_CompanyType">
+        <MappingFragment StoreEntitySet="MDSubjects_Enums_CompanyType">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+          <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDSubjects_Enums_CoreBussiness">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_CoreBussiness">
+        <MappingFragment StoreEntitySet="MDSubjects_Enums_CoreBussiness">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDSubjects_Enums_EducationDegree">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_EducationDegree">
+        <MappingFragment StoreEntitySet="MDSubjects_Enums_EducationDegree">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDSubjects_Enums_Function">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_Function">
+        <MappingFragment StoreEntitySet="MDSubjects_Enums_Function">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="IsManagment" ColumnName="IsManagment" />
+          <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDSubjects_Enums_SoleProprietorType">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Enums_SoleProprietorType">
+        <MappingFragment StoreEntitySet="MDSubjects_Enums_SoleProprietorType">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Immutable" ColumnName="Immutable" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EnumNumber" ColumnName="EnumNumber" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDSubjects_Subject">
+      <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Subject)">
+        <MappingFragment StoreEntitySet="MDSubjects_Subject">
+          <ScalarProperty Name="IndividualCustomer" ColumnName="IndividualCustomer" />
+          <ScalarProperty Name="OIB" ColumnName="OIB" />
+          <ScalarProperty Name="EmployeeWhoLastChanedItId" ColumnName="EmployeeWhoLastChanedItId" />
+          <ScalarProperty Name="HomeAddress_Description" ColumnName="HomeAddress_Description" />
+          <ScalarProperty Name="HomeAddress_Number" ColumnName="HomeAddress_Number" />
+          <ScalarProperty Name="HomeAddress_Street" ColumnName="HomeAddress_Street" />
+          <ScalarProperty Name="HomeAddress_PlaceId" ColumnName="HomeAddress_PlaceId" />
+          <ScalarProperty Name="IsContractor" ColumnName="IsContractor" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="IsCustomer" ColumnName="IsCustomer" />
+          <ScalarProperty Name="Resident" ColumnName="Resident" />
+          <ScalarProperty Name="LongName" ColumnName="LongName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Company)">
+        <MappingFragment StoreEntitySet="MDSubjects_Company">
+          <ScalarProperty Name="IS_DebitToPartner" ColumnName="IS_DebitToPartner" />
+          <ScalarProperty Name="IS_DemandFromPartner" ColumnName="IS_DemandFromPartner" />
+          <ScalarProperty Name="IS_Course" ColumnName="IS_Course" />
+          <ScalarProperty Name="IS_MDGeneral_Enums_CurrencyId" ColumnName="IS_MDGeneral_Enums_CurrencyId" />
+          <ScalarProperty Name="IS_Date" ColumnName="IS_Date" />
+          <ScalarProperty Name="PDVType" ColumnName="PDVType" />
+          <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+          <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+          <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+          <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+          <ScalarProperty Name="MDSubjects_Enums_CoreBussinessId" ColumnName="MDSubjects_Enums_CoreBussinessId" />
+          <ScalarProperty Name="MDSubjects_Enums_CompanyTypeId" ColumnName="MDSubjects_Enums_CompanyTypeId" />
+          <ScalarProperty Name="Id" ColumnName="SubjectId" />
+          <ScalarProperty Name="CRO_MBR" ColumnName="CRO_MBR" />
+          <ScalarProperty Name="CoreBusinessDescription" ColumnName="CoreBusinessDescription" />
+          <ScalarProperty Name="NumberOfEmployees" ColumnName="NumberOfEmployees" />
+          <ScalarProperty Name="EstablishedDate" ColumnName="EstablishedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_SoleProprietor)">
+        <MappingFragment StoreEntitySet="MDSubjects_SoleProprietor">
+          <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+          <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+          <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+          <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+          <ScalarProperty Name="MDSubjects_Enums_CoreBussinessId" ColumnName="MDSubjects_Enums_CoreBussinessId" />
+          <ScalarProperty Name="MDSubjects_Enums_SoleProprietorTypeId" ColumnName="MDSubjects_Enums_SoleProprietorTypeId" />
+          <ScalarProperty Name="Id" ColumnName="SubjectId" />
+          <ScalarProperty Name="CoreBusinessDescription" ColumnName="CoreBusinessDescription" />
+          <ScalarProperty Name="Equity" ColumnName="Equity" />
+          <ScalarProperty Name="EstablishedDate" ColumnName="EstablishedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Person)">
+        <MappingFragment StoreEntitySet="MDSubjects_Person">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="CRO_JMBG" ColumnName="CRO_JMBG" />
+          <ScalarProperty Name="MDSubjects_Subject_EmployerId" ColumnName="MDSubjects_Subject_EmployerId" />
+          <ScalarProperty Name="Id" ColumnName="SubjectId" />
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="SurName" ColumnName="SurName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Obrt)">
+        <MappingFragment StoreEntitySet="MDSubjects_Obrt">
+          <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+          <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+          <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+          <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+          <ScalarProperty Name="MDSubjects_Enums_CoreBussinessId" ColumnName="MDSubjects_Enums_CoreBussinessId" />
+          <ScalarProperty Name="Id" ColumnName="SubjectId" />
+          <ScalarProperty Name="DjelatnostOpis" ColumnName="DjelatnostOpis" />
+          <ScalarProperty Name="SezonskiObrt" ColumnName="SezonskiObrt" />
+          <ScalarProperty Name="PrezimeVlasnika" ColumnName="PrezimeVlasnika" />
+          <ScalarProperty Name="ImeVlasnika" ColumnName="ImeVlasnika" />
+          <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MDSubjectsModel.MDSubjects_Employee)">
+        <MappingFragment StoreEntitySet="MDSubjects_Employee">
+          <ScalarProperty Name="FiscalMode" ColumnName="FiscalMode" />
+          <ScalarProperty Name="CashierCode" ColumnName="CashierCode" />
+          <ScalarProperty Name="TransferOrder" ColumnName="TransferOrder" />
+          <ScalarProperty Name="Compensation" ColumnName="Compensation" />
+          <ScalarProperty Name="FirstPage" ColumnName="FirstPage" />
+          <ScalarProperty Name="Payment" ColumnName="Payment" />
+          <ScalarProperty Name="PriceList" ColumnName="PriceList" />
+          <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+          <ScalarProperty Name="TravelOrder" ColumnName="TravelOrder" />
+          <ScalarProperty Name="Quote" ColumnName="Quote" />
+          <ScalarProperty Name="Offer" ColumnName="Offer" />
+          <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+          <ScalarProperty Name="IncomingInvoice" ColumnName="IncomingInvoice" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="BillingRatePerHour" ColumnName="BillingRatePerHour" />
+          <ScalarProperty Name="MDSubjects_Enums_EducationDegreeId" ColumnName="MDSubjects_Enums_EducationDegreeId" />
+          <ScalarProperty Name="MDSubjects_Enums_FunctionId" ColumnName="MDSubjects_Enums_FunctionId" />
+          <ScalarProperty Name="MDPlaces_Enums_OgranizationalUnitId" ColumnName="MDPlaces_Enums_OgranizationalUnitId" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="Id" ColumnName="SubjectId" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDSubjects_Subject_AccountsCol">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Subject_AccountsCol">
+        <MappingFragment StoreEntitySet="MDSubjects_Subject_AccountsCol">
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="MDGeneral_Enums_CurrencyId" ColumnName="MDGeneral_Enums_CurrencyId" />
+          <ScalarProperty Name="MDSubjects_Enums_BankId" ColumnName="MDSubjects_Enums_BankId" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDSubjects_Subject_ContactsCol">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Subject_ContactsCol">
+        <MappingFragment StoreEntitySet="MDSubjects_Subject_ContactsCol">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ContactSubjectId" ColumnName="ContactSubjectId" />
+          <ScalarProperty Name="ContactSubjecName" ColumnName="ContactSubjecName" />
+          <ScalarProperty Name="ContactSubjectFunctionId" ColumnName="ContactSubjectFunctionId" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDSubjects_Subject_PermissionsForClientsCol">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDSubjects_Subject_PermissionsForClientsCol">
+        <MappingFragment StoreEntitySet="MDSubjects_Subject_PermissionsForClientsCol">
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="MDSubjects_EmployeeId" ColumnName="MDSubjects_EmployeeId" />
+          <ScalarProperty Name="MDSubjects_SubjectId" ColumnName="MDSubjects_SubjectId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Auth_Company">
+      <EntityTypeMapping TypeName="MDSubjectsModel.Auth_Company">
+        <MappingFragment StoreEntitySet="Auth_Company">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Certificate" ColumnName="Certificate" />
+          <ScalarProperty Name="ConsumptionTax" ColumnName="ConsumptionTax" />
+          <ScalarProperty Name="TaxPayer" ColumnName="TaxPayer" />
+          <ScalarProperty Name="FiscalizationConsistenceCode" ColumnName="FiscalizationConsistenceCode" />
+          <ScalarProperty Name="Account3" ColumnName="Account3" />
+          <ScalarProperty Name="Account2" ColumnName="Account2" />
+          <ScalarProperty Name="Account1" ColumnName="Account1" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="FirstNumberWorkOrder" ColumnName="FirstNumberWorkOrder" />
+          <ScalarProperty Name="FirstNumberTravelOrder" ColumnName="FirstNumberTravelOrder" />
+          <ScalarProperty Name="FirstNumberTakeoverOfGoods" ColumnName="FirstNumberTakeoverOfGoods" />
+          <ScalarProperty Name="FirstNumberQuote" ColumnName="FirstNumberQuote" />
+          <ScalarProperty Name="FirstNumberPriceList" ColumnName="FirstNumberPriceList" />
+          <ScalarProperty Name="FirstNumberPayoff" ColumnName="FirstNumberPayoff" />
+          <ScalarProperty Name="FirstNumberPayment" ColumnName="FirstNumberPayment" />
+          <ScalarProperty Name="FirstNumberOrderForm" ColumnName="FirstNumberOrderForm" />
+          <ScalarProperty Name="FirstNumberOffer" ColumnName="FirstNumberOffer" />
+          <ScalarProperty Name="FirstNumberInvoice" ColumnName="FirstNumberInvoice" />
+          <ScalarProperty Name="FirstNumberIncomingInvoice" ColumnName="FirstNumberIncomingInvoice" />
+          <ScalarProperty Name="FirstNumberDispatch" ColumnName="FirstNumberDispatch" />
+          <ScalarProperty Name="PDVType" ColumnName="PDVType" />
+          <ScalarProperty Name="NumberOfUsersOrdered" ColumnName="NumberOfUsersOrdered" />
+          <ScalarProperty Name="NumbnerOfDays" ColumnName="NumbnerOfDays" />
+          <ScalarProperty Name="ActivationDate" ColumnName="ActivationDate" />
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="NumberOfUsers" ColumnName="NumberOfUsers" />
+          <ScalarProperty Name="HomeAddress_Number" ColumnName="HomeAddress_Number" />
+          <ScalarProperty Name="HomeAddress_Street" ColumnName="HomeAddress_Street" />
+          <ScalarProperty Name="HomeAddress_State" ColumnName="HomeAddress_State" />
+          <ScalarProperty Name="HomeAddress_PlaceId" ColumnName="HomeAddress_PlaceId" />
+          <ScalarProperty Name="MDGeneral_Enums_CurrencyId" ColumnName="MDGeneral_Enums_CurrencyId" />
+          <ScalarProperty Name="MDPlaces_Enums_Geo_CountryId" ColumnName="MDPlaces_Enums_Geo_CountryId" />
+          <ScalarProperty Name="AccountURL" ColumnName="AccountURL" />
+          <ScalarProperty Name="StaffProjectAccess" ColumnName="StaffProjectAccess" />
+          <ScalarProperty Name="StaffCanSeeReports" ColumnName="StaffCanSeeReports" />
+          <ScalarProperty Name="StaffCanSendInvoiceAndQuotes" ColumnName="StaffCanSendInvoiceAndQuotes" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+          <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+          <ScalarProperty Name="TimeZoneId" ColumnName="TimeZoneId" />
+          <ScalarProperty Name="HighQualityLogo" ColumnName="HighQualityLogo" />
+          <ScalarProperty Name="InvoiceLogo" ColumnName="InvoiceLogo" />
+          <ScalarProperty Name="SystemLogo" ColumnName="SystemLogo" />
+          <ScalarProperty Name="OIB" ColumnName="OIB" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vCustomers">
+      <EntityTypeMapping TypeName="MDSubjectsModel.vCustomers">
+        <MappingFragment StoreEntitySet="vCustomers">
+          <ScalarProperty Name="BillToAddress_Description" ColumnName="BillToAddress_Description" />
+          <ScalarProperty Name="BillToAddress_Number" ColumnName="BillToAddress_Number" />
+          <ScalarProperty Name="BillToAddress_Street" ColumnName="BillToAddress_Street" />
+          <ScalarProperty Name="BillToAddress_PlaceId" ColumnName="BillToAddress_PlaceId" />
+          <ScalarProperty Name="HomeAddress_Number" ColumnName="HomeAddress_Number" />
+          <ScalarProperty Name="HomeAddress_Street" ColumnName="HomeAddress_Street" />
+          <ScalarProperty Name="HomeAddress_ZIPCode" ColumnName="HomeAddress_ZIPCode" />
+          <ScalarProperty Name="HomeAddress_PlaceName" ColumnName="HomeAddress_PlaceName" />
+          <ScalarProperty Name="HomeAddress_PlaceId" ColumnName="HomeAddress_PlaceId" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Oib" ColumnName="Oib" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vContractors">
+      <EntityTypeMapping TypeName="MDSubjectsModel.vContractors">
+        <MappingFragment StoreEntitySet="vContractors">
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="SubjectTypeText" ColumnName="SubjectTypeText" />
+          <ScalarProperty Name="SubjectType" ColumnName="SubjectType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_Bank">
+      <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_Bank">
+        <MappingFragment StoreEntitySet="vEnums_Bank">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_CompanyType">
+      <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_CompanyType">
+        <MappingFragment StoreEntitySet="vEnums_CompanyType">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_CoreBussiness">
+      <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_CoreBussiness">
+        <MappingFragment StoreEntitySet="vEnums_CoreBussiness">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_EducationDegree">
+      <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_EducationDegree">
+        <MappingFragment StoreEntitySet="vEnums_EducationDegree">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_Function">
+      <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_Function">
+        <MappingFragment StoreEntitySet="vEnums_Function">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="IsManagment" ColumnName="IsManagment" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vEnums_SoleProprietorType">
+      <EntityTypeMapping TypeName="MDSubjectsModel.vEnums_SoleProprietorType">
+        <MappingFragment StoreEntitySet="vEnums_SoleProprietorType">
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDPlaces_Enums_Geo_PlaceForSubjects">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDPlaces_Enums_Geo_PlaceForSubjects">
+        <MappingFragment StoreEntitySet="MDPlaces_Enums_Geo_Place">
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="ZIPCode" ColumnName="ZIPCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MDGeneral_Enums_Currency_subjects">
+      <EntityTypeMapping TypeName="MDSubjectsModel.MDGeneral_Enums_Currency_subjects">
+        <MappingFragment StoreEntitySet="MDGeneral_Enums_Currency">
+          <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+          <ScalarProperty Name="CompanyUsingServiceId" ColumnName="CompanyUsingServiceId" />
+          <ScalarProperty Name="DefaultCurrency" ColumnName="DefaultCurrency" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="DecimalPlaces" ColumnName="DecimalPlaces" />
+          <ScalarProperty Name="Measure" ColumnName="Measure" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
