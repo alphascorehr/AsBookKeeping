@@ -51,6 +51,23 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
         // CreateAndEdit - kreiranje novog dokumenta ili edit postojećeg
         // Ako je Id > 0, povuci objekt iz sessiona, u suprotnom, instanciraj ga - to je model
         // Na kraju renderiraj view. 
+
+
+        // Lockanje računa:
+        // Samo jedan korisnik smije editirati račun
+        // Kod lockanja računa, u globalni cache se pohranjuje Id dokumenta i UserId korisnika koji ga je otvorio u edit modu
+
+        //var lockCheck = new Dictionary<int, int>();
+        //            lockCheck.Add(id, ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).EmployeeSubjectId);
+        //            if (HttpRuntime.Cache[id.ToString()] == null)
+        //            {
+        //                System.Web.HttpContext.Current.Cache.Add(id.ToString(),
+        //                        lockCheck, null, DateTime.MaxValue,
+        //                        new TimeSpan(0, 20, 0),
+        //                        System.Web.Caching.CacheItemPriority.Default,
+        //                        null);
+        //            }
+
         public ActionResult CreateAndEdit(int id)
         {
             System.Web.HttpContext.Current.Session["Report"] = null;
@@ -230,8 +247,9 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                 obj.UniqueIdentifier = docNum;
             }
 
+            // da li se račun treba fiskalizirati
+            // Session["fsMode"] se postavlja prilikom logiranja u aplikaciju
             if (Convert.ToBoolean(System.Web.HttpContext.Current.Session["fsMode"]))
-            //if (System.Web.HttpContext.Current.Session["BlagajnaLocationId"] != null)
             {
                 CreateFiscalXml(obj);
                 obj.FiscalizationCashierId = ((PTIdentity)Csla.ApplicationContext.User.Identity).EmployeeSubjectId;
@@ -253,6 +271,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                     if (IsDocLocked(obj.Id, ((PTIdentity)Csla.ApplicationContext.User.Identity).EmployeeSubjectId))
                     {
                         /* Dokument je zalockan, snimanje je zabranjeno, vrati useru CreateAndEdit view s porukom */
+                        // Dokument se locka prilikom Edit-a. Isti dokument ne smije moći otvoriti drugi korisnik.
                         ViewData.Model = obj;
                         return RedirectToAction("CreateAndEdit/" + id, new { message = "locked" });
                     }
@@ -263,7 +282,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                         SavePaymentsInAdvance(invoiceId);
 
                         System.Web.HttpContext.Current.Session["Invoice"] = null;
-                        //return RedirectToAction("Index");
                         if (Action != "")
                         {
                             if (Action.Contains("gen"))
@@ -310,7 +328,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                         SavePaymentsInAdvance(invoiceId);
 
                         System.Web.HttpContext.Current.Session["Invoice"] = null;
-                        //return RedirectToAction("Index");
                         if (Action != "")
                         {
                             if (Action.Contains("gen"))
@@ -326,7 +343,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                                             break;
                                         case "genCopy":
                                             res = data.uspInvoice2Invoice(((cDocuments_Invoice)ViewData.Model).Id, Employeeid).SingleOrDefault();
-                                            //Action = String.Format("{0}_{1}", Action, Convert.ToInt32(res));
                                             Action = "genCopy_100";
                                             break;
                                     }
