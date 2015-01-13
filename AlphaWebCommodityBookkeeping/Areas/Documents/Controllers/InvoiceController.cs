@@ -25,6 +25,8 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
     {
         //
         // GET: /Documents/Invoice/
+        // Provjeri da li logirani korisnik ima dozvolu pristupa računima
+        // (dozvolu daje administrator tvrtke)
 
         public ActionResult Index()
         {
@@ -46,7 +48,9 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
 
         //
         // GET: /Documents/Invoice/Create
-
+        // CreateAndEdit - kreiranje novog dokumenta ili edit postojećeg
+        // Ako je Id > 0, povuci objekt iz sessiona, u suprotnom, instanciraj ga - to je model
+        // Na kraju renderiraj view. 
         public ActionResult CreateAndEdit(int id)
         {
             System.Web.HttpContext.Current.Session["Report"] = null;
@@ -122,6 +126,10 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
             return View();
         }
 
+        // Ispis računa za printanje.
+        // Metoda se poziva kod editiranja računa, tj otvaranja postojećeg računa.
+        // Report će biti izrenderiran,na klijentu ga treba samo prikazati.
+        // Nakon što se kreira, sprema se u session
         public bool PrintDocument(int id)
         {
             System.Web.HttpContext.Current.Session["Report"] = null;
@@ -193,6 +201,9 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
         }
         //
         // POST: /Documents/Invoice/Create
+
+        // Snimanje računa
+        // Ako je hidden value "HiddenValueAction" null, samo se snima, u suprotnom treba ga snimiti te kreirati dodatni dokument (kopiju računa ili otpremnicu)
 
         [HttpPost]
         public ActionResult CreateAndEdit(int id, [Bind(Exclude = "EntityKeyData")]cDocuments_Invoice obj, FormCollection collection)

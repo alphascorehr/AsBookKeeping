@@ -376,13 +376,6 @@ namespace AlphaWebCommodityBookkeeping.Areas.MDEntities.Controllers
         }
 
 
-        //public override string Name { get { return "UploadControl"; } }
-
-        //public ActionResult Index()
-        //{
-        //    return MultiFileUpload();
-        //}
-
 
         public class UploadControlDemosHelper
         {
@@ -417,34 +410,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.MDEntities.Controllers
                 }
             }
 
-            //public static void AddImagesToCollection(UploadedFile[] files)
-            //{
-            //    UploadControlFilesStorage storage = System.Web.HttpContext.Current.Session["Storage"] as UploadControlFilesStorage;
-            //    if (storage != null)
-            //    {
-            //        for (int i = 0; i < files.Length; i++)
-            //        {
-            //            if (files[i].FileBytes.Length > 0 && files[i].IsValid)
-            //            {
-            //                if (!storage.Files.Contains(files[i].FileName))
-            //                {
-            //                    string filePath = UploadDirectory + string.Format(ThumbnailFormat, storage.Files.Count, Path.GetExtension(files[i].FileName));
-            //                    files[i].SaveAs(System.Web.HttpContext.Current.Request.MapPath(filePath));
-            //                    storage.Files.Add(files[i].FileName);
-            //                }
-            //            }
-            //        }
-            //        storage.FileInputCount = files.Length;
-            //    }
-            //}
-            //public static void ClearImageCollection()
-            //{
-            //    UploadControlFilesStorage storage = System.Web.HttpContext.Current.Session["Storage"] as UploadControlFilesStorage;
-            //    if (storage != null)
-            //        storage.Files.Clear();
-            //}
-
-            
+           
 
             public static void FileUploadComplete(object sender, FileUploadCompleteEventArgs e)
             {
@@ -473,16 +439,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.MDEntities.Controllers
                         product.MDEntities_Product_PicturesCol.Add(prodPic);
                         System.Web.HttpContext.Current.Session["Product"] = product;
                     }
-                    //string resultFilePath = UploadDirectory + string.Format(ThumbnailFormat, "", Path.GetExtension(e.UploadedFile.FileName));
-                    //using (Image original = Image.FromStream(e.UploadedFile.FileContent))
-                    //using (Image thumbnail = PhotoUtils.Inscribe(original, 100))
-                    //{
-                    //    PhotoUtils.SaveToJpeg(thumbnail, System.Web.HttpContext.Current.Request.MapPath(resultFilePath));
-                    //}
-                    //IUrlResolutionService urlResolver = sender as IUrlResolutionService;
-                    //if (urlResolver != null)
-                    //    //e.CallbackData = urlResolver.ResolveClientUrl(resultFilePath) + "?refresh=" + Guid.NewGuid().ToString();
-                    //    e.CallbackData = resultFilePath + "?refresh=" + Guid.NewGuid().ToString();
+                  
                 }
             }
         }

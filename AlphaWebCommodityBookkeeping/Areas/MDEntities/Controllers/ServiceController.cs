@@ -85,31 +85,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.MDEntities.Controllers
             return result;
         }
 
-        //public ActionResult CreateAndEditSmall(int id)
-        //{
-        //    cMDEntities_Service obj;
-
-        //    if (id > 0)
-        //    {
-        //        System.Web.HttpContext.Current.Session["Service"] = obj = cMDEntities_Service.GetMDEntities_Service(id);
-        //    }
-        //    else
-        //    {
-        //        System.Web.HttpContext.Current.Session["Service"] = obj = cMDEntities_Service.NewMDEntities_Service();
-
-        //    }
-
-        //    ViewData.Model = obj;
-        //    return View();
-
-        //}
-
-        //public ActionResult Saved()
-        //{
-        //    return View();
-        //}
-        //
-        // POST: /MDEntities/Service/Create
+       
 
         [HttpPost]
         public ActionResult CreateAndEdit(int id, [Bind(Exclude = "EntityKeyData")]cMDEntities_Service obj, FormCollection collection)
