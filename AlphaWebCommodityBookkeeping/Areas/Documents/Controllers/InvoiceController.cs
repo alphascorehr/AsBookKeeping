@@ -56,6 +56,9 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
         // Lockanje računa:
         // Samo jedan korisnik smije editirati račun
         // Kod lockanja računa, u globalni cache se pohranjuje Id dokumenta i UserId korisnika koji ga je otvorio u edit modu
+        // nakon 20 minuta, entry se briše iz cache-a
+        // Kod svakog otvaranja računa u edit modu, potrebno je prvo provjeriti da li se Id dokumenta nalazi već u globalnom
+        // cache-u. Ako se nalazi, editira ga drugi korisnik. 
 
         //var lockCheck = new Dictionary<int, int>();
         //            lockCheck.Add(id, ((BusinessObjects.Security.PTIdentity)Csla.ApplicationContext.User.Identity).EmployeeSubjectId);
