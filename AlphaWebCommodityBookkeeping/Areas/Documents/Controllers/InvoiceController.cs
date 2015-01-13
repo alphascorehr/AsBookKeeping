@@ -88,7 +88,7 @@ namespace AlphaWebCommodityBookkeeping.Areas.Documents.Controllers
                 AlphaWebCommodityBookkeeping.Models.MjestaComboProvider2.MjestoId = obj.ShipToAddress_PlaceId;
                 using (DalEf.DocumentsEntities data = new DalEf.DocumentsEntities())
                 {
-                    /* da lije racun kreiran iz radnog naloga, ako je, da li je potrebno fakturirati put, ako je, ispisi  */
+                    /* da li je racun kreiran iz radnog naloga, ako je, da li je potrebno fakturirati put, ako je, ispisi  */
                     var itemWorkOrder = data.Documents_Document.OfType<DalEf.Documents_WorkOrder>().FirstOrDefault(p => p.Documents_InvoiceId == id);
                     if (itemWorkOrder != null)
                     {
