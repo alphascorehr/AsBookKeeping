@@ -360,6 +360,7 @@
     <Compile Include="Attributes\AllowAnonymousAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PrintController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SifrarniciController.cs" />
     <Compile Include="CustomMembershipProvider.cs" />
